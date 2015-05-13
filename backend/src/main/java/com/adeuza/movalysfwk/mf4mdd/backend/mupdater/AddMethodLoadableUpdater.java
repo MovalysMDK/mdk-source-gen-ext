@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.adeuza.movalysfwk.mf4mdd.bo.mupdater;
+package com.adeuza.movalysfwk.mf4mdd.backend.mupdater;
 
 import java.util.Map;
 
@@ -29,7 +29,7 @@ import com.a2a.adjava.xmodele.MAssociation;
 import com.a2a.adjava.xmodele.MDaoImpl;
 import com.a2a.adjava.xmodele.MEntityImpl;
 import com.a2a.adjava.xmodele.MLinkedInterface;
-import com.adeuza.movalysfwk.mf4mdd.bo.generator.LoadMethodGenerator;
+import com.adeuza.movalysfwk.mf4mdd.backend.generator.LoadMethodGenerator;
 
 /**
  * <p>

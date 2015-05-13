@@ -25,25 +25,15 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
-	<artifactId>mf4mdd-commons</artifactId>
+	<artifactId>mf4mdd-android-classy</artifactId>
 	<packaging>jar</packaging>
 	
-	<name>MF4MDD commons</name>
+	<name>MF4MDD Android classy</name>
 	
 	<dependencies>
 		<dependency>
-			<groupId>com.adeuza</groupId>
-			<artifactId>adjava-uml2xmodele</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.adeuza</groupId>
-			<artifactId>adjava-generators</artifactId>
-		</dependency>
-		
-		<!-- remove later: -->
-		<dependency>
-			<groupId>com.adeuza</groupId>
-			<artifactId>adjava-ios</artifactId>
+			<groupId>com.adeuza.movalysfwk.mf4mdd</groupId>
+			<artifactId>mf4mdd-android</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.adeuza</groupId>

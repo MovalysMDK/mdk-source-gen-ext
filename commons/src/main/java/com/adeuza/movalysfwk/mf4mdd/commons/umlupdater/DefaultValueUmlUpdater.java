@@ -15,6 +15,7 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.commons.umlupdater;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -25,8 +26,6 @@ import com.a2a.adjava.uml.UmlAttribute;
 import com.a2a.adjava.uml.UmlClass;
 import com.a2a.adjava.uml.UmlModel;
 import com.a2a.adjava.umlupdater.AbstractUmlUpdater;
-
-import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * <p>Avertit à la génération des types UML n'acceptant pas des valeurs par défauts flottantes.

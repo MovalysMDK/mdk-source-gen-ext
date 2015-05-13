@@ -20,7 +20,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -127,7 +127,7 @@ public class ConfGenerator extends AbstractIncrementalGenerator<MFDomain<MFModel
 							key += "ItemCell";
 						}
 					}
-					key += "." + StringUtils.capitalise(oField.getViewModelProperty());
+					key += "." + StringUtils.capitalize(oField.getViewModelProperty());
 					Map<String,String> fieldValues = new HashMap<String,String>();
 					fieldValues.put("IsCreateLabel", String.valueOf(oField.isCreateLabel()));
 					fieldValues.put("IsEnabled", String.valueOf(!oField.isReadOnly()));

@@ -32,6 +32,10 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>com.adeuza.movalysfwk.mf4mdd</groupId>
+			<artifactId>mf4mdd-commons</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.adeuza</groupId>
 			<artifactId>adjava-w8</artifactId>
 			<scope>compile</scope>

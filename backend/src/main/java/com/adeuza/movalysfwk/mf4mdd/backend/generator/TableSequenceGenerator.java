@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.adeuza.movalysfwk.mf4mdd.bo.generator;
+package com.adeuza.movalysfwk.mf4mdd.backend.generator;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;

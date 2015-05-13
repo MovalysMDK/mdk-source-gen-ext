@@ -53,10 +53,23 @@
 		<module>ios</module>
 		<module>html5</module>
 		<module>w8</module>
+		
+		<module>android-classy</module>
 	</modules>
 	
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.adeuza.movalysfwk.mf4mdd</groupId>
+				<artifactId>mf4mdd-commons</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.adeuza.movalysfwk.mf4mdd</groupId>
+				<artifactId>mf4mdd-android</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>com.adeuza</groupId>
 				<artifactId>adjava-maven-plugin</artifactId>
@@ -66,6 +79,18 @@
 			<dependency>
 				<groupId>com.adeuza</groupId>
 				<artifactId>adjava-java</artifactId>
+				<version>${adjava_version}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.adeuza</groupId>
+				<artifactId>adjava-uml2xmodele</artifactId>
+				<version>${adjava_version}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.adeuza</groupId>
+				<artifactId>adjava-generators</artifactId>
 				<version>${adjava_version}</version>
 				<scope>compile</scope>
 			</dependency>
@@ -133,6 +158,7 @@
 			   <groupId>com.mycila</groupId>
 			   <artifactId>license-maven-plugin</artifactId>
 			   <version>2.8</version>
+			   <inherited>false</inherited>
 			   <configuration>
 				   <includes>
 			           <include>**/*.java</include>
