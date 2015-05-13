@@ -21,7 +21,7 @@
 	<groupId>com.adeuza.movalysfwk.mf4mdd</groupId>
 	<artifactId>mf4mdd</artifactId>
 	<version>5.1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<name>mf4mdd</name>
 	
 	<organization>
@@ -40,57 +40,68 @@
 		<adjava_version>6.6.0-SNAPSHOT</adjava_version>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.adeuza</groupId>
-			<artifactId>adjava-maven-plugin</artifactId>
-			<version>${adjava_version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.adeuza</groupId>
-			<artifactId>adjava-java</artifactId>
-			<version>${adjava_version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.adeuza</groupId>
-			<artifactId>adjava-android</artifactId>
-			<version>${adjava_version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.adeuza</groupId>
-			<artifactId>adjava-ios</artifactId>
-			<version>${adjava_version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.adeuza</groupId>
-			<artifactId>adjava-html5</artifactId>
-			<version>${adjava_version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.adeuza</groupId>
-			<artifactId>adjava-w8</artifactId>
-			<version>${adjava_version}</version>
-			<scope>compile</scope>
-		</dependency>
-	</dependencies>
-	
 	<scm>
 		<connection>scm:svn:http://svn.ntes.fr.sopra/svnpolemobility/svn/Movalys/repository/com/adeuza/movalysfwk/mf4mdd/branches/Cotopaxi</connection>
 		<developerConnection>scm:svn:http://svn.ntes.fr.sopra/svnpolemobility/svn/Movalys/repository/com/adeuza/movalysfwk/mf4mdd/branches/Cotopaxi</developerConnection>
 		<url>http://svn.ntes.fr.sopra/svnpolemobility/svn/Movalys/repository</url>
 	</scm>
 	
+	<modules>
+		<module>commons</module>
+		<module>backend</module>
+		<module>android</module>
+		<module>ios</module>
+		<module>html5</module>
+		<module>w8</module>
+	</modules>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.adeuza</groupId>
+				<artifactId>adjava-maven-plugin</artifactId>
+				<version>${adjava_version}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.adeuza</groupId>
+				<artifactId>adjava-java</artifactId>
+				<version>${adjava_version}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.adeuza</groupId>
+				<artifactId>adjava-android</artifactId>
+				<version>${adjava_version}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.adeuza</groupId>
+				<artifactId>adjava-ios</artifactId>
+				<version>${adjava_version}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.adeuza</groupId>
+				<artifactId>adjava-html5</artifactId>
+				<version>${adjava_version}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.adeuza</groupId>
+				<artifactId>adjava-w8</artifactId>
+				<version>${adjava_version}</version>
+				<scope>compile</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.3</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
@@ -102,7 +113,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.5</version>
+				<version>2.7</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 					<overwrite>true</overwrite>
@@ -110,9 +121,8 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<!-- 2.2.2 is bugged: http://jira.codehaus.org/browse/MRELEASE-724 -->				
-				<version>2.2.1</version>				
+				<artifactId>maven-release-plugin</artifactId>			
+				<version>2.5.2</version>				
 				<configuration>
 					<preparationGoals>clean versions:use-releases verify</preparationGoals>
 					<tagNameFormat>@{project.version}</tagNameFormat>
@@ -130,7 +140,7 @@
 			           <include>**/*.xsl</include>
 			       </includes>
 				   <aggregate>true</aggregate>
-			       <header>src/main/resources/META-INF/licence_template.txt</header>
+			       <header>licence_template.txt</header>
 			       <properties>
 			            <owner>Sopra Steria Group</owner>
 			            <email>movalys.support@soprasteria.com</email>
