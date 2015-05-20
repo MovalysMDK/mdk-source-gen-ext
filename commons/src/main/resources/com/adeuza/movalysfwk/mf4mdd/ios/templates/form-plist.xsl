@@ -54,7 +54,13 @@ doctype-system="http://www.apple.com/DTDs/PropertyList-1.0.dtd"
 			<string>Ce formulaire PLIST décrit l'écran <xsl:value-of select="customClass/name"/>. Il s'agit d'un écran de détail d'un item de MFFixedList.</string>
 		</xsl:if>
 		<xsl:if test="customClass/superClassName = 'MFFormViewController'">
-			<string>Ce formulaire ACRADEMORUE décrit l'écran <xsl:value-of select="customClass/name"/> et correspond à la classe UML <xsl:value-of select="formName"/>.</string>
+			<string>Ce formulaire PLIST décrit l'écran <xsl:value-of select="customClass/name"/> et correspond à la classe UML <xsl:value-of select="formName"/>.</string>
+		</xsl:if>
+		<xsl:if test="customClass/superClassName = 'MFListViewController'">
+			<string>Ce formulaire PLIST décrit l'écran <xsl:value-of select="customClass/name"/> et présente une liste d'items correspondand à la classe UML <xsl:value-of select="formName"/>.</string>
+		</xsl:if>
+		<xsl:if test="customClass/superClassName = 'MFSearchViewController'">
+			<string>Ce formulaire PLIST décrit l'écran <xsl:value-of select="customClass/name"/> et correspond à la classe UML <xsl:value-of select="formName"/>.</string>
 		</xsl:if>
 		<xsl:if test="isInContainerViewController = 'true'">
 			<key>@info</key>

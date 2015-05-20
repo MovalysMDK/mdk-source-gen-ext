@@ -34,6 +34,7 @@ import com.a2a.adjava.xmodele.IDomain;
 import com.a2a.adjava.xmodele.IModelDictionary;
 import com.a2a.adjava.xmodele.IModelFactory;
 import com.a2a.adjava.xmodele.MEntityImpl;
+import com.a2a.adjava.xmodele.MLabel;
 import com.a2a.adjava.xmodele.MPackage;
 import com.a2a.adjava.xmodele.MPage;
 import com.a2a.adjava.xmodele.MScreen;
@@ -252,5 +253,14 @@ public class MF4IModelFactory extends MIOSModeleFactory implements MFModelFactor
 			oPage.addStereotype(new MStereotype(MIOSPage.MM_IOS_NO_TABLE, ""));
 		}
 		return oPage;
+	}
+	
+	@Override
+	public MLabel createLabelForFixedList(String p_sBaseName1, String p_sBaseName2, MViewModelImpl p_oParentVm) {
+		// for iOS lst is not the the prefix
+		String sBase = p_sBaseName1.substring(3);
+		// List is the suffix
+		sBase = sBase.concat("List");
+		return this.createLabel(sBase, p_oParentVm);
 	}
 }
