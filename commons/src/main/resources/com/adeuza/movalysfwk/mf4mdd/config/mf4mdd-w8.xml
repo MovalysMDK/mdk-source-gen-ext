@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adjava-project>
+	<uml-updaters>
+	    <uml-updater class="com.adeuza.movalysfwk.mf4mdd.commons.umlupdater.BackwardCompatibilityNamingUmlUpdater">
+	        <!-- like 
+	        <property name="DeprecatedName" value="NewName"/>
+	         -->
+	        <property name="PhotoThumbnailView" value="Thumbnail"/>
+			<property name="MultiAutoCompleteEditTextGroup" value="AutoCompleteText"/>
+			<property name="MultiTextViewWithEditDialogGroup" value="MultilineText"/>
+			<property name="PhoneTextViewGroup" value="Phone"/>
+			<property name="EmailTextViewGroup" value="Email"/>
+			<property name="EnumBackgroundLayout" value="EnumBackground"/>
+			<property name="SliderBar" value="Slider"/>
+	    </uml-updater>
+	    <uml-updater class="com.adeuza.movalysfwk.mf4mdd.commons.umlupdater.ControlCapitalizationNameClasses" />
+	    <uml-updater class="com.adeuza.movalysfwk.mf4mdd.commons.umlupdater.NullableBackwardCompatibiliyUmlUpdater"/>
+		<uml-updater class="com.adeuza.movalysfwk.mf4mdd.commons.umlupdater.AddGetByCodeUmlUpdater" />
+		<uml-updater class="com.adeuza.movalysfwk.mf4mdd.commons.umlupdater.AddUmlFieldsAdmableUpdater" />
+		<uml-updater class="com.adeuza.movalysfwk.mf4mdd.commons.umlupdater.AddUmlFieldIdentifiableUpdater" />
+		<uml-updater class="com.adeuza.movalysfwk.mf4mdd.commons.umlupdater.AddUmlFieldIdSynchronizableUpdater" />
+		<uml-updater
+			class="com.adeuza.movalysfwk.mf4mdd.commons.umlupdater.DefaultValueUmlUpdater" >
+			<property name="boolean" value="true,false" />
+		</uml-updater>
+	</uml-updaters>
+
+	<languages>
+
+		<language name="w8">
+		<!-- ************************************************************************************
+		********
+		******** UML ELEMENTS
+		********
+		************************************************************************************* -->
+			<types>
+				<type>
+					<uml-type>Signature</uml-type>
+					<language-type>String</language-type>
+					<init-format>?</init-format>
+					<default-value>""</default-value>
+					<variable-prefix></variable-prefix>
+					<parameter-prefix></parameter-prefix>
+					<return-prefix></return-prefix>
+					<sql-type>STRING</sql-type>
+					<get-accessor-prefix></get-accessor-prefix>
+					<set-accessor-prefix></set-accessor-prefix>
+					<data-type>ALPHANUMERIC</data-type>
+					<default-ui-type>Signature</default-ui-type>
+					<coredata-type>String</coredata-type>
+				</type>
+				<!-- <type>
+					<uml-type>PhotoState</uml-type>
+					<language-type>mdk_common.Model.MFPhotoState</language-type>
+					<init-format>?</init-format>
+					<default-value>MFPhotoState.FWK_NONE</default-value>
+					<variable-prefix>enum</variable-prefix>
+					<parameter-prefix>p_o</parameter-prefix>
+					<return-prefix>r_o</return-prefix>
+					<get-accessor-prefix>get</get-accessor-prefix>
+					<set-accessor-prefix>set</set-accessor-prefix>
+					<default-options>_P10_S0</default-options>
+					<sql-type>NUMBER(10,0)</sql-type>
+					<sql-compare>=</sql-compare>
+					<data-type>ALPHANUMERIC</data-type>
+					<default-ui-type>RadioGroup</default-ui-type>
+					<enum>
+					    <value>SELECTED</value>
+						<value>DOWNLOADED</value>
+						<value>TAKEN</value>
+						<value>TODOWNLOAD</value>
+					</enum>
+					<type-conversions>
+						<type-conversion to="String">
+							<formula>VALUE.name()</formula>
+						</type-conversion>
+					</type-conversions>
+				</type> -->
+				<type>
+					<uml-type>AddressLocation</uml-type>
+					<language-type>mdk_common.Model.MFAddressLocation</language-type>
+					<init-format>null</init-format>
+					<variable-prefix></variable-prefix>
+					<parameter-prefix></parameter-prefix>
+					<return-prefix></return-prefix>
+					<get-accessor-prefix></get-accessor-prefix>
+					<set-accessor-prefix></set-accessor-prefix>
+					<default-options></default-options>
+					<default-ui-type>AddressLocation</default-ui-type>
+					<data-type>BINARY</data-type>
+					<properties>
+					    <property name="@id" type="long"/>
+						<property name="latitude" type="Double" default-value="0" default-options="_L30_P10"/>
+        				<property name="longitude" type="Double" default-value="0" default-options="_L30_P10"/>
+        				<property name="compl" type="String" default-options="_O"/>
+        				<property name="street" type="String" default-options="_O"/>
+        				<property name="city" type="String" default-options="_O"/>
+						<property name="country" type="String" default-options="_O"/>
+					</properties>
+					<type-conversions>
+						<type-conversion to="AddressLocationVO">
+							<formula>MFPositionViewModel.ToViewModel(VALUE)</formula>
+						</type-conversion>
+					</type-conversions>
+					<stereotypes>					
+						<stereotype>AddressLocation</stereotype>
+					</stereotypes>
+				</type>
+				<type>
+					<uml-type>AddressLocationVO</uml-type>
+					<language-type>MFPositionViewModel</language-type>
+					<init-format>null</init-format>
+					<default-value></default-value>
+					<variable-prefix></variable-prefix>
+					<parameter-prefix></parameter-prefix>
+					<return-prefix></return-prefix>
+					<get-accessor-prefix></get-accessor-prefix>
+					<set-accessor-prefix></set-accessor-prefix>
+					<data-type>BINARY</data-type>
+					<type-conversions>
+						<type-conversion to="AddressLocation">
+							<formula>RESULT = (dynamic) MFPositionViewModel.ConvertViewModelToComponent(VALUE, COMPONENT)</formula>
+						</type-conversion>
+					</type-conversions>
+				</type>
+				<type>
+					<uml-type>Photo</uml-type>
+					<language-type>MFPhotoThumbnail</language-type>
+					<expandAs>ONE_TO_ONE</expandAs>
+					<default-ui-type>Photo</default-ui-type>
+					<get-accessor-prefix>get</get-accessor-prefix>
+					<set-accessor-prefix>set</set-accessor-prefix>
+					<properties>
+					    <property name="@id" type="long"/>
+						<property name="titre" type="String"/>
+        				<property name="uri" type="String"/>
+        				<property name="date" type="Timestamp"/>
+        				<property name="desc" type="String"/>
+        				<property name="photostate" type="String"/>
+					</properties>
+					<stereotypes>					
+						<stereotype>Photo</stereotype>
+					</stereotypes>
+					<type-conversions>
+						<type-conversion to="PhotoVO">
+							<formula>MFPhotoViewModel.ToViewModel(VALUE)</formula>
+						</type-conversion>
+					</type-conversions>
+				</type>
+				<type>
+					<uml-type>PhotoVO</uml-type>
+					<language-type>IMFPhotoViewModel</language-type>
+					<init-format>null</init-format>
+					<default-value></default-value>
+					<variable-prefix></variable-prefix>
+					<parameter-prefix></parameter-prefix>
+					<return-prefix></return-prefix>
+					<data-type>BINARY</data-type>
+					<type-conversions>
+						<type-conversion to="Photo">
+							<formula>RESULT = (dynamic) MFPhotoViewModel.ConvertViewModelToComponent&lt;FACTORY&gt;(VALUE, COMPONENT)</formula>
+						</type-conversion>
+					</type-conversions>
+				</type>
+				<type>
+					<uml-type>PhotoList</uml-type>
+					<expandAs>ONE_TO_MANY</expandAs>
+					<properties>
+						<property name="@id" type="long" />
+						<property name="photo" type="Photo" />
+					</properties>
+					<stereotypes>
+						<stereotype>photolist</stereotype>
+					</stereotypes>
+				</type>
+				<type>
+					<uml-type>Email</uml-type>
+					<language-type>String</language-type>
+					<init-format>?</init-format>
+					<default-value>""</default-value>
+					<variable-prefix></variable-prefix>
+					<parameter-prefix></parameter-prefix>
+					<return-prefix></return-prefix>
+					<sql-type>STRING</sql-type>
+					<sql-compare>=</sql-compare>
+					<get-accessor-prefix></get-accessor-prefix>
+					<set-accessor-prefix></set-accessor-prefix>
+					<data-type>ALPHANUMERIC</data-type>
+					<default-ui-type>EmailTextViewGroup</default-ui-type>
+					<coredata-type>String</coredata-type>
+				</type>
+				<type>
+					<uml-type>EMailVO</uml-type>
+					<language-type>TODO: com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.EMailSVMImpl</language-type>
+					<init-format>TODO: new EMailSVMImpl()</init-format>
+					<default-value></default-value>
+					<variable-prefix></variable-prefix>
+					<parameter-prefix></parameter-prefix>
+					<return-prefix></return-prefix>
+					<get-accessor-prefix></get-accessor-prefix>
+					<set-accessor-prefix></set-accessor-prefix>
+					<data-type>BINARY</data-type>
+					<type-conversions>
+						<type-conversion to="Email">
+							<formula>TODO: MEmailHelper.toComponent(VALUE)</formula>
+							<import>TODO:  com.adeuza.movalysfwk.mobile.mf4mjcommons.model.MEmailHelper</import>
+						</type-conversion> 
+					</type-conversions>
+				</type>
+				<type>
+					<uml-type>Chronometer</uml-type>
+					<language-type>long</language-type>
+					<init-format>?</init-format>
+					<default-value>0</default-value>
+					<variable-prefix>l</variable-prefix>
+					<parameter-prefix>p_l</parameter-prefix>
+					<return-prefix>r_l</return-prefix>
+					<get-accessor-prefix>get</get-accessor-prefix>
+					<set-accessor-prefix>set</set-accessor-prefix>
+					<wrapper>Long</wrapper>
+					<unsaved-value>-1</unsaved-value>
+					<hql-bind>setLong($1,$2)</hql-bind>
+					<default-options></default-options>
+					<sql-type>INTEGER</sql-type>
+					<sql-compare>=</sql-compare>
+					<data-type>NUMERIC</data-type>
+					<default-ui-type>Text</default-ui-type>
+					<type-conversions>
+						<type-conversion to="String">
+							<formula>String.valueOf(VALUE)</formula>
+						</type-conversion>
+						<type-conversion to="ChronometerVO">
+							<formula>MChronometerHelper.toViewModel(VALUE)</formula>
+							<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.model.MChronometerHelper</import>
+						</type-conversion>
+					</type-conversions>
+				</type>
+				<type>
+					<uml-type>ChronometerVO</uml-type>
+					<language-type>com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ChronometerParameterVM</language-type>
+					<init-format>new ChronometerParameterVM()</init-format>
+					<default-value></default-value>
+					<variable-prefix>o</variable-prefix>
+					<parameter-prefix>p_o</parameter-prefix>
+					<return-prefix>r_o</return-prefix>
+					<get-accessor-prefix>get</get-accessor-prefix>
+					<set-accessor-prefix>set</set-accessor-prefix>
+					<data-type>BINARY</data-type>
+					<type-conversions>
+						<type-conversion to="Chronometer">
+							<formula>MChronometerHelper.toComponent(VALUE)</formula>
+							<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.model.MChronometerHelper</import>
+						</type-conversion>
+					</type-conversions>
+				</type>
+			</types>
+		<!-- ************************************************************************************
+		********
+		******** GENERATED VIEW MODELS
+		********
+		************************************************************************************* -->
+			<type-viewmodels>
+				<type-viewmodel id="MASTER">
+					<configuration name="default">
+						<item-interface ref="IViewModel" />
+					</configuration>
+				</type-viewmodel>
+				<type-viewmodel id="LISTITEM_1">
+					<configuration name="default">
+						<item-interface ref="IViewModel" />
+						<list-interface ref="IListViewModel" />
+					</configuration>
+				</type-viewmodel>
+				<type-viewmodel id="LISTITEM_2">
+					<configuration name="default">
+						<item-interface ref="IViewModel" />
+						<list-interface ref="IListViewModel" />
+					</configuration>
+				</type-viewmodel>
+				<type-viewmodel id="LIST_1">
+					<configuration name="default">
+						<list-interface ref="IListViewModel" />
+						<item-interface ref="IViewModel" />				
+						<component ref="MFList1D" />
+						<max-level>1</max-level>
+					</configuration>
+				</type-viewmodel>
+				<type-viewmodel id="LIST_1_SEARCH">
+					<configuration name="default">
+						<list-interface ref="IListViewModel" />
+						<item-interface ref="IViewModel" />				
+						<component ref="MFList1DSearch" />
+						<max-level>1</max-level>
+					</configuration>
+				</type-viewmodel>
+				<type-viewmodel id="LIST_2">
+					<configuration name="default">
+						<list-interface ref="IListViewModel" />
+						<item-interface ref="IViewModel" />				
+						<component ref="MFList2D" />
+						<max-level>2</max-level>
+					</configuration>
+				</type-viewmodel>
+				<type-viewmodel id="FIXED_LIST">
+					<configuration name="default">
+						<list-interface ref="IListViewModel" />
+						<item-interface ref="IViewModel" />						
+						<component ref="MFFixedList" />
+					</configuration>
+					<configuration name="photo">
+						<list-interface ref="IMFPhotoListViewModel" />
+						<item-interface ref="IMFPhotoListViewModelItem" />						
+						<component ref="MFPhotoFixedList" />
+					</configuration>
+				</type-viewmodel>
+				<type-viewmodel id="FIXED_LIST_ITEM">
+				    <configuration name="default">
+					    <list-interface ref="IListViewModel" />
+						<item-interface ref="IViewModel" />
+						<component ref="MFCellAbstract" />
+					</configuration>
+					<configuration name="photo">
+						<list-interface ref="IMFPhotoListViewModel" />
+						<item-interface ref="IMFPhotoListViewModelItem" />						
+						<component ref="MFPhotoThumbnail" />
+					</configuration>
+				</type-viewmodel>
+				<type-viewmodel id="LIST_1__ONE_SELECTED">
+					<configuration name="default">
+						<list-interface ref="IListViewModel" />
+						<item-interface ref="IViewModel" />						
+						<component ref="MFSpinner" />
+					</configuration>
+					<configuration name="filter">
+						<list-interface ref="IListViewModel" />
+						<item-interface ref="IViewModel" />
+						<component ref="MFSpinner" />
+					</configuration>
+				</type-viewmodel>
+			</type-viewmodels>
+		<!-- ************************************************************************************
+		********
+		******** GENERATED UI COMPONENTS
+		********
+		********
+		********
+		************************************************************************************* -->
+			<ui-types>
+				<ui-type uml-name="CheckedText">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFTextField</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+					    <language-type>MFTextField</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="MFLabel">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFLabel</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>21</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+					    <language-type>MFLabel</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>21</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+			    <ui-type uml-name="WebView">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFWebView</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>500</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFWebView</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>500</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="Text">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFTextBox</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+					    <language-type>MFLabel</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="MultilineText">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFMultiLineText</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>140</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+					    <language-type>MFMultiLineText</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>140</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="Button">
+					<read-write>
+						<view-model-type>Object</view-model-type>
+						<language-type>MFButton</language-type>
+						<component-height>44</component-height>
+						<component-width>150</component-width>
+					</read-write>
+					<read-only>
+						<view-model-type>Object</view-model-type>
+						<language-type>MFButton</language-type>
+						<component-height>44</component-height>
+						<component-width>150</component-width>						
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="FilterButton">
+					<read-write>
+						<view-model-type>Object</view-model-type>
+						<language-type>MFButton</language-type>
+						<component-height>44</component-height>
+						<component-width>150</component-width>
+					</read-write>
+					<read-only>
+						<view-model-type>Object</view-model-type>
+						<language-type>MFButton</language-type>
+						<component-height>44</component-height>
+						<component-width>150</component-width>						
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="AddressLocation">
+					<read-write>
+						<view-model-type>AddressLocationVO</view-model-type>
+						<language-type>MFPosition</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>78</component-height>
+						<component-width>260</component-width>			
+					</read-write>
+					<read-only>
+						<view-model-type>AddressLocationVO</view-model-type>
+						<language-type>MFPosition</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>78</component-height>
+						<component-width>260</component-width>						
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="EmailTextViewGroup">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFMail</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFMail</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="UIInteger">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFInteger</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFLabel</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="UIDouble">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFDouble</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFLabel</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="Url">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFUrl</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFUrl</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="Phone">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFPhone</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFPhone</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="Signature">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFSignature</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>200</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFSignature</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>200</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="NumberPicker">
+					<read-write>
+						<view-model-type>SameAsEntity|Long</view-model-type>
+						<language-type>MFNumberPicker</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>44</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|Long</view-model-type>
+						<language-type>MFNumberPicker</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>44</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="Photo">
+					<read-write>
+						<view-model-type>PhotoVO</view-model-type>
+						<language-type>MFPhotoThumbnail</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>138</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>PhotoVO</view-model-type>
+						<language-type>MFPhotoThumbnail</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>138</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="RadioGroup">
+					<read-write>
+						<view-model-type>enumeration</view-model-type>
+						<language-type>MFRadioEnum</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>44</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>enumeration</view-model-type>
+						<language-type>MFRadioEnum</language-type>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>44</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="EnumImage">
+					<read-write>
+						<view-model-type>enumeration</view-model-type>
+						<language-type>MFEnumImage</language-type>
+						<component-height>50</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>enumeration</view-model-type>
+						<language-type>MFEnumImage</language-type>
+						<component-height>50</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="DateTime">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFDatePicker</language-type>
+						<language-type-options>
+							<datePickerMode>2</datePickerMode>
+						</language-type-options>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFDatePicker</language-type>
+						<language-type-options>
+							<datePickerMode>2</datePickerMode>
+						</language-type-options>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="Date">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFDatePicker</language-type>
+						<language-type-options>
+							<datePickerMode>0</datePickerMode>
+						</language-type-options>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFDatePicker</language-type>
+						<language-type-options>
+							<datePickerMode>0</datePickerMode>
+						</language-type-options>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="Slider">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFSlider</language-type>
+						<language-type-options>
+							<datePickerMode>0</datePickerMode>
+						</language-type-options>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>72</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFSlider</language-type>
+						<language-type-options>
+							<datePickerMode>0</datePickerMode>
+						</language-type-options>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>72</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="CheckBox">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFSwitch</language-type>
+						<language-type-options>
+							<datePickerMode>0</datePickerMode>
+						</language-type-options>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>MFSwitch</language-type>
+						<language-type-options>
+							<datePickerMode>0</datePickerMode>
+						</language-type-options>
+						<cell-type>MFCell1ComponentHorizontal</cell-type>
+						<component-height>31</component-height>
+						<component-width>260</component-width>	
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="Button">
+					<read-write>
+						<view-model-type>Object</view-model-type>
+						<language-type>mdk_common.UI.MFButton</language-type>
+					</read-write>
+					<read-only>
+						<view-model-type>Object</view-model-type>
+						<language-type>mdk_common.UI.MFButton</language-type>
+					</read-only>
+				</ui-type>
+				<ui-type uml-name="ImageButton">
+					<read-write>
+						<view-model-type>Object</view-model-type>
+						<language-type>mdk_common.UI.MFButton</language-type>
+					</read-write>
+					<read-only>
+						<view-model-type>Object</view-model-type>
+						<language-type>mdk_common.UI.MFButton</language-type>
+					</read-only>
+				</ui-type>
+			</ui-types>			
+		<!-- ************************************************************************************
+		********
+		******** GENERATED TYPE ACTIONS
+		********
+		********
+		********
+		************************************************************************************* -->
+			<type-actions>
+			    <type-action id="DIALOG">
+					<in>mdk_common.MFAction.SearchActionArgs</in>
+					<out>mdk_common.MFAction.SearchActionArgs</out>
+					<step>mdk_common.MFAction.IActionQualify</step>
+					<progress>mdk_common.MFAction.IActionProgressDispacher</progress>
+				</type-action>
+			</type-actions>
+		</language>
+	</languages>
+		<!-- ************************************************************************************
+		********
+		******** GENERATOR'S MODULES
+		********
+		************************************************************************************* -->
+	<domains>
+		<domain name="w8"
+			class="com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WDomain">
+			<template>/com/adeuza/movalysfwk/mf4mdd/w8/templates</template>
+			<file-encoding>UTF-8</file-encoding>
+			<language-ref>w8</language-ref>
+			<xmodele-factory>com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WModelFactory
+			</xmodele-factory>
+			<analyser-and-processor-factory>com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WAnalyserAndProcessorFactory
+			</analyser-and-processor-factory>
+			<uml-updaters>
+			    <!-- specifics uml updaters -->
+			    <!-- 
+			    <uml-updater class="com.a2a.adjava.languages.w8.umlupdater.RenameIdToIdentifier" />
+			     -->
+			    <uml-updater
+					class="com.a2a.adjava.languages.ios.umlupdater.UmlForbiddenPropertiesUpdater">
+					<property name="identifier,warning" value="id" />
+					<property name="decimal,warning" value="dec" />
+					<property name="readonly,warning" value="ro" />
+				</uml-updater>
+			</uml-updaters>
+
+			<!-- ________________________________
+			________
+			________ EXTRACTORS
+			________
+			_____________________________________ -->
+
+			<extractors>
+			    <extractor class="com.a2a.adjava.uml2xmodele.extractors.CheckExtractor" />
+				<extractor class="com.a2a.adjava.uml2xmodele.extractors.PackageExtractor" />
+				<extractor class="com.a2a.adjava.uml2xmodele.extractors.EnumExtractor">
+					<property name="stereotypes" value="Mm_enum" />
+				</extractor>
+				<extractor class="com.a2a.adjava.uml2xmodele.extractors.DataTypeExtractor" />
+				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WPojoExtractor" >
+					<property name="stereotypes" value="Mm_model" />
+					<property name="transient-stereotypes" value="Mm_transcient,Mm_transient" />
+					<property name="applicationScope-stereotypes" value="Mm_applicationScope" />
+					<property name="customizable-stereotypes" value="Mm_customizable"/>
+					<configuration>
+						<attribute-option-setters>
+							<option-setter class="com.a2a.adjava.optionsetters.DefaultAttrOptionSetter" />
+						</attribute-option-setters>
+						<association-option-setters>
+							<option-setter class="com.a2a.adjava.optionsetters.DefaultAssoOptionSetter" />
+						</association-option-setters>
+					</configuration>
+				</extractor>
+				<extractor class="com.a2a.adjava.uml2xmodele.extractors.PojoFactoryExtractor" />
+				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WSchemaExtractor">
+					<configuration>
+						<schema-factory>com.a2a.adjava.schema.SchemaFactory
+						</schema-factory>
+						<db-naming-strategy class="com.a2a.adjava.schema.naming.DbNamingStrategyImpl">
+							<option name="tablePrefix" value="T_" />
+							<option name="sequencePrefix" value="SEQ_" />
+							<option name="indexPrefix" value="I_" />
+							<option name="fkPrefix" value="FK_" />
+							<option name="uniquePrefix" value="U_" />
+							<option name="pkPrefix" value="PK_" />
+							<option name="constraintNameMaxLength" value="25" />
+							<option name="identifiantMaxLength" value="30" />
+							<option name="tableNameMaxLength" value="30" />
+						</db-naming-strategy>
+					</configuration>
+				</extractor>
+				<extractor class="com.a2a.adjava.uml2xmodele.extractors.DaoExtractor" />
+				<extractor class="com.a2a.adjava.uml2xmodele.extractors.ViewModelExtractor">
+					<property name="stereotypes" value="Mm_panel,Mm_panellist,Mm_panellist2,Mm_panellist3" />
+					<property name="stereotypes-usage-viewmodel2model" value="Mm_model" />
+					<property name="customizable-stereotypes" value="Mm_customizable" />
+				</extractor>
+				<extractor class="com.a2a.adjava.uml2xmodele.extractors.ViewModelCreatorExtractor">
+					<property name="vmc-name" value="ViewModelCreator" />
+				</extractor>				
+				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WScreenExtractor">
+					<property name="stereotypes" value="Mm_screen,Mm_screenroot" />
+					<property name="stereotype-screen" value="Mm_screen" />
+					<property name="stereotype-searchscreen" value="Mm_searchscreen" />
+					<property name="stereotype-screenroot" value="Mm_screenroot" />
+					<property name="stereotype-panellist1" value="Mm_panellist" />
+					<property name="stereotype-panellist2" value="Mm_panellist2" />
+					<property name="stereotype-option-multi-select" value="Mm_optionMultiSelect" />
+					<property name="stereotype-panellist3" value="Mm_panellist3" />
+					<property name="stereotype-aggregation-panel" value="Mm_panel" />
+					<property name="stereotype-usage-display" value="Mm_action_display" />
+					<property name="stereotype-usage-create" value="Mm_action_create" />
+					<property name="stereotype-aggregation-panel-workspace" value="Mm_panelWorkspace" />
+					<property name="stereotype-usage-navigation" value="Mm_navigation" />
+					<property name="stereotype-usage-navigation-detail" value="Mm_navigationdetail" />
+				</extractor>
+				<extractor
+					class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WExpandableListExtractor">
+					<property name="viewmodel-prefix" value="VM" />
+					<property name="viewmodel-list-identifier" value="List" />
+					<property name="viewmodel-has-sublist-key" value="hasSublist" />
+					<property name="mapping-list-entity-name-prefix" value="lst" />
+					<property name="mapping-list-entity-name-suffix" value="Impl" />
+				</extractor>
+				<extractor class="com.a2a.adjava.uml2xmodele.extractors.MenuExtractor">
+					<property name="stereotypes" value="Mm_menu" />
+					<property name="stereotype-usage-navigation-menu" value="Mm_navigationmenu" />
+				</extractor>
+				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WSearchDialogExtractor">
+					<property name="stereotypes" value="Mm_panelsearch" />
+					<property name="buttontype" value="ImageButton" />
+				</extractor>
+				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WDataLoaderExtractor">
+					<property name="synchronizable-stereotype" value="Mm_synchronizable" />
+					<property name="itf-naming-prefix" value="I"/>
+					<property name="itf-naming-suffix" value="Loader"/>
+					<property name="impl-naming-prefix" value=""/>
+					<property name="impl-naming-suffix" value="Loader"/>
+				</extractor>
+				<extractor class="com.a2a.adjava.languages.w8.extractors.W8ViewModelProcessor" />
+				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WListNDExtractor" />
+			</extractors>
+			<m-updaters>
+			    <!-- add oldid attribute to entities -->
+			    <m-updater class="com.adeuza.movalysfwk.mf4mdd.mbandroid.mupdater.AddOldIdUpdater" />
+			</m-updaters>
+			<projects>
+				<project name="baseproject" base-dir="${mainProject}">
+					<source-dir>CommonPCL</source-dir>
+					<resource-generators>
+					<!-- _____________________________
+					________
+					________ GENERATORS (CommonPCL)
+					________
+					__________________________________ -->
+						<!-- MODEL -->
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.MF4WEntityImplGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.MF4WEntityInterfaceGenerator"/>
+						<generator class="com.a2a.adjava.languages.w8.generators.EnumGenerator"/>
+						<generator class="com.a2a.adjava.languages.w8.generators.EntityFactoryGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.PojoCascadeGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.commons.generator.PojoCsvGenerator" />
+						<!-- DAO -->
+  						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.MF4WDaoGenerator" />
+						<!-- DATALOADER -->
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.DataLoaderGenerator"/>
+						<!-- VIEWMODEL -->
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.MF4WVmInterfaceGenerator" />	
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.MF4WVmImplGenerator" />
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.MF4WViewModelCreatorGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.EnumBindingConverterGenerator"/>
+						<!-- VIEW -->
+ 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ActionGenerator"/>
+ 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ActionChainedGenerator"/>
+ 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.EventGenerator"/>
+					</resource-generators>
+				</project>
+				<project name="phone" base-dir="${mainProject}">
+					<source-dir>Win8Phone</source-dir>
+					<resource-generators>
+					<!-- _____________________________
+					________
+					________ GENERATORS (Win8Phone)
+					________
+					__________________________________ -->
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenCSGenerator"/>
+					</resource-generators>
+				</project>
+				<project name="store" base-dir="${mainProject}">
+					<source-dir>Win8Store</source-dir>
+					<resource-generators>
+					<!-- _____________________________
+					________
+					________ GENERATORS (Win8Store)
+					________
+					__________________________________ -->
+ 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenCSGenerator" />
+					</resource-generators>											
+				</project>
+				<project name="shared" base-dir="${mainProject}">
+					<source-dir>Win8Shared</source-dir>
+					<resource-generators>
+					<!-- _____________________________
+					________
+					________ GENERATORS (Win8Shared)
+					________
+					__________________________________ -->
+ 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.UserControlGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.PanelCommonGenerator" />
+ 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.LabelGenerator"/>
+ 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ConfGenerator"/>
+ 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ClassLoaderPropertyGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.SqliteSchemaGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.EnumDataTemplateGenerator"/>
+						<!-- PROPERTIES DICTIONARY -->
+ 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.PropertiesGenerator" />
+					</resource-generators>											
+				</project>
+			</projects>
+			<code-formatters>
+			</code-formatters>
+		</domain>
+	</domains>
+</adjava-project>
