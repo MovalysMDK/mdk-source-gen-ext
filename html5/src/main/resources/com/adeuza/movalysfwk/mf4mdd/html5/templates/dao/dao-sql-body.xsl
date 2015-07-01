@@ -81,31 +81,32 @@ xmlns:exsl="http://exslt.org/common" extension-element-prefixes="exsl">
 		
 		<xsl:text>	var </xsl:text><xsl:value-of select="name"/><xsl:text> = function </xsl:text><xsl:value-of select="name"/><xsl:text>(){&#10;</xsl:text>
 		<xsl:text>		// Constructor&#10;</xsl:text>
-		<xsl:text>		</xsl:text><xsl:value-of select="name"/><xsl:text>._Parent.call(this);&#10;</xsl:text>
-		<xsl:text>		this.lastId = null;&#10;</xsl:text>
-		<xsl:text>		this.mapping = </xsl:text><xsl:value-of select="$daoMappingName"/><xsl:text>.mappingSql;&#10;</xsl:text>
-		<xsl:text>		this.syncDisabled = false;&#10;</xsl:text>
-		<xsl:text>		this.tableName = '</xsl:text><xsl:value-of select="class/table-name"/><xsl:text>';&#10;</xsl:text>
-		<xsl:text>		this.entityName = '</xsl:text><xsl:value-of select="class/uml-name"/><xsl:text>';&#10;</xsl:text>
-		<xsl:text>		this.cascadeDefinition = [&#10;</xsl:text>
-			<xsl:for-each select="exsl:node-set($cascadeData)/cascade">
-				<xsl:text>			{&#10;				</xsl:text>
-				<xsl:text>readAction: '</xsl:text><xsl:value-of select="@readAction"/><xsl:text>', </xsl:text>				
-				<xsl:text>parentAttrPointingChild: '</xsl:text><xsl:value-of select="@parentAttrPointingChild"/><xsl:text>',</xsl:text>
-				<xsl:text>&#10;				</xsl:text>
-				<xsl:text>childDao: </xsl:text><xsl:value-of select="@childDao"/><xsl:text>Proxy, </xsl:text>
-				<xsl:text>childAttrPointingParent: '</xsl:text><xsl:value-of select="@childAttrPointingParent"/><xsl:text>'&#10;</xsl:text>						
-				<xsl:choose>
-					<xsl:when test="position() != last()"><xsl:text>			},&#10;</xsl:text></xsl:when>
-					<xsl:otherwise><xsl:text>			}&#10;</xsl:text></xsl:otherwise>
-				</xsl:choose>
-	   		</xsl:for-each>
-        <xsl:text>		];&#10;</xsl:text>
-        <xsl:text>&#10;</xsl:text>
-		
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">constructor</xsl:with-param>
-			<xsl:with-param name="defaultSource"></xsl:with-param>
+			<xsl:with-param name="defaultSource">
+				<xsl:text>		</xsl:text><xsl:value-of select="name"/><xsl:text>._Parent.call(this);&#10;</xsl:text>
+				<xsl:text>		this.lastId = null;&#10;</xsl:text>
+				<xsl:text>		this.mapping = </xsl:text><xsl:value-of select="$daoMappingName"/><xsl:text>.mappingSql;&#10;</xsl:text>
+				<xsl:text>		this.syncDisabled = false;&#10;</xsl:text>
+				<xsl:text>		this.tableName = '</xsl:text><xsl:value-of select="class/table-name"/><xsl:text>';&#10;</xsl:text>
+				<xsl:text>		this.entityName = '</xsl:text><xsl:value-of select="class/uml-name"/><xsl:text>';&#10;</xsl:text>
+				<xsl:text>		this.cascadeDefinition = [&#10;</xsl:text>
+					<xsl:for-each select="exsl:node-set($cascadeData)/cascade">
+						<xsl:text>			{&#10;				</xsl:text>
+						<xsl:text>readAction: '</xsl:text><xsl:value-of select="@readAction"/><xsl:text>', </xsl:text>				
+						<xsl:text>parentAttrPointingChild: '</xsl:text><xsl:value-of select="@parentAttrPointingChild"/><xsl:text>',</xsl:text>
+						<xsl:text>&#10;				</xsl:text>
+						<xsl:text>childDao: </xsl:text><xsl:value-of select="@childDao"/><xsl:text>Proxy, </xsl:text>
+						<xsl:text>childAttrPointingParent: '</xsl:text><xsl:value-of select="@childAttrPointingParent"/><xsl:text>'&#10;</xsl:text>						
+						<xsl:choose>
+							<xsl:when test="position() != last()"><xsl:text>			},&#10;</xsl:text></xsl:when>
+							<xsl:otherwise><xsl:text>			}&#10;</xsl:text></xsl:otherwise>
+						</xsl:choose>
+			   		</xsl:for-each>
+		        <xsl:text>		];&#10;</xsl:text>
+		        <xsl:text>&#10;</xsl:text>
+		
+			</xsl:with-param>
 		</xsl:call-template>
 		<xsl:text>	};&#10;&#10;</xsl:text>
 		

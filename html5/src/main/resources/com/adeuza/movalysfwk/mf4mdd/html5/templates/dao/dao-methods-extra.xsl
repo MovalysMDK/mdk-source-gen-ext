@@ -47,7 +47,15 @@ extension-element-prefixes="exsl">
 					
 				<xsl:text>By</xsl:text>						
 				<xsl:for-each select="./method-parameter">
-					<xsl:value-of select="@name-capitalized"/>
+					<xsl:choose>
+						<xsl:when test="association">	
+							<xsl:variable name="assosName"><xsl:value-of select="./association/@name"/></xsl:variable>
+						    <xsl:value-of select="translate(substring($assosName,1,1), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/><xsl:value-of select="substring($assosName,2)"/>		
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="@name-capitalized"/>
+						</xsl:otherwise>
+					</xsl:choose>
 					<xsl:if test="(../@type='getListEntiteByIds')"><xsl:text>ids</xsl:text></xsl:if>
 					<xsl:if test="position() != last()"><xsl:text>And</xsl:text></xsl:if>
 				</xsl:for-each>

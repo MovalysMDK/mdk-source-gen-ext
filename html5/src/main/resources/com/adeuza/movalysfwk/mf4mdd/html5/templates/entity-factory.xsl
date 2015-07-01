@@ -56,7 +56,14 @@
 		
 			<!-- // IDENTIFIER ATTRIBUTES -->
 			<xsl:for-each select="./identifier/attribute">
-				<xsl:text>result.</xsl:text><xsl:value-of select="@name"/><xsl:text> = </xsl:text><xsl:value-of select="@init"/><xsl:text>;&#10;</xsl:text>
+				<xsl:choose>
+					<xsl:when test="@type-name='Long'">
+						<xsl:text>result.</xsl:text><xsl:value-of select="@name"/><xsl:text> = -1;&#10;</xsl:text>						
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>result.</xsl:text><xsl:value-of select="@name"/><xsl:text> = </xsl:text><xsl:value-of select="@init"/><xsl:text>;&#10;</xsl:text>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:for-each>
 			
 			<!-- // ATTRIBUTES -->

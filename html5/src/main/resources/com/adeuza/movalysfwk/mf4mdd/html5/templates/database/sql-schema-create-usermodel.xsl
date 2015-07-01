@@ -58,7 +58,7 @@
 	<xsl:template match="field">
 		<xsl:param name="isAutoIncPk"/>
 		<xsl:text>	</xsl:text>
-		<xsl:value-of select="./@name" />
+		<xsl:value-of select="translate(./@name, '@', '')" />
 		<xsl:text> </xsl:text>
 		<xsl:value-of select="./@type" />
 		<xsl:if test="./@not-null = 'true'">

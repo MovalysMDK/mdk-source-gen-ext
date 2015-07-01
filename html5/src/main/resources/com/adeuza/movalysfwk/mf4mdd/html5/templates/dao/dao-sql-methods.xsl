@@ -138,7 +138,7 @@ extension-element-prefixes="exsl">
 				<xsl:text>console.assert(!angular.isUndefinedOrNullOrEmpty(p_properties), '.</xsl:text><xsl:value-of select="$methodNameFull" /><xsl:text>() : p_properties is required');&#10;</xsl:text>
 			</xsl:when>
 			<xsl:when test="($methodCriteriaToken and (count(exsl:node-set($methodCriteriaToken)/criteria)=1))">
-				<xsl:text>		console.assert(angular.isUndefinedOrNull(</xsl:text><xsl:value-of select="exsl:node-set($methodCriteriaToken)/criteria/@parameterName" /><xsl:text>), '</xsl:text>
+				<xsl:text>		console.assert(!angular.isUndefinedOrNull(</xsl:text><xsl:value-of select="exsl:node-set($methodCriteriaToken)/criteria/@parameterName" /><xsl:text>), '</xsl:text>
 				<xsl:value-of select="//name"/><xsl:text>.</xsl:text><xsl:value-of select="$methodNameFull" />
 				<xsl:text>() : </xsl:text><xsl:value-of select="exsl:node-set($methodCriteriaToken)/criteria/@parameterName" /><xsl:text> is required');&#10;</xsl:text>
 			</xsl:when>

@@ -92,7 +92,7 @@
 	       
 		<xsl:text>viewName: '</xsl:text><xsl:value-of select="name"/><xsl:text>' ,&#10;</xsl:text>
 		<xsl:text>viewModelFactory: </xsl:text><xsl:value-of select="$corresponding-item-name"/><xsl:text>Factory,&#10;</xsl:text>
-		<xsl:if test="@isPanelOfWorkspace='false' or @is-list='true'">
+		<xsl:if test="(@isPanelOfWorkspace='false' or @is-list='true') and @isAttachedToEntityModel='true'">
 			<xsl:text>dataLoader: </xsl:text><xsl:value-of select="name"/><xsl:text>DataLoader,&#10;</xsl:text>
 		</xsl:if>
 		<!-- 			        specific content -->

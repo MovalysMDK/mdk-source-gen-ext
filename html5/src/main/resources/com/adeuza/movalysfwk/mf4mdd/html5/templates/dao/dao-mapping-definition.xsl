@@ -29,11 +29,12 @@
 			<xsl:with-param name="defaultSource"></xsl:with-param>
 		</xsl:call-template>
 		
-		<xsl:text>function (&#10;</xsl:text>
-		<xsl:call-template name="non-generated-bloc">
-			<xsl:with-param name="blocId">dependencies-classes</xsl:with-param>
-			<xsl:with-param name="defaultSource"></xsl:with-param>
-		</xsl:call-template>
+		<xsl:text>&#10;//@non-generated-start[dependencies-classes]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='dependencies-classes']"/>
+		<xsl:text>function(</xsl:text>
+		<xsl:text>&#10;</xsl:text>
+		<xsl:text>//@non-generated-end&#10;</xsl:text>
+		
 		<xsl:text>) {&#10;</xsl:text>
 	</xsl:template>
 	

@@ -103,11 +103,18 @@
 			
 		<!--       FOR ALL-->
 		<xsl:text>$qSync.all(combosDaoCalls).then(function success() {&#10;</xsl:text>
+		<xsl:call-template name="non-generated-bloc">
+			<xsl:with-param name="blocId">reload-dataloader</xsl:with-param>
+			<xsl:with-param name="defaultSource">
+			
+				<xsl:apply-templates select="." mode="dataloader-qsync"/>
 		
-		<xsl:apply-templates select="." mode="dataloader-qsync"/>
+			</xsl:with-param>
+		</xsl:call-template>
 		
         <xsl:text>&#10;});&#10;</xsl:text>
         <xsl:text>return deferred.promise;&#10;</xsl:text>
+        
     	<xsl:text>};&#10;</xsl:text>
     	
 	</xsl:template>
