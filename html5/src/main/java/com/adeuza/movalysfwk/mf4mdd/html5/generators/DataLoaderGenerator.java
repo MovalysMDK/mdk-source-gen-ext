@@ -98,6 +98,7 @@ public class DataLoaderGenerator extends AbstractIncrementalGenerator<MH5Domain<
 			docControllerPath = docPath + p_oMDataLoader.getUmlName();
 		}
 		
+		
 		Element r_xFile = p_oMDataLoader.toXml();
 		r_xFile.addElement("master-package").setText(p_oMProject.getDomain().getRootPackage());
 		if (oWorkspaceScreen != null) {
@@ -139,19 +140,26 @@ public class DataLoaderGenerator extends AbstractIncrementalGenerator<MH5Domain<
 		}
 		
 		for (MAssociation oAssociation : p_oMDataLoader.getMasterInterface().getEntity().getAssociations()) {
-			if (oAssociation.getAssociationType().equals(AssociationType.MANY_TO_ONE)) {
+			if (oAssociation.getAssociationType().equals(AssociationType.MANY_TO_ONE) &&
+				oAssociation.getRefClass() != null &&
+				oAssociation.getRefClass().getDao() !=null) {
 				p_oMH5ImportDelegate.addImport(oAssociation.getRefClass().getDao().getName()+"Proxy");
 			}
 		}
 		
 		for(MDataLoaderCombo combo : p_oMDataLoader.getMasterInterface().getCombos()){
-			p_oMH5ImportDelegate.addImport(combo.getEntityDao().getName()+"Proxy" );
+			if(combo.getEntityDao()!=null){
+				p_oMH5ImportDelegate.addImport(combo.getEntityDao().getName()+"Proxy" );
+
+			}
 		}
+		
 		if(p_oMDataLoader.getLoadDao()!=null &&
 			p_oMDataLoader.getLoadDao().getMEntityImpl()!=null && 
 		    p_oMDataLoader.getLoadDao().getMEntityImpl().getFactory()!=null && 
-		   	p_oMDataLoader.getLoadDao().getMEntityImpl().getFactory().getName()!=null)
-			p_oMH5ImportDelegate.addImport(p_oMDataLoader.getLoadDao().getMEntityImpl().getFactory().getName() );
+		   	p_oMDataLoader.getLoadDao().getMEntityImpl().getFactory().getName()!=null){
+		   		p_oMH5ImportDelegate.addImport(p_oMDataLoader.getLoadDao().getMEntityImpl().getFactory().getName() );
+		 }			
 	}
 	
 	

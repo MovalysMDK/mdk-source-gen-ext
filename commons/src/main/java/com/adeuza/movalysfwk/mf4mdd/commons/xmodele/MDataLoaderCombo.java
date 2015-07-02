@@ -114,7 +114,8 @@ public class MDataLoaderCombo  {
 		String sDaoAttribute = entityVM.getUmlName()+"Dao";
 		
 		Element r_xMasterElement=DocumentHelper.createElement(NODE_NAME);
-			
+		
+		r_xMasterElement.addElement("transient").setText(Boolean.toString(entityVM.getEntityToUpdate().isTransient()));
 		r_xMasterElement.addElement("entity").setText(entityVM.getEntityToUpdate().getMasterInterface().getName());
 		r_xMasterElement.addElement("entity-attribute-name").setText(entityVM.getUmlName().substring(0,1).toLowerCase()+entityVM.getUmlName().substring(1));
 		r_xMasterElement.addElement("entity-getter-name").setText(entityVM.getUmlName());
