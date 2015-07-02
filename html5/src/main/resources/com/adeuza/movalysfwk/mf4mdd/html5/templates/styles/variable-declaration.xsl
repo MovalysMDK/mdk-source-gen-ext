@@ -42,23 +42,27 @@
 	</xsl:template>
 
 	<xsl:template match="mapkey[not(mapkey)]" mode="variable-map-injections">
+		<xsl:variable name="countNotMapkey" select="count(../mapkey[not(mapkey)])" />
+	
 		<xsl:value-of select="@name"/>
 		<xsl:text>: </xsl:text>
 		<xsl:value-of select="."/>
-		<xsl:if test="following-sibling::.">
+		<xsl:if test="$countNotMapkey &gt; position()">
 			<xsl:text>,</xsl:text>
 		</xsl:if>
 		<xsl:text>&#10;</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="mapkey[mapkey]" mode="variable-map-injections">
+		<xsl:variable name="countMapkey" select="count(../mapkey[mapkey])" />
+	
 		<xsl:value-of select="@name"/>
 		<xsl:text>: (&#10;</xsl:text>
 		
 		<xsl:apply-templates select="mapkey" mode="variable-map-injections"/>
 		
-		<xsl:text>)</xsl:text>
-		<xsl:if test="following-sibling::.">
+		<xsl:text>)</xsl:text>	
+		<xsl:if test="$countMapkey &gt; position()">
 			<xsl:text>,</xsl:text>
 		</xsl:if>
 		<xsl:text>&#10;</xsl:text>
