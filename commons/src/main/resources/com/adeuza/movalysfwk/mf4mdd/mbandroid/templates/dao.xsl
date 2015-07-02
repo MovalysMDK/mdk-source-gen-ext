@@ -83,11 +83,6 @@
 public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEntityDao&lt;</xsl:text>
 	<xsl:value-of select="interface/name"/><xsl:text>&gt; implements Initializable {&#13;</xsl:text>
 
-	<xsl:if test="count(class/identifier/attribute) = 1 and (class/identifier/attribute[@type-name='long'] or class/identifier/attribute[@type-short-name='Long'])">
-	/** first identifier of an unsaved value */
-	private static final long UNSAVED_VALUE = -1 ;
-	</xsl:if>
-
 	<xsl:if test="class/identifier/attribute/field/sequence">
 	/**
 	 * Liste des colonnes dont la valeur est générée par la base de données (séquence)
@@ -113,21 +108,6 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 
 	<xsl:if test="class[customizable='true']">
 		protected CustomFieldDao&lt;<xsl:value-of select="class/implements/interface/@name"/>&gt; customFieldDao;
-	</xsl:if>
-
-	<xsl:if test="count(class/identifier/attribute) = 1 and (class/identifier/attribute[@type-name='long'] or class/identifier/attribute[@type-short-name='Long'])">
-		/** last created entity identifier */
-		protected Long lastNewId = UNSAVED_VALUE;
-
-		/**
-		 * Compute the next identifier
-		 * @return the next identifier to use
-		 */
-		public long nextId() {
-			synchronized(this.lock) {
-				return --this.lastNewId;
-			}
-		}
 	</xsl:if>
 
 	<xsl:apply-templates select="." mode="initialize"/>

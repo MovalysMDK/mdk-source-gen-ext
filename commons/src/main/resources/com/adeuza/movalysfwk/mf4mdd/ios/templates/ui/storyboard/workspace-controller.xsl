@@ -63,6 +63,11 @@
 				<userDefinedRuntimeAttribute type="string" keyPath="mf.formDescriptorName">
 					<xsl:attribute name="value"><xsl:value-of select="name"/></xsl:attribute>
 				</userDefinedRuntimeAttribute>
+				<xsl:if test="isInCommentScreen = 'true'">
+					<userDefinedRuntimeAttribute type="string" keyPath="mf.commentHTMLFileName">
+						<xsl:attribute name="value"><xsl:value-of select="name"/></xsl:attribute>
+					</userDefinedRuntimeAttribute>
+			    </xsl:if>
 			</userDefinedRuntimeAttributes>
 			<connections>
 

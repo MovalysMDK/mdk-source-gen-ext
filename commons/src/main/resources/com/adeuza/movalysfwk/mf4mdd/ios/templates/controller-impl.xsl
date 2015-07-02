@@ -28,7 +28,6 @@
 <xsl:include href="controller/dofillaction.xsl"/>
 <xsl:include href="controller/eventdofillaction.xsl"/>
 <xsl:include href="controller/eventupdatevm.xsl"/>
-<xsl:include href="controller/filters.xsl"/>
 <xsl:include href="controller/init.xsl"/>
 <xsl:include href="controller/nameOfViewModel.xsl"/>
 <xsl:include href="controller/properties.xsl"/>
@@ -36,6 +35,7 @@
 <xsl:include href="controller/search.xsl"/>
 <xsl:include href="controller/partialViewModel.xsl"/>
 <xsl:include href="controller/container.xsl"/>
+<xsl:include href="controller/binding/bindingStructure.xsl"/>
 
 <xsl:template match="controller">
 
@@ -85,6 +85,7 @@
 
 <xsl:template match="controller[@controllerType = 'FORMVIEW' or @controllerType='LISTVIEW' or @controllerType='LISTVIEW2D' or @controllerType='SEARCHVIEW']" mode="methods">
 <xsl:apply-templates select="." mode="init-methods"/>
+<xsl:apply-templates select="." mode="createBindingStructure-method"/>
 <xsl:apply-templates select="." mode="doFillAction-method"/>
 <xsl:apply-templates select="." mode="successLoadActionMethod"/>
 <xsl:apply-templates select="." mode="failLoadActionMethod"/>

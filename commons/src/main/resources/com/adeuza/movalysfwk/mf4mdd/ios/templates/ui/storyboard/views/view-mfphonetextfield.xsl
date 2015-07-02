@@ -23,38 +23,30 @@
 <!-- *************************************************
 *****  
 ***** ENTRY POINT:
-*****  	/storyboard/scenes/*scene/controller[@controllerType='LISTVIEW']/sections/*section/subViews/*subView[customClass='MFSendEmailTextField']
+*****  	/storyboard/scenes/*scene/controller[@controllerType='LISTVIEW']/sections/*section/subViews/*subView[customClass='MFPhoneTextField']
 *****  	or
-*****  	/xib-container/components/*component[customClass='MFSendEmailTextField']
+*****  	/xib-container/components/*component[customClass='MFPhoneTextField']
 *****  
 ****************************************************** -->
 
-<xsl:template match="subView[customClass='MFSendEmailTextField']|component[customClass='MFSendEmailTextField']" mode="subview-runtimeAttributes-generation" priority="1000">
-		<xsl:comment>"subView[customClass='MFSendEmailTextField']" mode="subview-runtimeAttributes-generation"</xsl:comment>
-	
-	<userDefinedRuntimeAttribute type="number" keyPath="mf.minLength">
-		<integer key="value" value="2"/>
-	</userDefinedRuntimeAttribute>
-	<userDefinedRuntimeAttribute type="number" keyPath="mf.maxLength">
-		<integer key="value" value="8"/>
-	</userDefinedRuntimeAttribute>
-	<userDefinedRuntimeAttribute type="boolean" keyPath="mf.mandatory" value="YES"/>
+<xsl:template match="subView[customClass='MFPhoneTextField']|component[customClass='MFPhoneTextField']" mode="subview-runtimeAttributes-generation"  priority="1000">
+		<xsl:comment>subView|component[customClass='MFPhoneTextField']" mode="subview-runtimeAttributes-generation" </xsl:comment>
 
 </xsl:template>
 
 
 
-<xsl:template match="subView[customClass='MFSendEmailTextField']|component[customClass='MFSendEmailTextField']" mode="subview-outlets-generation"  priority="1000">
-	<xsl:param name="controllerId"/>
-		<xsl:comment>subView|component[customClass='MFSendEmailTextField']" mode="subview-outlets-generation"</xsl:comment>
-
+<xsl:template match="subView[customClass='MFPhoneTextField']|component[customClass='MFPhoneTextField']" mode="subview-outlets-generation"  priority="1000">
+	<xsl:comment>subView|component[customClass='MFPhoneTextField']" mode="subview-outlets-generation"</xsl:comment>
 		<!--  xsl:if test="$controllerId!=''">
 			<outlet property="delegate">
 				<xsl:attribute name="id"><xsl:value-of select="@id"/>-<xsl:value-of select="customClass"/>-SOD</xsl:attribute>
 				<xsl:attribute name="destination"><xsl:value-of select="$controllerId"/></xsl:attribute>
 			</outlet>
-		</xsl:if -->
+		</xsl:if -->	
 </xsl:template>
+
+
 
 
 

@@ -72,32 +72,29 @@
 				<xsl:with-param name="by" select="$smallcase" />
 			</xsl:call-template> -->
 		</xsl:variable>
-		<xsl:for-each select="menu-item">
-			<xsl:if test="../../../parameters/parameter[@name='workspace-panel-type']!='master'">
-				<xsl:text>if (p_oMenu.findItem(R.id.actionmenu_</xsl:text><xsl:value-of select="$screenlower"/>
-				<xsl:if test="action-provider/type='SAVEDETAIL'"> 
-					<xsl:text>_save</xsl:text>
-				</xsl:if>
-				<xsl:if test="action-provider/type='DELETEDETAIL'"> 
-					<xsl:text>_delete</xsl:text>
-				</xsl:if>
-				<xsl:text>) == null) {</xsl:text>
-			</xsl:if>
-			<xsl:text>p_oInflater.inflate(R.menu.</xsl:text><xsl:value-of select="$screenlower"/>
-			<xsl:choose>
-				<xsl:when test="../../../parameters/parameter[@name='workspace-panel-type']='master'">
-					<xsl:text>_list</xsl:text>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:text>_detail</xsl:text>
-				</xsl:otherwise>
-			</xsl:choose>
-			<xsl:text>_actions, p_oMenu);
-			</xsl:text>
-			<xsl:if test="../../../parameters/parameter[@name='workspace-panel-type']!='master'">
-				}
-			</xsl:if>
-		</xsl:for-each>
+		
+		<xsl:choose>
+			<xsl:when test="/page/parameters/parameter[@name='workspace-panel-type']='master'">
+				<xsl:text>p_oInflater.inflate(R.menu.</xsl:text><xsl:value-of select="$screenlower"/>
+				<xsl:text>_list_actions, p_oMenu);</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:for-each select="menu-item">
+					<xsl:text>if (p_oMenu.findItem(R.id.actionmenu_</xsl:text><xsl:value-of select="$screenlower"/>
+					<xsl:if test="action-provider/type='SAVEDETAIL'"> 
+						<xsl:text>_save</xsl:text>
+					</xsl:if>
+					<xsl:if test="action-provider/type='DELETEDETAIL'"> 
+						<xsl:text>_delete</xsl:text>
+					</xsl:if>
+					<xsl:text>) == null) {</xsl:text>
+					<xsl:text>p_oInflater.inflate(R.menu.</xsl:text><xsl:value-of select="$screenlower"/>
+					<xsl:text>_detail_actions, p_oMenu);
+								}
+					</xsl:text>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
 		
 	</xsl:template>
 

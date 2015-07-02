@@ -66,27 +66,12 @@
 	</xsl:template>
 	
 	<xsl:template match="screen" mode="requestCodeConstant">
-		/** result code use with method startActivityForResult */
-		public static final int <xsl:value-of select="request-code-constant"/> = getUniqueRequestCode();
-		
-		/** mask for result code on startActivityForResult */
-		public static final int <xsl:value-of select="request-code-constant"/>_MASK = 0x0000ffff;
-		
 		/** 
-		 * method to compute a unique positive integer
-		 * @return a unique positive integer based on activity hashCode 
+		 * Result code use with method startActivityForResult.
+		 * In support-v7, only the last five digits of the result code are read.
+		 * If the result value is greater, an exception will be raised.
 		 */
-		private static int getUniqueRequestCode() {
-			int hash = <xsl:value-of select="name"/>.class.getSimpleName().hashCode();
-			
-			if (hash &lt; 0) {
-				hash++;
-			}
-			
-			// in support-v7, only the last five digits of the result code are read
-			// if the result value is greater, an exception will be raised
-			return Math.abs(hash) &amp; <xsl:value-of select="request-code-constant"/>_MASK;
-		}
+		public static final int <xsl:value-of select="request-code-constant"/> = <xsl:value-of select="name"/>.class.getSimpleName().hashCode() &amp; REQUEST_CODE_MASK;
 	</xsl:template>
 
 	<!-- METHODS .................................................................................................... -->

@@ -31,14 +31,6 @@
 
 <xsl:template match="subView[customClass='MFDoubleTextField']|component[customClass='MFDoubleTextField']" mode="subview-runtimeAttributes-generation" priority="1000">
 		<xsl:comment>subView[customClass='MFDoubleTextField']" mode="subview-runtimeAttributes-generation"</xsl:comment>
-	
-	<userDefinedRuntimeAttribute type="number" keyPath="mf.minLength">
-		<integer key="value" value="2"/>
-	</userDefinedRuntimeAttribute>
-	<userDefinedRuntimeAttribute type="number" keyPath="mf.maxLength">
-		<integer key="value" value="8"/>
-	</userDefinedRuntimeAttribute>
-	<userDefinedRuntimeAttribute type="boolean" keyPath="mf.mandatory" value="YES"/>
 
 </xsl:template>
 

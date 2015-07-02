@@ -15,6 +15,7 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.mbandroid.generator;
 
+import org.apache.commons.io.FilenameUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import com.a2a.adjava.generator.core.override.AbstractOverrideGenerator;
 import com.a2a.adjava.generators.DomainGeneratorContext;
+import com.a2a.adjava.languages.android.xmodele.MAndroidProject;
 import com.a2a.adjava.utils.Chrono;
 import com.a2a.adjava.xmodele.XProject;
 import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4ADictionnary;
@@ -54,15 +56,18 @@ public class SqliteSchemaGenerator extends AbstractOverrideGenerator<MF4ADomain<
 		log.debug("> SqliteSchemaGenerator.genere");
 		Chrono oChrono = new Chrono(true);
 		
+		MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> oAndroidProject = 
+				(MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>>) p_oProject;
+		
 		Document xSchema = DocumentHelper.createDocument(p_oProject.getDomain().getSchema().toXml());
 
 		/* CREATE FILES */
-		String sCreateFileFwkModel = "res/raw/sqlitecreate_usermodel";
+		String sCreateFileFwkModel = FilenameUtils.concat(oAndroidProject.getRawDirectory(), "sqlitecreate_usermodel");
 		log.debug("  generate file: {}", sCreateFileFwkModel);
 		this.doOverrideTransform("schema-create-usermodel.xsl", sCreateFileFwkModel, xSchema, p_oProject, p_oContext);
 
 		/* DELETE FILES */
-		String sDropFileFwkModel = "res/raw/sqlitedrop_usermodel";
+		String sDropFileFwkModel = FilenameUtils.concat(oAndroidProject.getRawDirectory(), "sqlitedrop_usermodel");
 		log.debug("  generate file: {}", sDropFileFwkModel);
 		this.doOverrideTransform("schema-drop-usermodel.xsl", sDropFileFwkModel, xSchema, p_oProject, p_oContext);
 		

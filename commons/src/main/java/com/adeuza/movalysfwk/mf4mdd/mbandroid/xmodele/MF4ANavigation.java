@@ -43,8 +43,10 @@ public class MF4ANavigation extends MNavigation {
 	@Override
 	public Element toXml() {
 		Element r_xElement = super.toXml();
-		MF4AScreen oScreen = (MF4AScreen) this.getTarget();
-		r_xElement.element("target").addElement("request-code").setText(oScreen.getRequestCodeConstant());
+		if (this.getTarget() != null) {
+			MF4AScreen oScreen = (MF4AScreen) this.getTarget();
+			r_xElement.element("target").addElement("request-code").setText(oScreen.getRequestCodeConstant());
+		}
 		return r_xElement;
 	}
 }

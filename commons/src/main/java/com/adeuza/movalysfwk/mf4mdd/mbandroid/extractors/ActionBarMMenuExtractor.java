@@ -18,6 +18,7 @@ package com.adeuza.movalysfwk.mf4mdd.mbandroid.extractors;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.dom4j.Element;
 
@@ -34,6 +35,7 @@ import com.a2a.adjava.xmodele.ui.component.MNavigationButton;
 import com.a2a.adjava.xmodele.ui.menu.MMenu;
 import com.a2a.adjava.xmodele.ui.menu.MMenuActionItem;
 import com.a2a.adjava.xmodele.ui.menu.MMenuItem;
+import com.a2a.adjava.xmodele.ui.navigation.MNavigation;
 import com.a2a.adjava.xmodele.ui.navigation.MNavigationType;
 import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4ADictionnary;
 import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4ADomain;
@@ -95,7 +97,17 @@ public class ActionBarMMenuExtractor extends AbstractExtractor<MF4ADomain<MF4ADi
 		}
 		
 		// We only weep one action of each type dif on id
-		Map<String, MMenuActionItem> oMapActionItem = new HashMap<String, MMenuActionItem>();
+		Map<String, MMenuActionItem> oMapActionItem = new HashMap<>();
+		
+		// Add button Info
+		if (p_oScreen.isComment()) {
+			MNavigation oInfoNav = this.getDomain().getXModeleFactory().createNavigation("info", MNavigationType.NAVIGATION_INFO, p_oScreen, null);
+			MNavigationButton oInfoNavBut = this.getDomain().getXModeleFactory().createNavigationButton("info", oInfoNav);
+			MMenuActionItem oMMenuActionItem = this.getDomain().getXModeleFactory().createMenuActionItem(
+					"actionmenu_"+p_oScreen.getName().toLowerCase()+"_"+ oInfoNav.getName().toLowerCase());
+			oMMenuActionItem.addMenuAction(oInfoNavBut);
+			oMapActionItem.put(oMMenuActionItem.getId(), oMMenuActionItem);
+		}
 		
 		for (MPage mPage : p_oPages) {
 			// generation de l'action de sauvegarde
@@ -132,8 +144,9 @@ public class ActionBarMMenuExtractor extends AbstractExtractor<MF4ADomain<MF4ADi
 			
 		}
 		
-		for (String oMenuItemKey : oMapActionItem.keySet()) {
-			oMMenu.addMenuItem(oMapActionItem.get(oMenuItemKey));
+		Map<String, MMenuActionItem> oTreeMapActionItem = new TreeMap<String, MMenuActionItem>(oMapActionItem);
+		for (String oMenuItemKey : oTreeMapActionItem.keySet()) {
+			oMMenu.addMenuItem(oTreeMapActionItem.get(oMenuItemKey));
 		}
 		
 		if (!oMapActionItem.isEmpty()) {

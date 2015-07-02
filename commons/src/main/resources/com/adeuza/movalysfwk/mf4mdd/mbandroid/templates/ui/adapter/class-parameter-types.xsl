@@ -30,7 +30,7 @@
 </xsl:template>
 
 <!-- Expandable List 3 -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableFlipperExpandableListAdapter']" mode="generate-parameter-types">
+<xsl:template match="adapter[short-adapter='AbstractConfigurableFlipperExpandableListAdapter' or short-adapter='MDKFlipperAdapter']" mode="generate-parameter-types">
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/entity-to-update/name"/>,
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/entity-to-update/name"/>,
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/subvm/viewmodel/entity-to-update/name"/>,
@@ -41,7 +41,7 @@
 
 
 <!-- Expandable List 2 -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableExpandableListAdapter']" mode="generate-parameter-types">
+<xsl:template match="adapter[short-adapter='AbstractConfigurableExpandableListAdapter' or short-adapter='MDKExpandableAdapter']" mode="generate-parameter-types">
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/entity-to-update/name"/>,
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/entity-to-update/name"/>,
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@name"/>,
@@ -58,7 +58,7 @@
 
 
 <!-- Expandable List 1 -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableListAdapter']" mode="generate-parameter-types">
+<xsl:template match="adapter[short-adapter='AbstractConfigurableListAdapter' or short-adapter='MDKAdapter']" mode="generate-parameter-types">
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/entity-to-update/name"/>,
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/implements/interface/@name"/>,
 	<xsl:value-of select="./viewmodel/implements/interface/@name"/>

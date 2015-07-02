@@ -49,7 +49,14 @@ Root template
 <xsl:template match="adapter" mode="declare-extra-imports">
 	<import><xsl:value-of select="master-package"/>.R</import>
 	<import>android.widget.AdapterView</import>
-	<import>android.widget.AdapterView.OnItemClickListener</import>
+	<xsl:choose>
+		<xsl:when test="./viewmodel/type/name='LIST_1'">
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMOnItemClickListener</import>
+		</xsl:when>
+		<xsl:otherwise>
+			<import>android.widget.AdapterView.OnItemClickListener</import>
+		</xsl:otherwise>
+	</xsl:choose>
 	<import>com.adeuza.movalysfwk.mobile.mf4android.ui.modele.ConfigurableListViewHolder</import>
 	<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel</import>
 	<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPerformItemClickListener</import>
@@ -71,7 +78,7 @@ Root template
 
 <xsl:template match="adapter[viewmodel/type/name='LIST_1']"  
 		mode="declare-extra-implements">
-	<interface>OnItemClickListener</interface>
+	<interface>MMOnItemClickListener</interface>
 	<interface>MMPerformItemClickListener</interface>
 </xsl:template>
 
@@ -84,6 +91,7 @@ Root template
 <xsl:template match="adapter[viewmodel/type/name='LIST_3']"  
 		mode="declare-extra-implements">
 	<interface>OnChildClickListener</interface>
+	<interface>MMPerformItemClickListener</interface>
 </xsl:template>
 
 <xsl:template match="adapter" mode="interfaces"/>
@@ -106,7 +114,7 @@ Root template
 			<xsl:with-param name="blocId">onPerformItemClick</xsl:with-param>
 			<xsl:with-param name="defaultSource">
 				Application.getInstance().getController().publishBusinessEvent(null,
-						new PerformItemClickEvent(this, ((ConfigurableListViewHolder) p_oView.getTag()).viewModelID, p_oView, p_iPosition, p_lId, p_oListView));
+						new PerformItemClickEvent(this, ((ConfigurableListViewHolder) p_oView.getTag()).getViewModelID(), p_oView, p_iPosition, p_lId, p_oListView));
 				return false;
 			</xsl:with-param>
 		</xsl:call-template>
@@ -116,12 +124,13 @@ Root template
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onItemClick(AdapterView p_oList, View p_oParamView, int p_iPosition, long p_lId) {
+	public void onItemClick(View p_oView, int p_iPosition, long p_iId, MMPerformItemClickView p_oListView,
+			ConfigurableListViewHolder p_oViewHolder) {
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">onItemClick</xsl:with-param>
 			<xsl:with-param name="defaultSource">
 				Application.getInstance().getController().publishBusinessEvent(null,
-					new SelectedItemEvent(this, ((ConfigurableListViewHolder) p_oParamView.getTag()).viewModelID));
+					new SelectedItemEvent(this, p_oViewHolder.getViewModelID()));
 			</xsl:with-param>
 		</xsl:call-template>
 	}
@@ -138,7 +147,7 @@ Root template
 			<xsl:with-param name="blocId">onPerformItemClick</xsl:with-param>
 			<xsl:with-param name="defaultSource">
 				if (p_oView.getTag() != null) {
-					String sViewModelId = ((ConfigurableListViewHolder) p_oView.getTag()).viewModelID;
+					String sViewModelId = ((ConfigurableListViewHolder) p_oView.getTag()).getViewModelID();
 					Application.getInstance().getController().publishBusinessEvent(null,
 							new PerformItemClickEvent(this, sViewModelId, p_oView, p_iPosition, p_lId, p_oListView));
 					return false;
@@ -157,7 +166,7 @@ Root template
 			<xsl:with-param name="blocId">onChildClick</xsl:with-param>
 			<xsl:with-param name="defaultSource">
 			Application.getInstance().getController().publishBusinessEvent(null, new SelectedItemEvent(this,
-			((ConfigurableListViewHolder) p_oParamView.getTag()).viewModelID));
+			((ConfigurableListViewHolder) p_oParamView.getTag()).getViewModelID()));
 			return true;
 			</xsl:with-param>
 		</xsl:call-template>
@@ -170,11 +179,30 @@ Root template
 	 * {@inheritDoc}
 	 */
 	@Override
+	public boolean onPerformItemClick(View p_oView, int p_iPosition, long p_lId, MMPerformItemClickView p_oListView) {
+		<xsl:call-template name="non-generated-bloc">
+			<xsl:with-param name="blocId">onPerformItemClick</xsl:with-param>
+			<xsl:with-param name="defaultSource">
+				if (p_oView.getTag() != null) {
+					String sViewModelId = ((ConfigurableListViewHolder) p_oView.getTag()).getViewModelID();
+					Application.getInstance().getController().publishBusinessEvent(null,
+							new PerformItemClickEvent(this, sViewModelId, p_oView, p_iPosition, p_lId, p_oListView));
+					return false;
+				}
+				return true;
+			</xsl:with-param>
+		</xsl:call-template>
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public boolean onChildClick(ExpandableListView p_oParent, View p_oParamView, int p_iGroupPosition, int p_iChildPosition, long p_lId) {
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">onChildClick</xsl:with-param>
 			<xsl:with-param name="defaultSource">
-			Application.getInstance().getController().publishBusinessEvent(null, new SelectedItemEvent(this, ((ConfigurableListViewHolder) p_oParamView.getTag()).viewModelID));
+			Application.getInstance().getController().publishBusinessEvent(null, new SelectedItemEvent(this, ((ConfigurableListViewHolder) p_oParamView.getTag()).getViewModelID()));
 			
 			return true;
 			</xsl:with-param>
@@ -187,11 +215,11 @@ Root template
 	 * {@inheritDoc}
 	 */
 	@Override
-	<xsl:text>protected void wrapCurrentChildView(View p_oView, </xsl:text> 
+	<xsl:text>public void postBindChildView(View p_oView, </xsl:text> 
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@name"/>
 	<xsl:text> p_oCurrentViewModel, int p_iParamGroupPosition, int p_iParamChildPosition) {&#13;</xsl:text>
-	<xsl:text>super.wrapCurrentChildView(p_oView, p_oCurrentViewModel, p_iParamGroupPosition, p_iParamChildPosition);&#13;</xsl:text>
-	<xsl:text>//@non-generated-start[wrapCurrentChildView]&#13;</xsl:text>
+	<xsl:text>super.postBindChildView(p_oView, p_oCurrentViewModel, p_iParamGroupPosition, p_iParamChildPosition);&#13;</xsl:text>
+	<xsl:text>//@non-generated-start[postBindChildView]&#13;</xsl:text>
 	<xsl:text>//@non-generated-end</xsl:text>
 	}
 </xsl:template>
@@ -201,13 +229,13 @@ Root template
 	 * {@inheritDoc}
 	 */
 	@Override
-	<xsl:text>protected void wrapCurrentChildView(View p_oView, </xsl:text> 
-	<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@name"/>
-	<xsl:text> p_oCurrentViewModel, int p_iParamTitlePosition, int p_iParamGroupPosition, int p_iParamChildPosition) {&#13;</xsl:text>
-	<xsl:text>super.wrapCurrentChildView(p_oView, p_oCurrentViewModel, p_iParamTitlePosition, p_iParamGroupPosition, p_iParamChildPosition);&#13;</xsl:text>
-	<xsl:text>//@non-generated-start[wrapCurrentChildView]&#13;</xsl:text>
+	<xsl:text>public void postBindChildView(View p_oView,</xsl:text>
+	<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@name"/> 
+	<xsl:text> p_oCurrentViewModel,	int p_iParamGroupPosition, int p_iParamChildPosition) {&#13;</xsl:text>
+	<xsl:text>super.postBindChildView(p_oView, p_oCurrentViewModel, p_iParamGroupPosition, p_iParamChildPosition);&#13;</xsl:text>
+	<xsl:text>//@non-generated-start[postBindChildView]&#13;</xsl:text>
 	<xsl:value-of select="non-generated/bloc[@id='wrapCurrentChildView']"/>
-	<xsl:text>//@non-generated-end</xsl:text>
+	<xsl:text>//@non-generated-end&#13;</xsl:text>
 	}
 </xsl:template>
 
@@ -216,12 +244,12 @@ Root template
 	 * {@inheritDoc}
 	 */
 	@Override
-	<xsl:text>protected void wrapCurrentChildView(View p_oView, </xsl:text> 
+	<xsl:text>public void postBindChildView(View p_oView, </xsl:text> 
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@name"/>
 	<xsl:text> p_oCurrentViewModel, int p_iParamGroupPosition, int p_iParamChildPosition) {&#13;</xsl:text>
-	<xsl:text>super.wrapCurrentChildView(p_oView, p_oCurrentViewModel, p_iParamGroupPosition, p_iParamChildPosition);&#13;</xsl:text>
-	<xsl:text>//@non-generated-start[wrapCurrentChildView]&#13;</xsl:text>
-	<xsl:value-of select="non-generated/bloc[@id='wrapCurrentChildView']"/>
+	<xsl:text>super.postBindChildView(p_oView, p_oCurrentViewModel, p_iParamGroupPosition, p_iParamChildPosition);&#13;</xsl:text>
+	<xsl:text>//@non-generated-start[postBindChildView]&#13;</xsl:text>
+	<xsl:value-of select="non-generated/bloc[@id='postBindChildView']"/>
 	<xsl:text>//@non-generated-end</xsl:text>
 	}
 </xsl:template>
@@ -231,12 +259,12 @@ Root template
 	 * {@inheritDoc}
 	 */
 	@Override
-	<xsl:text>protected void wrapCurrentChildView(View p_oView, </xsl:text> 
+	<xsl:text>public void postBindChildView(View p_oView, </xsl:text> 
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@name"/>
 	<xsl:text> p_oCurrentViewModel, int p_iParamGroupPosition, int p_iParamChildPosition) {&#13;</xsl:text>
-	<xsl:text>super.wrapCurrentChildView(p_oView, p_oCurrentViewModel, p_iParamGroupPosition, p_iParamChildPosition);&#13;</xsl:text>
-	<xsl:text>//@non-generated-start[wrapCurrentChildView]&#13;</xsl:text>
-	<xsl:value-of select="non-generated/bloc[@id='wrapCurrentChildView']"/>
+	<xsl:text>super.postBindChildView(p_oView, p_oCurrentViewModel, p_iParamGroupPosition, p_iParamChildPosition);&#13;</xsl:text>
+	<xsl:text>//@non-generated-start[postBindChildView]&#13;</xsl:text>
+	<xsl:value-of select="non-generated/bloc[@id='postBindChildView']"/>
 	<xsl:text>//@non-generated-end</xsl:text>
 	}
 </xsl:template>
@@ -246,12 +274,31 @@ Root template
 	 * {@inheritDoc}
 	 */
 	@Override
-	<xsl:text>protected void wrapCurrentView(View p_oView, </xsl:text>
+	<xsl:text>public void postInflate(MDKAdapter&lt;</xsl:text>
+	<xsl:value-of select="./viewmodel/subvm/viewmodel/entity-to-update/name"/>,
+	<xsl:value-of select="./viewmodel/subvm/viewmodel/implements/interface/@name"/>,
+	<xsl:value-of select="./viewmodel/implements/interface/@name"/>
+	<xsl:text>&gt; p_oAdapter, View p_oCurrentRow, boolean b_isExpanded) {&#13;</xsl:text>
+	<xsl:text>super.postInflate(p_oAdapter, p_oCurrentRow, b_isExpanded);&#13;</xsl:text>
+	<xsl:text>//@non-generated-start[postInflate]&#13;</xsl:text>
+	<xsl:value-of select="non-generated/bloc[@id='postInflate']"/>
+	<xsl:text>//@non-generated-end</xsl:text>
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	<xsl:text>public void postBind(MDKAdapter&lt;</xsl:text>
+	<xsl:value-of select="./viewmodel/subvm/viewmodel/entity-to-update/name"/>,
+	<xsl:value-of select="./viewmodel/subvm/viewmodel/implements/interface/@name"/>,
+	<xsl:value-of select="./viewmodel/implements/interface/@name"/>
+	<xsl:text>&gt; p_oAdapter, View p_oCurrentRow, </xsl:text>
 	<xsl:value-of select="./viewmodel/subvm/viewmodel/implements/interface/@name"/>
-	<xsl:text> p_oCurrentViewModel, int p_iParamChildPosition) {&#13;</xsl:text>
-	<xsl:text>super.wrapCurrentView(p_oView, p_oCurrentViewModel, p_iParamChildPosition);&#13;</xsl:text>
-	<xsl:text>//@non-generated-start[wrapCurrentChildView]&#13;</xsl:text>
-	<xsl:value-of select="non-generated/bloc[@id='wrapCurrentChildView']"/>
+	<xsl:text> p_oCurrentVM, boolean b_isExpanded, int... p_oPositions) {&#13;</xsl:text>
+	<xsl:text>super.postBind(p_oAdapter, p_oCurrentRow, p_oCurrentVM, b_isExpanded, p_oPositions);&#13;</xsl:text>
+	<xsl:text>//@non-generated-start[postBind]&#13;</xsl:text>
+	<xsl:value-of select="non-generated/bloc[@id='postBind']"/>
 	<xsl:text>//@non-generated-end</xsl:text>
 	}
 </xsl:template>

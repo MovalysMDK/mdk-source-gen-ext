@@ -297,7 +297,7 @@
 						this.o<xsl:value-of select="./implements/interface/@name"/>.getCount()), null);
 				</xsl:if>
 				
-				p_o<xsl:value-of select="dataloader-impl/implements/interface/@name"/>.popReload();
+				p_o<xsl:value-of select="dataloader-impl/implements/interface/@name"/>.popReload(<xsl:value-of select="dataloader-impl/implements/interface/@name"/>.DEFAULT_KEY);
 				
 				</xsl:with-param>
 			</xsl:call-template>

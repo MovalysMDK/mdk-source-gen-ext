@@ -77,6 +77,9 @@
 		<xsl:apply-templates select="./screens/screen/pages/page/viewmodel/external-lists/external-list/viewmodel" mode="create-vm"/>
 		<xsl:apply-templates select="./screens/screen/pages/page/viewmodel/external-lists/external-list/viewmodel" mode="update-vm"/>
 		
+		<xsl:apply-templates select="./screens/screen/pages/page/dialogs/dialog/viewmodel/external-lists/external-list/viewmodel" mode="create-vm"/>
+		<xsl:apply-templates select="./screens/screen/pages/page/dialogs/dialog/viewmodel/external-lists/external-list/viewmodel" mode="update-vm"/>
+		
 		<xsl:apply-templates select="./screens/screen/pages/page/viewmodel/subvm/viewmodel" mode="create-vm"/>
 		<xsl:apply-templates select="./screens/screen/pages/page/viewmodel/subvm/viewmodel" mode="update-vm"/>
 		

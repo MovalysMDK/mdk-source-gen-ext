@@ -30,17 +30,17 @@
 <!-- Note before editing: maintain alphabetic order of className -->
 <xsl:template match="storyboard[scenes/scene/controller/@controllerType='FORMVIEW']" mode="gen-classes">
 
-	<!-- MFBrowseUrlTextField -->
+	<!-- MFUrlTextField -->
 	<xsl:if test="count(//subView[customClass='MFPosition']) > 0">
-	<class className="MFBrowseUrlTextField" superclassName="MFRegularExpressionTextField">
-		<source key="sourceIdentifier" type="project" relativePath="./Classes/MFBrowseUrlTextField.h"/>
+	<class className="MFUrlTextField" superclassName="MFRegularExpressionTextField">
+		<source key="sourceIdentifier" type="project" relativePath="./Classes/MFUrlTextField.h"/>
 	</class>
 	</xsl:if>
 
-	<!-- MFCallPhoneNumberTextField -->
-	<xsl:if test="count(//subView[customClass='MFCallPhoneNumberTextField']) > 0">
-	<class className="MFCallPhoneNumberTextField" superclassName="MFRegularExpressionTextField">
-		<source key="sourceIdentifier" type="project" relativePath="./Classes/MFCallPhoneNumberTextField.h"/>
+	<!-- MFPhoneTextField -->
+	<xsl:if test="count(//subView[customClass='MFPhoneTextField']) > 0">
+	<class className="MFPhoneTextField" superclassName="MFRegularExpressionTextField">
+		<source key="sourceIdentifier" type="project" relativePath="./Classes/MFPhoneTextField.h"/>
 	</class>
 	</xsl:if>
     

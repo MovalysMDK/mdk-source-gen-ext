@@ -166,16 +166,11 @@ cela peut-être le cas dans le Worksspace -->
 			<extendedEdge key="edgesForExtendedLayout"/>
 		</xsl:if>
 		<userDefinedRuntimeAttributes>
-			<userDefinedRuntimeAttribute type="string" keyPath="mf.formDescriptorName">
-				<xsl:choose>
-				<xsl:when test="@controllerType='FIXEDLISTVIEW'">
-					<xsl:attribute name="value"><xsl:value-of select="name"/></xsl:attribute>
-				</xsl:when>
-				<xsl:otherwise>
+			<xsl:if test="isInCommentScreen = 'true'">
+				<userDefinedRuntimeAttribute type="string" keyPath="mf.commentHTMLFileName">
 					<xsl:attribute name="value"><xsl:value-of select="formName"/></xsl:attribute>
-				</xsl:otherwise>
-				</xsl:choose>
-			</userDefinedRuntimeAttribute>
+				</userDefinedRuntimeAttribute>
+			</xsl:if>
 		</userDefinedRuntimeAttributes>
 		<connections>
 			<xsl:if test="@controllerType='SEARCHVIEW'">

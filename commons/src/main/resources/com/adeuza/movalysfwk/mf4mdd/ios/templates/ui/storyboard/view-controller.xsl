@@ -73,6 +73,15 @@
 					</xsl:apply-templates>
 				</constraints>
 			</view>
+						
+			<userDefinedRuntimeAttributes>
+				<xsl:if test="isInCommentScreen='true'">
+					<userDefinedRuntimeAttribute type="string" keyPath="mf.commentHTMLFileName">
+						<xsl:attribute name="value"><xsl:value-of select="formName"/></xsl:attribute>
+					</userDefinedRuntimeAttribute>
+			    </xsl:if>
+			</userDefinedRuntimeAttributes>
+			
 			<navigationItem key="navigationItem">
 				<xsl:attribute name="id"><xsl:value-of select="@navigationItemId"></xsl:value-of></xsl:attribute>
 			</navigationItem>

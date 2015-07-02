@@ -21,20 +21,20 @@
 <!-- **********************************************************************
 ***** controllerType='FORMVIEW' or 'FIXEDLISTVIEW'  > subView **********-->
 	
-<xsl:template match="subView[customClass='MFCallPhoneNumberTextField']" mode="gen-table-cell-view-runtime-attributes">
-
-	<xsl:comment> [cell-mfcallphonenumber.xsl] subView[customClass='<xsl:value-of select="customClass"/>'] mode='gen-table-cell-view-runtime-attributes'</xsl:comment>
-
-	<userDefinedRuntimeAttributes>
-		<userDefinedRuntimeAttribute type="number" keyPath="mf.minLength">
-			<integer key="value" value="2" />
-		</userDefinedRuntimeAttribute>
-		<userDefinedRuntimeAttribute type="number" keyPath="mf.maxLength">
-			<integer key="value" value="8" />
-		</userDefinedRuntimeAttribute>
-		<userDefinedRuntimeAttribute type="boolean" keyPath="mf.mandatory" value="YES" />
-	</userDefinedRuntimeAttributes>
-
+<xsl:template match="subView[customClass='MFPhoneTextField']" mode="gen-table-cell-view-type" priority="100">
+		<xsl:param name="controllerId"/>
+		<xsl:param name="viewId"/>
+		
+	<textField contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO">
+		<xsl:attribute name="customClass"><xsl:value-of select="customClass"/></xsl:attribute>
+		<xsl:attribute name="id"><xsl:value-of select="$viewId"/>-C</xsl:attribute>
+		<xsl:apply-templates select="." mode="gen-table-cell-view-connection-outlet">
+			<xsl:with-param name="controllerId"><xsl:value-of select="$controllerId"/></xsl:with-param>
+			<xsl:with-param name="viewId"><xsl:value-of select="$viewId"/></xsl:with-param>
+		</xsl:apply-templates>
+		<xsl:apply-templates select="." mode="gen-table-cell-view-runtime-attributes"/>
+	</textField>
+						
 </xsl:template>
 
 </xsl:stylesheet>

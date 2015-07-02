@@ -25,6 +25,7 @@ import com.a2a.adjava.generator.core.GeneratorUtils;
 import com.a2a.adjava.generator.core.injection.AbstractInjectionGenerator;
 import com.a2a.adjava.generator.core.injection.FilePartGenerationConfig;
 import com.a2a.adjava.generators.DomainGeneratorContext;
+import com.a2a.adjava.languages.android.xmodele.MAndroidProject;
 import com.a2a.adjava.utils.Chrono;
 import com.a2a.adjava.xmodele.MScreen;
 import com.a2a.adjava.xmodele.XProject;
@@ -62,6 +63,9 @@ public class ManifestGenerator extends AbstractInjectionGenerator<MF4ADomain<MF4
 		log.debug("> ManifestGenerator.genere");
 		Chrono oChrono = new Chrono(true);
 		
+		MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> oAndroidProject = 
+				(MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>>) p_oMProject;
+		
 		if ( !p_oMProject.getDomain().getDictionnary().getAllScreens().isEmpty()) {
 			Element xElement = DocumentHelper.createElement("screens");
 			xElement.addAttribute("root-package", p_oMProject.getDomain().getRootPackage());
@@ -69,7 +73,7 @@ public class ManifestGenerator extends AbstractInjectionGenerator<MF4ADomain<MF4
 				// Ajout du noeud XML associé à l'interface courante
 				xElement.add(oLayout.toXml());
 			}
-			String sTargetFile = "AndroidManifest.xml";
+			String sTargetFile = oAndroidProject.getAndroidManifestFile();
 		
 			Document xDoc = DocumentHelper.createDocument(xElement);
 			

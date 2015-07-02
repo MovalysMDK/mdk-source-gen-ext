@@ -126,29 +126,46 @@
 		<xsl:variable name="dataloader" select="./viewmodel/dataloader-impl/implements/interface/@name"/>
 		
 			<xsl:if test="parameters/parameter[@name='workspace-panel-type'] = 'detail'" >
-				<xsl:apply-templates select="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']" mode="action-events-notify-dataset">
-					<xsl:with-param name="dataloader" select="$dataloader"/>
-				</xsl:apply-templates>
+				<xsl:if test="external-adapters/adapter/viewmodel/type[name='LIST_1__ONE_SELECTED' or name='FIXED_LIST']">
+					/**
+					* @param p_oEvent Success event of action
+					*/
+					@ListenerOnActionSuccess(action = { GenericUpdateVMForDisplayDetailAction.class }, classFilters={<xsl:apply-templates select="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED' or viewmodel/type/name='FIXED_LIST']" mode="action-events-notify-dataset-classfilter" />})
+					public void doOnGenericUpdateVMForDisplayDetailAction( ListenerOnActionSuccessEvent&lt;OutUpdateVMParameter&gt; p_oEvent) {
+						if ( <xsl:value-of select="$dataloader"/>.class.equals(p_oEvent.getActionResult().getDataloader())) {
+						<xsl:apply-templates select="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED' or viewmodel/type/name='FIXED_LIST']" mode="action-events-notify-dataset">
+							<xsl:with-param name="dataloader" select="$dataloader"/>
+						</xsl:apply-templates>
+						}
+					}
+				</xsl:if>
 			</xsl:if>
 			
 	</xsl:template>
 	
+	<xsl:template match="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']" mode="action-events-notify-dataset-classfilter">
+		<xsl:if test="position()=1">
+			<xsl:value-of select="./viewmodel/implements/interface/@name"/>.class
+		</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="external-adapters/adapter[viewmodel/type/name='FIXED_LIST']" mode="action-events-notify-dataset-classfilter">
+		<xsl:if test="position()!=1">
+			<xsl:text>,</xsl:text>
+		</xsl:if>
+		<xsl:value-of select="./viewmodel/implements/interface/@name"/>.class
+	</xsl:template>
 
 	<xsl:template match="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']" mode="action-events-notify-dataset">
 		<xsl:param name="dataloader"/>
 		<xsl:if test="position()=1">
-			/**
-			* @param p_oEvent Success event of action
-			*/
-			@ListenerOnActionSuccess(action = { GenericUpdateVMForDisplayDetailAction.class }, classFilters={<xsl:value-of select="./viewmodel/implements/interface/@name"/>.class})
-			public void doOnGenericUpdateVMForDisplayDetailAction( ListenerOnActionSuccessEvent&lt;OutUpdateVMParameter&gt; p_oEvent) {
-				if ( <xsl:value-of select="$dataloader"/>.class.equals(p_oEvent.getActionResult().getDataloader())) {
-					this.spinnerAdapter<xsl:value-of select="position()"/>.notifyDataSetChanged();
-				}
-			}
+			this.spinnerAdapter<xsl:value-of select="position()"/>.notifyDataSetChanged();
 		</xsl:if>
 	</xsl:template>
 	
-	
+	<xsl:template match="external-adapters/adapter[viewmodel/type/name='FIXED_LIST']" mode="action-events-notify-dataset">
+		<xsl:param name="dataloader"/>
+		<xsl:text>this.fixedListAdapter</xsl:text><xsl:value-of select="position()"/><xsl:text>.getMasterVM().notifyCollectionChanged();&#13;</xsl:text>
+	</xsl:template>
 	
 </xsl:stylesheet>

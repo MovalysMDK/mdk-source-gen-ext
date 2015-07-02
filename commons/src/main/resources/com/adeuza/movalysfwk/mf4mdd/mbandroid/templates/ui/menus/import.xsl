@@ -29,5 +29,10 @@
 			<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.action.Action</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.actiontask.listener.ListenerOnMenuItemClick</import>
 		</xsl:if>
+		<xsl:if test="count(//menu[@id='actions']) > 0 and count(//button/navigation[@type='NAVIGATION_INFO']) > 0 ">
+			<import>android.content.DialogInterface</import>
+            <import>android.support.v4.app.FragmentManager</import>
+            <import>com.adeuza.movalysfwk.mobile.mf4android.ui.dialog.WebViewDialog</import>
+		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>

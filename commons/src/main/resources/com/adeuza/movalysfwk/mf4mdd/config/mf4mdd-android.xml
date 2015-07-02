@@ -388,7 +388,7 @@
 					<configuration name="default">
 						<list-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel" />
 						<item-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ItemViewModel" />
-						<adapter ref="com.adeuza.movalysfwk.mobile.mf4android.ui.modele.AbstractConfigurableListAdapter" />
+						<adapter ref="com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKAdapter" />
 						<component ref="com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMListView" />
 						<max-level>1</max-level>
 					</configuration>
@@ -398,7 +398,7 @@
 						<list-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel" />
 						<item-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ExpandableViewModel" />
 						<subitem-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ItemViewModel" />
-						<adapter ref="com.adeuza.movalysfwk.mobile.mf4android.ui.modele.AbstractConfigurableExpandableListAdapter" />
+						<adapter ref="com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKExpandableAdapter" />
 						<component ref="com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMExpandableListView" />
 						<max-level>2</max-level>
 					</configuration>
@@ -416,8 +416,7 @@
 						<list-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel" />
 						<item-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ExpandableViewModel" />
 						<subitem-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ExpandableViewModel" />
-						<adapter
-							ref="com.adeuza.movalysfwk.mobile.mf4android.ui.modele.AbstractConfigurableFlipperExpandableListAdapter" />
+						<adapter ref="com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKFlipperAdapter" />
 						<component ref="com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFlipperExpandableListView" />
 						<max-level>3</max-level>
 					</configuration>

@@ -78,18 +78,15 @@
 		<xsl:for-each select="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']">
 			<xsl:text>this.spinnerAdapter</xsl:text><xsl:value-of select="position()"/>
 			<xsl:text> = (MMSpinner) view.findViewById(R.id.</xsl:text><xsl:value-of select="./@component-ref"/><xsl:text>);&#13;</xsl:text>
-			<xsl:text>this.spinnerAdapter</xsl:text><xsl:value-of select="position()"/>
-			<xsl:text>.setAdapter(new </xsl:text><xsl:value-of select="./name"/>
+			<xsl:value-of select="./name"/><xsl:text> adapter</xsl:text><xsl:value-of select="position()"/><xsl:text> = new </xsl:text><xsl:value-of select="./name"/>
 			<xsl:text>(</xsl:text>
-<!-- 			<xsl:text>((</xsl:text> -->
-<!-- 			<xsl:value-of select="./viewmodel/parent-viewmodel/master-interface/@name"/> -->
-<!-- 			<xsl:text>)this.getViewModel()).</xsl:text> -->
-<!-- 			<xsl:value-of select="./viewmodel/list-accessor-get-name"/> -->
-<!-- 			<xsl:text>(), true));&#13;</xsl:text> -->
 			<xsl:apply-templates select="." mode="constructor-parameters">
-<!-- 				<xsl:with-param name="position" select="position()"/> -->
 			</xsl:apply-templates>
-			<xsl:text>, true));&#13;</xsl:text>
+			<xsl:text>, true);&#13;</xsl:text>
+			<xsl:text>MDKViewConnectorWrapper mConnectorWrapper = WidgetWrapperHelper.getInstance().getConnectorWrapper(spinnerAdapter</xsl:text>
+			<xsl:value-of select="position()"/><xsl:text>.getClass());&#13;</xsl:text>
+			<xsl:text>mConnectorWrapper.configure((MDKBaseAdapter) adapter</xsl:text><xsl:value-of select="position()"/><xsl:text>, spinnerAdapter</xsl:text>
+			<xsl:value-of select="position()"/><xsl:text>);&#13;</xsl:text>
 		</xsl:for-each>
 		
 		<xsl:call-template name="non-generated-bloc">

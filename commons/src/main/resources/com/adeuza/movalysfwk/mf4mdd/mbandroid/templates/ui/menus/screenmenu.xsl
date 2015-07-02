@@ -142,6 +142,37 @@
 			</xsl:call-template>
 			}
 		</xsl:when>
+		<xsl:when test="source/name and ../../@id">
+			<xsl:variable name="methodMiddleName">
+				<xsl:value-of select="source/name"/>
+				<xsl:text></xsl:text>
+				<xsl:choose>
+				<xsl:when test="@type='NAVIGATION_INFO'">Info</xsl:when>
+				</xsl:choose>
+			</xsl:variable>
+	
+			/**
+			 * Listener du menu contextuel d'id <xsl:value-of select="../../@id"/> 
+			 */
+			<xsl:call-template name="non-generated-bloc">
+				<xsl:with-param name="blocId">onMenuItem<xsl:value-of select="../../@id"/></xsl:with-param>
+				<xsl:with-param name="defaultSource">
+					@ListenerOnMenuItemClick(R.id.<xsl:value-of select="../../@id"/>)
+				</xsl:with-param>
+			</xsl:call-template>
+			public void launch<xsl:value-of select="$methodMiddleName"/><xsl:value-of select="$suffix"/>() {
+			<xsl:call-template name="non-generated-bloc">
+				<xsl:with-param name="blocId">onMenuItem<xsl:value-of select="$methodMiddleName"/><xsl:value-of select="$suffix"/></xsl:with-param>
+				<xsl:with-param name="defaultSource">
+			        FragmentManager oFragmentManager = this.getSupportFragmentManager();
+					if (oFragmentManager != null) {
+						WebViewDialog oWebViewDialog = WebViewDialog.newInstance("Info for <xsl:value-of select="source/name"/>", "file:///android_asset/<xsl:value-of select="source/name"/>.html", "Cancel");
+						oWebViewDialog.show(oFragmentManager, "<xsl:value-of select="source/name"/>");	
+					}
+				</xsl:with-param>
+			</xsl:call-template>
+			}
+		</xsl:when>
 		<xsl:otherwise>
 		</xsl:otherwise>
 	</xsl:choose>

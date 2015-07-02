@@ -27,9 +27,9 @@
 
 <xsl:include href="ui/storyboard/views/view-mftextfield.xsl"/>
 <xsl:include href="ui/storyboard/views/view-mfposition.xsl"/>
-<xsl:include href="ui/storyboard/views/view-mfsendmailtextfield.xsl"/>
-<xsl:include href="ui/storyboard/views/view-mfbrowseurltextfield.xsl"/>
-<xsl:include href="ui/storyboard/views/view-mfcallphonenumber.xsl"/>
+<xsl:include href="ui/storyboard/views/view-mfemailtextfield.xsl"/>
+<xsl:include href="ui/storyboard/views/view-mfurltextfield.xsl"/>
+<xsl:include href="ui/storyboard/views/view-mfphonetextfield.xsl"/>
 <xsl:include href="ui/storyboard/views/view-mflabel.xsl"/>
 <xsl:include href="ui/storyboard/views/view-mfscanner.xsl"/>
 

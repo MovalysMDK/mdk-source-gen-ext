@@ -50,7 +50,20 @@
 	</xsl:template>
 	
 	<xsl:template match="page" mode="commons-list-page-imports">
-		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.modele.MMListAdapter</import>
+		<xsl:choose>
+			<xsl:when test="./viewmodel/type/name='LIST_1'">
+				<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKAdapter</import>
+			</xsl:when>
+			<xsl:when test="./viewmodel/type/name='LIST_2'">
+				<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKExpandableAdapter</import>
+			</xsl:when>
+			<xsl:when test="./viewmodel/type/name='LIST_3'">
+				<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKFlipperAdapter</import>
+			</xsl:when>
+			<xsl:otherwise>
+				<import>com.adeuza.movalysfwk.mobile.mf4android.ui.modele.MMListAdapter</import>
+			</xsl:otherwise>
+		</xsl:choose>
 		<import>com.adeuza.movalysfwk.mobile.mf4javacommons.event.listener.ListenerOnBusinessNotification</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.modele.SelectedItemEvent</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.modele.PerformItemClickEvent</import>
@@ -108,7 +121,38 @@
 	
 	<xsl:template match="page" mode="createListAdapter-method">
 		@Override
-		protected MMListAdapter createListAdapter() {
+		<xsl:text>protected </xsl:text>
+		<xsl:choose>
+			<xsl:when test="./viewmodel/type/name='LIST_1'">
+				<xsl:text>MDKAdapter&lt;</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/entity-to-update/name"/><xsl:text>,</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/implements/interface/@name"/><xsl:text>,</xsl:text>
+				<xsl:value-of select="./viewmodel/implements/interface/@name"/>
+				<xsl:text>&gt;</xsl:text>
+			</xsl:when>
+			<xsl:when test="./viewmodel/type/name='LIST_2'">
+				<xsl:text>MDKExpandableAdapter&lt;</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/entity-to-update/name"/><xsl:text>,</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/entity-to-update/name"/><xsl:text>,</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@name"/><xsl:text>,</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/implements/interface/@name"/>
+				<xsl:text>&gt;</xsl:text>
+			</xsl:when>
+			<xsl:when test="./viewmodel/type/name='LIST_3'">
+				<xsl:text>MDKFlipperAdapter&lt;</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/entity-to-update/name"/><xsl:text>,</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/entity-to-update/name"/><xsl:text>,</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/subvm/viewmodel/entity-to-update/name"/><xsl:text>,</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@name"/><xsl:text>,</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@name"/><xsl:text>,</xsl:text>
+				<xsl:value-of select="./viewmodel/subvm/viewmodel/implements/interface/@name"/>
+				<xsl:text>&gt;</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>MMListAdapter</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text> createListAdapter() {&#13;</xsl:text>
 			return new <xsl:value-of select="adapter/name"/>( application.getViewModelCreator().getViewModel(<xsl:value-of select="vm"/>.class) );
 		}
 	</xsl:template>
@@ -150,8 +194,22 @@
 				<xsl:with-param name="defaultSource">
 				</xsl:with-param>
 			</xsl:call-template>
-			((AbstractConfigurableListAdapter)
-				this.getListAdapter()).setSelectedItem(p_oEvent.getData().idToString());
+			<xsl:text>((</xsl:text>
+			<xsl:choose>
+				<xsl:when test="viewmodel/type/name='LIST_1'">
+					<xsl:text>MDKAdapter</xsl:text>
+				</xsl:when>
+				<xsl:when test="viewmodel/type/name='LIST_2'">
+					<xsl:text>MDKExpandableAdapter</xsl:text>
+				</xsl:when>
+				<xsl:when test="viewmodel/type/name='LIST_3'">
+					<xsl:text>MDKFlipperAdapter</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text>AbstractConfigurableListAdapter</xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:text>)this.getListAdapter()).setSelectedItem(p_oEvent.getData().idToString());&#13;</xsl:text>
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">doOnChange<xsl:value-of select="viewmodel/entity-to-update/name"/>AddEntityEvent2</xsl:with-param>
 				<xsl:with-param name="defaultSource">

@@ -40,7 +40,7 @@
 
 @interface <xsl:value-of select="name"/>
 <xsl:apply-templates select="implements/interface/linked-interfaces" mode="extends"/>
-<xsl:if test="dataloader-impl or parameters/parameter[@name='hasSublist']">
+<xsl:if test="dataloader-impl or parameters/parameter[@name='hasSublist'] or ./workspace-vm = 'true'">
 <xsl:text>&lt;</xsl:text>
 	<xsl:choose>
 		<xsl:when test="dataloader-impl and parameters/parameter[@name='hasSublist']">
@@ -50,6 +50,9 @@
 			<xsl:choose>
 			<xsl:when test="dataloader-impl">
 				<xsl:text>MFUpdatableFromDataLoaderProtocol</xsl:text>
+			</xsl:when>
+			<xsl:when test="./workspace-vm = 'true'">
+				<xsl:text>MFUIWorkspaceViewModelProtocol</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>MFBaseViewModelWithSublistProtocol</xsl:text>

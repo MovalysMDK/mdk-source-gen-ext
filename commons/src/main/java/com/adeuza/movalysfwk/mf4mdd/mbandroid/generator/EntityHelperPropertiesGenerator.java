@@ -15,6 +15,7 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.mbandroid.generator;
 
+import org.apache.commons.io.FilenameUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -23,18 +24,19 @@ import org.slf4j.LoggerFactory;
 
 import com.a2a.adjava.generator.core.incremental.AbstractIncrementalGenerator;
 import com.a2a.adjava.generators.DomainGeneratorContext;
+import com.a2a.adjava.languages.android.xmodele.MAndroidProject;
 import com.a2a.adjava.utils.Chrono;
 import com.a2a.adjava.xmodele.MEntityImpl;
-import com.a2a.adjava.xmodele.ModelDictionary;
-import com.a2a.adjava.xmodele.XDomain;
-import com.a2a.adjava.xmodele.XModeleFactory;
 import com.a2a.adjava.xmodele.XProject;
+import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4ADictionnary;
+import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4ADomain;
+import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4AModeleFactory;
 
 /**
  * @author lmichenaud
  *
  */
-public class EntityHelperPropertiesGenerator extends AbstractIncrementalGenerator<XDomain<ModelDictionary, XModeleFactory>> {
+public class EntityHelperPropertiesGenerator extends AbstractIncrementalGenerator<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> {
 
 	/**
 	 * 
@@ -46,9 +48,12 @@ public class EntityHelperPropertiesGenerator extends AbstractIncrementalGenerato
 	 * @see com.a2a.adjava.generators.ResourceGenerator#genere(com.a2a.adjava.xmodele.XProject, java.util.Map)
 	 */
 	@Override
-	public void genere(XProject<XDomain<ModelDictionary, XModeleFactory>> p_oMProject, DomainGeneratorContext p_oContext) throws Exception {
+	public void genere(XProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> p_oMProject, DomainGeneratorContext p_oContext) throws Exception {
 		log.debug("> EntityHelperPropertiesGenerator.genere");
 		Chrono oChrono = new Chrono(true);
+		
+		MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> oAndroidProject = 
+				(MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>>) p_oMProject;
 		
 		Element xRoot = DocumentHelper.createElement("entity-factories");
 		Document xDoc = DocumentHelper.createDocument(xRoot);
@@ -56,7 +61,7 @@ public class EntityHelperPropertiesGenerator extends AbstractIncrementalGenerato
 			xRoot.add( oClass.toXml());
 		}
 		
-		String sFile = "res/raw/beans_entityhelper" ;
+		String sFile = FilenameUtils.concat(oAndroidProject.getRawDirectory(), "beans_entityhelper");
 
 		log.debug("  generation du fichier {}", sFile);
 		

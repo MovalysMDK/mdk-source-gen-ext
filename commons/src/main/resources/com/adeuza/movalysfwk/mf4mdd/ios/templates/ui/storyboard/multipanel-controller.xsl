@@ -62,7 +62,13 @@
 						
 				</constraints>
 			</view>
-			
+			<userDefinedRuntimeAttributes>
+
+					<userDefinedRuntimeAttribute type="string" keyPath="mf.commentHTMLFileName">
+						<xsl:attribute name="value"><xsl:value-of select="name"/></xsl:attribute>
+					</userDefinedRuntimeAttribute>
+
+			</userDefinedRuntimeAttributes>
 			<extendedEdge key="edgesForExtendedLayout"/>
 			<simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
 		</viewController>

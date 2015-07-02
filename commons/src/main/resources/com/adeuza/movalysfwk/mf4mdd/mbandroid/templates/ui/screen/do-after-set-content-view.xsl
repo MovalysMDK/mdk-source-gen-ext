@@ -78,7 +78,7 @@
 						<xsl:text>.findViewById(R.id.</xsl:text><xsl:value-of select="@component-ref"/>);
 						if (this.spinner<xsl:value-of select="position()"/><xsl:text> != null) {&#13;</xsl:text>
 						this.spinnerAdapter<xsl:value-of select="position()"/> = new <xsl:value-of select="name"/>
-						<xsl:if test="name='ConfigurableSpinnerAdapter'">
+						<xsl:if test="name='ConfigurableSpinnerAdapter' or name='MDKSpinnerAdapter'">
 							<xsl:text>&lt;</xsl:text><xsl:value-of select="viewmodel/entity-to-update/name"/>
 							<xsl:text>, </xsl:text><xsl:value-of select="viewmodel/implements/interface/@name"/>
 							<xsl:text>, ListViewModel</xsl:text>
@@ -177,7 +177,7 @@
 				<xsl:value-of select="$adapter-pos"/>
 				<xsl:text> = new </xsl:text>
 				<xsl:value-of select="name"/>
-				<xsl:if test="name='ConfigurableSpinnerAdapter'">
+				<xsl:if test="name='ConfigurableSpinnerAdapter' or name='MDKSpinnerAdapter'">
 					<xsl:text>&lt;</xsl:text><xsl:value-of select="viewmodel/entity-to-update/name"/>
 					<xsl:text>, </xsl:text><xsl:value-of select="viewmodel/implements/interface/@name"/>
 					<xsl:text>, ListViewModel</xsl:text>

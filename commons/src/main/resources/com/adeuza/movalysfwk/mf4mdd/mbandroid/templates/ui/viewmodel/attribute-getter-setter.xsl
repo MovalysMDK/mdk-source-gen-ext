@@ -56,8 +56,8 @@
 		<xsl:when test="@primitif='true' or @type-name='long' or @type-name='int' or @type-name='double' or @type-name='float' or @enum='true'">
 			<xsl:text>this.affect</xsl:text>
 			<xsl:choose>
-				<xsl:when test="wrapper/short-name and not(@enum='true')">
-					<xsl:value-of select="wrapper/short-name"/>
+				<xsl:when test="wrapper and not(@enum='true')">
+					<xsl:value-of select="@type-short-name-capitalized"/>
 				</xsl:when>
 				<xsl:when test="@enum='true'">
 					<xsl:text>Enum</xsl:text>

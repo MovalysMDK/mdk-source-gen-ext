@@ -92,12 +92,11 @@
             </constraints>
 		</view>	
 		<userDefinedRuntimeAttributes>
-			<userDefinedRuntimeAttribute type="string" keyPath="mf.formDescriptorName">
-				<xsl:attribute name="value"><xsl:value-of select="formName"/></xsl:attribute>
-			</userDefinedRuntimeAttribute>
-			<userDefinedRuntimeAttribute type="string" keyPath="mf.sectionFormDescriptorName">
-				<xsl:attribute name="value"><xsl:value-of select="sectionFormName"/></xsl:attribute>
-			</userDefinedRuntimeAttribute>
+			<xsl:if test="isInCommentScreen = 'true'">
+				<userDefinedRuntimeAttribute type="string" keyPath="mf.commentHTMLFileName">
+					<xsl:attribute name="value"><xsl:value-of select="formName"/></xsl:attribute>
+				</userDefinedRuntimeAttribute>
+			</xsl:if>
 		</userDefinedRuntimeAttributes>
 		<connections>
 			<outlet property="tableView">

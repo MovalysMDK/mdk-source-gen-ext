@@ -66,7 +66,7 @@
 					<xsl:text>.findViewById(R.id.</xsl:text><xsl:value-of select="@component-ref"/>);
 					if (oSpinner<xsl:value-of select="position()"/><xsl:text> != null) {&#13;</xsl:text>
 					this.spinnerAdapter<xsl:value-of select="position()"/> = new <xsl:value-of select="name"/>
-					<xsl:if test="name='ConfigurableSpinnerAdapter'">
+					<xsl:if test="name='ConfigurableSpinnerAdapter' or name='MDKSpinnerAdaper'">
 						<xsl:text>&lt;</xsl:text><xsl:value-of select="viewmodel/entity-to-update/name"/>
 						<xsl:text>, </xsl:text><xsl:value-of select="viewmodel/implements/interface/@name"/>
 						<xsl:text>, ListViewModel</xsl:text>
@@ -79,7 +79,8 @@
 						<xsl:with-param name="position" select="position()"/>
 					</xsl:apply-templates>
 					<xsl:text>, true);&#13;</xsl:text>
-					oSpinner<xsl:value-of select="position()"/>.setAdapter(this.spinnerAdapter<xsl:value-of select="position()"/>);
+					MDKViewConnectorWrapper mConnectorWrapper = WidgetWrapperHelper.getInstance().getConnectorWrapper(oSpinner<xsl:value-of select="position()"/>.getClass());
+					mConnectorWrapper.configure((MDKBaseAdapter)this.spinnerAdapter<xsl:value-of select="position()"/>, oSpinner<xsl:value-of select="position()"/>);
 					}
 				</xsl:with-param>
 			</xsl:call-template>
@@ -87,7 +88,7 @@
 	</xsl:template>
 
 	<xsl:template match="external-adapters/adapter/viewmodel[type/name='LIST_1__ONE_SELECTED']" mode="doAfterInflate-method">
-		<xsl:text>MMSpinnerAdapterHolder&lt;?,?&gt;</xsl:text>
+		<xsl:text>MMSpinner&lt;?,?&gt;</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="external-adapters/adapter/viewmodel[type/name='LIST_1__ONE_SELECTED' and type/conf-name='filter']" mode="doAfterInflate-method">
@@ -172,7 +173,7 @@
 				<xsl:value-of select="$adapter-pos"/>
 				<xsl:text> = new </xsl:text>
 				<xsl:value-of select="name"/>
-				<xsl:if test="name='ConfigurableSpinnerAdapter'">
+				<xsl:if test="name='ConfigurableSpinnerAdapter' or name='MDKSpinnerAdapter'">
 					<xsl:text>&lt;</xsl:text><xsl:value-of select="viewmodel/entity-to-update/name"/>
 					<xsl:text>, </xsl:text><xsl:value-of select="viewmodel/implements/interface/@name"/>
 					<xsl:text>, ListViewModel</xsl:text>

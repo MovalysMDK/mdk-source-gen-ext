@@ -439,14 +439,14 @@
 				<ui-type uml-name="Url">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFBrowseUrlTextField</language-type>
+						<language-type>MFUrlTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFBrowseUrlTextField</language-type>
+						<language-type>MFUrlTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -455,14 +455,14 @@
 				<ui-type uml-name="Phone">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFCallPhoneNumberTextField</language-type>
+						<language-type>MFPhoneTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFCallPhoneNumberTextField</language-type>
+						<language-type>MFPhoneTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -471,14 +471,14 @@
 				<ui-type uml-name="Email">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFSendEmailTextField</language-type>
+						<language-type>MFEmailTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFSendEmailTextField</language-type>
+						<language-type>MFEmailTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -613,7 +613,9 @@
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MFSlider</language-type>
 						<language-type-options>
-							<datePickerMode>0</datePickerMode>
+							<minValue>0</minValue>
+							<maxValue>100</maxValue>
+							<step>100</step>
 						</language-type-options>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>72</component-height>
@@ -623,7 +625,9 @@
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MFSlider</language-type>
 						<language-type-options>
-							<datePickerMode>0</datePickerMode>
+							<minValue>0</minValue>
+							<maxValue>100</maxValue>
+							<step>100</step>
 						</language-type-options>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>72</component-height>
@@ -634,9 +638,6 @@
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MFSwitch</language-type>
-						<language-type-options>
-							<datePickerMode>0</datePickerMode>
-						</language-type-options>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -644,9 +645,6 @@
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MFSwitch</language-type>
-						<language-type-options>
-							<datePickerMode>0</datePickerMode>
-						</language-type-options>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -767,6 +765,8 @@
 					<property name="stereotype-usage-navigation" value="Mm_navigation" />
 					<property name="stereotype-usage-navigation-detail" value="Mm_navigationdetail" />
 				</extractor>
+				<extractor class ="com.a2a.adjava.uml2xmodele.extractors.CommentExtractor">
+				</extractor>
 				<extractor
 					class="com.adeuza.movalysfwk.mf4mdd.ios.extractor.MF4ExpandableListExtractor">
 					<property name="viewmodel-prefix" value="MVM" />
@@ -832,8 +832,6 @@
 						<generator
 							class="com.adeuza.movalysfwk.mf4mdd.ios.generators.MF4ILabelGenerator" />
 						<generator
-							class="com.adeuza.movalysfwk.mf4mdd.ios.generators.MF4IConfGenerator" />
-						<generator
 							class="com.adeuza.movalysfwk.mf4mdd.ios.generators.MF4ICellGenerator" />
 						<generator class="com.a2a.adjava.languages.ios.generators.EnumGenerator" />
 						<generator
@@ -875,6 +873,9 @@
 							class="com.a2a.adjava.languages.ios.generators.ViewInterfaceFixedListGenerator" />
 						<generator
 							class="com.a2a.adjava.languages.ios.generators.XibItemGenerator" />
+						
+						<generator
+							class="com.a2a.adjava.languages.ios.generators.CommentGenerator" />
 
 					</resource-generators>
 				</project>

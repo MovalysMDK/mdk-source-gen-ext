@@ -15,6 +15,7 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.mbandroid.generator;
 
+import org.apache.commons.io.FilenameUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -23,12 +24,13 @@ import org.slf4j.LoggerFactory;
 
 import com.a2a.adjava.generator.core.override.AbstractOverrideGenerator;
 import com.a2a.adjava.generators.DomainGeneratorContext;
+import com.a2a.adjava.languages.android.xmodele.MAndroidProject;
 import com.a2a.adjava.utils.Chrono;
 import com.a2a.adjava.xmodele.MAction;
-import com.a2a.adjava.xmodele.ModelDictionary;
-import com.a2a.adjava.xmodele.XDomain;
-import com.a2a.adjava.xmodele.XModeleFactory;
 import com.a2a.adjava.xmodele.XProject;
+import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4ADictionnary;
+import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4ADomain;
+import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4AModeleFactory;
 
 /**
  * <p>
@@ -44,7 +46,7 @@ import com.a2a.adjava.xmodele.XProject;
  * 
  */
 
-public class ActionPropertiesGenerator extends AbstractOverrideGenerator<XDomain<ModelDictionary, XModeleFactory>> {
+public class ActionPropertiesGenerator extends AbstractOverrideGenerator<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> {
 
 	/**
 	 * 
@@ -59,13 +61,16 @@ public class ActionPropertiesGenerator extends AbstractOverrideGenerator<XDomain
 	 * Generate properties
 	 */
 	@Override
-	public void genere( XProject<XDomain<ModelDictionary, XModeleFactory>> p_oMProject, DomainGeneratorContext p_oContext) throws Exception {
+	public void genere( XProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> p_oProject, DomainGeneratorContext p_oContext) throws Exception {
 		log.debug("> ActionPropertiesGenerator.genere");
 		Chrono oChrono = new Chrono(true);
 		Element xVms = DocumentHelper.createElement("actions");
 
+		MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> oAndroidProject = 
+				(MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>>) p_oProject;
+		
 		Element xElement = null;
-		for (MAction oVm : p_oMProject.getDomain().getDictionnary().getAllActions()) {
+		for (MAction oVm : oAndroidProject.getDomain().getDictionnary().getAllActions()) {
 			// Ajout du noeud XML associé à l'interface courante
 			xElement = xVms.addElement("action");
 			xElement.addElement("itf").setText(oVm.getMasterInterface().getFullName());
@@ -77,14 +82,14 @@ public class ActionPropertiesGenerator extends AbstractOverrideGenerator<XDomain
 			}
 		}
 			
-		this.addInitAction(xVms, p_oMProject);
-		String sTargetFile = new StringBuilder("res/raw/")
-				.append(GENERATED_FILE).toString();
+		this.addInitAction(xVms, oAndroidProject);
+		
+		String sTargetFile = FilenameUtils.concat(oAndroidProject.getRawDirectory(), GENERATED_FILE);
 
 		log.debug("  generation du fichier {}", sTargetFile);
 		
 		Document xInterfacesDocument = DocumentHelper.createDocument(xVms);
-		this.doOverrideTransform(XSL_FILE_NAME, sTargetFile, xInterfacesDocument, p_oMProject, p_oContext);
+		this.doOverrideTransform(XSL_FILE_NAME, sTargetFile, xInterfacesDocument, p_oProject, p_oContext);
 		
 		log.debug("< ActionPropertiesGenerator.genere: {}", oChrono.stopAndDisplay());
 	}
@@ -93,7 +98,7 @@ public class ActionPropertiesGenerator extends AbstractOverrideGenerator<XDomain
 	 * @param xVms
 	 * @param p_oMProject
 	 */
-	private void addInitAction(Element xVms , XProject<XDomain<ModelDictionary, XModeleFactory>> p_oMProject){
+	private void addInitAction(Element xVms , MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> p_oMProject){
 		// Ajout des implementations des process de demarrage perso
 		Element xElement = xVms.addElement("action");
 		xElement.addElement("itf").setText("com.adeuza.movalysfwk.mobile.mf4mjcommons.application.CustomInit");

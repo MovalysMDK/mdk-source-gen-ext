@@ -70,7 +70,14 @@
 		<xsl:text disable-output-escaping="yes"><![CDATA[<item android:id="@+id/]]></xsl:text>
 		<xsl:value-of select="@id" />
 		<xsl:text disable-output-escaping="yes">"&#13;</xsl:text>
-		<xsl:text disable-output-escaping="yes"><![CDATA[ android:icon="@android:drawable/ic_menu_add"]]></xsl:text>
+		<xsl:choose>
+			<xsl:when test="button/navigation[@type='NAVIGATION_INFO']">
+				<xsl:text disable-output-escaping="yes"><![CDATA[ android:icon="@android:drawable/ic_menu_info_details"]]></xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text disable-output-escaping="yes"><![CDATA[ android:icon="@android:drawable/ic_menu_add"]]></xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
 		<xsl:text disable-output-escaping="yes"><![CDATA[ android:title="@string/application_]]></xsl:text>
 		<xsl:value-of select="@id" />

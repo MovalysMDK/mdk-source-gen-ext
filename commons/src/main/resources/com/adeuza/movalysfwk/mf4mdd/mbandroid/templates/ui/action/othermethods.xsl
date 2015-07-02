@@ -97,7 +97,7 @@
 						<xsl:value-of select="$daointerfacename"/> oDao = BeanLoader.getInstance().getBean(<xsl:value-of select="$daointerfacename"/>.class);
 						// ancien objet avant modification 
 						if (BeanLoader.getInstance().getBean(<xsl:value-of select="viewmodel/dataloader-impl/implements/interface/@name"/>.class).getData(<xsl:value-of select="viewmodel/dataloader-impl/implements/interface/@name"/>.DEFAULT_KEY) != null) {
-							<xsl:value-of select="$varResult"/> = BeanLoader.getInstance().getBean(<xsl:value-of select="viewmodel/dataloader-impl/implements/interface/@name"/>.class).getData()<xsl:value-of select="viewmodel/data-path/full-path"/>;
+							<xsl:value-of select="$varResult"/> = BeanLoader.getInstance().getBean(<xsl:value-of select="viewmodel/dataloader-impl/implements/interface/@name"/>.class).getData(<xsl:value-of select="viewmodel/dataloader-impl/implements/interface/@name"/>.DEFAULT_KEY)<xsl:value-of select="viewmodel/data-path/full-path"/>;
 							if (<xsl:value-of select="$varResult"/> != null) {
 								oDao.delete<xsl:value-of select="$classinterfacename"/>(<xsl:value-of select="$varResult"/> , p_oContext);
 								}
@@ -122,7 +122,7 @@
 							<xsl:with-param name="action-on-list">remove</xsl:with-param>
 						</xsl:apply-templates>
 
-						BeanLoader.getInstance().getBean(<xsl:value-of select="viewmodel/dataloader-impl/implements/interface/@name"/>.class).setData(null);
+						BeanLoader.getInstance().getBean(<xsl:value-of select="viewmodel/dataloader-impl/implements/interface/@name"/>.class).addData(<xsl:value-of select="viewmodel/dataloader-impl/implements/interface/@name"/>.DEFAULT_KEY, null);
 						<xsl:apply-templates select="events">
 							<xsl:with-param name="varResult" select="$varResult"/>
 						</xsl:apply-templates>

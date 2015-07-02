@@ -67,13 +67,13 @@ public class PojoCascadeGenerator extends AbstractIncrementalGenerator<MF4ADomai
 		IModelDictionary oDictionnary = p_oMProject.getDomain().getDictionnary();
 
 		for (MEntityImpl oClass : oDictionnary.getAllEntities()) {
-			if (oClass.getAssociations().size() > 0) {
+			if (!oClass.getAssociations().isEmpty()) {
 				this.createCascade(oClass.getMasterInterface(), oClass, p_oMProject, p_oContext);
 			}
 		}
 
 		for (MJoinEntityImpl oJoinClass : oDictionnary.getAllJoinClasses()) {
-			if (oJoinClass.getAssociations().size() > 0) {
+			if (!oJoinClass.getAssociations().isEmpty()) {
 				this.createCascade(oJoinClass.getMasterInterface(), oJoinClass, p_oMProject, p_oContext);
 			}
 		}

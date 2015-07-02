@@ -59,7 +59,7 @@
 <xsl:include href="ui/storyboard/cells/cell-mfswitch.xsl"/>
 <xsl:include href="ui/storyboard/cells/cell-others.xsl"/>
 <xsl:include href="ui/storyboard/cells/cell-mfscanner.xsl"/>
-
+<xsl:include href="ui/storyboard/cells/custom-cells.xsl"/>
 
 
 <xsl:include href="ui/storyboard/navigation-controller.xsl"/>

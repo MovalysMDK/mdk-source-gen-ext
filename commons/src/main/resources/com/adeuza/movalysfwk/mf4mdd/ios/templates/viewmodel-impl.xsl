@@ -96,6 +96,7 @@
 	<xsl:apply-templates select="." mode="defineViewModelName-method"/>
 </xsl:if>
 <xsl:apply-templates select="." mode="getChildViewModels-method"/>
+<xsl:apply-templates select="." mode="getPropertyNameInParent-method"/>
 <xsl:apply-templates select="." mode="generate-validate" />
 
 <xsl:if test="dataloader-impl">

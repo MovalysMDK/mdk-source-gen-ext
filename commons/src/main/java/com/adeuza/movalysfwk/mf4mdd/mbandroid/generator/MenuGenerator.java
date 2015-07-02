@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import com.a2a.adjava.generator.core.append.AbstractAppendGenerator;
 import com.a2a.adjava.generators.DomainGeneratorContext;
+import com.a2a.adjava.languages.android.xmodele.MAndroidProject;
 import com.a2a.adjava.utils.Chrono;
 import com.a2a.adjava.utils.VersionHandler;
 import com.a2a.adjava.xmodele.MPage;
@@ -49,6 +50,11 @@ public class MenuGenerator extends
 		AbstractAppendGenerator<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> {
 
 	/**
+	 * Xsl for menu
+	 */
+	private static final String RESMENU_XSL = "ui/menus/resmenu.xsl";
+	
+	/**
 	 * Logger
 	 */
 	private static final Logger log = LoggerFactory
@@ -68,13 +74,16 @@ public class MenuGenerator extends
 		log.debug("> MenuGenerator.genere");
 		Chrono oChrono = new Chrono(true);
 
+		MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> oAndroidProject = 
+				(MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>>) p_oProject;
+		
 		for (MScreen oScreen : p_oProject.getDomain().getDictionnary()
 				.getAllScreens()) {
 
 			for (MMenu oMenu : oScreen.getMenus()) {
 
 				// traitement spec to workspace
-				this.handleActionOnWorkspace(p_oContext, p_oProject, oScreen,
+				this.handleActionOnWorkspace(p_oContext, oAndroidProject, oScreen,
 						oMenu);
 
 				if (!oMenu.getMenuItems().isEmpty()) {
@@ -90,11 +99,11 @@ public class MenuGenerator extends
 					sFilename.append(oMenu.getId().toLowerCase());
 					sFilename.append(".xml");
 
-					File oTargetFile = new File("res/menu/",
+					File oTargetFile = new File(oAndroidProject.getMenuDir(),
 							sFilename.toString());
 
 					log.debug("  generate menu file: {}", sFilename);
-					this.doAppendGeneration(xDoc, "ui/menus/resmenu.xsl",
+					this.doAppendGeneration(xDoc, RESMENU_XSL,
 							oTargetFile, p_oProject, p_oContext);
 				}
 			}
@@ -106,7 +115,7 @@ public class MenuGenerator extends
 
 	private void handleActionOnWorkspace(
 			DomainGeneratorContext p_oContext,
-			XProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> p_oProject,
+			MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> p_oProject,
 			MScreen p_oScreen, MMenu p_oMenu) throws Exception {
 		
 		List<MMenuItem> itemToRemove = new ArrayList<MMenuItem>();
@@ -122,11 +131,16 @@ public class MenuGenerator extends
 					MMenuActionItem oActionMenu = (MMenuActionItem) oMenuItem;
 					
 					if (oActionMenu.getNavigationButton() != null
-							&& oActionMenu
+							&& (oActionMenu
 									.getNavigationButton()
 									.getNavigation()
 									.getNavigationType()
-									.equals(MNavigationType.NAVIGATION_WKS_SWITCHPANEL)) {
+									.equals(MNavigationType.NAVIGATION_WKS_SWITCHPANEL)
+								|| oActionMenu
+									.getNavigationButton()
+									.getNavigation()
+									.getNavigationType()
+									.equals(MNavigationType.NAVIGATION_INFO))) {
 						oTempListMenu.addMenuItem(oActionMenu);
 						// si le menuitem est ajouter dans un fichier le
 						// supprimer
@@ -161,7 +175,7 @@ public class MenuGenerator extends
 
 	private void createActionListMenu(
 			DomainGeneratorContext p_oContext,
-			XProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> p_oProject,
+			MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> p_oProject,
 			MScreen p_oScreen, MMenu p_oMenu) throws Exception {
 		
 		// add menu to master
@@ -183,16 +197,15 @@ public class MenuGenerator extends
 		sFilename.append(p_oMenu.getId().toLowerCase());
 		sFilename.append(".xml");
 
-		File oTargetFile = new File("res/menu/", sFilename.toString());
+		File oTargetFile = new File(p_oProject.getMenuDir(), sFilename.toString());
 
 		log.debug("  generate menu file: {}", sFilename);
-		this.doAppendGeneration(xDoc, "ui/menus/resmenu.xsl", oTargetFile,
-				p_oProject, p_oContext);
+		this.doAppendGeneration(xDoc, RESMENU_XSL, oTargetFile, p_oProject, p_oContext);
 	}
 
 	private void createActionDetailMenu(
 			DomainGeneratorContext p_oContext,
-			XProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> p_oProject,
+			MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> p_oProject,
 			MScreen p_oScreen, MMenu p_oMenu) throws Exception {
 		
 		// get pages and add menu
@@ -214,10 +227,9 @@ public class MenuGenerator extends
 		sFilename.append(p_oMenu.getId().toLowerCase());
 		sFilename.append(".xml");
 
-		File oTargetFile = new File("res/menu/", sFilename.toString());
+		File oTargetFile = new File(p_oProject.getMenuDir(), sFilename.toString());
 
 		log.debug("  generate menu file: {}", sFilename);
-		this.doAppendGeneration(xDoc, "ui/menus/resmenu.xsl", oTargetFile,
-				p_oProject, p_oContext);
+		this.doAppendGeneration(xDoc, RESMENU_XSL, oTargetFile, p_oProject, p_oContext);
 	}
 }

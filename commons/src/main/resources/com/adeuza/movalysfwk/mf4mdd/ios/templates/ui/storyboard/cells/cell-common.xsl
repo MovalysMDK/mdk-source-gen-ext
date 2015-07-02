@@ -111,7 +111,7 @@
 	<xsl:comment> [cell-common.xsl] subView[customClass='<xsl:value-of select="customClass"/>'] mode='gen-table-cell-view' (controllerId=<xsl:value-of select="$controllerId"/>, viewId=<xsl:value-of select="$viewId"/>)</xsl:comment>
 
 	<xsl:if test="@visibleLabel='true'">
-	<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" customClass="MFLabel">
+	<label contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" customClass="MFLabel" opaque="NO">
 		<xsl:attribute name="id"><xsl:value-of select="$viewId"/>-L</xsl:attribute>
 		<constraints>
 			<constraint constant="{@labelViewHeight}" firstAttribute="height">
@@ -119,8 +119,19 @@
 	    	    <xsl:attribute name="multiplier">1</xsl:attribute>
 			</constraint>
 		</constraints>
-	</view>
+	</label>
 	</xsl:if>
+	
+	<xsl:apply-templates select="." mode="gen-table-cell-view-type">
+		<xsl:with-param name="controllerId"><xsl:value-of select="$controllerId"/></xsl:with-param>
+		<xsl:with-param name="viewId"><xsl:value-of select="$viewId"/></xsl:with-param>
+	</xsl:apply-templates>
+	
+</xsl:template>
+
+<xsl:template match="subView[customClass!='MFLabel']" mode="gen-table-cell-view-type" priority="1">
+		<xsl:param name="controllerId"/>
+		<xsl:param name="viewId"/>
 	
 	<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO">
 		<xsl:attribute name="customClass"><xsl:value-of select="customClass"/></xsl:attribute>
@@ -139,9 +150,7 @@
 		</constraints>
 		</xsl:if>
 	</view>
-
 </xsl:template>
-
 
 <xsl:template match="subView[customClass!='MFLabel']" mode="gen-table-cell-constraints">
 	<xsl:param name="parentId"/>

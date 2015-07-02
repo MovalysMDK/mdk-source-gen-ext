@@ -52,9 +52,10 @@ MFRegister_ActionListenerOnMyLaunchedActionFailed(MFAction_<xsl:value-of select=
 		<xsl:with-param name="blocId">failedSaveAction</xsl:with-param>
 		<xsl:with-param name="defaultSource">
     		[[MFApplication getInstance] execInMainQueue:^{
-        	UIAlertView *errorAlert = [[UIAlertView alloc]
+        	MFAlertView *errorAlert = [[MFAlertView alloc]
         		initWithTitle:MFLocalizedStringFromKey(@"form_savefailed_title")
             	message:MFLocalizedStringFromKey(@"form_savefailed_message")
+            	identifier:kFailedSavedAction
             	delegate:nil cancelButtonTitle:MFLocalizedStringFromKey(@"form_savefailed_ok")
             	otherButtonTitles:nil, nil];
         	[errorAlert show];
@@ -107,9 +108,10 @@ MFRegister_ActionListenerOnMyLaunchedActionFailed(MFAction_MFChainSaveDetailActi
 		<xsl:with-param name="blocId">failedSaveAction</xsl:with-param>
 		<xsl:with-param name="defaultSource">
     		[[MFApplication getInstance] execInMainQueue:^{
-        	UIAlertView *errorAlert = [[UIAlertView alloc]
+        	MFAlertView *errorAlert = [[MFAlertView alloc]
         		initWithTitle:MFLocalizedStringFromKey(@"form_savefailed_title")
             	message:MFLocalizedStringFromKey(@"form_savefailed_message")
+            	identifier:kFailedSavedAction
             	delegate:nil cancelButtonTitle:MFLocalizedStringFromKey(@"form_savefailed_ok")
             	otherButtonTitles:nil, nil];
         	[errorAlert show];

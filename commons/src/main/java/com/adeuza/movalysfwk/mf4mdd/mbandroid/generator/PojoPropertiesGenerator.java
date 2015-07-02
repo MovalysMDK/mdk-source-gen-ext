@@ -15,6 +15,7 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.mbandroid.generator;
 
+import org.apache.commons.io.FilenameUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import com.a2a.adjava.generator.core.override.AbstractOverrideGenerator;
 import com.a2a.adjava.generators.DomainGeneratorContext;
+import com.a2a.adjava.languages.android.xmodele.MAndroidProject;
 import com.a2a.adjava.utils.Chrono;
 import com.a2a.adjava.xmodele.MDaoImpl;
 import com.a2a.adjava.xmodele.MEntityImpl;
@@ -66,6 +68,9 @@ public class PojoPropertiesGenerator extends AbstractOverrideGenerator<MF4ADomai
 		log.debug("> PojoPropertiesGenerator.genere");
 		Chrono oChrono = new Chrono(true);
 		
+		MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> oAndroidProject = 
+				(MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>>) p_oMProject;
+		
 		// At least an entity or a dataloader to create the file beans_model
 		if ( !p_oMProject.getDomain().getDictionnary().getAllEntities().isEmpty() ||
 				!p_oMProject.getDomain().getDictionnary().getAllDataLoaders().isEmpty()) {
@@ -101,8 +106,7 @@ public class PojoPropertiesGenerator extends AbstractOverrideGenerator<MF4ADomai
 				xLoader.addElement("implementation").setText(oLoader.getFullName());
 			}
 			
-			String sTargetFile = new StringBuilder("res/raw/")
-					.append(GENERATED_FILE).toString();
+			String sTargetFile = FilenameUtils.concat(oAndroidProject.getRawDirectory(), GENERATED_FILE);
 
 			Document xInterfacesDocument = DocumentHelper.createDocument(xRoot);
 			this.doOverrideTransform(XSL_FILE_NAME, sTargetFile, xInterfacesDocument, p_oMProject, p_oContext);

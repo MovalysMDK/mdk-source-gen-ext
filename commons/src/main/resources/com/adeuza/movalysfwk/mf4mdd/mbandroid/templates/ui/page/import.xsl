@@ -29,15 +29,45 @@
 		<xsl:with-param name="debug"></xsl:with-param>
 		</xsl:apply-templates>
 
+		<xsl:choose>
+			<xsl:when test="./viewmodel/type/name='LIST_1'">
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/entity-to-update/full-name" mode="declare-import"/>
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/implements/interface/@full-name" mode="declare-import"/>
+				<xsl:apply-templates select="./viewmodel/implements/interface/@full-name" mode="declare-import"/>
+			</xsl:when>
+			<xsl:when test="./viewmodel/type/name='LIST_2'">
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/entity-to-update/full-name" mode="declare-import"/>
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/subvm/viewmodel/entity-to-update/full-name" mode="declare-import"/>
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@full-name" mode="declare-import"/>
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/implements/interface/@full-name" mode="declare-import"/>
+			</xsl:when>
+			<xsl:when test="./viewmodel/type/name='LIST_3'">
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/entity-to-update/full-name" mode="declare-import"/>
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/subvm/viewmodel/entity-to-update/full-name" mode="declare-import"/>
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/subvm/viewmodel/subvm/viewmodel/entity-to-update/full-name" mode="declare-import"/>
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@full-name" mode="declare-import"/>
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/subvm/viewmodel/implements/interface/@full-name" mode="declare-import"/>
+				<xsl:apply-templates select="./viewmodel/subvm/viewmodel/implements/interface/@full-name" mode="declare-import"/>
+			</xsl:when>
+		</xsl:choose>
+
 		<xsl:if test="external-adapters/adapter[short-adapter='AbstractConfigurableSpinnerAdapter' and viewmodel/type/component-name='MMSpinner']">
-			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.abstractviews.MMSpinnerAdapterHolder</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKBaseAdapter</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKSpinnerAdapter</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.connectors.MDKViewConnectorWrapper</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.component.configurable.WidgetWrapperHelper</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSpinner</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel</import>
 			<xsl:apply-templates select="external-adapters/adapter/viewmodel/entity-to-update/full-name" mode="declare-import"/>
 			<xsl:apply-templates select="external-adapters/adapter/viewmodel/implements/interface/@full-name" mode="declare-import"/>
 		</xsl:if>
 
 		<xsl:if test="external-adapters/adapter[short-adapter='AbstractConfigurableSpinnerAdapter' and viewmodel/type/component-name='MMSearchSpinner']">
-			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.abstractviews.MMSpinnerAdapterHolder</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKBaseAdapter</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKSpinnerAdapter</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.connectors.MDKViewConnectorWrapper</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.component.configurable.WidgetWrapperHelper</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSpinner</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSearchSpinner</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel</import>
 			<xsl:apply-templates select="external-adapters/adapter/viewmodel/entity-to-update/full-name" mode="declare-import"/>
@@ -77,8 +107,8 @@
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.InUpdateVMParameter</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.OutUpdateVMParameter</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4javacommons.dataloader.listener.ListenerOnDataLoaderReloadEvent</import>
+<!-- 		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.modele.AbstractConfigurableListAdapter</import> -->
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericsave.ChainSaveDetailAction</import>
-		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.modele.AbstractConfigurableListAdapter</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.AbstractAutoBindMMActivity</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.AbstractMMActivity</import>
 		<!-- <import><xsl:value-of select="master-package" />.viewmodel.ViewModelCreator</import> -->

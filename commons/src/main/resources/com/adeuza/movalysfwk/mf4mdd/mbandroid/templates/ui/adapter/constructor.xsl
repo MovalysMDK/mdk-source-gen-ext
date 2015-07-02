@@ -57,13 +57,18 @@
 </xsl:template>
 
 <!-- Constructor params javadoc for Flipper -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableFlipperExpandableListAdapter' or short-adapter='AbstractConfigurableExpandableListAdapter' or short-adapter='MultiSelectedExpandableListAdapter']"
+<xsl:template match="adapter[short-adapter='AbstractConfigurableFlipperExpandableListAdapter' or short-adapter='MDKFlipperAdapter']" 
+	mode="generate-constructor-parameters-javadoc">
+	* @param p_oMasterVM the parent view model
+</xsl:template>
+
+<xsl:template match="adapter[short-adapter='AbstractConfigurableExpandableListAdapter' or short-adapter='MDKExpandableAdapter' or short-adapter='MultiSelectedExpandableListAdapter']"
 	mode="generate-constructor-parameters-javadoc">
 	* @param p_oMasterVM the parent view model
 </xsl:template>
 
 <!-- Constructor params javadoc for List -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableListAdapter']" mode="generate-constructor-parameters-javadoc">
+<xsl:template match="adapter[short-adapter='AbstractConfigurableListAdapter' or short-adapter='MDKAdapter']" mode="generate-constructor-parameters-javadoc">
 	* @param p_oMasterVM the parent view model
 </xsl:template>
 
@@ -87,7 +92,17 @@
 </xsl:template>
 
 <!-- Constructor params for Flipper -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableFlipperExpandableListAdapter' or short-adapter='AbstractConfigurableExpandableListAdapter' or short-adapter='MultiSelectedExpandableListAdapter']"
+<xsl:template match="adapter[short-adapter='AbstractConfigurableFlipperExpandableListAdapter' or short-adapter='MDKFlipperAdapter']"
+	mode="generate-constructor-parameters">
+	<xsl:text>ListViewModel&lt;</xsl:text>
+	<xsl:value-of select="./viewmodel/entity-to-update/name"/>
+	<xsl:text>, </xsl:text>
+	<xsl:value-of select="./viewmodel/subvm/viewmodel/implements/interface/@name"/>
+	<xsl:text>> p_oMasterVM</xsl:text>
+</xsl:template>
+
+<!-- Constructor params for expandable -->
+<xsl:template match="adapter[short-adapter='AbstractConfigurableExpandableListAdapter' or short-adapter='MDKExpandableAdapter' or short-adapter='MultiSelectedExpandableListAdapter']"
 	mode="generate-constructor-parameters">
 	<xsl:text>ListViewModel&lt;</xsl:text>
 	<xsl:value-of select="./viewmodel/entity-to-update/name"/>
@@ -97,7 +112,7 @@
 </xsl:template>
 
 <!-- Constructor params for List -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableListAdapter']" mode="generate-constructor-parameters">
+<xsl:template match="adapter[short-adapter='AbstractConfigurableListAdapter' or short-adapter='MDKAdapter']" mode="generate-constructor-parameters">
 	<xsl:value-of select="./viewmodel/implements/interface/@name"/>
 	<xsl:text> p_oMasterVM</xsl:text>
 </xsl:template>
@@ -137,7 +152,7 @@
 </xsl:template>
 
 <!-- Constructor.super() params for Spinner -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableSpinnerAdapter' and name='ConfigurableSpinnerAdapter']" mode="generate-super-constructor-parameters">
+<xsl:template match="adapter[(short-adapter='AbstractConfigurableSpinnerAdapter' and name='ConfigurableSpinnerAdapter') or name='MDKSpinnerAdapter']" mode="generate-super-constructor-parameters">
 	<xsl:variable name="selectedComponent">
 		<xsl:choose>
 			<xsl:when test="layouts/layout[1]/visualfields/visualfield[contains(component, 'MMSpinnerCheckedTextView') and string-length(substring-after(component, 'MMSpinnerCheckedTextView')) = 0]">
@@ -155,7 +170,7 @@
 </xsl:template>
 
 <!-- Constructor.super() params for flipper -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableFlipperExpandableListAdapter']" mode="generate-super-constructor-parameters">
+<xsl:template match="adapter[short-adapter='AbstractConfigurableFlipperExpandableListAdapter' or short-adapter='MDKFlipperAdapter']" mode="generate-super-constructor-parameters">
 p_oMasterVM,
 R.layout.<xsl:value-of  select="./layouts/layout[2]/name"/>, R.id.<xsl:value-of  select="./layouts/layout[2]/name"/>,
 R.layout.<xsl:value-of  select="./layouts/layout[3]/name"/>, R.id.<xsl:value-of  select="./layouts/layout[3]/name"/>,
@@ -163,7 +178,7 @@ R.layout.<xsl:value-of  select="./layouts/layout[4]/name"/>, R.id.<xsl:value-of 
 </xsl:template>
 
 <!-- Constructor.super() params for expandable list -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableExpandableListAdapter' or short-adapter='MultiSelectedExpandableListAdapter']" mode="generate-super-constructor-parameters">
+<xsl:template match="adapter[short-adapter='AbstractConfigurableExpandableListAdapter' or short-adapter='MDKExpandableAdapter' or short-adapter='MultiSelectedExpandableListAdapter']" mode="generate-super-constructor-parameters">
 p_oMasterVM,
 R.layout.<xsl:value-of  select="./layouts/layout[2]/name"/>, R.id.<xsl:value-of  select="./layouts/layout[2]/name"/>,
 R.layout.<xsl:value-of  select="./layouts/layout[3]/name"/>, R.id.<xsl:value-of  select="./layouts/layout[3]/name"/>
@@ -171,7 +186,7 @@ R.layout.<xsl:value-of  select="./layouts/layout[3]/name"/>, R.id.<xsl:value-of 
 
 
 <!-- Constructor params.super() for list -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableListAdapter']" mode="generate-super-constructor-parameters">
+<xsl:template match="adapter[short-adapter='AbstractConfigurableListAdapter' or short-adapter='MDKAdapter']" mode="generate-super-constructor-parameters">
 	
 	<xsl:text>p_oMasterVM, R.layout.</xsl:text>
 	<xsl:value-of  select="./layouts/layout[2]/name"/>

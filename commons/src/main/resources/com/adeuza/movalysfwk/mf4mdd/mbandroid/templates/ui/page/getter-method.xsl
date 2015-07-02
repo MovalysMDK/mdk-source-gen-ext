@@ -32,7 +32,7 @@
 		 * @return the adapter for the spinner <xsl:value-of select="position()"/>
 		 */
 		<xsl:text>public </xsl:text><xsl:value-of select="name"/>
-		<xsl:if test="name='ConfigurableSpinnerAdapter'">
+		<xsl:if test="name='ConfigurableSpinnerAdapter' or name='MDKSpinnerAdapter'">
 			<xsl:text>&lt;</xsl:text><xsl:value-of select="viewmodel/entity-to-update/name"/>
 			<xsl:text>, </xsl:text><xsl:value-of select="viewmodel/implements/interface/@name"/>
 			<xsl:text>, ListViewModel</xsl:text>

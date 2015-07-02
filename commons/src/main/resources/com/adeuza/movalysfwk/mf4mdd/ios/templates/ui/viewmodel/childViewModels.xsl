@@ -32,6 +32,16 @@
 }
 </xsl:template>
 
+<xsl:template match="viewmodel" mode="getPropertyNameInParent-method">
+	<xsl:if test="parent-viewmodel">
+	<xsl:text>-(NSString *)propertyNameInParentViewModel {&#13;</xsl:text>
+	<xsl:text>return @"</xsl:text>
+	<xsl:value-of select="property-name"/>
+	<xsl:text>";&#13;</xsl:text>
+	}
+	</xsl:if>
+</xsl:template>
+
 <xsl:template match="viewmodel" mode="getChildViewModels-method-body">
 	NSMutableArray *result = [[NSMutableArray alloc] init];
 	<xsl:for-each select="subvm/viewmodel">

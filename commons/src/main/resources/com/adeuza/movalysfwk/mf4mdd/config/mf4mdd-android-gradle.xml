@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adjava-project>
+
+	<domains>
+		<domain name="mbandroid">
+			<projects>
+				<project name="app">
+					<resource-generators>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.PojoCascadeGenerator" />
+						<generator class="com.adeuza.movalysfwk.mf4mdd.commons.generator.PojoCsvGenerator" />
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.PojoPropertiesGenerator" />
+
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.DaoFieldEnumGenerator" />
+						<generator class="com.adeuza.movalysfwk.mf4mdd.commons.generator.DaoExtendsGenerator">
+							<property name="suffix-naming" value="DaoImpl" />
+						</generator>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.SqliteSchemaGenerator" />
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.EntityHelperPropertiesGenerator" />
+					
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.ViewModelPropertiesGenerator" />
+						
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.DataLoaderGenerator"/>
+						
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.ActionPropertiesGenerator" />
+						
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.LayoutGenerator" />
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.LabelGenerator" />
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.MenuGenerator" />
+
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.PanelGenerator" />
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.WorkspaceTabFragmentGenerator" />
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.WorkspaceTabLayoutGenerator" />
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.ProcessMainActivityGenerator" />
+
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.ManifestGenerator" />
+						
+						<generator class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.ScreenTestGenerator" />
+					</resource-generators>
+				</project>
+			</projects>
+		</domain>
+	</domains>
+
+</adjava-project>

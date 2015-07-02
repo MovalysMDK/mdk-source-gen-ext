@@ -40,7 +40,6 @@ import com.a2a.adjava.xmodele.MScreen;
 import com.a2a.adjava.xmodele.MViewModelImpl;
 import com.a2a.adjava.xmodele.MVisualField;
 import com.a2a.adjava.xmodele.XModele;
-import com.a2a.adjava.xmodele.XProject;
 import com.a2a.adjava.xmodele.ui.component.MMultiPanelConfig;
 import com.a2a.adjava.xmodele.ui.menu.MMenu;
 import com.a2a.adjava.xmodele.ui.menu.MMenuActionItem;
@@ -117,8 +116,7 @@ public class MF4AModeleFactory extends MAndroidModeleFactory implements MFModelF
 	public MPage createPage(MScreen p_oParent, IDomain<IModelDictionary, IModelFactory> p_oDomain, String p_sPageName,
 			UmlClass p_oUmlPage, MPackage p_oPackage, MViewModelImpl p_oVmImpl,
 			boolean p_bTitled) {
-		XProject oProjet = p_oDomain.getProject("application");
-		MPage r_oPage = oProjet.getDomain().getDictionnary().getPanel(p_sPageName);
+		MPage r_oPage = p_oDomain.getDictionnary().getPanel(p_sPageName);
 		if (r_oPage==null) {
 			r_oPage = new MF4APage(p_oParent, p_sPageName, p_oUmlPage, p_oPackage, p_oVmImpl, p_bTitled);
 		}
@@ -235,8 +233,8 @@ public class MF4AModeleFactory extends MAndroidModeleFactory implements MFModelF
 	@Override
 	public MAdapter createExternalAdapter(IDomain<IModelDictionary, IModelFactory> p_oDomain,
 			ViewModelTypeConfiguration p_oTypeParameters, MViewModelImpl p_oVm, String p_sBaseName) {
-		MAdapter oAdapter = new MAdapter("ConfigurableSpinnerAdapter", 
-				new MPackage("com.adeuza.movalysfwk.mobile.mf4android.ui.modele", null),
+		MAdapter oAdapter = new MAdapter("MDKSpinnerAdapter", 
+				new MPackage("com.adeuza.movalysfwk.mobile.mf4android.ui.adapters", null),
 				p_oTypeParameters.getAdapterName(), 
 				p_oTypeParameters.getAdapterFullName());
 

@@ -43,10 +43,6 @@
 
 	<xsl:comment> [cell-fixedlistphotocomponent.xsl] subView[customClass='<xsl:value-of select="customClass"/>'] mode='gen-table-cell-runtime-attributes'</xsl:comment>
 
-	<userDefinedRuntimeAttributes>
-		<userDefinedRuntimeAttribute type="string" keyPath="mf.formDescriptorName" value="{linkedType}" /><!-- todo -->
-	</userDefinedRuntimeAttributes>
-
 </xsl:template>
 
 </xsl:stylesheet>

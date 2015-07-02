@@ -36,7 +36,7 @@
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericsave.ChainSaveActionDetailParameter</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericsave.ChainSaveDetailAction</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdelete.ChainDeleteDetailAction</import>
-		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.modele.AbstractConfigurableListAdapter</import>
+<!-- 		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.modele.AbstractConfigurableListAdapter</import> -->
 		<import>android.support.v4.view.ViewPager.PageTransformer</import>
 		<xsl:if test="main = 'true'">
 			<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.displaymain.MFRootActivity</import>
@@ -91,7 +91,6 @@
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">doOnReload</xsl:with-param>
 				<xsl:with-param name="defaultSource">
-					this.inflateLayout(); // Suppression / affichage champ personnalisé.
 					<xsl:apply-templates select="." mode="generate-doOnReload-body">
 						<xsl:with-param name="viewmodel" select="/screen/viewmodel/implements/interface/@name"/>
 						<xsl:with-param name="isScreenVm" select="true"/>

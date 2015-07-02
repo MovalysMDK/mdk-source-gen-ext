@@ -26,7 +26,7 @@
 	</xsl:template>
 
 	<!-- Flipper adapter Imports -->
-	<xsl:template match="adapter[short-adapter='AbstractConfigurableFlipperExpandableListAdapter']" mode="generate-imports">
+	<xsl:template match="adapter[short-adapter='AbstractConfigurableFlipperExpandableListAdapter' or short-adapter='MDKFlipperAdapter']" mode="generate-imports">
 		<xsl:call-template name="displayDetailImports"/>
 		<import>com.adeuza.movalysfwk.mobile.mf4javacommons.event.AbstractBusinessEvent</import>
 		<import><xsl:value-of select="./viewmodel/import"/></import>
@@ -40,7 +40,7 @@
 	</xsl:template>
 
 	<!-- ExpandableListAdapter Imports -->
-	<xsl:template match="adapter[short-adapter='AbstractConfigurableExpandableListAdapter']" mode="generate-imports">
+	<xsl:template match="adapter[short-adapter='AbstractConfigurableExpandableListAdapter' or short-adapter='MDKExpandableAdapter']" mode="generate-imports">
 		<xsl:call-template name="displayDetailImports"/>
 		<import>com.adeuza.movalysfwk.mobile.mf4javacommons.event.AbstractBusinessEvent</import>
 		<import><xsl:value-of select="./viewmodel/import"/></import>
@@ -64,8 +64,9 @@
 	</xsl:template>
 
 	<!-- List adapter imports -->
-	<xsl:template match="adapter[short-adapter='AbstractConfigurableListAdapter']" mode="generate-imports">
+	<xsl:template match="adapter[short-adapter='AbstractConfigurableListAdapter' or short-adapter='MDKAdapter']" mode="generate-imports">
 		<xsl:call-template name="displayDetailImports"/>
+		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ViewModel</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4javacommons.event.AbstractBusinessEvent</import>
 		<import><xsl:value-of select="./viewmodel/entity-to-update/full-name"/></import>
 		<import><xsl:value-of select="./viewmodel/implements/interface/@full-name"/></import>

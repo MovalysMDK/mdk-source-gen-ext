@@ -15,6 +15,7 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.mbandroid.generator;
 
+import org.apache.commons.io.FilenameUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import com.a2a.adjava.generator.core.override.AbstractOverrideGenerator;
 import com.a2a.adjava.generators.DomainGeneratorContext;
+import com.a2a.adjava.languages.android.xmodele.MAndroidProject;
 import com.a2a.adjava.utils.Chrono;
 import com.a2a.adjava.xmodele.MViewModelImpl;
 import com.a2a.adjava.xmodele.XProject;
@@ -61,26 +63,27 @@ public class ViewModelPropertiesGenerator extends AbstractOverrideGenerator<MF4A
 		log.debug("> ViewModelPropertiesGenerator.genere");
 		Chrono oChrono = new Chrono(true);
 		
-			Element xVms = DocumentHelper.createElement("viewmodels");
-
-			Element xElement = xVms.addElement("vm");
-			if (p_oMProject.getDomain().getDictionnary().getViewModelCreator()!=null) {
-				xElement.addElement("itf").setText("viewmodelcreator");
-				xElement.addElement("impl").setText(p_oMProject.getDomain().getDictionnary().getViewModelCreator().getFullName());
-			}
-			for (MViewModelImpl oVm : p_oMProject.getDomain().getDictionnary().getAllViewModels()) {
-					xElement = xVms.addElement("vm");
-					xElement.addElement("itf").setText(oVm.getMasterInterface().getFullName());
-					xElement.addElement("impl").setText(oVm.getFullName());
-			}
-
-			String sTargetFile = new StringBuilder("res/raw/")
-					.append(GENERATED_FILE).toString();
-
-			Document xInterfacesDocument = DocumentHelper.createDocument(xVms);
-			this.doOverrideTransform(XSL_FILE_NAME, sTargetFile, xInterfacesDocument, p_oMProject, p_oContext);
+		MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>> oAndroidProject = 
+				(MAndroidProject<MF4ADomain<MF4ADictionnary, MF4AModeleFactory>>) p_oMProject;
 		
+		Element xVms = DocumentHelper.createElement("viewmodels");
+
+		Element xElement = xVms.addElement("vm");
+		if (p_oMProject.getDomain().getDictionnary().getViewModelCreator()!=null) {
+			xElement.addElement("itf").setText("viewmodelcreator");
+			xElement.addElement("impl").setText(p_oMProject.getDomain().getDictionnary().getViewModelCreator().getFullName());
+		}
+		for (MViewModelImpl oVm : p_oMProject.getDomain().getDictionnary().getAllViewModels()) {
+				xElement = xVms.addElement("vm");
+				xElement.addElement("itf").setText(oVm.getMasterInterface().getFullName());
+				xElement.addElement("impl").setText(oVm.getFullName());
+		}
+
+		String sTargetFile = FilenameUtils.concat(oAndroidProject.getRawDirectory(), GENERATED_FILE);
+
+		Document xInterfacesDocument = DocumentHelper.createDocument(xVms);
+		this.doOverrideTransform(XSL_FILE_NAME, sTargetFile, xInterfacesDocument, p_oMProject, p_oContext);
 		
 		log.debug("< ViewModelPropertiesGenerator.genere: {}", oChrono.stopAndDisplay());
-		}
 	}
+}
