@@ -15,9 +15,6 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.mbandroid.extractors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.a2a.adjava.languages.java.JavaTypes;
 import com.a2a.adjava.xmodele.MLinkedInterface;
 import com.a2a.adjava.xmodele.MViewModelImpl;
@@ -33,11 +30,6 @@ import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MFModelFactory;
  * Extractor for the dataloaders 
  */
 public class MF4ADataLoaderExtractor extends DataLoaderExtractor<MFDomain<MFModelDictionary,MFModelFactory>> {
-
-	/**
-	 * Logger
-	 */
-	private static final Logger log = LoggerFactory.getLogger(MF4ADataLoaderExtractor.class);
 	
 	/**
 	 * {@inheritDoc}
@@ -48,7 +40,6 @@ public class MF4ADataLoaderExtractor extends DataLoaderExtractor<MFDomain<MFMode
 		p_oDataLoader.addImport(MF4ATypes.MContext.getImport());
 		p_oDataLoader.addImport(MF4ATypes.CascadeSet.getImport());
 		p_oDataLoader.addImport(MF4ATypes.BeanLoader.getImport());
-		p_oDataLoader.addImport(MF4ATypes.DaoException.getImport());
 		p_oDataLoader.addImport(MF4ATypes.DataloaderParts.getImport());
 		p_oDataLoader.getMasterInterface().addImport(MF4ATypes.DataloaderParts.getImport());
 
