@@ -94,16 +94,14 @@
 			<xsl:variable name="comboAttrName">
 				<xsl:text>combo</xsl:text><xsl:value-of select="."/><xsl:text>DataModel</xsl:text>
 			</xsl:variable>
-			<xsl:text>combosDaoCalls.push(&#10;</xsl:text>
 			
 			<xsl:if test="transient!='true'">
+				<xsl:text>combosDaoCalls.push(&#10;</xsl:text>
 				<xsl:value-of select="."/><xsl:text>DaoProxy.getList</xsl:text><xsl:value-of select="."/>(context, []).then(function(combo<xsl:value-of select="."/><xsl:text>ModelEntities) {&#10;
 				 self.</xsl:text><xsl:value-of select="$comboAttrName"/><xsl:text> = combo</xsl:text><xsl:value-of select="."/><xsl:text>ModelEntities;&#10;</xsl:text>
 				<xsl:text>})&#10;</xsl:text>
-			</xsl:if>			
-			
-			
-			<xsl:text>) ;&#10;</xsl:text>
+				<xsl:text>) ;&#10;</xsl:text>
+			</xsl:if>	
 		</xsl:for-each>
 			
 			
