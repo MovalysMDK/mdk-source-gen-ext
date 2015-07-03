@@ -25,27 +25,26 @@
 <xsl:include href="commons/non-generated.xsl"/>
 <xsl:include href="commons/constants.xsl"/>
 <xsl:include href="commons/replace-all.xsl"/>
-<xsl:include href="binding/bindingStructure-fixedListItem.xsl"/>
+<xsl:include href="binding/bindingStructure-pickerListItem.xsl"/>
 
 
-<xsl:template match="xib-container">
+<xsl:template match="multi-xib-container">
 <xsl:apply-templates select="." mode="file-header">
-	<xsl:with-param name="fileName"><xsl:value-of select="view-fixedlist-name"/>.m</xsl:with-param>
+	<xsl:with-param name="fileName"><xsl:value-of select="name"/>.m</xsl:with-param>
 </xsl:apply-templates>
 
-<xsl:apply-templates select="view-fixedlist-name" mode="import"/>
-<xsl:apply-templates select="detailscreen-viewcontroller-name" mode="import"/>
+<xsl:apply-templates select="name" mode="import"/>
 
 <xsl:apply-templates select="." mode="declare-impl-imports"/>
 
-<xsl:text>&#13;@interface </xsl:text><xsl:value-of select="view-fixedlist-name"/>()<xsl:text>&#13;</xsl:text>
+<xsl:text>&#13;@interface </xsl:text><xsl:value-of select="name"/>()<xsl:text>&#13;</xsl:text>
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">class-extension</xsl:with-param>
 	<xsl:with-param name="defaultSource"/>
 </xsl:call-template>
 <xsl:text>&#13;@end&#13;</xsl:text>
 
-<xsl:text>&#13;@implementation </xsl:text><xsl:value-of select="view-fixedlist-name"/> {
+<xsl:text>&#13;@implementation </xsl:text><xsl:value-of select="name"/> {
 <xsl:text>&#13;</xsl:text>
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">instance-variables</xsl:with-param>
@@ -66,130 +65,40 @@
 
 <xsl:text>&#13;&#13;</xsl:text>
 
--(id) init {
-    self = [super init];
-    if(self ) {
-	    <xsl:call-template name="non-generated-bloc">
-			<xsl:with-param name="blocId">init</xsl:with-param>
-		</xsl:call-template>
-    }
-    return self;
-}
-
 -(void) createBindingStructure {
-	<xsl:apply-templates select="." mode="createBindingStructure-method-fixedlist"/>
+	<xsl:call-template name="non-generated-bloc">
+		<xsl:with-param name="blocId">createBindingStructure-method</xsl:with-param>
+		<xsl:with-param name="defaultSource">
+		    MFPickerListConfiguration *pickerListConfiguration = [MFPickerListConfiguration createPickerListConfigurationForObjectWithBinding:self];
+		    [self createSelectedItemBindingStructure:pickerListConfiguration];
+		    [self createListItemBindingStructure:pickerListConfiguration];
+	   </xsl:with-param>
+    </xsl:call-template>
 }
 
-- (void)setContent {
-    [super setContent];
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">setContent</xsl:with-param>
+-(void) createSelectedItemBindingStructure:(MFPickerListConfiguration *)pickerListConfiguration {
+   	<xsl:call-template name="non-generated-bloc">
+		<xsl:with-param name="blocId">createSelectedItemBindingStructure-method</xsl:with-param>
+		<xsl:with-param name="defaultSource">
+				<xsl:apply-templates select="./xibs/xib[./xibType = 'COMBOVIEWITEM']" mode="createBindingStructure-method-pickerlist-section-subview"/>
+	  	</xsl:with-param>
+    </xsl:call-template>
+
+
+}
+
+-(void) createListItemBindingStructure:(MFPickerListConfiguration *)pickerListConfiguration {
+   	<xsl:call-template name="non-generated-bloc">
+		<xsl:with-param name="blocId">createListItemBindingStructure-method</xsl:with-param>
+		<xsl:with-param name="defaultSource">
+			<xsl:apply-templates select="./xibs/xib[not(./xibType = 'COMBOVIEWITEM')]" mode="createBindingStructure-method-pickerlist-section-subview"/>
+		</xsl:with-param>
 	</xsl:call-template>
 }
 
--(NSString *)itemListViewModelName {
-<xsl:call-template name="non-generated-bloc">
-	<xsl:with-param name="blocId">itemListViewModelName</xsl:with-param>
-	<xsl:with-param name="defaultSource">
-	return @"<xsl:value-of select="viewmodel-item-name"/>";
-	</xsl:with-param>
-</xsl:call-template>
-}
-
--(void)itemChangedAtIndexPath:(NSIndexPath*)indexPath {
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">itemChangedAtIndexPath</xsl:with-param>
-	</xsl:call-template>
-}
-<xsl:if test="detailscreen-viewcontroller-name">
--(MFFormDetailViewController *) detailController {
-<xsl:call-template name="non-generated-bloc">
-	<xsl:with-param name="blocId">detailController</xsl:with-param>
-	<xsl:with-param name="defaultSource">
-    <xsl:value-of select="detailscreen-viewcontroller-name"/> *detailController = [[UIStoryboard storyboardWithName:@"<xsl:value-of select="detailscreen-storyboard-name"/>" bundle:nil] 
-    	instantiateViewControllerWithIdentifier:@"<xsl:value-of select="detailscreen-viewcontroller-name"/>"]; 
-    return detailController;
-    </xsl:with-param>
-</xsl:call-template>
-}
-</xsl:if>
-/** 
-  * @brief method launched when user delete an item of the list defined by his indexpath
-  * @param indexPath section and row of the deleted item
-  */
--(void) deleteItemMethodAtIndexPath:(NSIndexPath *) indexPath {
-     <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">deleteItemMethodAtIndexPath</xsl:with-param>
-	</xsl:call-template>
-}
-
-
-#pragma mark - Editing
-
-/** 
-  * @brief method launched when user click on the + button 
-  */
--(void) addItemMethod{
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">addItemMethod</xsl:with-param>
-	</xsl:call-template>   
-}
-
-/** 
-  * @brief method launched when user edit an item of the list
-  * @param indexPath section and row of the deleted item
-  */
--(void) editItemMethodAtIndexPath:(NSIndexPath *) indexPath {
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">editItemMethodAtIndexPath</xsl:with-param>
-	</xsl:call-template>   
-}
-
-
-#pragma mark - Buttons
-
--(NSArray *)customButtonsForFixedList {
-	NSArray * rButtons = nil;
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">customButtonsForFixedList</xsl:with-param>
-	</xsl:call-template>  
-    return rButtons;
-}
-
-/**
- * @brief Returns the margin to apply between two buttons in the topBarView of
- * the FixedList. Return the default value (by calling super implementation),
- * or return your own custom value here.
- * @return the margin (in pixels) to apply between two buttons in the topBarView of the FixedList.
- */
--(CGFloat)marginForCustomButtons {
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">marginForCustomButtons</xsl:with-param>
-	</xsl:call-template>  
-    return [super marginForCustomButtons];
-}
-
-/**
- * @brief Returns the size to apply on buttons in the topBarView of
- * the FixedList. Return the default value (by calling super implementation),
- * or return your own custom size here.
- * @return the size (in pixels) to apply on buttons in the topBarView of the FixedList.
- */
--(CGSize)sizeForCustomButtons {
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">sizeForCustomButtons</xsl:with-param>
-	</xsl:call-template>  
-    return [super sizeForCustomButtons];
-}
-
-<xsl:call-template name="non-generated-bloc">
-	<xsl:with-param name="blocId">other-methods</xsl:with-param>
-</xsl:call-template> 
 
 @end
-</xsl:template>
 
-<xsl:template match="node()" mode="declare-extra-imports">
 </xsl:template>
 
 </xsl:stylesheet>

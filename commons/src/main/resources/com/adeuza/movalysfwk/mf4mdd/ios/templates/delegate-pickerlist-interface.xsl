@@ -26,30 +26,26 @@
 <xsl:include href="commons/non-generated.xsl"/>
 <xsl:include href="commons/constants.xsl"/>
 <xsl:include href="commons/replace-all.xsl"/>
-<xsl:include href="ui/viewmodel/updateFromIdentifiable.xsl"/>
-<xsl:include href="ui/viewmodel/clear.xsl"/>
 
-<xsl:template match="viewmodel">
+<xsl:template match="multi-xib-container">
 
 <xsl:apply-templates select="." mode="file-header">
-	<xsl:with-param name="fileName"><xsl:value-of select="view-fixedlist-name"/>.h</xsl:with-param>
+	<xsl:with-param name="fileName"><xsl:value-of select="name"/>.h</xsl:with-param>
 </xsl:apply-templates>
 
 <xsl:apply-templates select="." mode="declare-protocol-imports"/>
 <xsl:apply-templates select="./type/component-name" mode="import"/>
 
-@interface <xsl:value-of select="view-fixedlist-name"/> : 
+@interface <xsl:value-of select="name"/> : 
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">class-signature</xsl:with-param>
-	<xsl:with-param name="defaultSource">MFFixedListDataDelegate</xsl:with-param>
+	<xsl:with-param name="defaultSource">MFPickerControllerDelegate</xsl:with-param>
 </xsl:call-template>
 
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">custom-properties</xsl:with-param>
 	<xsl:with-param name="defaultSource"/>
 </xsl:call-template>
-
--(void)setContent;
 
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">other-methods</xsl:with-param>
