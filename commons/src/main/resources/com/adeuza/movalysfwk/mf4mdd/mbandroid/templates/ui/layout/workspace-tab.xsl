@@ -36,7 +36,7 @@
 		android:layout_width="match_parent"	
 		android:layout_height="match_parent">
 		
-		<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMLinearLayout 
+		<LinearLayout 
 	        android:orientation="vertical"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
@@ -59,7 +59,7 @@
 					android:layout_height="0dp"
 					android:layout_weight="1"/>
 					
-		</com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMLinearLayout>
+		</LinearLayout>
 		
 	</android.support.v4.app.FragmentTabHost>
 	

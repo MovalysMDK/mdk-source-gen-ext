@@ -35,7 +35,7 @@
 		android:id="@+id/tabhost" 
 		android:layout_width="match_parent"	
 		android:layout_height="match_parent">
-		<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMLinearLayout 
+		<LinearLayout 
 	        android:orientation="vertical"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
@@ -51,7 +51,7 @@
 					android:layout_height="match_parent">
 	
 				</FrameLayout>
-		</com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMLinearLayout>
+		</LinearLayout>
 	</TabHost>
 </RelativeLayout>
 
