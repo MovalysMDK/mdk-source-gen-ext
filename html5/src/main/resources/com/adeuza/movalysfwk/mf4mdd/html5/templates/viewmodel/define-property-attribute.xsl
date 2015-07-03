@@ -28,12 +28,11 @@
 	         	<xsl:with-param name="name" select="@name"/>
 	         </xsl:apply-templates>
 	         
-	         <xsl:if test="not(@derived='true')">
-		         <xsl:apply-templates select="." mode="define-setter-method">
-		         	<xsl:with-param name="name" select="@name"/>
-		         	<xsl:with-param name="parameter-name" select="parameter-name" />
-		         </xsl:apply-templates>
-	         </xsl:if>
+		     <xsl:apply-templates select="." mode="define-setter-method">
+		       	<xsl:with-param name="name" select="@name"/>
+		       	<xsl:with-param name="parameter-name" select="parameter-name" />
+	        </xsl:apply-templates>
+		         
 	         <xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId"><xsl:text>attribute-</xsl:text><xsl:value-of select="@name"/><xsl:text>-settings</xsl:text></xsl:with-param>
 				<xsl:with-param name="defaultSource">

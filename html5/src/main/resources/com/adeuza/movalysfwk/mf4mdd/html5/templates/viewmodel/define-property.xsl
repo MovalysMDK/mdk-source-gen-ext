@@ -70,7 +70,10 @@
 		<xsl:param name="parameter-name" />
 		
 		<xsl:text>set: function (</xsl:text><xsl:value-of select="$parameter-name"/><xsl:text>) {&#10;</xsl:text>
-		<xsl:text>_</xsl:text><xsl:value-of select="$name"/><xsl:text> = </xsl:text><xsl:value-of select="$parameter-name"/><xsl:text>;&#10;</xsl:text>
+		
+	    <xsl:if test="not(@derived='true')">
+			<xsl:text>_</xsl:text><xsl:value-of select="$name"/><xsl:text> = </xsl:text><xsl:value-of select="$parameter-name"/><xsl:text>;&#10;</xsl:text>
+	    </xsl:if>
 
 		<xsl:variable name="setter" select="concat('setter-', $name)"/>
 		
