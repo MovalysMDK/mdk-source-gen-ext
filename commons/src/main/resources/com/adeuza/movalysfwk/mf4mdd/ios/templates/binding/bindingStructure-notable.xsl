@@ -25,7 +25,7 @@
 	<xsl:call-template name="non-generated-bloc">
 		<xsl:with-param name="blocId">createBindingStructure-notable</xsl:with-param>
 			<xsl:with-param name="defaultSource">
-				MFBindingViewDescriptor *viewDescriptor = [MFBindingViewDescriptor viewDescriptorWithCellBindingFormat:
+				MFBindingViewDescriptor *viewDescriptor = [MFBindingViewDescriptor viewDescriptorWithBindingFormat:
 				<xsl:apply-templates select="./sections/section[@isNoTable = 'true']/subViews/subView" mode="createBindingStructure-method-notable-section-subview-component-binding"/>
 		    	<xsl:apply-templates select="./sections/section[@isNoTable = 'true']/subViews/subView" mode="createBindingStructure-method-notable-section-subview-component-associated-label"/>
 		    	<xsl:apply-templates select="./sections/section[@isNoTable = 'true']/subViews/subView" mode="createBindingStructure-method-notable-section-subview-label-binding"/>

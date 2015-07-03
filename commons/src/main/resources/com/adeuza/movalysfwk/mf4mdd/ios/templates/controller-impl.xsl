@@ -35,7 +35,7 @@
 <xsl:include href="controller/search.xsl"/>
 <xsl:include href="controller/partialViewModel.xsl"/>
 <xsl:include href="controller/container.xsl"/>
-<xsl:include href="controller/binding/bindingStructure.xsl"/>
+<xsl:include href="binding/bindingStructure.xsl"/>
 
 <xsl:template match="controller">
 
@@ -92,7 +92,6 @@
 <xsl:apply-templates select="." mode="successUpdateVMActionMethod"/>
 <xsl:apply-templates select="." mode="nameOfViewModel-method"/>
 <xsl:apply-templates select="." mode="partialViewModel-methods"/>
-<xsl:apply-templates select="." mode="filter-methods"/>
 <xsl:apply-templates select="." mode="other-methods"/>
 <xsl:apply-templates select="." mode="search-methods"/>
 <xsl:apply-templates select="." mode="searchpanel-methods"/>
@@ -100,6 +99,7 @@
 
 <xsl:template match="controller[@controllerType = 'FIXEDLISTVIEW']" mode="methods">
 	<xsl:apply-templates select="." mode="init-methods"/>
+	<xsl:apply-templates select="." mode="createBindingStructure-method"/>
 	<xsl:apply-templates select="." mode="doFillAction-method"/>
 	<xsl:apply-templates select="." mode="nameOfViewModel-method"/>
 </xsl:template>

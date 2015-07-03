@@ -19,14 +19,14 @@
 
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:include href="controller/binding/bindingStructure-table.xsl"/>
-<xsl:include href="controller/binding/bindingStructure-mixte.xsl"/>
-<xsl:include href="controller/binding/bindingStructure-notable.xsl"/>
-<xsl:include href="controller/binding/bindingStructure-list.xsl"/>
-<xsl:include href="controller/binding/bindingStructure-list2D.xsl"/>
+<xsl:include href="binding/bindingStructure-table.xsl"/>
+<xsl:include href="binding/bindingStructure-mixte.xsl"/>
+<xsl:include href="binding/bindingStructure-notable.xsl"/>
+<xsl:include href="binding/bindingStructure-list.xsl"/>
+<xsl:include href="binding/bindingStructure-list2D.xsl"/>
 
 <!-- createBindingStructure method -->
-<xsl:template match="controller[@controllerType = 'FORMVIEW']" mode="createBindingStructure-method">
+<xsl:template match="controller[@controllerType = 'FORMVIEW'] | controller[@controllerType = 'FIXEDLISTVIEW']" mode="createBindingStructure-method">
 -(void) createBindingStructure {
 	<xsl:choose>
 		<xsl:when test="formType = 'TABLE'">

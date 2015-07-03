@@ -615,7 +615,7 @@
 						<language-type-options>
 							<minValue>0</minValue>
 							<maxValue>100</maxValue>
-							<step>100</step>
+							<step>1</step>
 						</language-type-options>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>72</component-height>
@@ -871,6 +871,10 @@
 							class="com.a2a.adjava.languages.ios.generators.ViewImplFixedListGenerator" />
 						<generator
 							class="com.a2a.adjava.languages.ios.generators.ViewInterfaceFixedListGenerator" />
+						<generator
+							class="com.a2a.adjava.languages.ios.generators.DelegateImplPickerListGenerator" />
+						<generator
+							class="com.a2a.adjava.languages.ios.generators.DelegateInterfacePickerListGenerator" />
 						<generator
 							class="com.a2a.adjava.languages.ios.generators.XibItemGenerator" />
 						

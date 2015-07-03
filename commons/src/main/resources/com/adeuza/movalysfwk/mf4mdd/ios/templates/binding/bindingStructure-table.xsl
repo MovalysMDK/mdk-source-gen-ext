@@ -33,12 +33,12 @@
 <xsl:template match="section" mode="createBindingStructure-method-table-section">
 	//<xsl:value-of select="@name"/>
 	[tableConfiguration createTableSectionWithName:@"<xsl:value-of select="@name"/>"];
-	<xsl:apply-templates select="./subViews/subView" mode="createBindingStructure-method-table-section-subview"/>		
+	<xsl:apply-templates select="./subViews/subView[localization != 'LIST']" mode="createBindingStructure-method-table-section-subview"/>		
 	
 </xsl:template>
 
 
-<xsl:template match="subView" mode="createBindingStructure-method-table-section-subview">
+<xsl:template match="subView[localization != 'LIST']" mode="createBindingStructure-method-table-section-subview">
     MFBindingCellDescriptor *<xsl:value-of select="../../@name"/>_<xsl:value-of select="propertyName"/>CellDescriptor =
     [MFBindingCellDescriptor cellDescriptorWithIdentifier:@"<xsl:value-of select="customClass"/>Cell<xsl:if test="@visibleLabel = 'false'">-noLabel</xsl:if>"
     withCellHeight:@(<xsl:value-of select="cellHeight"/>)

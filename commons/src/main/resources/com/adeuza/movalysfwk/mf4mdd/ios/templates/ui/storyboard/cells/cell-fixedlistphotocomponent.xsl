@@ -25,18 +25,6 @@
 	
 	<xsl:comment> [cell-fixedlistphotocomponent.xsl] subView[customClass='<xsl:value-of select="customClass"/>'] mode='gen-table-cell-view-runtime-attributes'</xsl:comment>
 
-	<userDefinedRuntimeAttributes>
-		<userDefinedRuntimeAttribute type="number" keyPath="mf.editMode">
-			<real key="value" value="0.0" />
-		</userDefinedRuntimeAttribute>
-		<userDefinedRuntimeAttribute type="number" keyPath="mf.rowHeight">
-			<real key="value" value="147" />
-		</userDefinedRuntimeAttribute>
-		<userDefinedRuntimeAttribute type="boolean" keyPath="mf.canAddItem" value="YES" />
-		<userDefinedRuntimeAttribute type="boolean" keyPath="mf.canEditItem" value="YES" />
-		<userDefinedRuntimeAttribute type="boolean" keyPath="mf.canDeleteItem" value="YES" />
-	</userDefinedRuntimeAttributes>
-
 </xsl:template>
 
 <xsl:template match="subView[(customClass='MFCellPhotoFixedList' or cellType='MFCellPhotoFixedList')]" mode="gen-table-cell-runtime-attributes">
