@@ -68,7 +68,7 @@
 						</com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSectionTitle>
 					</xsl:if>
 					
-					<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMScrollView  
+					<ScrollView  
 						android:layout_width="match_parent" 
 						android:layout_height="match_parent">
 						<xsl:attribute name="android:id">@+id/<xsl:value-of select="substring-before($addscroll, '__master')"/>scroll__visualpanel</xsl:attribute>
@@ -85,7 +85,7 @@
 						</xsl:apply-templates>
 						<xsl:apply-templates select="buttons/button"/>
 						</RelativeLayout>
-					</com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMScrollView>
+					</ScrollView>
 				</RelativeLayout>
 			</xsl:when>
 			<xsl:otherwise>
