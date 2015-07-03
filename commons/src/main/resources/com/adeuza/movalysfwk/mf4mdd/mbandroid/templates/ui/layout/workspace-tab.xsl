@@ -22,7 +22,7 @@
 
 <xsl:template match="workspace-tab-layout">
 
-<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMMasterRelativeLayout
+<RelativeLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -63,7 +63,7 @@
 		
 	</android.support.v4.app.FragmentTabHost>
 	
-</com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMMasterRelativeLayout>
+</RelativeLayout>
 
 	</xsl:template>
 
