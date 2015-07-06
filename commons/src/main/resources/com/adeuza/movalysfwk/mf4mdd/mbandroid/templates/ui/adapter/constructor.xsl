@@ -163,8 +163,26 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-	R.layout.<xsl:value-of  select="./layouts/layout[2]/name"/>, R.id.<xsl:value-of  select="./layouts/layout[2]/name"/>,
-	R.layout.<xsl:value-of  select="./layouts/layout[1]/name"/>, R.id.<xsl:value-of  select="./layouts/layout[1]/name"/>,
+	<xsl:text>R.layout.</xsl:text><xsl:value-of  select="./layouts/layout[2]/name"/><xsl:text>, R.id.</xsl:text>
+	<xsl:choose>
+		<xsl:when test="./layouts/layout[2]/visualfields[count(visualfield)>1]">
+			<xsl:value-of select="./layouts/layout[2]/name"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="./layouts/layout[2]/visualfields/visualfield[1]/name"/>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:text>,&#13;</xsl:text>
+	<xsl:text>R.layout.</xsl:text><xsl:value-of  select="./layouts/layout[1]/name"/><xsl:text>, R.id.</xsl:text>
+	<xsl:choose>
+		<xsl:when test="./layouts/layout[1]/visualfields[count(visualfield)>1]">
+			<xsl:value-of select="./layouts/layout[1]/name"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="./layouts/layout[1]/visualfields/visualfield[1]/name"/>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:text>,&#13;</xsl:text>
 	R.id.<xsl:value-of  select="$selectedComponent"/>,
 	R.id.<xsl:value-of select="./layouts/layout[2]/visualfields/visualfield[1]/name"/>
 </xsl:template>

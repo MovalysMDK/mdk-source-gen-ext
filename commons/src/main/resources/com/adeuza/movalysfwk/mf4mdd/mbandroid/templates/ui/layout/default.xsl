@@ -23,8 +23,9 @@
 <!-- Default visualfield generation -->
 <xsl:template match="visualfield">
 	<xsl:param name="titleId"/>
+	<xsl:param name="addNamespace"/>
 	<xsl:text>
-</xsl:text>
+	</xsl:text>
 	<xsl:variable name="precedingField" select="preceding-sibling::visualfield[1]"/>
 	
 	<!-- Label of component -->
@@ -37,6 +38,10 @@
 	<!--  Component -->
 	<xsl:text disable-output-escaping="yes"><![CDATA[<]]></xsl:text>
 	<xsl:value-of select="./component"/>
+	<xsl:if test="$addNamespace!=''">
+		xmlns:android="http://schemas.android.com/apk/res/android" 
+		xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
+	</xsl:if>
 	android:id="@+id/<xsl:value-of select="./name"/><xsl:text>"</xsl:text>
 
 	<xsl:apply-templates select="." mode="declare-component-style"/>
