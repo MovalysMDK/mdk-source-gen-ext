@@ -48,8 +48,8 @@
 				</ui-type>
 				<ui-type uml-name="Date">
 					<read-write>
-						<view-model-type>Long</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMDateEditText</language-type>
+						<view-model-type>Date</view-model-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichDate</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Long</view-model-type>
@@ -58,8 +58,8 @@
 				</ui-type>
 				<ui-type uml-name="DateTime">
 					<read-write>
-						<view-model-type>Long</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMDateTimeEditText</language-type>
+						<view-model-type>Date</view-model-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Long</view-model-type>
@@ -188,8 +188,8 @@
 				</ui-type>
 				<ui-type uml-name="Email">
 					<read-write>
-						<view-model-type>EMailVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEmailEditText</language-type>
+						<view-model-type>String</view-model-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEmail</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>EMailVO</view-model-type>
@@ -199,7 +199,7 @@
 				<ui-type uml-name="EmailText">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEmailSimpleEditText</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEmail</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>

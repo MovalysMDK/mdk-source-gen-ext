@@ -54,6 +54,9 @@
 	
 	<!-- mdk widgets -->
 	<xsl:include href="ui/layout/mdkwidget/richedittext.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richdate.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richdatetime.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richemail.xsl"/>
 	
 	<!-- custom widgets -->
 	<xsl:include href="ui/custom-components.xsl"/>
