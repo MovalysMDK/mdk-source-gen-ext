@@ -20,7 +20,23 @@
 
 	<xsl:output method="xml" indent="yes"/>
 
+	<!-- common templates -->
 	<xsl:include href="ui/layout/default.xsl"/>
+	
+	<xsl:include href="ui/layout/commons/alignment.xsl"/>
+	<xsl:include href="ui/layout/commons/attributes.xsl"/>
+	<xsl:include href="ui/layout/commons/content.xsl"/>
+	<xsl:include href="ui/layout/commons/dimensions.xsl"/>
+	<xsl:include href="ui/layout/commons/focusable.xsl"/>
+	<xsl:include href="ui/layout/commons/hint.xsl"/>
+	<xsl:include href="ui/layout/commons/inputtype.xsl"/>
+	<xsl:include href="ui/layout/commons/label-component.xsl"/>
+	<xsl:include href="ui/layout/commons/label.xsl"/>
+	<xsl:include href="ui/layout/commons/mandatory.xsl"/>
+	<xsl:include href="ui/layout/commons/maxlength.xsl"/>
+	<xsl:include href="ui/layout/commons/style.xsl"/>
+	
+	<!-- legacy widgets -->
 	<xsl:include href="ui/layout/button.xsl"/>
 	<xsl:include href="ui/layout/datetime.xsl"/>
 	<xsl:include href="ui/layout/edittext.xsl"/>
@@ -34,13 +50,15 @@
 	<xsl:include href="ui/layout/viewstyle.xsl"/>
 	<xsl:include href="ui/layout/spinner.xsl"/>
 	<xsl:include href="ui/layout/photothumbnail.xsl"/>
-	<!--
-	<xsl:include href="ui/layout/listview.xsl"/>	
-	-->
 	<xsl:include href="ui/layout/enumbackgroundlayout.xsl"/>
 	
+	<!-- mdk widgets -->
+	<xsl:include href="ui/layout/mdkwidget/richedittext.xsl"/>
+	
+	<!-- custom widgets -->
 	<xsl:include href="ui/custom-components.xsl"/>
 	
+	<!-- LAYOUT GENERATION -->
 	<xsl:template match="layout">
 
 		<xsl:variable name="addscroll"><xsl:value-of select="./parameters/parameter[@name ='addscroll']"/></xsl:variable>
@@ -53,6 +71,7 @@
 				<RelativeLayout
 					xmlns:android="http://schemas.android.com/apk/res/android" 
 					xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
+					xmlns:mdk="http://schemas.android.com/apk/res-auto"
 					android:layout_width="match_parent" 
 					android:layout_height="match_parent">
 					<xsl:attribute name="android:id">@+id/<xsl:value-of select="./name"/></xsl:attribute>
@@ -92,6 +111,7 @@
 				<RelativeLayout
 					xmlns:android="http://schemas.android.com/apk/res/android" 
 					xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
+					xmlns:mdk="http://schemas.android.com/apk/res-auto"
 					android:layout_width="match_parent" 
 					android:layout_height="match_parent">
 					<xsl:attribute name="android:id">@+id/<xsl:value-of select="./name"/></xsl:attribute>
@@ -108,6 +128,7 @@
 				<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMCheckableRelativeLayout
 					xmlns:android="http://schemas.android.com/apk/res/android" 
 					xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
+					xmlns:mdk="http://schemas.android.com/apk/res-auto"
 					android:layout_width="match_parent" 
 					android:layout_height="match_parent">
 					<xsl:attribute name="android:id">@+id/<xsl:value-of select="./name"/></xsl:attribute>
@@ -148,6 +169,7 @@
 					<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSectionTitle
 						xmlns:android="http://schemas.android.com/apk/res/android" 
 						xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
+						xmlns:mdk="http://schemas.android.com/apk/res-auto"
 						android:layout_width="match_parent" 
 						android:layout_height="wrap_content" 
 						android:gravity="center" 
@@ -170,6 +192,7 @@
 				<RelativeLayout
 					xmlns:android="http://schemas.android.com/apk/res/android" 
 					xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
+					xmlns:mdk="http://schemas.android.com/apk/res-auto"
 					android:layout_width="match_parent" 
 					android:layout_height="match_parent">
 					<xsl:attribute name="android:id">@+id/<xsl:value-of select="./name"/></xsl:attribute>

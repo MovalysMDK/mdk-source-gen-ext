@@ -22,7 +22,7 @@
 
 <!-- Specifics attribute for datetime component -->
 <xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSpinnerCheckedTextView']" mode="componentAttributes">
-	<xsl:call-template name="standard-alignment"/>
+	<xsl:apply-templates select="." mode="standard-alignment"/>
 	<xsl:apply-templates select="." mode="view-focusable"/>	
 	android:layout_height="?android:attr/listPreferredItemHeight"
 	android:singleLine="true"
@@ -30,22 +30,20 @@
 </xsl:template>
 
 <xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSpinner']"	mode="componentAttributes">
-	<xsl:call-template name="standard-alignment"/>
+	<xsl:apply-templates select="." mode="standard-alignment"/>
 	<xsl:apply-templates select="." mode="view-focusable"/>	
 	android:prompt="@string/<xsl:value-of select="parameters/parameter[@name='prompt']"/><xsl:text>" </xsl:text>
-	android:layout_height="wrap_content"
-	android:layout_width="match_parent"
-	<xsl:if test="count(./mandatory) > 0">movalys:mandatory="<xsl:value-of select="./mandatory"/>" </xsl:if>
+	<xsl:apply-templates select="." mode="dimensions"/>
+	<xsl:apply-templates select="." mode="mandatory"/>
 </xsl:template>
 
 <xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSearchSpinner']"	mode="componentAttributes">
-	<xsl:call-template name="standard-alignment"/>
+	<xsl:apply-templates select="." mode="standard-alignment"/>
 	<xsl:apply-templates select="." mode="view-focusable"/>	
 	android:prompt="@string/<xsl:value-of select="parameters/parameter[@name='prompt']"/><xsl:text>" </xsl:text>
-	android:layout_height="wrap_content"
-	android:layout_width="match_parent"
+	<xsl:apply-templates select="." mode="dimensions"/>
 	style="?attr/SearchSpinnerCustom"
-	<xsl:if test="count(./mandatory) > 0">movalys:mandatory="<xsl:value-of select="./mandatory"/>" </xsl:if>
+	<xsl:apply-templates select="." mode="mandatory"/>
 </xsl:template>
 
 	<!-- STYLE ...................................................................................................... -->

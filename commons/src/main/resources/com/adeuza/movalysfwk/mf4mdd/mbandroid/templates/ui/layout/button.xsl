@@ -34,9 +34,8 @@
       <xsl:when test="parameters/parameter[@name='type']='Reset'">
      	<xsl:text>ic_btn_searchreset</xsl:text>
       </xsl:when>
-    </xsl:choose><xsl:text>"     
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"</xsl:text>
+    </xsl:choose><xsl:text>" </xsl:text>    
+	<xsl:apply-templates select="." mode="dimensions-wrap"/> 
 	<!-- if preceding field is a button, align to the Right of it -->
 	<xsl:variable name="precedingField" select="preceding-sibling::visualfield[1]"/>
 	<xsl:if test="$precedingField/component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMImageButton'">
@@ -59,9 +58,8 @@
 <!-- Specifics options for buttons -->
 <xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMButton']" 
 	mode="componentAttributes"><xsl:text>
-	android:text="@string/</xsl:text><xsl:value-of select="parameters/parameter[@name='text']"/><xsl:text>" 
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"</xsl:text>
+	android:text="@string/</xsl:text><xsl:value-of select="parameters/parameter[@name='text']"/><xsl:text>" </xsl:text>
+	<xsl:apply-templates select="." mode="dimensions-wrap"/>
 	<!-- if preceding field is a button, align to the left of it -->
 	<xsl:variable name="precedingField" select="preceding-sibling::visualfield[1]"/>
 	<xsl:if test="$precedingField/component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMButton'"><xsl:text> 

@@ -25,9 +25,8 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 	<xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMMultiSectionLayout' or component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMMultiSectionFragmentLayout']" >	
 
 			<xsl:text disable-output-escaping="yes"><![CDATA[<]]></xsl:text><xsl:value-of select="./component"/>
-			android:id="@+id/<xsl:value-of select="./name"/>"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			android:id="@+id/<xsl:value-of select="./name"/><xsl:text>" </xsl:text>
+			<xsl:apply-templates select="." mode="dimensions-matchparent"/>
      		android:orientation="vertical"
      		movalys:sectionsize="<xsl:value-of select="count(./multipanel-config/managment-details/column[@pos='1']/managment-detail)"/>"
      		

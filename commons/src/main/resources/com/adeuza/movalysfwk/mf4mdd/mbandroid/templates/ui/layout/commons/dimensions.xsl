@@ -18,17 +18,26 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView']" 
-	mode="componentAttributes">
-	<xsl:apply-templates select="." mode="standard-alignment"/>
-	<xsl:apply-templates select="." mode="view-focusable"/>	
-	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:if test="not(/layout/parameters/parameter[@name = 'vmtype-itemlayoutforinnerlist'] = 'FIXED_LIST')
-		and not(/layout/parameters/parameter[@name = 'vmtype-selecteditemlayoutforinnerlist'] = 'FIXED_LIST')">
-		<xsl:text> movalys:thumbnailMaxWidth="250" </xsl:text>
-	</xsl:if>
-	<xsl:apply-templates select="." mode="mandatory"/>
+<xsl:output method="xml" indent="yes"/>
+
+<!-- DEFAULT DIMENSIONS for widget. -->
+<xsl:template match="visualfield|button" mode="dimensions">
+	<xsl:param name="width">match_parent</xsl:param>
+	<xsl:param name="height">wrap_content</xsl:param>
+	android:layout_width="<xsl:value-of select="$width"/>"
+	android:layout_height="<xsl:value-of select="$height"/>"
+</xsl:template>
+
+<xsl:template match="visualfield|button" mode="dimensions-wrap">
+	<xsl:apply-templates select="." mode="dimensions">
+		<xsl:with-param name="width">wrap_content</xsl:with-param>
+	</xsl:apply-templates> 
+</xsl:template>
+
+<xsl:template match="visualfield|button" mode="dimensions-matchparent">
+	<xsl:apply-templates select="." mode="dimensions">
+		<xsl:with-param name="height">match_parent</xsl:with-param>
+	</xsl:apply-templates> 
 </xsl:template>
 
 </xsl:stylesheet>
-

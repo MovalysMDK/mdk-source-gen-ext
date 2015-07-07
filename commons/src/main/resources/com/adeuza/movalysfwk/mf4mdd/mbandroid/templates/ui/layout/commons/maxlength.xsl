@@ -18,17 +18,19 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView']" 
-	mode="componentAttributes">
-	<xsl:apply-templates select="." mode="standard-alignment"/>
-	<xsl:apply-templates select="." mode="view-focusable"/>	
-	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:if test="not(/layout/parameters/parameter[@name = 'vmtype-itemlayoutforinnerlist'] = 'FIXED_LIST')
-		and not(/layout/parameters/parameter[@name = 'vmtype-selecteditemlayoutforinnerlist'] = 'FIXED_LIST')">
-		<xsl:text> movalys:thumbnailMaxWidth="250" </xsl:text>
-	</xsl:if>
-	<xsl:apply-templates select="." mode="mandatory"/>
+<xsl:output method="xml" indent="yes"/>
+
+<!-- MAX LENGTH for widgets -->
+<xsl:template match="visualfield[./max-length]" mode="maxlength">
+	<xsl:text>android:maxLength="</xsl:text><xsl:value-of select="./max-length"/><xsl:text>" </xsl:text>
+</xsl:template>
+
+<xsl:template match="visualfield[./precision]" mode="maxlength">
+	<xsl:text>android:maxLength="</xsl:text><xsl:value-of select="./precision"/><xsl:text>" </xsl:text>
+</xsl:template>
+
+<!-- fallback template -->
+<xsl:template match="visualfield" mode="maxlength">
 </xsl:template>
 
 </xsl:stylesheet>
-

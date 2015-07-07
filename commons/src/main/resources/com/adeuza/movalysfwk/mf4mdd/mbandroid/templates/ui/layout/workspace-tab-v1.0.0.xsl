@@ -26,7 +26,8 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:movalys="http://www.adeuza.com/movalys/mm/android">
+    xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto">
     
     <xsl:attribute name="android:id">@+id/<xsl:value-of select="layout"/></xsl:attribute>
     

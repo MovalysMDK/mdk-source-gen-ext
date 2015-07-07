@@ -22,13 +22,11 @@
 
 <xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMRadioGroup']" 
 	mode="componentAttributes">
-	<xsl:call-template name="standard-alignment"/>
+	<xsl:apply-templates select="." mode="standard-alignment"/>
 	<xsl:apply-templates select="." mode="view-focusable"/>	
-	<xsl:text> android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	</xsl:text>
-	<xsl:if test="count(./mandatory) > 0">movalys:mandatory="<xsl:value-of select="./mandatory"/>" </xsl:if>
+	<xsl:text> android:orientation="vertical" </xsl:text>
+	<xsl:apply-templates select="." mode="dimensions"/>
+	<xsl:apply-templates select="." mode="mandatory"/>
 </xsl:template>
 
 <xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMRadioGroup']" 
@@ -50,10 +48,9 @@
 	<xsl:text disable-output-escaping="yes"><![CDATA[<]]></xsl:text>
 		<xsl:text>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMRadioButton android:id="@+id/radio_</xsl:text>
 		<xsl:value-of select="$first"/>
-		<xsl:text>"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/enum_</xsl:text>
+		<xsl:text>" </xsl:text>
+		<xsl:apply-templates select="." mode="dimensions-wrap"/>
+        <xsl:text>android:text="@string/enum_</xsl:text>
           <xsl:value-of select="parameters/parameter[@name='enum']"/>
           <xsl:text>_</xsl:text>
         <xsl:value-of select="$first"/>

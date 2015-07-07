@@ -18,17 +18,15 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView']" 
-	mode="componentAttributes">
-	<xsl:apply-templates select="." mode="standard-alignment"/>
-	<xsl:apply-templates select="." mode="view-focusable"/>	
-	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:if test="not(/layout/parameters/parameter[@name = 'vmtype-itemlayoutforinnerlist'] = 'FIXED_LIST')
-		and not(/layout/parameters/parameter[@name = 'vmtype-selecteditemlayoutforinnerlist'] = 'FIXED_LIST')">
-		<xsl:text> movalys:thumbnailMaxWidth="250" </xsl:text>
-	</xsl:if>
-	<xsl:apply-templates select="." mode="mandatory"/>
+<xsl:output method="xml" indent="yes"/>
+
+<!-- INPUT TYPE for widgets -->
+<xsl:template match="visualfield[./edit-type]" mode="inputtype">
+	<xsl:text>android:inputType="</xsl:text><xsl:value-of select="./edit-type"/><xsl:text>" </xsl:text>
+</xsl:template>
+
+<!-- fallback template -->
+<xsl:template match="visualfield" mode="inputtype">
 </xsl:template>
 
 </xsl:stylesheet>
-

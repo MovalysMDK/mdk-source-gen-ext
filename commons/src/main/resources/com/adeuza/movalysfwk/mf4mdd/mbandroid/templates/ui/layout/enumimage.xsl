@@ -18,17 +18,14 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:output method="xml" indent="yes"/><!-- 
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	 -->
+<xsl:output method="xml" indent="yes"/>
+
 	<xsl:template match="visualfield[parameters/parameter/@name='enum']" mode="componentAttributes">
-		<xsl:call-template name="standard-alignment"/>
+		<xsl:apply-templates select="." mode="standard-alignment"/>
 		<xsl:apply-templates select="." mode="view-focusable"/>	
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		<xsl:apply-templates select="." mode="dimensions"/>
 		movalys:enum="<xsl:value-of select="parameters/parameter[@name='enum']"/>"
-		<xsl:if test="count(mandatory) > 0">movalys:mandatory="<xsl:value-of select="mandatory"/>" </xsl:if>
+		<xsl:apply-templates select="." mode="mandatory"/>
 	</xsl:template>
 
 	<xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEnumImage' and substring-after(substring-after(./name, '__'), '__') = 'value']" mode="componentStyle">

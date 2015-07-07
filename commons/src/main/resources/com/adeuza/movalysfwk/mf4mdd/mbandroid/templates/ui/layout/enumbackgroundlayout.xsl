@@ -25,8 +25,7 @@
 		<![CDATA[<]]></xsl:text>
 			<xsl:value-of select="./component"/>
 			android:id="@+id/<xsl:value-of select="./name"/><xsl:text>"</xsl:text>
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			<xsl:apply-templates select="." mode="dimensions-matchparent"/>
 			android:orientation="vertical"
 			movalys:enum="<xsl:value-of select="parameters/parameter[@name='enum']"/>"
 			movalys:prefix="backgroundlayout"<xsl:text disable-output-escaping="yes"><![CDATA[>

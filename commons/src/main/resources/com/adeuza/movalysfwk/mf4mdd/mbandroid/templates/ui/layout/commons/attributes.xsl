@@ -18,17 +18,24 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView']" 
-	mode="componentAttributes">
-	<xsl:apply-templates select="." mode="standard-alignment"/>
+<xsl:output method="xml" indent="yes"/>
+
+<!-- DEFAULT ATTRIBUTES on widgets -->
+<xsl:template match="visualfield" mode="componentAttributes">
+	<xsl:param name="titleId"/>
+	
+	<xsl:apply-templates select="." mode="standard-alignment">
+		<xsl:with-param name="titleId" select="$titleId"/>
+	</xsl:apply-templates>
 	<xsl:apply-templates select="." mode="view-focusable"/>	
 	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:if test="not(/layout/parameters/parameter[@name = 'vmtype-itemlayoutforinnerlist'] = 'FIXED_LIST')
-		and not(/layout/parameters/parameter[@name = 'vmtype-selecteditemlayoutforinnerlist'] = 'FIXED_LIST')">
-		<xsl:text> movalys:thumbnailMaxWidth="250" </xsl:text>
-	</xsl:if>
 	<xsl:apply-templates select="." mode="mandatory"/>
+	
+	<!-- for list item, add vertical center and use minHeight -->
+	<xsl:if test="../../parameters/parameter[@name='vmtype'] = 'LISTITEM_1'">
+		android:gravity="center_vertical"
+    	android:minHeight="40dp"
+	</xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>
-

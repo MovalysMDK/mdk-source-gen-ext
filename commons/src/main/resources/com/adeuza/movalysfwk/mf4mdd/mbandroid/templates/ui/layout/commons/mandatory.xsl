@@ -18,17 +18,20 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView']" 
-	mode="componentAttributes">
-	<xsl:apply-templates select="." mode="standard-alignment"/>
-	<xsl:apply-templates select="." mode="view-focusable"/>	
-	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:if test="not(/layout/parameters/parameter[@name = 'vmtype-itemlayoutforinnerlist'] = 'FIXED_LIST')
-		and not(/layout/parameters/parameter[@name = 'vmtype-selecteditemlayoutforinnerlist'] = 'FIXED_LIST')">
-		<xsl:text> movalys:thumbnailMaxWidth="250" </xsl:text>
-	</xsl:if>
-	<xsl:apply-templates select="." mode="mandatory"/>
+<xsl:output method="xml" indent="yes"/>
+
+<!-- MANDATORY for mdk widgets -->
+<xsl:template match="visualfield[./mandatory and contains(./component, 'com.soprasteria.movalysmdk.widget')]" mode="mandatory">
+	<xsl:text>mdk:mandatory="</xsl:text><xsl:value-of select="mandatory"/><xsl:text>" </xsl:text>
+</xsl:template>
+
+<!-- MANDATORY for legacy widgets -->
+<xsl:template match="visualfield[./mandatory and not(contains(./component, 'com.soprasteria.movalysmdk.widget'))]" mode="mandatory">
+	<xsl:text>movalys:mandatory="</xsl:text><xsl:value-of select="mandatory"/><xsl:text>" </xsl:text>
+</xsl:template>
+
+<!-- fallback template -->
+<xsl:template match="visualfield" mode="mandatory">
 </xsl:template>
 
 </xsl:stylesheet>
-

@@ -23,9 +23,8 @@
 <!-- Specifics options for filter buttons -->
 <xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFilterButton']"
 	mode="componentAttributes">
-	<xsl:call-template name="standard-alignment"/>
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
+	<xsl:apply-templates select="." mode="standard-alignment"/>
+	<xsl:apply-templates select="." mode="dimensions-wrap"/>
 	<xsl:text>movalys:start_dialog="</xsl:text>
 	<xsl:value-of select="parameters/parameter[@name='dialog']"/>
 	<xsl:text>" </xsl:text>

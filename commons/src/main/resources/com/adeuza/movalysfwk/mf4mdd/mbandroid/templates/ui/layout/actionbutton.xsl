@@ -27,8 +27,7 @@
 	<xsl:apply-templates select="."  mode="buttonType"/>
 	<xsl:text> android:id="@+id/</xsl:text>
 	<xsl:value-of select="./@name"/><xsl:text>"</xsl:text>
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content" 
+	<xsl:apply-templates select="." mode="dimensions-wrap"/> 
 	<xsl:apply-templates select="." mode="buttonOptions"/>
 	<xsl:text disable-output-escaping="yes"><![CDATA[/>]]></xsl:text>
 </xsl:template>

@@ -27,6 +27,7 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto"
     android:descendantFocusability="blocksDescendants" >
     
     <xsl:attribute name="android:id">@+id/<xsl:value-of select="layout"/></xsl:attribute>
@@ -66,43 +67,5 @@
 </RelativeLayout>
 
 	</xsl:template>
-
-	<!-- old -->
-	<!-- <xsl:template match="workspace-tab-layout">
-
-<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMMasterRelativeLayout
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:movalys="http://www.adeuza.com/movalys/mm/android">
-    
-    <xsl:attribute name="android:id">@+id/<xsl:value-of select="layout"/></xsl:attribute>
-    
-	<TabHost 
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		android:id="@+id/tabhost" 
-		android:layout_width="match_parent"	
-		android:layout_height="match_parent">
-		<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMLinearLayout 
-	        android:orientation="vertical"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:padding="5dp">
-			<TabWidget 
-				android:id="@android:id/tabs"
-				android:layout_width="match_parent" 
-				android:layout_height="wrap_content"
-				style="?attr/tab_theme"/>
-				<FrameLayout 
-					android:id="@android:id/tabcontent"
-					android:layout_width="match_parent" 
-					android:layout_height="match_parent">
-	
-				</FrameLayout>
-		</com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMLinearLayout>
-	</TabHost>
-</com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMMasterRelativeLayout>
-
-	</xsl:template> -->
 
 </xsl:stylesheet>

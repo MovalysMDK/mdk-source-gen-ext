@@ -22,13 +22,13 @@
 
 <xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMListView']" mode="componentAttributes">
 	<xsl:param name="titleId"/>
-	<xsl:call-template name="standard-alignment">
+	<xsl:apply-templates select="." mode="standard-alignment">
 		<xsl:with-param name="titleId" select="$titleId"/>
-	</xsl:call-template>
+	</xsl:apply-templates>
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:choiceMode="singleChoice"
-	<xsl:if test="count(mandatory) > 0">movalys:mandatory="<xsl:value-of select="mandatory"/>" </xsl:if>
+	<xsl:apply-templates select="." mode="mandatory"/>
 
 </xsl:template>	
 </xsl:stylesheet>

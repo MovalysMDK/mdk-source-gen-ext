@@ -23,12 +23,11 @@
 <!-- Specifics attribute for datetime component -->
 <xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMDateTimeEditText' or component='com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMDateTimeTextView']" 
 	mode="componentAttributes">
-	<xsl:call-template name="standard-alignment"/>
+	<xsl:apply-templates select="." mode="standard-alignment"/>
 	<xsl:apply-templates select="." mode="view-focusable"/>
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
+	<xsl:apply-templates select="." mode="dimensions"/>
 	<xsl:text>movalys:mode="datetime" </xsl:text>
-	<xsl:if test="count(./mandatory) > 0">movalys:mandatory="<xsl:value-of select="./mandatory"/>" </xsl:if>
+	<xsl:apply-templates select="." mode="mandatory"/>
 	<xsl:if test="not(//parameters/parameter[text() = 'LIST_1__ONE_SELECTED'])">style="?attr/detail_value"</xsl:if>	
 </xsl:template>
 

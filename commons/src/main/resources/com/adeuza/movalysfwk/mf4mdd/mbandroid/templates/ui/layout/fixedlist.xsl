@@ -37,9 +37,9 @@
 	<xsl:if test="$precedingField">
 		android:layout_below="@id/<xsl:value-of select="$precedingField/name"/>"
 	</xsl:if>
-	android:text="@string/<xsl:value-of select="label"/>"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"/<xsl:text disable-output-escaping="yes">>
+	android:text="@string/<xsl:value-of select="label"/><xsl:text>" </xsl:text>
+	<xsl:apply-templates select="." mode="dimensions-matchparent"/>
+	/<xsl:text disable-output-escaping="yes">>
 	</xsl:text>
 </xsl:template>
 
