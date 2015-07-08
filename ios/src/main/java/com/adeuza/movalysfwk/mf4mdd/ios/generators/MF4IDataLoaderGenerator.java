@@ -20,20 +20,19 @@ import org.dom4j.Document;
 import com.a2a.adjava.languages.ios.xmodele.MIOSImportDelegate;
 import com.a2a.adjava.utils.FileTypeUtils;
 import com.a2a.adjava.xmodele.XProject;
+import com.adeuza.movalysfwk.mf4mdd.commons.generator.AbstractDataLoaderGenerator;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MDataLoader;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MDataLoaderCombo;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MFDomain;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MFModelDictionary;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MFModelFactory;
 import com.adeuza.movalysfwk.mf4mdd.ios.xmodele.MF4IImportDelegate;
-import com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.DataLoaderGenerator;
 
 /**
  * Dataloader generator for IOS
- * @author lmichenaud
  *
  */
-public class MF4IDataLoaderGenerator extends DataLoaderGenerator {
+public class MF4IDataLoaderGenerator extends AbstractDataLoaderGenerator {
 	
 	/**
 	 * {@inheritDoc}
