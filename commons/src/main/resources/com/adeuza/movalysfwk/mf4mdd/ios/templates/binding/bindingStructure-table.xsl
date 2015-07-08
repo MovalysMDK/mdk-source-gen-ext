@@ -39,6 +39,7 @@
 
 
 <xsl:template match="subView[localization != 'LIST']" mode="createBindingStructure-method-table-section-subview">
+    //Component binded to '<xsl:value-of select="binding"/>' with type '<xsl:value-of select="customClass"/>'
     MFBindingCellDescriptor *<xsl:value-of select="../../@name"/>_<xsl:value-of select="propertyName"/>CellDescriptor =
     [MFBindingCellDescriptor cellDescriptorWithIdentifier:@"<xsl:value-of select="customClass"/>Cell<xsl:if test="@visibleLabel = 'false'">-noLabel</xsl:if>"
     withCellHeight:@(<xsl:value-of select="cellHeight"/>)
