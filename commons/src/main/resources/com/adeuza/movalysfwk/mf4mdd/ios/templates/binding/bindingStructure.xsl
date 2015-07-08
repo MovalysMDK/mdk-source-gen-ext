@@ -26,7 +26,9 @@
 <xsl:include href="binding/bindingStructure-list2D.xsl"/>
 
 <!-- createBindingStructure method -->
-<xsl:template match="controller[@controllerType = 'FORMVIEW'] | controller[@controllerType = 'FIXEDLISTVIEW']" mode="createBindingStructure-method">
+<xsl:template match="controller[@controllerType = 'FORMVIEW'] | 
+controller[@controllerType = 'FIXEDLISTVIEW'] |
+controller[@controllerType = 'SEARCHVIEW']" mode="createBindingStructure-method">
 -(void) createBindingStructure {
 	<xsl:choose>
 		<xsl:when test="formType = 'TABLE'">
