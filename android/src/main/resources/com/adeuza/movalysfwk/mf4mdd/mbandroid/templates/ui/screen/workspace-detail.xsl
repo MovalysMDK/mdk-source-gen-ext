@@ -50,27 +50,5 @@
 	</xsl:template>
 
 
-	<!-- *****************************************************************************************
-											FILL ACTION
-		***************************************************************************************** -->
-
-	<!--
-	Fill Action Method 
-	-->
-	<xsl:template match="page[ancestor::screen[workspace='true' and workspace-type='DETAIL'] and ( parameters/parameter[@name='grid-column-parameter'] != '1' or ( parameters/parameter[@name='grid-column-parameter'] = '1' and parameters/parameter[@name='grid-section-parameter'] > '1'))]" 
-		mode="doFillAction-method"/>
-
-	<!--
-	Fill Action Body 
-	-->
-	<xsl:template match="page[ancestor::screen[workspace='true' and workspace-type='DETAIL'] and parameters/parameter[@name='workspace-panel-type'] = 'detail' and parameters/parameter[@name='grid-column-parameter'] = '1' and parameters/parameter[@name='grid-section-parameter'] = '1']" 
-		mode="generate-doFillAction-body">
-		
-		InDisplayParameter oInDisplayParameter = new InDisplayParameter();
-		oInDisplayParameter.setDataLoader(<xsl:value-of select="./viewmodel/dataloader-impl/implements/interface/@name"/>.class);
-		oInDisplayParameter.setId(this.getIntent().getStringExtra(IDENTIFIER_CACHE_KEY));
-		this.launchAction(GenericLoadDataForDisplayDetailAction.class, oInDisplayParameter);
-	
-	</xsl:template>
 
 </xsl:stylesheet>

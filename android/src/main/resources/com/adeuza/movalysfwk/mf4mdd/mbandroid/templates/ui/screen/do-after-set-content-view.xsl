@@ -34,8 +34,8 @@
 				</xsl:with-param>
 			</xsl:call-template>
 
-			<xsl:apply-templates select="pages/page[@pos='1']/adapter" mode="doAfterSetContentView-method"/>
-			<xsl:apply-templates select="pages/page/external-adapters/adapter" mode="doAfterSetContentView-method"/>
+<!-- 			<xsl:apply-templates select="pages/page[@pos='1']/adapter" mode="doAfterSetContentView-method"/> -->
+<!-- 			<xsl:apply-templates select="pages/page/external-adapters/adapter" mode="doAfterSetContentView-method"/> -->
 
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">do-after-set-content-view-2</xsl:with-param>

@@ -81,23 +81,6 @@
 
 	<xsl:template match="page[ancestor::screen/workspace='true' and parameters/parameter[@name='workspace-panel-type'] = 'master']" 
 		mode="doOnReload-method">
-		<xsl:variable name="dataloader" select="./viewmodel/dataloader-impl/implements/interface/@name"/>
-		/**
-		 * Listener on <xsl:value-of select="$dataloader"/> reload
-		 * @param p_oEvent the event sent from the dataloader
-		 */
-		@ListenerOnDataLoaderReload(<xsl:value-of select="$dataloader"/>.class)
-		public void doOnReload<xsl:value-of select="$dataloader"/>(ListenerOnDataLoaderReloadEvent&lt;<xsl:value-of select="$dataloader"/>&gt; p_oEvent) {
-			<xsl:call-template name="non-generated-bloc">
-				<xsl:with-param name="blocId">doOnReload</xsl:with-param>
-				<xsl:with-param name="defaultSource">
-					<xsl:apply-templates select="." mode="generate-doOnReload-body">
-						<xsl:with-param name="viewmodel" select="/screen/viewmodel/implements/interface/@name"/>
-						<xsl:with-param name="isScreenVm" select="true"/>
-					</xsl:apply-templates>
-				</xsl:with-param>
-			</xsl:call-template>
-		}
 	</xsl:template>
 
 	<!--  Methode de chargement du détail: template doOnReload-method surchargé afin de gérer l'appel au super.doOnReloadDetail -->

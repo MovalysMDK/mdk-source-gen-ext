@@ -33,58 +33,7 @@
 		associateAdapterComponent = null;
 	</xsl:template>
 
-	<xsl:template match="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']" mode="attributes">
-		<xsl:variable name="vm-name" select="viewmodel/implements/interface/@full-name"/>
-		<xsl:if test="not(../adapter/viewmodel/external-lists/external-list/viewmodel[implements/interface/@full-name=$vm-name])">
-			<xsl:apply-templates select="viewmodel" mode="attributes">
-				<xsl:with-param name="position" select="position()"/>
-			</xsl:apply-templates>
-		</xsl:if>
-		<xsl:call-template name="non-generated-bloc">
-			<xsl:with-param name="blocId">declare-spinner-adapter<xsl:value-of select="position()"/></xsl:with-param>
-			<xsl:with-param name="defaultSource">
-		/**
-		 * Adapter associated to the spinner of <xsl:value-of select="viewmodel/uml-name"/>.
-		 */
-		<xsl:text>private </xsl:text><xsl:value-of select="name"/>
-		<xsl:if test="name='ConfigurableSpinnerAdapter' or name='MDKSpinnerAdapter'">
-			<xsl:text>&lt;</xsl:text><xsl:value-of select="viewmodel/entity-to-update/name"/>
-			<xsl:text>, </xsl:text><xsl:value-of select="viewmodel/implements/interface/@name"/>
-			<xsl:text>, ListViewModel</xsl:text>
-			<xsl:text>&lt;</xsl:text><xsl:value-of select="viewmodel/entity-to-update/name"/>
-			<xsl:text>, </xsl:text><xsl:value-of select="viewmodel/implements/interface/@name"/>
-			<xsl:text>&gt;&gt;</xsl:text>
-		</xsl:if>
-		<xsl:text> spinnerAdapter</xsl:text><xsl:value-of select="position()"/><xsl:text> = null;&#13;</xsl:text>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
 
-	<xsl:template match="external-adapters/adapter/viewmodel[type/name='LIST_1__ONE_SELECTED']" mode="attributes">
-		<xsl:param name="position"/>
-		/**
-		 * Spinner of <xsl:value-of select="uml-name"/>.
-		 */
-		private MMSpinnerAdapterHolder&lt;?,?&gt; spinner<xsl:value-of select="$position"/> = null;
-	</xsl:template>
 
-	<xsl:template match="external-adapters/adapter/viewmodel[type/name='LIST_1__ONE_SELECTED' and type/conf-name='filter']" mode="attributes">
-		<xsl:param name="position"/>
-		/**
-		 * <xsl:value-of select="type/component-name"/> of <xsl:value-of select="uml-name"/>.
-		 */
-		private MMSpinnerAdapterHolder&lt;?,?&gt; spinner<xsl:value-of select="$position"/> = null;
-	</xsl:template>
 
-	<xsl:template match="external-adapters/adapter[viewmodel/type/name='FIXED_LIST']" mode="attributes">
-		/**
-		 * FixedList of <xsl:value-of select="viewmodel/uml-name"/>.
-		 */
-		private MMAdaptableFixedListView&lt;<xsl:value-of select="viewmodel/entity-to-update/name"/>, <xsl:value-of select="viewmodel/implements/interface/@name"/>&gt; fixedList<xsl:value-of select="position()"/> = null;
-
-		/**
-		 * Adapter associated to the fixedList of <xsl:value-of select="viewmodel/uml-name"/>.
-		 */
-		private <xsl:value-of select="name"/> fixedListAdapter<xsl:value-of select="position()"/> = null;
-	</xsl:template>
 </xsl:stylesheet>

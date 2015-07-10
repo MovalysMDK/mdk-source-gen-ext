@@ -89,7 +89,7 @@
 	
 		<xsl:apply-templates select="." mode="getViewModel-method"/>
 	
-		<xsl:if test="viewmodel/multiInstance='true'">
+		<xsl:if test="viewmodel/multiInstance='true' or in-multi-panel='true' or in-workspace='true'">
 			<xsl:apply-templates select="." mode="doFillAction-method"/>
 			<xsl:apply-templates select="." mode="doOnReload-method">
 				<xsl:with-param name="launchFrom" select="local-name(.)"/>

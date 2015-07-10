@@ -91,7 +91,7 @@
 		<xsl:apply-templates select="." mode="getListViewId-method"/>
 		<xsl:apply-templates select="." mode="createListAdapter-method"/>	
 		<xsl:apply-templates select="." mode="doOnMasterListChangeSelectedItem-method"/>
-		<xsl:apply-templates select="." mode="doOnReload-method"/>		
+<!-- 		<xsl:apply-templates select="." mode="doOnReload-method"/>		 -->
 		<xsl:apply-templates select="." mode="doOnGenericUpdateVMForDisplayDetailAction-method"/>
 		<xsl:apply-templates select="." mode="doOnChangeModifyEntityEvent-method"/>
 		<xsl:apply-templates select="." mode="doOnChangeAddEntityEvent-method"/>

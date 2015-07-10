@@ -112,13 +112,6 @@
 											FILL ACTION
 		***************************************************************************************** -->
 		
-	<!--
-	Fill Action signature 
-	-->
-	<xsl:template match="page[ancestor::screen[workspace='true' and workspace-type='MASTERDETAIL'] and (parameters/parameter[@name='grid-column-parameter'] != '1' or parameters/parameter[@name='workspace-panel-type'] != 'master')]" 
-		mode="doFillAction-method">
-	</xsl:template>
-
 
 	<!--
 	Fill Action Body 

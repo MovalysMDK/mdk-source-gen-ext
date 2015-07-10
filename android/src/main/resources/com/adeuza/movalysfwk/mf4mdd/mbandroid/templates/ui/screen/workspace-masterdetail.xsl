@@ -60,43 +60,4 @@
 		</xsl:if>
 	</xsl:template>
 
-
-	<!-- *****************************************************************************************
-											FILL ACTION
-		***************************************************************************************** -->
-		
-	<!--
-	Fill Action signature 
-	-->
-	<xsl:template match="page[ancestor::screen[workspace='true' and workspace-type='MASTERDETAIL'] and (parameters/parameter[@name='grid-column-parameter'] != '1' or parameters/parameter[@name='workspace-panel-type'] != 'master')]" 
-		mode="doFillAction-method">
-	</xsl:template>
-
-
-	<!--
-	Fill Action Body 
-	-->
-	<xsl:template match="page[ancestor::screen[workspace='true' and workspace-type='MASTERDETAIL'] and parameters/parameter[@name='workspace-panel-type'] = 'master' and parameters/parameter[@name='grid-column-parameter'] = '1']" 
-		mode="generate-doFillAction-body">	
-		
-		<!-- dataloader for first list -->
-		LoadDataForMultipleDisplayDetailActionParameter oMultipleDisplayParameter 
-			= new LoadDataForMultipleDisplayDetailActionParameter();
-		InDisplayParameter oInDisplayParameter = new InDisplayParameter();
-		oInDisplayParameter.setDataLoader( <xsl:value-of select="./viewmodel/dataloader-impl/implements/interface/@name"/>.class );
-		oInDisplayParameter.setId( this.getIntent().getStringExtra(IDENTIFIER_CACHE_KEY) );
-		oMultipleDisplayParameter.addDisplayParameter(oInDisplayParameter);
-
-		<!-- dataloader for other lists (tabs) -->		
-		<xsl:for-each select="../page[parameters/parameter[@name='workspace-panel-type'] = 'master' and parameters/parameter[@name='grid-column-parameter'] != '1']">
-			<xsl:sort select="parameters/parameter[@name='grid-column-parameter']"/>
-		oInDisplayParameter = new InDisplayParameter();
-		oInDisplayParameter.setDataLoader( <xsl:value-of select="./viewmodel/dataloader-impl/implements/interface/@name"/>.class );
-		oInDisplayParameter.setId( this.getIntent().getStringExtra(IDENTIFIER_CACHE_KEY) );
-		oMultipleDisplayParameter.addDisplayParameter(oInDisplayParameter);		
-		</xsl:for-each>
-		
-		this.launchAction(LoadDataForMultipleDisplayDetailAction.class, oMultipleDisplayParameter);		
-	</xsl:template>
-
 </xsl:stylesheet>

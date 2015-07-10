@@ -81,10 +81,10 @@
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMAdaptableFixedListView</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoFixedListView</import>
 		</xsl:if>
-
-		<xsl:if test="viewmodel/multiInstance='true'">
-			<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.business.genericdisplay.InDisplayParameter</import>
-			<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.GenericLoadDataForDisplayDetailAction</import>
+		
+		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.business.genericdisplay.InDisplayParameter</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.GenericLoadDataForDisplayDetailAction</import>
+		<xsl:if test="viewmodel/multiInstance='true'">	
 			<import><xsl:value-of select="viewmodel/parent-viewmodel/master-interface/@full-name"/></import>
 			<import><xsl:value-of select="master-package"/>.viewmodel.ViewModelCreator</import>
 		</xsl:if>
@@ -103,6 +103,8 @@
 		
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.actiontask.listener.ListenerOnActionSuccess</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.GenericUpdateVMForDisplayDetailAction</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.LoadDataForMultipleDisplayDetailAction</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.LoadDataForMultipleDisplayDetailActionParameter</import>	
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.actiontask.listener.ListenerOnActionSuccessEvent</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.InUpdateVMParameter</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.OutUpdateVMParameter</import>

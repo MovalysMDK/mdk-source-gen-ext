@@ -93,8 +93,7 @@
 
 		<xsl:apply-templates select="." mode="doAfterSetContentView-method"/>
 
-		<xsl:apply-templates select="." mode="doFillAction-method"/>
-		<xsl:apply-templates select="." mode="doOnReload-method"/>
+ 		<xsl:apply-templates select="." mode="doOnReload-method"/>
 
 		<xsl:apply-templates select="$panel" mode="createViewModel-method"/>
 
@@ -114,9 +113,6 @@
 	</xsl:template>
 	
 	
-	<xsl:template match="screen" mode="doFillAction-method">
-		<xsl:apply-templates select="pages/page[viewmodel/dataloader-impl]" mode="doFillAction-method"/>
-	</xsl:template>
 	
 	<!-- Pour certains écrans, pas de méthode supplémentaire 
 		EDIT LMI: Pour un panel simple avec sauvegarde, besoin d'un doOnKeepModification 

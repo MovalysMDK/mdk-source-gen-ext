@@ -53,6 +53,12 @@
 
 	<xsl:template match="external-adapters/adapter[viewmodel/type/name='FIXED_LIST']" mode="attributes">
 		/**
+		 * FixedList of <xsl:value-of select="viewmodel/uml-name"/>.
+		 */
+		private MMAdaptableFixedListView&lt;<xsl:value-of select="viewmodel/entity-to-update/name"/>, <xsl:value-of select="viewmodel/implements/interface/@name"/>&gt; fixedList<xsl:value-of select="position()"/> = null;
+	
+	
+		/**
 		 * Adapter associated to the fixedList of <xsl:value-of select="viewmodel/uml-name"/>.
 		 */
 		private <xsl:value-of select="name"/> fixedListAdapter<xsl:value-of select="position()"/> = null;

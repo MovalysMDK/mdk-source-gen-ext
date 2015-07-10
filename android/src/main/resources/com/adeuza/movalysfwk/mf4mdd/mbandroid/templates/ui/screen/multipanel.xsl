@@ -64,39 +64,6 @@
 		}
 	</xsl:template>
 	
-	
-	<!--
-		* Constraints for screen with multi sections:
-		- Screen must have at least a page with a dataloader
-		- Dataloader must be called in the right order (parameters/parameter[@name='grid-section-parameter'])
-	 -->
-	<xsl:template match="screen[workspace='false' and multi-panel='true' and pages/page/viewmodel/dataloader-impl]" mode="doFillAction-method">
-		/**
-		 * {@inheritDoc}
-		 * @see com.adeuza.movalysfwk.mobile.mf4android.activity.AbstractAutoBindMMDialogFragment#doFillAction()
-		 */
-		@Override
-		public void doFillAction() {
-			<xsl:call-template name="non-generated-bloc">
-				<xsl:with-param name="blocId">doFillAction</xsl:with-param>
-				<xsl:with-param name="defaultSource">
-					LoadDataForMultipleDisplayDetailActionParameter oMultipleDisplayParameter = new LoadDataForMultipleDisplayDetailActionParameter();
-					<xsl:for-each select="pages/page[parameters/parameter[@name='grid-column-parameter'] = '1' and viewmodel/dataloader-impl and not(viewmodel/multiInstance='true')]">
-						<xsl:sort select="parameters/parameter[@name='grid-column-parameter']"/>
-						<xsl:sort select="parameters/parameter[@name='grid-section-parameter']"/>
-							<xsl:variable name="dataloaderName" select="./viewmodel/dataloader-impl/implements/interface/@name"/>
-							<xsl:if test="count(preceding-sibling::page[viewmodel/dataloader-impl/implements/interface/@name=$dataloaderName]) = 0">
-								oMultipleDisplayParameter.addDisplayParameter(
-								new InDisplayParameter(this.getIntent().getStringExtra(IDENTIFIER_CACHE_KEY),
-								<xsl:value-of select="$dataloaderName"/>.class));
-							</xsl:if>
-					</xsl:for-each>
-					this.launchAction(LoadDataForMultipleDisplayDetailAction.class, oMultipleDisplayParameter);					
-				</xsl:with-param>
-			</xsl:call-template>
-		}
-	</xsl:template>
-		
 	<xsl:template match="screen[workspace='false' and multi-panel='true']" mode="attributes">	
 		<xsl:apply-templates select="." mode="requestCodeConstant"/>
 	</xsl:template>
