@@ -39,7 +39,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 
-import com.adeuza.movalysfwk.mobile.mf4android.test.SpoonScreenshotAction;
+import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
 import <xsl:value-of select="full-name"/>;
 import <xsl:value-of select="master-package"/>.R;
 import com.squareup.spoon.Spoon;
