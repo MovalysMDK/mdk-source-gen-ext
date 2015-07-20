@@ -880,7 +880,7 @@
 			</extractors>
 			<m-updaters>
 			    <!-- add oldid attribute to entities -->
-			    <m-updater class="com.adeuza.movalysfwk.mf4mdd.mbandroid.mupdater.AddOldIdUpdater" />
+			    <m-updater class="com.adeuza.movalysfwk.mf4mdd.w8.umplupdater.AddOldIdUpdater" />
 			</m-updaters>
 			<projects>
 				<project name="baseproject" base-dir="${mainProject}">
