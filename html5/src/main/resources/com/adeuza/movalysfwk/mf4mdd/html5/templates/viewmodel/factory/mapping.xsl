@@ -250,7 +250,7 @@
 		<xsl:param name="left-attr-path"/>
 		<xsl:param name="specific-component-name"/>
 		<xsl:param name="specific-right-factory"/>
-		  <xsl:text>{&#10;</xsl:text>
+		  <xsl:text>&#10;{&#10;</xsl:text>
 		  <xsl:text>leftAttr: [</xsl:text><xsl:value-of select="$left-attr-path"/><xsl:text>'</xsl:text><xsl:value-of select="getter/@name"/><xsl:text>','</xsl:text><xsl:value-of select="$left-attr"/><xsl:text>'],&#10;</xsl:text>
           <xsl:text>rightAttr: ['</xsl:text><xsl:value-of select="@vm-attr"/><xsl:text>','</xsl:text><xsl:value-of select="$right-attr"/><xsl:text>'],</xsl:text>
 		  <xsl:text>leftFactory:'</xsl:text><xsl:value-of select="$specific-component-name"/><xsl:text>Factory',&#10;</xsl:text>
@@ -263,7 +263,7 @@
 		  		<xsl:text>'</xsl:text><xsl:value-of select="$specific-component-name"/><xsl:text>VMFactory'&#10;</xsl:text>
 		  	</xsl:otherwise>
 		  </xsl:choose>
-          <xsl:text>}&#10;</xsl:text>
+          <xsl:text>}</xsl:text>
 	</xsl:template>
 	
 	<xsl:template match="." mode="define-mapping-attribute-specific-component" priority="-999">

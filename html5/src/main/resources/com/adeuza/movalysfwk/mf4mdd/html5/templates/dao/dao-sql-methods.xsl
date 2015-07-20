@@ -568,24 +568,24 @@ extension-element-prefixes="exsl">
 																	and (@transient='false')]">
 
 							<xsl:text>				// 1. delete association records : for relationships many_to_many&#10;</xsl:text>
-							<xsl:text>				var o_sqlQuery = 'delete from </xsl:text><xsl:value-of select="join-table/name" /><xsl:text>'&#10;</xsl:text>
-							<xsl:text>								+'inner join </xsl:text><xsl:value-of select="join-table/name" /><xsl:text> on '&#10;</xsl:text>
-							<xsl:text>								+'		</xsl:text><xsl:value-of select="../table-name" /><xsl:text>.</xsl:text><xsl:value-of select="../identifier/attribute/field/@name" />
-																			<xsl:text> = </xsl:text><xsl:value-of select="join-table/name" /><xsl:text>.</xsl:text><xsl:value-of select="join-table/key-fields/field/@name" /><xsl:text>'&#10;</xsl:text>							
-							<xsl:text>								+'	where '&#10;</xsl:text>
+							<xsl:text>				var o_sqlQuery = 'delete from </xsl:text><xsl:value-of select="join-table/name" /><xsl:text>' + &#10;</xsl:text>
+							<xsl:text>								'inner join </xsl:text><xsl:value-of select="join-table/name" /><xsl:text> on ' + &#10;</xsl:text>
+							<xsl:text>								'		</xsl:text><xsl:value-of select="../table-name" /><xsl:text>.</xsl:text><xsl:value-of select="../identifier/attribute/field/@name" />
+																			<xsl:text> = </xsl:text><xsl:value-of select="join-table/name" /><xsl:text>.</xsl:text><xsl:value-of select="join-table/key-fields/field/@name" /><xsl:text>' + &#10;</xsl:text>
+							<xsl:text>								'	where ' + &#10;</xsl:text>
 														
 							<xsl:choose>
 								<xsl:when test="count(exsl:node-set($methodCriteriaToken)/criteria) > 0">
 									<xsl:for-each select="(exsl:node-set($methodCriteriaToken)/criteria)">
-										<xsl:text>								+'		</xsl:text><xsl:value-of select="@sqlName" /><xsl:text> in ('+ self.produceQueryInPart(</xsl:text><xsl:value-of select="@parameterName" />
+										<xsl:text>								'		</xsl:text><xsl:value-of select="@sqlName" /><xsl:text> in ('+ self.produceQueryInPart(</xsl:text><xsl:value-of select="@parameterName" />
 										<xsl:if test="@byValue = 'false'"><xsl:text>.idToString</xsl:text></xsl:if>
-										<xsl:text>) +')'</xsl:text>
-										<xsl:if test="position() != last()"><xsl:text>&#10;</xsl:text><xsl:text> and </xsl:text></xsl:if>
+										<xsl:text>) ')'</xsl:text>
+										<xsl:if test="position() != last()"><xsl:text> + &#10;</xsl:text><xsl:text> and </xsl:text></xsl:if>
 							   		</xsl:for-each>
 								</xsl:when>
 								
 								<xsl:otherwise>
-									<xsl:text>								+'		</xsl:text><xsl:value-of select="../table-name" /><xsl:text>.</xsl:text><xsl:value-of select="join-table/key-fields/field/@name" /><xsl:text> = ?</xsl:text>
+									<xsl:text>								'		</xsl:text><xsl:value-of select="../table-name" /><xsl:text>.</xsl:text><xsl:value-of select="join-table/key-fields/field/@name" /><xsl:text> = ?</xsl:text>
 								</xsl:otherwise>							
 							</xsl:choose>						
 							<xsl:text>;';&#10;</xsl:text>
