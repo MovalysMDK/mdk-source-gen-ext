@@ -17,16 +17,16 @@
 
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:exsl="http://exslt.org/common" extension-element-prefixes="exsl">
-	
-	
+				xmlns:exsl="http://exslt.org/common" extension-element-prefixes="exsl">
+
+
 	<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/html5/templates/commons/nongenerated.xsl"/>
-	
+
 	<xsl:template match="node()" mode="declare-protocol-imports">
 		<xsl:param name="useClass">false</xsl:param>
 		<xsl:variable name="currentId" select="generate-id(.)"/>
 		<xsl:variable name="ancestorId" select="generate-id(/node())"/>
-		
+
 		<xsl:variable name="imports">
 			<objc-imports>
 				<xsl:copy-of select="objc-imports/objc-import"/>
@@ -39,32 +39,35 @@
 
 
 		<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']) > 0">
-		<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']" mode="write-import">
-			<xsl:sort/>
-		</xsl:apply-templates>
+			<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']" mode="write-import">
+				<xsl:sort/>
+			</xsl:apply-templates>
 		</xsl:if>
 		<xsl:text>&#10;</xsl:text>
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">dependencies-names</xsl:with-param>
 			<xsl:with-param name="defaultSource"></xsl:with-param>
 		</xsl:call-template>
-		
-		
-		<xsl:text>&#10;//@non-generated-start[dependencies-classes]&#10;</xsl:text>
-		<xsl:value-of select="/*/non-generated/bloc[@id='dependencies-classes']"/>
-		<xsl:text>function(</xsl:text>
-		<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']) > 0">
-		<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']" mode="write-import-in-function">
-			<xsl:sort/>
-		</xsl:apply-templates>
-		</xsl:if>
+
 		<xsl:text>&#10;</xsl:text>
-		<xsl:text>//@non-generated-end&#10;</xsl:text>
+
+		<xsl:call-template name="non-generated-bloc">
+			<xsl:with-param name="blocId">dependencies-classes</xsl:with-param>
+			<xsl:with-param name="defaultSource">
+			<xsl:text>function(</xsl:text>
+
+			<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']) > 0">
+				<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']" mode="write-import-in-function">
+					<xsl:sort/>
+				</xsl:apply-templates>
+			</xsl:if>
+			<xsl:text>&#10;</xsl:text>
+		</xsl:with-param>
+		</xsl:call-template>
 		<xsl:text>)&#10;</xsl:text>
-		
 	</xsl:template>
-	
-	
+
+
 	<xsl:template match="objc-import" mode="write-import">
 		<xsl:variable name="currentImport" select="text()"/>
 		<xsl:if test="count(preceding-sibling::objc-import[text()=$currentImport]) = 0">
@@ -72,7 +75,7 @@
 			<xsl:if test="position() != last()"><xsl:text> </xsl:text></xsl:if>
 		</xsl:if>
 	</xsl:template>
-	
+
 	<xsl:template match="objc-import" mode="write-import-in-function">
 		<xsl:variable name="currentImport" select="text()"/>
 		<xsl:if test="count(preceding-sibling::objc-import[text()=$currentImport]) = 0">
@@ -82,7 +85,7 @@
 			</xsl:if>
 		</xsl:if>
 	</xsl:template>
-	
+
 	<xsl:template match="*" mode="declare-protocol-imports" priority="-900">
 		<xsl:comment>//No headers</xsl:comment>
 	</xsl:template>
