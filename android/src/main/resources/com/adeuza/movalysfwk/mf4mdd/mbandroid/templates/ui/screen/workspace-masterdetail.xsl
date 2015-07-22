@@ -36,7 +36,7 @@
 		 * {@inheritDoc}
 		 */
 		@Override
-		protected void doDisplayDetail(String p_sItemId) {
+		public void doDisplayDetail(String p_sItemId) {
 			final InDisplayParameter oParam = new InDisplayParameter();
 			oParam.setId( p_sItemId );
 			oParam.setDataLoader( <xsl:value-of select="pages/page[parameters/parameter[@name='workspace-panel-type'] = 'detail']/viewmodel/dataloader-impl/implements/interface/@name"/>.class );

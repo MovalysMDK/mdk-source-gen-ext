@@ -273,6 +273,8 @@
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">doOnMasterListChangeSelectedItem</xsl:with-param>
 				<xsl:with-param name="defaultSource">
+				((<xsl:value-of select="screen-class"/>) this.getActivity()).doDisplayDetail(p_oEvent.getData());
+				this.getActivity().getIntent().putExtra(IDENTIFIER_CACHE_KEY, p_oEvent.getData());
 				</xsl:with-param>
 			</xsl:call-template>
 		}

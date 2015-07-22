@@ -19,7 +19,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="screen" mode="doOnReload-method">
-<!-- 		<xsl:apply-templates select="pages/page[viewmodel/dataloader-impl and not(viewmodel/multiInstance='true')]" mode="doOnReload-method"/> -->
+		<xsl:apply-templates select="pages/page[viewmodel/dataloader-impl and not(viewmodel/multiInstance='true')]" mode="doOnReload-method"/>
 	</xsl:template>
 
 	<xsl:template match="dialog|page" mode="doOnReload-imports">

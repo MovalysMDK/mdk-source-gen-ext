@@ -81,6 +81,21 @@
 
 	<xsl:template match="page[ancestor::screen/workspace='true' and parameters/parameter[@name='workspace-panel-type'] = 'master']" 
 		mode="doOnReload-method">
+		<xsl:variable name="dataloader" select="./viewmodel/dataloader-impl/implements/interface/@name"/>
+		/**
+		 * Listener on <xsl:value-of select="$dataloader"/> reload
+		 * @param p_oEvent the event sent from the dataloader
+		 */
+		@ListenerOnDataLoaderReload(<xsl:value-of select="$dataloader"/>.class)
+		public void doOnReload<xsl:value-of select="$dataloader"/>(ListenerOnDataLoaderReloadEvent&lt;<xsl:value-of select="$dataloader"/>&gt; p_oEvent) {
+			<xsl:call-template name="non-generated-bloc">
+				<xsl:with-param name="blocId">doOnReload</xsl:with-param>
+				<xsl:with-param name="defaultSource">
+					this.getWlayout().unHideDetailColumns(true);
+				</xsl:with-param>
+			</xsl:call-template>
+			super.doOnReloadDetail(p_oEvent);
+		}
 	</xsl:template>
 
 	<!--  Methode de chargement du détail: template doOnReload-method surchargé afin de gérer l'appel au super.doOnReloadDetail -->
@@ -96,10 +111,7 @@
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">doOnReloadDetail</xsl:with-param>
 				<xsl:with-param name="defaultSource">
-					<xsl:apply-templates select="." mode="generate-doOnReload-body">
-						<xsl:with-param name="viewmodel" select="/screen/viewmodel/implements/interface/@name"/>
-						<xsl:with-param name="isScreenVm" select="true"/>
-					</xsl:apply-templates>
+					this.getWlayout().unHideDetailColumns(true);
 				</xsl:with-param>
 			</xsl:call-template>
 			super.doOnReloadDetail(p_oEvent);
@@ -157,7 +169,7 @@
 
 		<xsl:apply-templates select="self::node()[descendant::action/action-type='SAVEDETAIL']" mode="do-keep-modifications"/>
 
-		<xsl:if test="descendant::action/action-type='SAVEDETAIL'">			
+		<xsl:if test="descendant::action/action-type='SAVEDETAIL'">
 			@ListenerOnActionSuccess(action=ChainSaveDetailAction.class)
 			public void doOnSave<xsl:value-of select="descendant::page/actions/action[action-type='SAVEDETAIL']/class/implements/interface/@name"/>Success(ListenerOnActionSuccessEvent&lt;EntityActionParameterImpl<xsl:text>&lt;</xsl:text>
 				<xsl:value-of select="descendant::page/actions/action[action-type='SAVEDETAIL']/class/implements/interface/@name"/>
@@ -172,7 +184,7 @@
 			
 		</xsl:if>
 
-		<xsl:if test="descendant::page/actions/action/action-type='DELETEDETAIL'">			
+		<xsl:if test="descendant::page/actions/action/action-type='DELETEDETAIL'">
 <!-- 			@ListenerOnActionSuccess(action=ChainSaveDetailAction.class) -->
 <!-- 			public void doOnSave<xsl:value-of select="descendant::page/actions/action[action-type='SAVEDETAIL']/class/implements/interface/@name"/>Success(ListenerOnActionSuccessEvent&lt;EntityActionParameterImpl<xsl:text>&lt;</xsl:text> -->
 <!-- 				<xsl:value-of select="descendant::page/actions/action[action-type='SAVEDETAIL']/class/implements/interface/@name"/> -->
