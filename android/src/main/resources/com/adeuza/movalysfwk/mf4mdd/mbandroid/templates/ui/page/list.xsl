@@ -317,7 +317,7 @@
 			<xsl:with-param name="defaultSource">
 				final InUpdateVMParameter oActionParameter = new InUpdateVMParameter();
 				oActionParameter.setDataLoader(<xsl:value-of select="$dataloader"/>.class);						
-				oActionParameter.setVm(<xsl:value-of select="screen-vm-interface"/>.class);
+				oActionParameter.setVm(<xsl:value-of select="./viewmodel/implements/interface/@name"/>.class);
 				oActionParameter.addAdapter(this.getListAdapter());
 				this.launchAction(GenericUpdateVMForDisplayDetailAction.class, oActionParameter);
 			</xsl:with-param>
