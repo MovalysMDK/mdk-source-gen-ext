@@ -52,21 +52,16 @@
 
 
 	<xsl:template match="page[in-workspace='false' and in-multi-panel='true' and viewmodel/dataloader-impl]" mode="generate-doFillAction-body">
-			<xsl:call-template name="non-generated-bloc">
-				<xsl:with-param name="blocId">doFillAction</xsl:with-param>
-				<xsl:with-param name="defaultSource">			
-					LoadDataForMultipleDisplayDetailActionParameter oMultipleDisplayParameter = new LoadDataForMultipleDisplayDetailActionParameter();
-					<xsl:if test="parameters/parameter[@name='grid-column-parameter'] = '1' and viewmodel/dataloader-impl">
-							<xsl:variable name="dataloaderName" select="./viewmodel/dataloader-impl/implements/interface/@name"/>
-							<xsl:if test="count(preceding-sibling::page[viewmodel/dataloader-impl/implements/interface/@name=$dataloaderName]) = 0 and $dataloaderName">
-								oMultipleDisplayParameter.addDisplayParameter(
-								new InDisplayParameter(this.getActivity().getIntent().getStringExtra(IDENTIFIER_CACHE_KEY),
-								<xsl:value-of select="$dataloaderName"/>.class));
-							</xsl:if>
-					</xsl:if>
-					this.launchAction(LoadDataForMultipleDisplayDetailAction.class, oMultipleDisplayParameter);					
-				</xsl:with-param>
-			</xsl:call-template>
+		LoadDataForMultipleDisplayDetailActionParameter oMultipleDisplayParameter = new LoadDataForMultipleDisplayDetailActionParameter();
+		<xsl:if test="parameters/parameter[@name='grid-column-parameter'] = '1' and viewmodel/dataloader-impl">
+				<xsl:variable name="dataloaderName" select="./viewmodel/dataloader-impl/implements/interface/@name"/>
+				<xsl:if test="count(preceding-sibling::page[viewmodel/dataloader-impl/implements/interface/@name=$dataloaderName]) = 0 and $dataloaderName">
+					oMultipleDisplayParameter.addDisplayParameter(
+					new InDisplayParameter(this.getActivity().getIntent().getStringExtra(IDENTIFIER_CACHE_KEY),
+					<xsl:value-of select="$dataloaderName"/>.class));
+				</xsl:if>
+		</xsl:if>
+		this.launchAction(LoadDataForMultipleDisplayDetailAction.class, oMultipleDisplayParameter);
 	</xsl:template>
 
 
