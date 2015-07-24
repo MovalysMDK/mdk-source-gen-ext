@@ -276,38 +276,31 @@
 		</xsl:text>
 		
 		<xsl:value-of select="return-type/@short-name"/> r_o<xsl:value-of select="return-type/@short-name"/> 
-			<xsl:text> = null ;</xsl:text>
-					
+		<xsl:text> = null ;</xsl:text>
+
+		<xsl:call-template name="dao-sql-addequalscondition-of-parameters">
+			<xsl:with-param name="interface" select="$interface"/>
+			<xsl:with-param name="queryObject">p_oDaoQuery.getSqlQuery()</xsl:with-param>
+		</xsl:call-template>	
+		<xsl:call-template name="dao-sql-joinclass-addinnerjoin">
+			<xsl:with-param name="interface" select="$interface"/>
+			<xsl:with-param name="classe" select="$classe"/>
+		</xsl:call-template>
+
+		AndroidSQLitePreparedStatement oStatement = p_oDaoQuery.prepareStatement(p_oContext);
+
 		try {
-		
-			<xsl:call-template name="dao-sql-addequalscondition-of-parameters">
-				<xsl:with-param name="interface" select="$interface"/>
-				<xsl:with-param name="queryObject">p_oDaoQuery.getSqlQuery()</xsl:with-param>
-			</xsl:call-template>	
-			<xsl:call-template name="dao-sql-joinclass-addinnerjoin">
-				<xsl:with-param name="interface" select="$interface"/>
-				<xsl:with-param name="classe" select="$classe"/>
-			</xsl:call-template>
-
-			PreparedStatement oStatement = p_oDaoQuery.prepareStatement(p_oContext);
-
+			p_oDaoQuery.bindValues(oStatement);
+			ResultSetReader oResultSetReader = new ResultSetReader(oStatement.executeQuery());
 			try {
-				p_oDaoQuery.bindValues(oStatement);
-				ResultSetReader oResultSetReader = new ResultSetReader(oStatement.executeQuery());
-				try {
-					while ( oResultSetReader.next()) {
-						r_o<xsl:value-of select="return-type/@short-name"/> = valueObject( oResultSetReader, p_oDaoQuery, p_oDaoSession, p_oCascadeSet, p_oContext );
-					}
-				} finally {
-					oResultSetReader.close();
+				while ( oResultSetReader.next()) {
+					r_o<xsl:value-of select="return-type/@short-name"/> = valueObject( oResultSetReader, p_oDaoQuery, p_oDaoSession, p_oCascadeSet, p_oContext );
 				}
 			} finally {
-				oStatement.close();
+				oResultSetReader.close();
 			}
-		} catch( SQLException e ) {
-			throw new DaoException(e);
-		} catch( IOException e ) {
-			throw new DaoException(e);
+		} finally {
+			oStatement.close();
 		}
 		return r_o<xsl:value-of select="return-type/@short-name"/> ;
 	}

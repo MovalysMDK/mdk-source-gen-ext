@@ -34,57 +34,53 @@
 			<xsl:text>, CascadeSet p_oCascadeSet, DaoSession p_oDaoSession, MContext p_oContext ) throws DaoException {
 		</xsl:text>
 		
-		try {
-			if ( !p_oDaoSession.isAlreadySaved(<xsl:value-of select="interface/name"/>.ENTITY_NAME, p_o<xsl:value-of select="interface/name"/>)) {
-				p_oDaoSession.markAsSaved(<xsl:value-of select="interface/name"/>.ENTITY_NAME, p_o<xsl:value-of select="interface/name"/>);
-		
-				<xsl:call-template name="cascadesaveupdate-before">
-					<xsl:with-param name="interface" select="interface"/>
-					<xsl:with-param name="class" select="class"/>
-					<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
-				</xsl:call-template>
-		
-				if(!p_oContext.getMessages().hasErrors()) {
-					<xsl:variable name="pkFields" select="class/identifier/attribute/field | class/identifier/association/field"/>
-				
-					SqlUpdate oSqlUpdate = this.getUpdateQuery();
-					<xsl:for-each select="class/identifier/descendant::attribute">
-						<xsl:call-template name="dao-sql-addequalscondition-withoutvalue">
-							<xsl:with-param name="interface" select="$interface"/>
-							<xsl:with-param name="object">p_o<xsl:value-of select="$interface/name"/></xsl:with-param>
-							<xsl:with-param name="fields" select="$pkFields"/>
-							<xsl:with-param name="queryObject">oSqlUpdate</xsl:with-param>
-						</xsl:call-template>
-					</xsl:for-each>
-					Connection oConnection = ((MContextImpl)p_oContext).getTransaction().getConnection();
-					PreparedStatement oStatement = oConnection.prepareStatement(oSqlUpdate.toSql(p_oContext));
-					try {
-						bindUpdate( p_o<xsl:value-of select="interface/name"/>, oStatement, p_oContext );
-						oStatement.executeUpdate();
-						
-						<xsl:if test="class/parameters/parameter[@name='oldidholder'] = 'true'">
-							p_o<xsl:value-of select="interface/name"/>
-							<xsl:text>.</xsl:text>
-							<xsl:value-of select="class/attribute[parameters/parameter[@name='oldidholder'] = 'true']/set-accessor"/>
-							<xsl:text>( p_o</xsl:text>
-							<xsl:value-of select="interface/name"/>
-							<xsl:text>.</xsl:text>
-							<xsl:value-of select="class/identifier/attribute/get-accessor"/>
-							<xsl:text>());
-							</xsl:text>
-						</xsl:if>
-					} finally {
-						oStatement.close();
-					}
+		if ( !p_oDaoSession.isAlreadySaved(<xsl:value-of select="interface/name"/>.ENTITY_NAME, p_o<xsl:value-of select="interface/name"/>)) {
+			p_oDaoSession.markAsSaved(<xsl:value-of select="interface/name"/>.ENTITY_NAME, p_o<xsl:value-of select="interface/name"/>);
+	
+			<xsl:call-template name="cascadesaveupdate-before">
+				<xsl:with-param name="interface" select="interface"/>
+				<xsl:with-param name="class" select="class"/>
+				<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
+			</xsl:call-template>
+	
+			if(!p_oContext.getMessages().hasErrors()) {
+				<xsl:variable name="pkFields" select="class/identifier/attribute/field | class/identifier/association/field"/>
+			
+				SqlUpdate oSqlUpdate = this.getUpdateQuery();
+				<xsl:for-each select="class/identifier/descendant::attribute">
+					<xsl:call-template name="dao-sql-addequalscondition-withoutvalue">
+						<xsl:with-param name="interface" select="$interface"/>
+						<xsl:with-param name="object">p_o<xsl:value-of select="$interface/name"/></xsl:with-param>
+						<xsl:with-param name="fields" select="$pkFields"/>
+						<xsl:with-param name="queryObject">oSqlUpdate</xsl:with-param>
+					</xsl:call-template>
+				</xsl:for-each>
+				AndroidSQLiteConnection oConnection = ((MContextImpl) p_oContext).getConnection();
+				MDKSQLiteStatement oStatement = oConnection.compileStatement(oSqlUpdate.toSql(p_oContext));
+				try {
+					bindUpdate( p_o<xsl:value-of select="interface/name"/>, oStatement, p_oContext );
+					oStatement.executeUpdate();
+					
+					<xsl:if test="class/parameters/parameter[@name='oldidholder'] = 'true'">
+						p_o<xsl:value-of select="interface/name"/>
+						<xsl:text>.</xsl:text>
+						<xsl:value-of select="class/attribute[parameters/parameter[@name='oldidholder'] = 'true']/set-accessor"/>
+						<xsl:text>( p_o</xsl:text>
+						<xsl:value-of select="interface/name"/>
+						<xsl:text>.</xsl:text>
+						<xsl:value-of select="class/identifier/attribute/get-accessor"/>
+						<xsl:text>());
+						</xsl:text>
+					</xsl:if>
+				} finally {
+					oStatement.close();
 				}
-				<xsl:call-template name="cascadeupdate-after">
-					<xsl:with-param name="interface" select="interface"/>
-					<xsl:with-param name="class" select="class"/>
-					<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
-				</xsl:call-template>
 			}
-		} catch( SQLException e ) {
-			throw new DaoException(e);
+			<xsl:call-template name="cascadeupdate-after">
+				<xsl:with-param name="interface" select="interface"/>
+				<xsl:with-param name="class" select="class"/>
+				<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
+			</xsl:call-template>
 		}
 	}
 	

@@ -69,9 +69,7 @@
 		} else {
 			<xsl:if test="../@optional = 'true'">
 				<xsl:value-of select="$statement"/>
-				<xsl:text>.bindNull( SqlType.</xsl:text>
-				<xsl:value-of select="jdbc-type"/>
-				<xsl:text> );</xsl:text>
+				<xsl:text>.bindNull();</xsl:text>
 			</xsl:if>
 			<xsl:if test="../@optional = 'false'">
 				throw new DaoException("Property '<xsl:value-of select="../@name"/>
@@ -94,9 +92,7 @@
 		} else {
 			<xsl:if test="../../@optional = 'true'">
 				<xsl:value-of select="$statement"/>
-				<xsl:text>.bindNull(SqlType.</xsl:text>
-				<xsl:value-of select="jdbc-type"/>
-				<xsl:text> );</xsl:text>
+				<xsl:text>.bindNull();</xsl:text>
 			</xsl:if>
 			<xsl:if test="../../@optional = 'false'">
 				throw new DaoException("Property '<xsl:value-of select="../@name"/>

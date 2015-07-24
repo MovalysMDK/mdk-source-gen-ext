@@ -92,41 +92,36 @@
 			<xsl:text>, CascadeSet p_oCascadeSet, MContext p_oContext ) throws DaoException {
 		</xsl:text>
 				
-		try {
-			<xsl:call-template name="cascadedelete-before">
-				<xsl:with-param name="interface" select="interface"/>
-				<xsl:with-param name="class" select="class"/>
-				<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
-			</xsl:call-template>
+		<xsl:call-template name="cascadedelete-before">
+			<xsl:with-param name="interface" select="interface"/>
+			<xsl:with-param name="class" select="class"/>
+			<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
+		</xsl:call-template>
 
-			SqlDelete oSqlDelete = getDeleteQuery();
-			<xsl:for-each select="class/identifier/descendant::attribute">
-				<xsl:call-template name="dao-delete-addequalscondition-withvalue">
-					<xsl:with-param name="interface" select="$interface"/>
-					<xsl:with-param name="object">p_o<xsl:value-of select="$interface/name"/></xsl:with-param>
-					<xsl:with-param name="fields" select="$pkFields"/>
-					<xsl:with-param name="queryObject">oSqlDelete</xsl:with-param>
-				</xsl:call-template>
-			</xsl:for-each>
-		
-			Connection oConnection = ((MContextImpl)p_oContext).getTransaction().getConnection();
-			PreparedStatement oStatement = oConnection.prepareStatement(oSqlDelete.toSql(p_oContext));
-			try {
-				oSqlDelete.bindValues(oStatement);
-				oStatement.executeUpdate();
-			}
-			finally {
-				oStatement.close();
-			}
-			<xsl:call-template name="cascadedelete-after">
-				<xsl:with-param name="interface" select="interface"/>
-				<xsl:with-param name="class" select="class"/>
-				<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
+		SqlDelete oSqlDelete = getDeleteQuery();
+		<xsl:for-each select="class/identifier/descendant::attribute">
+			<xsl:call-template name="dao-delete-addequalscondition-withvalue">
+				<xsl:with-param name="interface" select="$interface"/>
+				<xsl:with-param name="object">p_o<xsl:value-of select="$interface/name"/></xsl:with-param>
+				<xsl:with-param name="fields" select="$pkFields"/>
+				<xsl:with-param name="queryObject">oSqlDelete</xsl:with-param>
 			</xsl:call-template>
+		</xsl:for-each>
+	
+		AndroidSQLiteConnection oConnection = ((MContextImpl) p_oContext).getConnection();
+		AndroidSQLitePreparedStatement oStatement = oConnection.prepareStatement(oSqlDelete.toSql(p_oContext));
+		try {
+			oSqlDelete.bindValues(oStatement);
+			oStatement.executeUpdate();
 		}
-		catch( SQLException e ) {
-			throw new DaoException(e);
+		finally {
+			oStatement.close();
 		}
+		<xsl:call-template name="cascadedelete-after">
+			<xsl:with-param name="interface" select="interface"/>
+			<xsl:with-param name="class" select="class"/>
+			<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
+		</xsl:call-template>
 	}
 
 	<!--  Méthode avec l'id de l'objet à supprimer en paramètre -->
@@ -149,28 +144,23 @@
 			<xsl:text>MContext p_oContext ) throws DaoException {
 		</xsl:text>
 				
+		SqlDelete oSqlDelete = getDeleteQuery();
+		<xsl:for-each select="class/identifier/descendant::attribute">
+			<xsl:call-template name="dao-delete-addequalscondition-withvalue">
+				<xsl:with-param name="interface" select="$interface"/>
+				<xsl:with-param name="value"><xsl:value-of select="parameter-name"/></xsl:with-param>
+				<xsl:with-param name="fields" select="$pkFields"/>
+				<xsl:with-param name="queryObject">oSqlDelete</xsl:with-param>
+			</xsl:call-template>
+		</xsl:for-each>
+		AndroidSQLiteConnection oConnection = ((MContextImpl) p_oContext).getConnection();
+		AndroidSQLitePreparedStatement oStatement = oConnection.prepareStatement(oSqlDelete.toSql(p_oContext));
 		try {
-			SqlDelete oSqlDelete = getDeleteQuery();
-			<xsl:for-each select="class/identifier/descendant::attribute">
-				<xsl:call-template name="dao-delete-addequalscondition-withvalue">
-					<xsl:with-param name="interface" select="$interface"/>
-					<xsl:with-param name="value"><xsl:value-of select="parameter-name"/></xsl:with-param>
-					<xsl:with-param name="fields" select="$pkFields"/>
-					<xsl:with-param name="queryObject">oSqlDelete</xsl:with-param>
-				</xsl:call-template>
-			</xsl:for-each>
-			Connection oConnection = ((MContextImpl)p_oContext).getTransaction().getConnection();
-			PreparedStatement oStatement = oConnection.prepareStatement(oSqlDelete.toSql(p_oContext));
-			try {
-				oSqlDelete.bindValues(oStatement);
-				oStatement.executeUpdate();
-			}
-			finally {
-				oStatement.close();
-			}
+			oSqlDelete.bindValues(oStatement);
+			oStatement.executeUpdate();
 		}
-		catch( SQLException e ) {
-			throw new DaoException(e);
+		finally {
+			oStatement.close();
 		}
 	}
 </xsl:template>

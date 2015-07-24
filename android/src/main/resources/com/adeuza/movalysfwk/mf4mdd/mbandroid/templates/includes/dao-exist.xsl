@@ -33,40 +33,31 @@
 		protected boolean exist(<xsl:value-of select="interface/name"/> p_o<xsl:value-of select="interface/name"/>,
 				CascadeSet p_oCascadeSet, MContext p_oContext ) throws DaoException {
 			boolean r_bExist = false ;
-			try {
-				DaoQuery oQuery = this.getSelectDaoQuery();
-				<xsl:variable name="pkFields" select="class/identifier/attribute/field | class/identifier/association/field"/>
-				<xsl:for-each select="class/identifier/descendant::attribute">
-					<xsl:call-template name="dao-sql-addequalscondition-withvalue">
-						<xsl:with-param name="interface" select="$interface"/>
-						<xsl:with-param name="queryObject">oQuery.getSqlQuery()</xsl:with-param>
-						<xsl:with-param name="fields" select="$pkFields"/>
-						<xsl:with-param name="object">p_o<xsl:value-of select="$interface/name"/></xsl:with-param>
-					</xsl:call-template>
-				</xsl:for-each>
-<!-- 
-				<xsl:call-template name="dao-historisation-identifier-object">
+			DaoQuery oQuery = this.getSelectDaoQuery();
+			<xsl:variable name="pkFields" select="class/identifier/attribute/field | class/identifier/association/field"/>
+			<xsl:for-each select="class/identifier/descendant::attribute">
+				<xsl:call-template name="dao-sql-addequalscondition-withvalue">
 					<xsl:with-param name="interface" select="$interface"/>
-					<xsl:with-param name="class" select="class"/>
+					<xsl:with-param name="queryObject">oQuery.getSqlQuery()</xsl:with-param>
+					<xsl:with-param name="fields" select="$pkFields"/>
+					<xsl:with-param name="object">p_o<xsl:value-of select="$interface/name"/></xsl:with-param>
 				</xsl:call-template>
--->
-				<xsl:text>PreparedStatement oStatement = oQuery.prepareStatement(p_oContext);</xsl:text>
+			</xsl:for-each>
+			
+			<xsl:text>AndroidSQLitePreparedStatement oStatement = oQuery.prepareStatement(p_oContext);</xsl:text>
 
-				try {			
-					oQuery.bindValues(oStatement);
-					ResultSet oResultSet = oStatement.executeQuery();
-					try {
-						if ( oResultSet.next()) {
-							r_bExist = true;
-						}
-					} finally {
-						oResultSet.close();
+			try {			
+				oQuery.bindValues(oStatement);
+				AndroidSQLiteResultSet oResultSet = oStatement.executeQuery();
+				try {
+					if ( oResultSet.next()) {
+						r_bExist = true;
 					}
 				} finally {
-					oStatement.close();
+					oResultSet.close();
 				}
-			} catch( SQLException e ) {
-				throw new DaoException(e);
+			} finally {
+				oStatement.close();
 			}
 			return r_bExist ;
 		}

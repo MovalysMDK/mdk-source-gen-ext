@@ -74,34 +74,30 @@
 			<xsl:text>CascadeSet p_oCascadeSet, MContext p_oContext ) throws DaoException {
 		</xsl:text>
 			
+		AndroidSQLiteConnection oConnection = ((MContextImpl) p_oContext).getConnection();
+		SqlDelete oSqlDelete = getDeleteQuery();
+		<xsl:call-template name="dao-delete-addequalscondition-of-parameters">
+			<xsl:with-param name="interface" select="$interface"/>
+			<xsl:with-param name="queryObject">oSqlDelete</xsl:with-param>
+		</xsl:call-template>	
+		<xsl:call-template name="dao-sql-joinclass-addinnerjoin">
+			<xsl:with-param name="interface" select="$interface"/>
+			<xsl:with-param name="classe" select="$classe"/>
+		</xsl:call-template>
+		
+		<xsl:text>AndroidSQLitePreparedStatement oStatement = oConnection.prepareStatement(oSqlDelete.toSql(p_oContext));</xsl:text>
 		try {
-			Connection oConnection = ((MContextImpl)p_oContext).getTransaction().getConnection();
-			SqlDelete oSqlDelete = getDeleteQuery();
-			<xsl:call-template name="dao-delete-addequalscondition-of-parameters">
-				<xsl:with-param name="interface" select="$interface"/>
-				<xsl:with-param name="queryObject">oSqlDelete</xsl:with-param>
-			</xsl:call-template>	
-			<xsl:call-template name="dao-sql-joinclass-addinnerjoin">
-				<xsl:with-param name="interface" select="$interface"/>
-				<xsl:with-param name="classe" select="$classe"/>
-			</xsl:call-template>
-			
-			<xsl:text>PreparedStatement oStatement = oConnection.prepareStatement(oSqlDelete.toSql(p_oContext));</xsl:text>
-			try {
-				<!-- xsl:for-each select="descendant::attribute">
-					<xsl:call-template name="jdbc-bind-param">
-						<xsl:with-param name="interface" select="$interface"/>
-						<xsl:with-param name="statement">oStatement</xsl:with-param>
-						<xsl:with-param name="object"><xsl:value-of select="ancestor::method-parameter/@name"/></xsl:with-param>
-					</xsl:call-template>
-				</xsl:for-each-->
-				oSqlDelete.bindValues(oStatement);
-				oStatement.executeUpdate();
-			} finally {
-				oStatement.close();
-			}
-		} catch( SQLException e ) {
-			throw new DaoException(e);
+			<!-- xsl:for-each select="descendant::attribute">
+				<xsl:call-template name="jdbc-bind-param">
+					<xsl:with-param name="interface" select="$interface"/>
+					<xsl:with-param name="statement">oStatement</xsl:with-param>
+					<xsl:with-param name="object"><xsl:value-of select="ancestor::method-parameter/@name"/></xsl:with-param>
+				</xsl:call-template>
+			</xsl:for-each-->
+			oSqlDelete.bindValues(oStatement);
+			oStatement.executeUpdate();
+		} finally {
+			oStatement.close();
 		}
 	}
 </xsl:template>

@@ -68,29 +68,23 @@
 	</xsl:for-each>
 	<xsl:text>, MContext p_oContext ) throws DaoException {
 		</xsl:text>
-				
-		try {	
-			SqlInsert oSqlInsert = this.getInsertQuery();
-			Connection oConnection = ((MContextImpl)p_oContext).getTransaction().getConnection();
-			PreparedStatement oStatement = oConnection.prepareStatement(oSqlInsert.toSql(p_oContext));
-			try {
-				StatementBinder oStatementBinder = new StatementBinder(oStatement);
-				<xsl:for-each select="$class/identifier/descendant::attribute">
-					<xsl:call-template name="jdbc-bind-insert">
-						<xsl:with-param name="interface" select="$interface"/>
-						<xsl:with-param name="statement">oStatementBinder</xsl:with-param>
-						<xsl:with-param name="object"><xsl:value-of select="parameter-name"/></xsl:with-param>
-						<xsl:with-param name="by-value">true</xsl:with-param>
-					</xsl:call-template>
-				</xsl:for-each>
-				oStatement.executeUpdate();
-			}
-			finally {
-				oStatement.close();
-			}
+					
+		SqlInsert oSqlInsert = this.getInsertQuery();
+		AndroidSQLiteConnection oConnection = ((MContextImpl) p_oContext).getConnection();
+		MDKSQLiteStatement oStatement = oConnection.compileStatement(oSqlInsert.toSql(p_oContext));
+		try {
+			<xsl:for-each select="$class/identifier/descendant::attribute">
+				<xsl:call-template name="jdbc-bind-insert">
+					<xsl:with-param name="interface" select="$interface"/>
+					<xsl:with-param name="statement">oStatement</xsl:with-param>
+					<xsl:with-param name="object"><xsl:value-of select="parameter-name"/></xsl:with-param>
+					<xsl:with-param name="by-value">true</xsl:with-param>
+				</xsl:call-template>
+			</xsl:for-each>
+			oStatement.executeUpdate();
 		}
-		catch( SQLException e ) {
-			throw new DaoException(e);
+		finally {
+			oStatement.close();
 		}
 	}
 </xsl:template>
@@ -418,47 +412,6 @@
 		<xsl:text>	}</xsl:text>
 	</xsl:template>
 
-
-<!--<xsl:template name="dao-joinclass-fk">
-	<xsl:param name="interface"/>
-	<xsl:param name="class"/>
-
-	<xsl:variable name="assoLeftName" select="$class/left-association/name"/>
-	<xsl:variable name="assoRightName" select="$class/right-association/name"/>
-	<xsl:variable name="rightClass" select="right-class"/>
-	<xsl:variable name="leftClass" select="left-class"/>
-
-	<xsl:variable name="assoOwner" select="$rightClass/association[@name = $assoRightName and @relation-owner = 'true' ]
-		| $leftClass/association[@name = $assoLeftName and @relation-owner = 'true' ]"/>
-
-	public static final PairValue&lt;Field,SqlType&gt;[] FK_<xsl:value-of select="$assoOwner/@cascade-name"/>
-		<xsl:text> = new PairValue[] {</xsl:text>
-		<xsl:for-each select="$assoOwner/join-table/crit-fields/field">
-			new PairValue&lt;Field,SqlType&gt;( <xsl:value-of select="$interface/name"/>Field.<xsl:value-of select="@name"/>
-			<xsl:text>, SqlType.</xsl:text><xsl:value-of select="@jdbc-type"/>
-			<xsl:text>)</xsl:text>
-			<xsl:if test="position() != last()">
-				<xsl:text>,
-				</xsl:text>
-			</xsl:if>			
-		</xsl:for-each>
-	<xsl:text>};</xsl:text>
-		
-	public static final PairValue&lt;Field,SqlType&gt;[] FK_<xsl:value-of select="$assoOwner/@opposite-cascade-name"/>
-		<xsl:text> = new PairValue[] {</xsl:text>		
-		<xsl:for-each select="$assoOwner/join-table/key-fields/field">			
-			new PairValue&lt;Field,SqlType&gt;( <xsl:value-of select="$interface/name"/>Field.<xsl:value-of select="@name"/>
-			<xsl:text>, SqlType.</xsl:text><xsl:value-of select="@jdbc-type"/>
-			<xsl:text>)</xsl:text>
-			<xsl:if test="position() != last()">
-				<xsl:text>,
-				</xsl:text>
-			</xsl:if>
-		</xsl:for-each>
-	<xsl:text>};</xsl:text>
-</xsl:template>
-
--->
 	<xsl:template match="dao" mode="joinclass-fk-2">
 		<xsl:variable name="assoLeftName" select="./class/left-association/name"/>
 		<xsl:variable name="assoRightName" select="./class/right-association/name"/>
@@ -472,11 +425,11 @@
 		<xsl:text>	 * Tableau de clés étrangères pour l'association </xsl:text><xsl:value-of select="$assoOwner/@name"/><xsl:text>.&#13;</xsl:text>
 		<xsl:text>	 */&#13;</xsl:text>
 		<xsl:text>	@SuppressWarnings("unchecked")&#13;</xsl:text>
-		<xsl:text>	public static final PairValue&lt;Field,SqlType&gt;[] FK_</xsl:text>
+		<xsl:text>	public static final FieldType[] FK_</xsl:text>
 		<xsl:value-of select="$assoOwner/@cascade-name"/>
-		<xsl:text> = new PairValue[] {</xsl:text>
+		<xsl:text> = new FieldType[] {</xsl:text>
 		<xsl:for-each select="$assoOwner/join-table/crit-fields/field">
-			<xsl:text>new PairValue&lt;Field,SqlType&gt;( </xsl:text>
+			<xsl:text>new FieldType( </xsl:text>
 			<xsl:value-of select="../../interface/name"/>
 			<xsl:text>Field.</xsl:text>
 			<xsl:value-of select="@name"/>
@@ -494,11 +447,11 @@
 		<xsl:text>	 * Tableau de clés étrangères pour l'association </xsl:text><xsl:value-of select="$assoOwner/@opposite-name"/><xsl:text>.&#13;</xsl:text>
 		<xsl:text>	 */&#13;</xsl:text>
 		<xsl:text>	@SuppressWarnings("unchecked")&#13;</xsl:text>
-		<xsl:text>	public static final PairValue&lt;Field,SqlType&gt;[] FK_</xsl:text>
+		<xsl:text>	public static final FieldType[] FK_</xsl:text>
 		<xsl:value-of select="$assoOwner/@opposite-cascade-name"/>
-		<xsl:text> = new PairValue[] {&#13;</xsl:text>
+		<xsl:text> = new FieldType[] {&#13;</xsl:text>
 		<xsl:for-each select="$assoOwner/join-table/key-fields/field">
-			<xsl:text>			new PairValue&lt;Field,SqlType&gt;( </xsl:text>
+			<xsl:text>			new FieldType( </xsl:text>
 			<xsl:value-of select="../../interface/name"/>
 			<xsl:text>Field.</xsl:text>
 			<xsl:value-of select="@name"/>

@@ -62,35 +62,6 @@
 			</xsl:for-each>
 			<xsl:text>DaoQuery p_oDaoQuery, MContext p_oContext ) throws DaoException {
 		</xsl:text>
-		
-		<!-- Doesnot work:
-		int r_iResult = -1;
-		try {
-			<xsl:text>PreparedStatement oStatement = p_oDaoQuery.prepareStatement(p_oContext);</xsl:text>
-			try {
-				<xsl:for-each select="descendant::attribute">
-					<xsl:call-template name="jdbc-bind-param">
-						<xsl:with-param name="interface" select="$interface"/>
-						<xsl:with-param name="statement">oStatement</xsl:with-param>
-						<xsl:with-param name="object"><xsl:value-of select="ancestor::method-parameter/@name"/></xsl:with-param>
-					</xsl:call-template>
-				</xsl:for-each>
-				p_oDaoQuery.bind( oStatement, <xsl:value-of select="count(descendant::attribute) + 1"/>);
-				ResultSet oResultSet = oStatement.executeQuery();
-				try {
-					if(oResultSet.next()){
-						r_iResult = oResultSet.getInt(1);
-					}
-				} finally {
-					oResultSet.close();
-				}
-			} finally {
-				oStatement.close();
-			}
-		} catch( SQLException e ) {
-			throw new DaoException(e);
-		}
-		 -->
 		return 0;
 	}
 </xsl:template>

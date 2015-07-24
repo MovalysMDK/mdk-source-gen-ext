@@ -33,80 +33,75 @@
 			<xsl:text>, CascadeSet p_oCascadeSet, DaoSession p_oDaoSession, MContext p_oContext ) throws DaoException {
 		</xsl:text>
 				
-		try {
-			<xsl:variable name="listToSave">list<xsl:value-of select="interface/name"/>ToSave</xsl:variable>
-		 	Collection&lt;<xsl:value-of select="interface/name"/>&gt; <xsl:value-of select="$listToSave"/> = p_oDaoSession.getEntitiesToPersist(
-		 		<xsl:value-of select="interface/name"/>.ENTITY_NAME, p_list<xsl:value-of select="interface/name"/>, true );
-		
-			<xsl:call-template name="cascadesaveupdate-before">
-				<xsl:with-param name="interface" select="interface"/>
-				<xsl:with-param name="class" select="class"/>
-				<xsl:with-param name="object"><xsl:value-of select="$listToSave"/></xsl:with-param>
-				<xsl:with-param name="traitement-list">true</xsl:with-param>
-			</xsl:call-template>
-		
-			if(!p_oContext.getMessages().hasErrors()) {
-				SqlInsert oSqlInsert = this.getInsertQuery();
-				Connection oConnection = ((MContextImpl)p_oContext).getTransaction().getConnection();
-				<xsl:if test="class/identifier/attribute/field/sequence">PreparedStatement oStatement = oConnection.prepareStatement( oSqlInsert.toSql(p_oContext), GENERATED_COLUMNS);</xsl:if>
-				<xsl:if test="not(class/identifier/attribute/field/sequence)">PreparedStatement oStatement = oConnection.prepareStatement( oSqlInsert.toSql(p_oContext));</xsl:if>
-				try {
-					for(<xsl:value-of select="interface/name"/>
-					<xsl:text> o</xsl:text><xsl:value-of select="interface/name"/>
-					<xsl:text> : </xsl:text>
-					<xsl:value-of select="$listToSave"/>
-					<xsl:text> ) { </xsl:text>
-					bindInsert( o<xsl:value-of select="interface/name"/>, oStatement, p_oContext );
-					<xsl:if test="not(class/@join-class)"><xsl:text>oStatement.executeUpdate();</xsl:text>
-						<xsl:if test="class/identifier/attribute/field/sequence">
-							ResultSetReader oResultSetReader = new ResultSetReader(oStatement.getGeneratedKeys());
-							try {
-								if ( oResultSetReader.next()) {
-									<xsl:for-each select="class/identifier/attribute/field/sequence">
-										<xsl:call-template name="jdbc-retrieve-key">
-											<xsl:with-param name="interface" select="$interface"/>
-											<xsl:with-param name="prefix">o</xsl:with-param>
-											<xsl:with-param name="resultSet">oResultSetReader</xsl:with-param>
-										</xsl:call-template>
-									</xsl:for-each>
-								}
-							} finally {
-								oResultSetReader.close();
-							}</xsl:if>
-					</xsl:if>
-					<xsl:if test="class/@join-class = 'true'"><xsl:text>oStatement.addBatch();</xsl:text></xsl:if>
-					}
-					<xsl:if test="class/@join-class = 'true'">oStatement.executeBatch();</xsl:if>
-
-					<xsl:if test="class/parameters/parameter[@name='oldidholder'] = 'true'">
-						for( <xsl:value-of select="interface/name"/>
-							<xsl:text> o</xsl:text><xsl:value-of select="interface/name"/>
-							<xsl:text> : </xsl:text>
-							<xsl:value-of select="$listToSave"/>
-							<xsl:text> ) { </xsl:text>
-							o<xsl:value-of select="interface/name"/>
-							<xsl:text>.</xsl:text>
-							<xsl:value-of select="class/attribute[parameters/parameter[@name='oldidholder'] = 'true']/set-accessor"/>
-							<xsl:text>( o</xsl:text>
-							<xsl:value-of select="interface/name"/>
-							<xsl:text>.</xsl:text>
-							<xsl:value-of select="class/identifier/attribute/get-accessor"/>
-							<xsl:text>());</xsl:text>
-						}
-					</xsl:if>
-				} finally {
-					oStatement.close();
+		<xsl:variable name="listToSave">list<xsl:value-of select="interface/name"/>ToSave</xsl:variable>
+	 	Collection&lt;<xsl:value-of select="interface/name"/>&gt; <xsl:value-of select="$listToSave"/> = p_oDaoSession.getEntitiesToPersist(
+	 		<xsl:value-of select="interface/name"/>.ENTITY_NAME, p_list<xsl:value-of select="interface/name"/>, true );
+	
+		<xsl:call-template name="cascadesaveupdate-before">
+			<xsl:with-param name="interface" select="interface"/>
+			<xsl:with-param name="class" select="class"/>
+			<xsl:with-param name="object"><xsl:value-of select="$listToSave"/></xsl:with-param>
+			<xsl:with-param name="traitement-list">true</xsl:with-param>
+		</xsl:call-template>
+	
+		if(!p_oContext.getMessages().hasErrors()) {
+			SqlInsert oSqlInsert = this.getInsertQuery();
+			AndroidSQLiteConnection oConnection = ((MContextImpl) p_oContext).getConnection();
+			<xsl:if test="class/identifier/attribute/field/sequence">MDKSQLiteStatement oStatement = oConnection.compileStatement( oSqlInsert.toSql(p_oContext), GENERATED_COLUMNS);</xsl:if>
+			<xsl:if test="not(class/identifier/attribute/field/sequence)">MDKSQLiteStatement oStatement = oConnection.compileStatement( oSqlInsert.toSql(p_oContext));</xsl:if>
+			try {
+				for(<xsl:value-of select="interface/name"/>
+				<xsl:text> o</xsl:text><xsl:value-of select="interface/name"/>
+				<xsl:text> : </xsl:text>
+				<xsl:value-of select="$listToSave"/>
+				<xsl:text> ) { </xsl:text>
+				bindInsert( o<xsl:value-of select="interface/name"/>, oStatement, p_oContext );
+				<xsl:if test="not(class/@join-class)"><xsl:text>oStatement.executeUpdate();</xsl:text>
+					<xsl:if test="class/identifier/attribute/field/sequence">
+						ResultSetReader oResultSetReader = new ResultSetReader(oStatement.getGeneratedKeys());
+						try {
+							if ( oResultSetReader.next()) {
+								<xsl:for-each select="class/identifier/attribute/field/sequence">
+									<xsl:call-template name="jdbc-retrieve-key">
+										<xsl:with-param name="interface" select="$interface"/>
+										<xsl:with-param name="prefix">o</xsl:with-param>
+										<xsl:with-param name="resultSet">oResultSetReader</xsl:with-param>
+									</xsl:call-template>
+								</xsl:for-each>
+							}
+						} finally {
+							oResultSetReader.close();
+						}</xsl:if>
+				</xsl:if>
+				<xsl:if test="class/@join-class = 'true'"><xsl:text>oStatement.executeInsert();</xsl:text></xsl:if>
 				}
+
+				<xsl:if test="class/parameters/parameter[@name='oldidholder'] = 'true'">
+					for( <xsl:value-of select="interface/name"/>
+						<xsl:text> o</xsl:text><xsl:value-of select="interface/name"/>
+						<xsl:text> : </xsl:text>
+						<xsl:value-of select="$listToSave"/>
+						<xsl:text> ) { </xsl:text>
+						o<xsl:value-of select="interface/name"/>
+						<xsl:text>.</xsl:text>
+						<xsl:value-of select="class/attribute[parameters/parameter[@name='oldidholder'] = 'true']/set-accessor"/>
+						<xsl:text>( o</xsl:text>
+						<xsl:value-of select="interface/name"/>
+						<xsl:text>.</xsl:text>
+						<xsl:value-of select="class/identifier/attribute/get-accessor"/>
+						<xsl:text>());</xsl:text>
+					}
+				</xsl:if>
+			} finally {
+				oStatement.close();
 			}
-			<xsl:call-template name="cascadesave-after">
-				<xsl:with-param name="interface" select="interface"/>
-				<xsl:with-param name="class" select="class"/>
-				<xsl:with-param name="object"><xsl:value-of select="$listToSave"/></xsl:with-param>
-				<xsl:with-param name="traitement-list">true</xsl:with-param>
-			</xsl:call-template>
-		} catch( SQLException e ) {
-			throw new DaoException(e);
 		}
+		<xsl:call-template name="cascadesave-after">
+			<xsl:with-param name="interface" select="interface"/>
+			<xsl:with-param name="class" select="class"/>
+			<xsl:with-param name="object"><xsl:value-of select="$listToSave"/></xsl:with-param>
+			<xsl:with-param name="traitement-list">true</xsl:with-param>
+		</xsl:call-template>
 	}
 </xsl:template>
 

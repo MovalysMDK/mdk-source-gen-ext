@@ -70,7 +70,7 @@
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.DaoSession</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.Field</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.EntityDao</import>
-		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.PairValue</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.FieldType</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.SqlType</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.query.SqlInsert</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.query.SqlUpdate</import>
@@ -136,7 +136,7 @@
 		<xsl:text>	 * Tableau de clés primaires&#13;</xsl:text>
 		<xsl:text>	 */&#13;</xsl:text>
 		<xsl:text>	@SuppressWarnings("unchecked")&#13;</xsl:text>
-		<xsl:text>	public static final PairValue&lt;Field, SqlType&gt;[] PK_FIELDS = new PairValue[] {</xsl:text>
+		<xsl:text>	public static final FieldType[] PK_FIELDS = new FieldType[] {</xsl:text>
 		<xsl:apply-templates select="dao/class/identifier/attribute/field | dao/class/identifier/association/field" mode="declare-pkfield">
 			<xsl:with-param name="entity" select="dao/interface/name" />
 		</xsl:apply-templates>
@@ -161,7 +161,7 @@
 	<xsl:template match="field" mode="declare-pkfield">
 		<xsl:param name="entity"/>
 
-		<xsl:text>new PairValue&lt;Field, SqlType&gt;( </xsl:text>
+		<xsl:text>new FieldType( </xsl:text>
 		<xsl:value-of select="$entity"/>
 		<xsl:text>Field.</xsl:text>
 		<xsl:value-of select="@cascade-name"/>
@@ -181,7 +181,7 @@
 		<xsl:text>	 * Tableau de clés étrangéres pour l'association </xsl:text><xsl:value-of select="@name"/><xsl:text>.&#13;</xsl:text>
 		<xsl:text>	 */&#13;</xsl:text>
 		<xsl:text>	@SuppressWarnings("unchecked")&#13;</xsl:text>
-		<xsl:text>	public static final PairValue&lt;Field,SqlType&gt;[] FK_</xsl:text><xsl:value-of select="@cascade-name"/><xsl:text> = new PairValue[] {&#13;</xsl:text>
+		<xsl:text>	public static final FieldType[] FK_</xsl:text><xsl:value-of select="@cascade-name"/><xsl:text> = new FieldType[] {&#13;</xsl:text>
 		<xsl:apply-templates select="field" mode="declare-fkfield">
 			<xsl:with-param name="entity" select="$entity" />
 		</xsl:apply-templates>
@@ -191,7 +191,7 @@
 	<xsl:template match="field" mode="declare-fkfield">
 		<xsl:param name="entity"/>
 
-		<xsl:text>new PairValue&lt;Field, SqlType&gt;(</xsl:text>
+		<xsl:text>new FieldType(</xsl:text>
 		<xsl:value-of select="$entity"/>
 		<xsl:text>Field.</xsl:text>
 		<xsl:value-of select="@name"/>

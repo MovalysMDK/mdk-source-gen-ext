@@ -34,63 +34,59 @@
 			<xsl:text>, CascadeSet p_oCascadeSet, DaoSession p_oDaoSession, MContext p_oContext ) throws DaoException {
 		</xsl:text>
 				
-		try {
-			if ( !p_oDaoSession.isAlreadySaved(<xsl:value-of select="interface/name"/>.ENTITY_NAME, p_o<xsl:value-of select="interface/name"/>)) {
-				p_oDaoSession.markAsSaved(<xsl:value-of select="interface/name"/>.ENTITY_NAME, p_o<xsl:value-of select="interface/name"/>);
-			
-				<xsl:call-template name="cascadesaveupdate-before">
-					<xsl:with-param name="interface" select="interface"/>
-					<xsl:with-param name="class" select="class"/>
-					<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
-				</xsl:call-template>
+		if ( !p_oDaoSession.isAlreadySaved(<xsl:value-of select="interface/name"/>.ENTITY_NAME, p_o<xsl:value-of select="interface/name"/>)) {
+			p_oDaoSession.markAsSaved(<xsl:value-of select="interface/name"/>.ENTITY_NAME, p_o<xsl:value-of select="interface/name"/>);
 		
-				if(!p_oContext.getMessages().hasErrors()) {
-					SqlInsert oSqlInsert = this.getInsertQuery();
-					Connection oConnection = ((MContextImpl)p_oContext).getTransaction().getConnection();
-					<xsl:if test="class/identifier/attribute/field/sequence">PreparedStatement oStatement = oConnection.prepareStatement( oSqlInsert.toSql(p_oContext), GENERATED_COLUMNS);</xsl:if>
-					<xsl:if test="not(class/identifier/attribute/field/sequence)">PreparedStatement oStatement = oConnection.prepareStatement( oSqlInsert.toSql(p_oContext));</xsl:if>
-					try {
-						bindInsert( p_o<xsl:value-of select="interface/name"/>, oStatement, p_oContext );
-						oStatement.executeUpdate();
-						<xsl:if test="class/identifier/attribute/field/sequence">
-						ResultSetReader oResultSetReader = new ResultSetReader(oStatement.getGeneratedKeys());
-						try {
-							if ( oResultSetReader.next()) {
-								<xsl:for-each select="class/identifier/attribute/field/sequence">
-									<xsl:call-template name="jdbc-retrieve-key">
-										<xsl:with-param name="interface" select="$interface"/>
-										<xsl:with-param name="prefix">p_o</xsl:with-param>
-										<xsl:with-param name="resultSet">oResultSetReader</xsl:with-param>
-									</xsl:call-template>
-								</xsl:for-each>
-							}
-						} finally {
-							oResultSetReader.close();
-						}</xsl:if>
+			<xsl:call-template name="cascadesaveupdate-before">
+				<xsl:with-param name="interface" select="interface"/>
+				<xsl:with-param name="class" select="class"/>
+				<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
+			</xsl:call-template>
 	
-						<xsl:if test="class/parameters/parameter[@name='oldidholder'] = 'true'">
-							p_o<xsl:value-of select="interface/name"/>
-							<xsl:text>.</xsl:text>
-							<xsl:value-of select="class/attribute[parameters/parameter[@name='oldidholder'] = 'true']/set-accessor"/>
-							<xsl:text>( p_o</xsl:text>
-							<xsl:value-of select="interface/name"/>
-							<xsl:text>.</xsl:text>
-							<xsl:value-of select="class/identifier/attribute/get-accessor"/>
-							<xsl:text>());
-							</xsl:text>
-						</xsl:if>
+			if(!p_oContext.getMessages().hasErrors()) {
+				SqlInsert oSqlInsert = this.getInsertQuery();
+				AndroidSQLiteConnection oConnection = ((MContextImpl) p_oContext).getConnection();
+				<xsl:if test="class/identifier/attribute/field/sequence">MDKSQLiteStatement oStatement = oConnection.compileStatement( oSqlInsert.toSql(p_oContext), GENERATED_COLUMNS);</xsl:if>
+				<xsl:if test="not(class/identifier/attribute/field/sequence)">MDKSQLiteStatement oStatement = oConnection.compileStatement( oSqlInsert.toSql(p_oContext));</xsl:if>
+				try {
+					bindInsert( p_o<xsl:value-of select="interface/name"/>, oStatement, p_oContext );
+					oStatement.executeUpdate();
+					<xsl:if test="class/identifier/attribute/field/sequence">
+					ResultSetReader oResultSetReader = new ResultSetReader(oStatement.getGeneratedKeys());
+					try {
+						if ( oResultSetReader.next()) {
+							<xsl:for-each select="class/identifier/attribute/field/sequence">
+								<xsl:call-template name="jdbc-retrieve-key">
+									<xsl:with-param name="interface" select="$interface"/>
+									<xsl:with-param name="prefix">p_o</xsl:with-param>
+									<xsl:with-param name="resultSet">oResultSetReader</xsl:with-param>
+								</xsl:call-template>
+							</xsl:for-each>
+						}
 					} finally {
-						oStatement.close();
-					}
+						oResultSetReader.close();
+					}</xsl:if>
+
+					<xsl:if test="class/parameters/parameter[@name='oldidholder'] = 'true'">
+						p_o<xsl:value-of select="interface/name"/>
+						<xsl:text>.</xsl:text>
+						<xsl:value-of select="class/attribute[parameters/parameter[@name='oldidholder'] = 'true']/set-accessor"/>
+						<xsl:text>( p_o</xsl:text>
+						<xsl:value-of select="interface/name"/>
+						<xsl:text>.</xsl:text>
+						<xsl:value-of select="class/identifier/attribute/get-accessor"/>
+						<xsl:text>());
+						</xsl:text>
+					</xsl:if>
+				} finally {
+					oStatement.close();
 				}
-				<xsl:call-template name="cascadesave-after">
-					<xsl:with-param name="interface" select="interface"/>
-					<xsl:with-param name="class" select="class"/>
-					<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
-				</xsl:call-template>
 			}
-		} catch( SQLException e ) {
-			throw new DaoException(e);
+			<xsl:call-template name="cascadesave-after">
+				<xsl:with-param name="interface" select="interface"/>
+				<xsl:with-param name="class" select="class"/>
+				<xsl:with-param name="object">p_o<xsl:value-of select="interface/name"/></xsl:with-param>
+			</xsl:call-template>
 		}
 	}
 </xsl:template>

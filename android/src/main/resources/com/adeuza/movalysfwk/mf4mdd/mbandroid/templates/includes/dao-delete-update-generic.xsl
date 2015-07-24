@@ -37,8 +37,8 @@
 		<xsl:text>getSelectDaoQuery();</xsl:text>
 		
 		<xsl:for-each select="$class/identifier/descendant::attribute">
-		oDaoQuery.getSqlQuery().addToWhere(new SqlEqualsValueCondition(<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getKey(),
-		<xsl:value-of select="$source"/>.<xsl:value-of select="get-accessor"/>(),<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getValue()));
+		oDaoQuery.getSqlQuery().addToWhere(new SqlEqualsValueCondition(<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getField(),
+		<xsl:value-of select="$source"/>.<xsl:value-of select="get-accessor"/>(),<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getType()));
 		</xsl:for-each>
 						
 		if ( !<xsl:value-of select="$source"/><xsl:text>.</xsl:text><xsl:value-of select="get-accessor"/><xsl:text>().isEmpty() ) {</xsl:text>
@@ -75,35 +75,14 @@
 		}
 	</xsl:if>
 	
-	<!-- 
-	<xsl:if test="@type='one-to-many' and @not-null='true' and @opposite-aggregate-type != 'COMPOSITE'">
-		<xsl:variable name="assoDelete" select="."/>
-		<xsl:variable name="source"><xsl:if test="$traitement-list = 'true'"><xsl:text> o</xsl:text><xsl:value-of select="$interface/name"/></xsl:if><xsl:if test="$traitement-list = 'false'"><xsl:value-of select="$object"/></xsl:if></xsl:variable>
-	
-		SqlDelete oSqlDelete = new SqlDelete(<xsl:value-of select="dao-interface/name"/>.TABLE_NAME);<xsl:for-each select="$class/identifier/descendant::attribute">
-		oSqlDelete.addToWhere(new SqlEqualsValueCondition(<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getKey(),
-			<xsl:value-of select="$source"/>.<xsl:value-of select="get-accessor"/>(),<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getValue()));</xsl:for-each>
-		if ( !<xsl:value-of select="$source"/><xsl:text>.</xsl:text><xsl:value-of select="get-accessor"/><xsl:text>().isEmpty() ) {</xsl:text>
-			List&lt;Object&gt; listValues = new ArrayList&lt;Object&gt;();
-			for( <xsl:value-of select="interface/name"/> o<xsl:value-of select="interface/name"/>ToAdd : <xsl:value-of select="$source"/><xsl:text>.</xsl:text><xsl:value-of select="get-accessor"/><xsl:text>()) {</xsl:text><xsl:for-each select="descendant::attribute">
-				<xsl:if test="parent::association[@type='one-to-many']">listValues.add(o<xsl:value-of select="../interface/name"/>ToAdd.<xsl:value-of select="get-accessor"/>());</xsl:if>
-				<xsl:if test="not(parent::association[@type='one-to-many'])">listValues.add(o<xsl:value-of select="../../interface/name"/>ToAdd.<xsl:value-of select="../get-accessor"/>().<xsl:value-of select="get-accessor"/>());</xsl:if></xsl:for-each>
-			}
-			SqlNotInValueCondition oSqlNotInValueCondition = new SqlNotInValueCondition(<xsl:value-of select="dao-interface/name"/>.PK_FIELDS,listValues);
-			oSqlDelete.addToWhere(oSqlNotInValueCondition);
-		}
-		<xsl:text>this.</xsl:text><xsl:if test="@self-ref = 'false'"><xsl:value-of select="dao-interface/bean-ref"/><xsl:text>.</xsl:text></xsl:if><xsl:text>genericDelete(oSqlDelete,p_oContext);</xsl:text>
-	</xsl:if>
-	 -->
-	
 	<xsl:if test="@type='one-to-many' and @not-null='false' and @opposite-aggregate-type != 'COMPOSITE'">
 		<xsl:variable name="assoDelete" select="."/>
 		<xsl:variable name="source"><xsl:if test="$traitement-list = 'true'"><xsl:text> o</xsl:text><xsl:value-of select="$interface/name"/></xsl:if><xsl:if test="$traitement-list = 'false'"><xsl:value-of select="$object"/></xsl:if></xsl:variable>
 		
 		SqlUpdate oListSqlUpdate = new SqlUpdate(<xsl:value-of select="dao-interface/name"/>.TABLE_NAME);<xsl:for-each select="$class/identifier/descendant::attribute">
-		oListSqlUpdate.addBindedField(<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getKey());
-		SqlEqualsValueCondition oSqlEqualsValueCondition<xsl:value-of select="position()-1"/> = new SqlEqualsValueCondition(<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getKey(),
-			<xsl:value-of select="$source"/>.<xsl:value-of select="get-accessor"/>(),<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getValue());
+		oListSqlUpdate.addBindedField(<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getField());
+		SqlEqualsValueCondition oSqlEqualsValueCondition<xsl:value-of select="position()-1"/> = new SqlEqualsValueCondition(<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getField(),
+			<xsl:value-of select="$source"/>.<xsl:value-of select="get-accessor"/>(),<xsl:value-of select="$assoDelete/dao-interface/name"/>.FK_<xsl:value-of select="$assoDelete/@opposite-cascade-name"/>[<xsl:value-of select="position()-1"/>].getType());
 		oListSqlUpdate.addToWhere(oSqlEqualsValueCondition<xsl:value-of select="position()-1"/>);</xsl:for-each>
 		List&lt;Object&gt; listValues = new ArrayList&lt;Object&gt;();
 		SqlNotInValueCondition oSqlNotInValueCondition = new SqlNotInValueCondition(<xsl:value-of select="dao-interface/name"/>.PK_FIELDS,listValues);
@@ -114,8 +93,8 @@
 			}
 			oListSqlUpdate.addToWhere(oSqlNotInValueCondition);
 		}
-		Connection oConnection = ((MContextImpl) p_oContext).getTransaction().getConnection();
-		PreparedStatement oStatement = oConnection.prepareStatement(oListSqlUpdate.toSql(p_oContext));
+		AndroidSQLiteConnection oConnection = ((MContextImpl) p_oContext).getConnection();
+		AndroidSQLitePreparedStatement oStatement = oConnection.prepareStatement(oListSqlUpdate.toSql(p_oContext));
 		try {
 			StatementBinder oBinder = new StatementBinder(oStatement);
 			<xsl:for-each select="$class/identifier/descendant::attribute">

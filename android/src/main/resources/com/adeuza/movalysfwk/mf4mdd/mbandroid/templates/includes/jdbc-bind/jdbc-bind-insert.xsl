@@ -70,10 +70,7 @@
 			} else {
 				<xsl:if test="../@optional = 'true'">
 					<xsl:value-of select="$statement"/>
-					<xsl:text>.bindNull(</xsl:text>
-					<xsl:text>SqlType.</xsl:text>
-					<xsl:value-of select="jdbc-type"/>
-					<xsl:text> );</xsl:text>
+					<xsl:text>.bindNull();</xsl:text>
 				</xsl:if>
 				<xsl:if test="../@optional = 'false'">
 					throw new DaoException("Property '<xsl:value-of select="../@name"/>
@@ -96,10 +93,7 @@
 			} else {
 				<xsl:if test="../../@optional = 'true'">
 					<xsl:value-of select="$statement"/>
-					<xsl:text>.bindNull(</xsl:text>
-					<xsl:text>SqlType.</xsl:text>
-					<xsl:value-of select="jdbc-type"/>
-					<xsl:text> );</xsl:text>
+					<xsl:text>.bindNull();</xsl:text>
 				</xsl:if>
 				<xsl:if test="../../@optional = 'false'">throw new DaoException("Property '<xsl:value-of select="../@name"/><xsl:text>' of object '</xsl:text>
 					<xsl:value-of select="$interface/name"/>.<xsl:value-of select="../get-accessor"/>()' is mandatory");</xsl:if>

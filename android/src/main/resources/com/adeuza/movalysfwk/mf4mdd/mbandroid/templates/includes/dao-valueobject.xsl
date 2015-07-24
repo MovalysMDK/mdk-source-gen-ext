@@ -31,13 +31,11 @@
 		<xsl:text>	 * @param p_oCascadeSet ensemble de Cascades sur les entités&#13;</xsl:text>
 		<xsl:text>	 * @param p_oContext contexte transactionnel&#13;</xsl:text>
 		<xsl:text>	 * @return l'entité </xsl:text><xsl:value-of select="interface/name"/><xsl:text>.&#13;</xsl:text>
-		<xsl:text>	 * @throws SQLException déclenchée si une erreur SQL survient&#13;</xsl:text>
 		<xsl:text>	 * @throws DaoException déclenchée si une exception technique survient&#13;</xsl:text>
-		<xsl:text>	 * @throws IOException déclenchée si une erreur d'entrée/sortie survient&#13;</xsl:text>
 		<xsl:text>	 */&#13;</xsl:text>
 		<xsl:text>	@Override&#13;</xsl:text>
 		<xsl:text>	protected </xsl:text><xsl:value-of select="interface/name"/><xsl:text> valueObject( ResultSetReader p_oResultSetReader, DaoQuery p_oDaoQuery, DaoSession p_oDaoSession,&#13;</xsl:text>
-		<xsl:text>			CascadeSet p_oCascadeSet, MContext p_oContext ) throws SQLException, DaoException, IOException {&#13;&#13;</xsl:text>
+		<xsl:text>			CascadeSet p_oCascadeSet, MContext p_oContext ) throws DaoException {&#13;&#13;</xsl:text>
 
 		<xsl:text>		</xsl:text><xsl:value-of select="interface/name"/> r_o<xsl:value-of select="interface/name"/><xsl:text> = this.</xsl:text><xsl:value-of select="class/pojo-factory-interface/bean-name"/><xsl:text>.createInstance();&#13;</xsl:text>
 
@@ -164,13 +162,12 @@
 		<xsl:text>	 * @param p_oCascadeSet ensemble de Cascades sur les entités&#13;</xsl:text>
 		<xsl:text>	 * @param p_oCascadeOptim optimiseur de l'éxécution des cascades&#13;</xsl:text>
 		<xsl:text>	 * @param p_oContext contexte transactionnel&#13;</xsl:text>
+		<xsl:text>	 * @throws DaoException.&#13;</xsl:text>
 		<xsl:text>	 * @return l'entité </xsl:text><xsl:value-of select="interface/name"/><xsl:text>.&#13;</xsl:text>
-		<xsl:text>	 * @throws SQLException déclenchée si une erreur SQL survient&#13;</xsl:text>
-		<xsl:text>	 * @throws IOException déclenchée si une erreur d'entrée/sortie survient&#13;</xsl:text>
 		<xsl:text>	 */&#13;</xsl:text>
 		<xsl:text>	@Override&#13;</xsl:text>
 		<xsl:text>	protected </xsl:text><xsl:value-of select="interface/name"/><xsl:text> valueObject( ResultSetReader p_oResultSetReader, DaoQuery p_oDaoQuery, DaoSession p_oDaoSession,&#13;</xsl:text>
-		<xsl:text>			CascadeSet p_oCascadeSet, CascadeOptim p_oCascadeOptim, MContext p_oContext ) throws SQLException, IOException {&#13;&#13;</xsl:text>
+		<xsl:text>			CascadeSet p_oCascadeSet, CascadeOptim p_oCascadeOptim, MContext p_oContext ) throws DaoException {&#13;&#13;</xsl:text>
 		
 		<xsl:value-of select="interface/name"/> r_o<xsl:value-of select="interface/name"/> = this.<xsl:value-of select="class/pojo-factory-interface/bean-name"/>.createInstance();
 

@@ -140,7 +140,7 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected PairValue&lt;Field, SqlType&gt;[] getPKFields() {
+	protected FieldType[] getPKFields() {
 		return <xsl:value-of select="dao-interface/name"/>.PK_FIELDS ;
 	}
 
@@ -203,16 +203,14 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 	 * @param p_oPreparedStatement requête SQL précompilée
 	 * @param p_oContext contexte transactionnel
 	 * @throws DaoException déclenchée si une exception technique survient
-	 * @throws SQLException déclenchée si une erreur SQL survient
 	 */
 	@Override
 	protected void bindInsert( <xsl:value-of select="interface/name"/> p_o<xsl:value-of select="interface/name"/>
-			<xsl:text>, PreparedStatement p_oPreparedStatement</xsl:text>, MContext p_oContext ) throws DaoException, SQLException {
-		StatementBinder oStatementBinder = new StatementBinder(p_oPreparedStatement);
+			<xsl:text>, MDKSQLiteStatement p_oStatement</xsl:text>, MContext p_oContext ) throws DaoException {
 		<xsl:for-each select="class/descendant::attribute[@transient='false' and (not(../@type) or ../@type!='one-to-many') and (not(../../@type) or ../../@type!='one-to-many')]">
 			<xsl:call-template name="jdbc-bind-insert">
 				<xsl:with-param name="interface" select="$interface"/>
-				<xsl:with-param name="statement">oStatementBinder</xsl:with-param>
+				<xsl:with-param name="statement">p_oStatement</xsl:with-param>
 				<xsl:with-param name="object">p_o<xsl:value-of select="$interface/name"/></xsl:with-param>
 				<xsl:with-param name="countSeq"><xsl:value-of select="count(preceding::sequence[not(../../parent::association) and (not(../@type) or ../@type!='one-to-many') and (not(../../@type) or ../../@type!='one-to-many')])"/></xsl:with-param>
 			</xsl:call-template>
@@ -225,16 +223,14 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 	 * @param p_oPreparedStatement requête SQL précompilée
 	 * @param p_oContext contexte transactionnel
 	 * @throws DaoException déclenchée si une exception technique survient
-	 * @throws SQLException déclenchée si une erreur SQL survient
 	 */
 	@Override
 	protected void bindUpdate( <xsl:value-of select="interface/name"/> p_o<xsl:value-of select="interface/name"/>
-			<xsl:text>, PreparedStatement p_oPreparedStatement</xsl:text>, MContext p_oContext ) throws DaoException, SQLException {
-		StatementBinder oStatementBinder = new StatementBinder(p_oPreparedStatement);
+			<xsl:text>, MDKSQLiteStatement p_oStatement</xsl:text>, MContext p_oContext ) throws DaoException {
 		<xsl:for-each select="class/descendant::attribute[@transient='false' and (not(../@type) or ../@type!='one-to-many') and (not(../../@type) or ../../@type!='one-to-many')]">
 			<xsl:call-template name="jdbc-bind-update">
 				<xsl:with-param name="interface" select="$interface"/>
-				<xsl:with-param name="statement">oStatementBinder</xsl:with-param>
+				<xsl:with-param name="statement">p_oStatement</xsl:with-param>
 				<xsl:with-param name="object">p_o<xsl:value-of select="$interface/name"/></xsl:with-param>
 			</xsl:call-template>
 		</xsl:for-each>
@@ -246,7 +242,7 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 			<xsl:for-each select="class/identifier/descendant::attribute[(not(../@type) or ../@type!='one-to-many') and (not(../../@type) or ../../@type!='one-to-many')]">
 				<xsl:call-template name="jdbc-bind-update">
 					<xsl:with-param name="interface" select="$interface"/>
-					<xsl:with-param name="statement">oStatementBinder</xsl:with-param>
+					<xsl:with-param name="statement">p_oStatement</xsl:with-param>
 					<xsl:with-param name="object">p_o<xsl:value-of select="$interface/name"/></xsl:with-param>
 					<xsl:with-param name="posOffset"><xsl:value-of select="$countAttr"/></xsl:with-param>
 				</xsl:call-template>
@@ -257,7 +253,7 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 			<xsl:for-each select="class/attribute[parameters/parameter[@name= 'oldidholder'] = 'true']">
 				<xsl:call-template name="jdbc-bind-update">
 					<xsl:with-param name="interface" select="$interface"/>
-					<xsl:with-param name="statement">oStatementBinder</xsl:with-param>
+					<xsl:with-param name="statement">p_oStatement</xsl:with-param>
 					<xsl:with-param name="object">p_o<xsl:value-of select="$interface/name"/></xsl:with-param>
 					<xsl:with-param name="posOffset"><xsl:value-of select="$countAttr"/></xsl:with-param>
 				</xsl:call-template>
@@ -344,7 +340,7 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 				oSelect.addToFrom(<xsl:value-of select="dao-interface/name"/>.TABLE_NAME, <xsl:value-of select="dao-interface/name"/>.ALIAS_NAME);
 				this.lastNewId = (Long) this.genericSelect(new DaoQueryImpl(oSelect, this.getEntityName()), p_oContext, new ResultSetReaderCallBack() {
 					@Override
-					public Object doRead(ResultSet p_oResultSet) throws SQLException, DaoException {
+					public Object doRead(AndroidSQLiteResultSet p_oResultSet) throws DaoException {
 						long r_lMinId = UNSAVED_VALUE;
 						if (p_oResultSet.next()) {
 							r_lMinId = p_oResultSet.getLong(1);
@@ -396,11 +392,10 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 
 	<xsl:template match="dao" mode="declare-extra-imports">
 		<import>java.io.IOException</import>
-		<import>java.sql.Connection</import>
-		<import>java.sql.PreparedStatement</import>
-		<import>java.sql.ResultSet</import>
-		<xsl:if test="count(class/identifier/attribute/field/sequence) = 0"><import>java.sql.ResultSet</import></xsl:if>
-		<import>java.sql.SQLException</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4android.jdbc.AndroidSQLiteConnection</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4android.jdbc.AndroidSQLiteResultSet</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4android.jdbc.AndroidSQLitePreparedStatement</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4android.database.sqlite.MDKSQLiteStatement</import>
 		<import>java.util.Collection</import>
 		<import>java.util.List</import>
 		<import>java.util.ArrayList</import>
@@ -418,7 +413,7 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.DaoQuery</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.DaoQueryImpl</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.Field</import>
-		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.PairValue</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.FieldType</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.ResultSetReaderCallBack</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.SqlType</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.query.ResultSetReader</import>

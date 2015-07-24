@@ -431,42 +431,35 @@
 			<xsl:text>DaoQuery p_oDaoQuery, CascadeSet p_oCascadeSet, DaoSession p_oDaoSession, MContext p_oContext ) throws DaoException {
 		</xsl:text>
 		
-		<xsl:value-of select="interface/name"/> r_o<xsl:value-of select="interface/name"/> = null ;
-		try {			
-			<xsl:variable name="pkFields" select="class/identifier/attribute/field | class/identifier/association/field"/>
-			<xsl:for-each select="class/identifier/descendant::attribute">
-				<xsl:call-template name="dao-sql-addequalscondition-withvalue">
-					<xsl:with-param name="interface" select="$interface"/>
-					<xsl:with-param name="queryObject">p_oDaoQuery.getSqlQuery()</xsl:with-param>
-					<xsl:with-param name="fields" select="$pkFields"/>
-					<xsl:with-param name="value" select="parameter-name"/>
-				</xsl:call-template>
-			</xsl:for-each>
+		<xsl:value-of select="interface/name"/> r_o<xsl:value-of select="interface/name"/> = null ;		
+		<xsl:variable name="pkFields" select="class/identifier/attribute/field | class/identifier/association/field"/>
+		<xsl:for-each select="class/identifier/descendant::attribute">
+			<xsl:call-template name="dao-sql-addequalscondition-withvalue">
+				<xsl:with-param name="interface" select="$interface"/>
+				<xsl:with-param name="queryObject">p_oDaoQuery.getSqlQuery()</xsl:with-param>
+				<xsl:with-param name="fields" select="$pkFields"/>
+				<xsl:with-param name="value" select="parameter-name"/>
+			</xsl:call-template>
+		</xsl:for-each>
 
-			<xsl:text>PreparedStatement oStatement = p_oDaoQuery.prepareStatement(p_oContext);</xsl:text>
+		<xsl:text>AndroidSQLitePreparedStatement oStatement = p_oDaoQuery.prepareStatement(p_oContext);</xsl:text>
 
+		try {
+			p_oDaoQuery.bindValues(oStatement);
+			ResultSetReader oResultSetReader = new ResultSetReader(oStatement.executeQuery());
 			try {
-				p_oDaoQuery.bindValues(oStatement);
-				ResultSetReader oResultSetReader = new ResultSetReader(oStatement.executeQuery());
-				try {
-					while ( oResultSetReader.next()) {
-						r_o<xsl:value-of select="interface/name"/> = this.valueObject(oResultSetReader, p_oDaoQuery, p_oDaoSession, p_oCascadeSet, p_oContext );
-					}
-				}
-				finally {
-					oResultSetReader.close();
+				while ( oResultSetReader.next()) {
+					r_o<xsl:value-of select="interface/name"/> = this.valueObject(oResultSetReader, p_oDaoQuery, p_oDaoSession, p_oCascadeSet, p_oContext );
 				}
 			}
 			finally {
-				oStatement.close();
+				oResultSetReader.close();
 			}
 		}
-		catch( SQLException e ) {
-			throw new DaoException(e);
+		finally {
+			oStatement.close();
 		}
-		catch( IOException e ) {
-			throw new DaoException(e);
-		}
+
 		return r_o<xsl:value-of select="interface/name"/> ;
 	}
 </xsl:template>
