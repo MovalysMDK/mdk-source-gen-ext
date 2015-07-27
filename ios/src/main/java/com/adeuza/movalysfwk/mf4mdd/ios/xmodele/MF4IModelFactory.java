@@ -185,7 +185,7 @@ public class MF4IModelFactory extends MIOSModeleFactory implements MFModelFactor
 
 		r_oMIOSController.setCustomClass(oMIOSClass);
 		r_oMIOSController.setSelectedItemCellClassName(p_sFormName + "SelectedItem");
-		r_oMIOSController.setItemCellClassName(p_sFormName + "Item");
+		r_oMIOSController.setItemCellClassName(p_sFormName + "ListItem");
 		return r_oMIOSController ;
 	}
 	

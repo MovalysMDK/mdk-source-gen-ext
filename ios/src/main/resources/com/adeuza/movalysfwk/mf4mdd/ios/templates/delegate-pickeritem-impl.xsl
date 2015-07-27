@@ -70,20 +70,21 @@
 		<xsl:with-param name="blocId">createBindingStructure-method</xsl:with-param>
 		<xsl:with-param name="defaultSource">
 		    MFPickerListConfiguration *pickerListConfiguration = [MFPickerListConfiguration createPickerListConfigurationForObjectWithBinding:self];
-		    [self createListItemBindingStructure:pickerListConfiguration];
+		    [self createSelectedItemBindingStructure:pickerListConfiguration];
 	   </xsl:with-param>
     </xsl:call-template>
 }
 
--(void) createListItemBindingStructure:(MFPickerListConfiguration *)pickerListConfiguration {
+-(void) createSelectedItemBindingStructure:(MFPickerListConfiguration *)pickerListConfiguration {
    	<xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">createListItemBindingStructure-method</xsl:with-param>
+		<xsl:with-param name="blocId">createSelectedItemBindingStructure-method</xsl:with-param>
 		<xsl:with-param name="defaultSource">
-			<xsl:apply-templates select="." mode="createBindingStructure-method-pickerlist-section-subview-list-item"/>
-		</xsl:with-param>
-	</xsl:call-template>
-}
+				<xsl:apply-templates select="." mode="createBindingStructure-method-pickerlist-section-subview-selected-item"/>
+	  	</xsl:with-param>
+    </xsl:call-template>
 
+
+}
 
 @end
 

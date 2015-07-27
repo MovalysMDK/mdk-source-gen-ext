@@ -39,7 +39,7 @@
 @interface <xsl:value-of select="delegateName"/> : 
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">class-signature</xsl:with-param>
-	<xsl:with-param name="defaultSource">MFPickerListItemBindingDelegate</xsl:with-param>
+	<xsl:with-param name="defaultSource">MFPickerSelectedItemBindingDelegate</xsl:with-param>
 </xsl:call-template>
 
 <xsl:call-template name="non-generated-bloc">

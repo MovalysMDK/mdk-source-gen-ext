@@ -39,10 +39,11 @@
 		       	<placeholder placeholderIdentifier="IBFirstResponder" 	id="-2" userLabel="First Responder" /><!--  customClass="UIResponder"/-->
 
 
-				<view contentMode="scaleToFill" customClass="MFCell1ComponentHorizontal">
+				<tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10">
 					<xsl:attribute name="reuseIdentifier"><xsl:value-of select="name"/></xsl:attribute>
 					<xsl:attribute name="customClass"><xsl:value-of select="pickerlist-item-name"/></xsl:attribute>
 					<xsl:attribute name="id"><xsl:value-of select="name"/>-view</xsl:attribute>
+					<xsl:attribute name="rowHeight"><xsl:value-of select="@frameHeight"/></xsl:attribute>
 
 					<xsl:comment>This absolute positioning is used only for the interface builder of XCode. That will be overwritten by the relative positioning defined by the constaints</xsl:comment>
 					<rect key="frame" >
@@ -54,7 +55,11 @@
 
 		            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
 
-
+            	<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <xsl:attribute name="tableViewCell"><xsl:value-of select="name"/>-view</xsl:attribute>
+                <xsl:attribute name="id"><xsl:value-of select="name"/>-contentview</xsl:attribute>
+                
+                <autoresizingMask key="autoresizingMask"/>
 		                <subviews>
 		                	<xsl:apply-templates select="$filteredComponentList" mode="subview-generation">
 								<xsl:with-param name="controllerId"><xsl:value-of select="@id"/></xsl:with-param>
@@ -64,18 +69,20 @@
 						<constraints>
 							<xsl:apply-templates select="$filteredComponentList" mode="constraints-generation">
 								<xsl:with-param name="cellMargin"><xsl:value-of select="@cellMargin"/></xsl:with-param>
-								<xsl:with-param name="containerId"><xsl:value-of select="name"/>-view</xsl:with-param> 
+								<xsl:with-param name="containerId"><xsl:value-of select="name"/>-contentview</xsl:with-param> 
 								<xsl:with-param name="filterNodeName">localization</xsl:with-param>
 								<xsl:with-param name="filterNodeValue">LIST</xsl:with-param>
 							</xsl:apply-templates>
 						</constraints>
+					 </tableViewCellContentView>
+						
 					<connections>
 						<xsl:apply-templates select="$filteredComponentList" mode="outlets-generation" >
 							<xsl:with-param name="collection">false</xsl:with-param>
 						</xsl:apply-templates>
 					</connections>
 					
-				</view>
+				</tableViewCell>
 			</objects>
 		</document>
 	</xsl:template>

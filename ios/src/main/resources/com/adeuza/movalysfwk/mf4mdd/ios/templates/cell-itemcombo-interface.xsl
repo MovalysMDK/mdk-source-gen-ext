@@ -42,7 +42,7 @@
 @interface <xsl:value-of select="itemCellClassName"/> : 
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">class-signature</xsl:with-param>
-	<xsl:with-param name="defaultSource">MFBindingViewAbstract&#13;</xsl:with-param>
+	<xsl:with-param name="defaultSource">MFCellAbstract&#13;</xsl:with-param>
 </xsl:call-template>	
 	
 <xsl:call-template name="non-generated-bloc">

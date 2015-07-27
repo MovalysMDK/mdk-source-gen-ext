@@ -20,7 +20,7 @@
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:template match="xib" mode="createBindingStructure-method-pickerlist-section-subview">
+<xsl:template match="xib-container" mode="createBindingStructure-method-pickerlist-section-subview-selected-item">
     MFBindingViewDescriptor *viewDescriptor =
     [MFBindingViewDescriptor viewDescriptorWithIdentifier:@"<xsl:value-of select="name"/>"
     withViewHeight:@(<xsl:value-of select="@frameHeight"/>)
@@ -29,14 +29,19 @@
     	<xsl:apply-templates select="./components/component" mode="createBindingStructure-method-pickerlist-section-subview-label-binding"/>
     	<xsl:apply-templates select="./components/component" mode="createBindingStructure-method-pickerlist-section-subview-component-parameters"/>
      nil];
-     <xsl:choose>
-	     <xsl:when test="xibType = 'COMBOVIEWITEM'">
 	   		 [pickerListConfiguration createPickerSelectedItemWithDescriptor:viewDescriptor];
-	     </xsl:when>
-	     <xsl:otherwise>
-	   		 [pickerListConfiguration createPickerListItemWithDescriptor:viewDescriptor];
-	     </xsl:otherwise>
-     </xsl:choose>
+</xsl:template>
+
+<xsl:template match="xib-container" mode="createBindingStructure-method-pickerlist-section-subview-list-item">
+    MFBindingCellDescriptor *cellDescriptor =
+    [MFBindingCellDescriptor cellDescriptorWithIdentifier:@"<xsl:value-of select="name"/>"
+    withCellHeight:@(<xsl:value-of select="@frameHeight"/>)
+    withCellBindingFormat:<xsl:apply-templates select="./components/component" mode="createBindingStructure-method-pickerlist-section-subview-component-binding"/>
+    	<xsl:apply-templates select="./components/component" mode="createBindingStructure-method-pickerlist-section-subview-component-associated-label"/>
+    	<xsl:apply-templates select="./components/component" mode="createBindingStructure-method-pickerlist-section-subview-label-binding"/>
+    	<xsl:apply-templates select="./components/component" mode="createBindingStructure-method-pickerlist-section-subview-component-parameters"/>
+     nil];
+	   		 [pickerListConfiguration createPickerListItemWithDescriptor:cellDescriptor];
 </xsl:template>
 
 <xsl:template match="component" mode="createBindingStructure-method-pickerlist-section-subview-component-binding">
