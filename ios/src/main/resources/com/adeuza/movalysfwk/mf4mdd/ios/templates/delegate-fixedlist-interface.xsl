@@ -36,7 +36,6 @@
 </xsl:apply-templates>
 
 <xsl:apply-templates select="." mode="declare-protocol-imports"/>
-<xsl:apply-templates select="./type/component-name" mode="import"/>
 
 @interface <xsl:value-of select="view-fixedlist-name"/> : 
 <xsl:call-template name="non-generated-bloc">
