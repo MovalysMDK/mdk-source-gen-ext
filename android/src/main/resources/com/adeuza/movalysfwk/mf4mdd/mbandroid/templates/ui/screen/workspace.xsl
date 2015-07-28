@@ -91,10 +91,10 @@
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">doOnReload</xsl:with-param>
 				<xsl:with-param name="defaultSource">
-					this.getWlayout().unHideDetailColumns(true);
+<!-- 					this.getWlayout().unHideDetailColumns(true); -->
 				</xsl:with-param>
 			</xsl:call-template>
-			super.doOnReloadDetail(p_oEvent);
+<!-- 			super.doOnReloadDetail(p_oEvent); -->
 		}
 	</xsl:template>
 
