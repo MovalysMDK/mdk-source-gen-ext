@@ -108,6 +108,28 @@
 	</xsl:template>
 	
 	
+	<xsl:template match="page[is-tabs-master='true']" mode="generate-doFillAction-body">	
+		LoadDataForMultipleDisplayDetailActionParameter oMultipleDisplayParameter = new LoadDataForMultipleDisplayDetailActionParameter();
+		
+		<xsl:for-each select="./tabs/page[parameters/parameter[@name='workspace-panel-type'] = 'master']">
+			<xsl:sort select="parameters/parameter[@name='grid-column-parameter']"/>
+			<xsl:choose>
+				<xsl:when test="position() = 1">
+					InDisplayParameter oInDisplayParameter = new InDisplayParameter();
+				</xsl:when>
+				<xsl:otherwise>
+					oInDisplayParameter = new InDisplayParameter();
+				</xsl:otherwise>
+			</xsl:choose>
+			oInDisplayParameter.setDataLoader( <xsl:value-of select="./viewmodel/dataloader-impl/implements/interface/@name"/>.class );
+			oInDisplayParameter.setId( this.getActivity().getIntent().getStringExtra(IDENTIFIER_CACHE_KEY) );
+			oMultipleDisplayParameter.addDisplayParameter(oInDisplayParameter);
+		</xsl:for-each>
+		
+		this.launchAction(LoadDataForMultipleDisplayDetailAction.class, oMultipleDisplayParameter);		
+	</xsl:template>
+	
+	
 	<xsl:template match="page[not(name(..)) and ./viewmodel/multiInstance='true']" mode="generate-doFillAction-body">
 		<xsl:if test=" ./viewmodel/dataloader-impl/implements/interface/@name">
 			InDisplayParameter oInDisplayParameter = new InDisplayParameter();

@@ -28,6 +28,7 @@ import com.a2a.adjava.utils.FileTypeUtils;
 import com.a2a.adjava.utils.VersionHandler;
 import com.a2a.adjava.xmodele.MLayout;
 import com.a2a.adjava.xmodele.MPackage;
+import com.a2a.adjava.xmodele.MPage;
 import com.a2a.adjava.xmodele.MScreen;
 import com.a2a.adjava.xmodele.MVisualField;
 import com.a2a.adjava.xmodele.XProject;
@@ -93,7 +94,7 @@ public class WorkspaceTabFragmentGenerator extends AbstractIncrementalGenerator<
 		
 		String sFile = FileTypeUtils.computeFilenameForJavaClass(p_oMProject.getSourceDir(), oPanelPackage.getFullName()+"."+sFragmentClassName);
 		
-		Element xRoot = this.generateXDoc(sFragmentClassName, p_sMainLayout, oPanelPackage, p_oMProject);
+		Element xRoot = this.generateXDoc(sFragmentClassName, p_sMainLayout, oPanelPackage, p_oMProject, p_oScreen);
 		
 		Document xDoc = DocumentHelper.createDocument(xRoot);
 		log.debug("  generate file: {}", sFile);
@@ -102,7 +103,8 @@ public class WorkspaceTabFragmentGenerator extends AbstractIncrementalGenerator<
 		this.doIncrementalTransform(sModele , sFile, xDoc, p_oMProject, p_oGeneratorContext);
 	}
 
-	private Element generateXDoc(String p_sFragmentClassName, String p_sMainLayout, MPackage oPanelPackage, XProject<MF4ADomain<MF4ADictionnary,MF4AModeleFactory>> p_oMProject) {
+	private Element generateXDoc(String p_sFragmentClassName, String p_sMainLayout, MPackage oPanelPackage, 
+			XProject<MF4ADomain<MF4ADictionnary,MF4AModeleFactory>> p_oMProject, MScreen p_oScreen) {
 		
 		Element xRoot = DocumentHelper.createElement("page");
 		
@@ -116,6 +118,13 @@ public class WorkspaceTabFragmentGenerator extends AbstractIncrementalGenerator<
 		xRoot.addElement("stereotypes");
 		xRoot.addElement("master-package").setText(p_oMProject.getDomain().getRootPackage());
 		xRoot.addElement("layout").setText(p_sMainLayout);
+		xRoot.addElement("is-tabs-master").setText("true");
+		xRoot.add(p_oScreen.getViewModel().toXml());
+		
+		Element oTabs = xRoot.addElement("tabs");
+		for (MPage oPage : p_oScreen.getPages()) {
+			oTabs.add(oPage.toXml());
+		}		
 		
 		return xRoot;
 	}
