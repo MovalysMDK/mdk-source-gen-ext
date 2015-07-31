@@ -32,7 +32,6 @@
 				<xsl:with-param name="ignoreFormAttribute"><xsl:value-of select="$ignoreFormAttribute"/></xsl:with-param>
 				<xsl:with-param name="viewModel"><xsl:value-of select="$viewModel"/></xsl:with-param>
 			</xsl:apply-templates>
-			<xsl:attribute name="mf-hide-label">true</xsl:attribute>
 		</mf-textview>
 
 </xsl:template>

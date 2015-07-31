@@ -55,7 +55,7 @@
 
 			<xsl:attribute name="mf-label"><xsl:value-of select="visualfield/label"/></xsl:attribute>
 
-			<xsl:if test="not(visualfield/create-label = 'true')">
+			<xsl:if test="visualfield/create-label = 'false'">
 				<xsl:attribute name="mf-hide-label">true</xsl:attribute>
 			</xsl:if>
 
