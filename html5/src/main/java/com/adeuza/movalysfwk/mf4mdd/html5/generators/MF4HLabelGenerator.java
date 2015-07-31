@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -68,7 +69,8 @@ public class MF4HLabelGenerator extends AbstractAppendGenerator<MF4HDomain<MF4HD
 			Map<String,MLabel> mapLabels = new HashMap<>();
 			
 			this.genLabels(mapLabels, p_oProject, oLocale);
-			this.buildDoc(mapLabels, xLabels, oLocale);
+			Map<String, MLabel> treeMapLabels = new TreeMap<String, MLabel>(mapLabels);
+			this.buildDoc(treeMapLabels, xLabels, oLocale);
 	
 			File oTargetFile = this.getOutputFile(p_oProject, oLocale);
 	
