@@ -479,7 +479,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFDatePicker</language-type>
+						<language-type>MFTextView</language-type>
 						<language-type-options>
 							<datePickerMode>2</datePickerMode>
 						</language-type-options>	
@@ -495,7 +495,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFDatePicker</language-type>
+						<language-type>MFTextView</language-type>
 						<language-type-options>
 							<datePickerMode>0</datePickerMode>
 						</language-type-options>	
