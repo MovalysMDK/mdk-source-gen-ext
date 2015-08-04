@@ -131,6 +131,13 @@
 
 	<xsl:template match="*[dataloader-interface/entity-type/transient='true']" mode="dataloader-reload-attributes">
 	    <xsl:text>var deferred = $qSync.defer();&#10;</xsl:text>
+    
+        <xsl:for-each select="dataloader-interface/combos/combo/entity/text()[generate-id() = generate-id(key('comboEntity',.)[1]) and (../../transient!='true')]">
+			<xsl:if test="(position()) =1">
+ 				<xsl:text>var self = this;&#10;&#10;</xsl:text>
+			</xsl:if>	
+		</xsl:for-each>
+        
         <xsl:text>var combosDaoCalls = [] ;&#10;&#10;</xsl:text>
 	
 		<xsl:text>&#10;//@non-generated-start[data-loader-transient]&#10;</xsl:text>
