@@ -53,11 +53,15 @@
 				<xsl:attribute name="mf-form"><xsl:value-of select="../../viewName"/>Form</xsl:attribute>
 			</xsl:if>
 
-			<xsl:attribute name="mf-label"><xsl:value-of select="visualfield/label"/></xsl:attribute>
 
-			<xsl:if test="visualfield/create-label = 'false'">
-				<xsl:attribute name="mf-hide-label">true</xsl:attribute>
-			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="visualfield/create-label = 'false'">
+					<xsl:attribute name="mf-hide-label">true</xsl:attribute>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:attribute name="mf-label"><xsl:value-of select="visualfield/label"/></xsl:attribute>
+				</xsl:otherwise>
+			</xsl:choose>
 
 			<xsl:attribute name="mf-readonly">
 				<xsl:choose>
