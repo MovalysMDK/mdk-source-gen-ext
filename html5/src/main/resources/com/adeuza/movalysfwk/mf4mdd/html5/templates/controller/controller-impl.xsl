@@ -93,7 +93,14 @@
 		<xsl:text>viewName: '</xsl:text><xsl:value-of select="name"/><xsl:text>' ,&#10;</xsl:text>
 		<xsl:text>viewModelFactory: </xsl:text><xsl:value-of select="$corresponding-item-name"/><xsl:text>Factory,&#10;</xsl:text>
 		<xsl:if test="(@isPanelOfWorkspace='false' or @is-list='true') and @isAttachedToEntityModel='true'">
-			<xsl:text>dataLoader: </xsl:text><xsl:value-of select="name"/><xsl:text>DataLoader,&#10;</xsl:text>
+		    <xsl:choose>
+  				<xsl:when test="@applicationScopeEntityAttached!=''">
+					<xsl:text>dataLoader: </xsl:text><xsl:value-of select="@applicationScopeEntityAttached"/><xsl:text>DataLoader,&#10;</xsl:text>		
+  				</xsl:when>
+			    <xsl:otherwise>
+					<xsl:text>dataLoader: </xsl:text><xsl:value-of select="name"/><xsl:text>DataLoader,&#10;</xsl:text>
+               </xsl:otherwise>
+			</xsl:choose>
 		</xsl:if>
 		<!-- 			        specific content -->
 		<xsl:apply-templates select="." mode="controller-viewConfig-specific-content"/>
