@@ -33,6 +33,7 @@ import com.a2a.adjava.xmodele.MAssociation;
 import com.a2a.adjava.xmodele.MAssociation.AssociationType;
 import com.a2a.adjava.xmodele.MCascade;
 import com.a2a.adjava.xmodele.MScreen;
+import com.a2a.adjava.xmodele.MStereotype;
 import com.a2a.adjava.xmodele.XProject;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MDataLoader;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MDataLoaderCombo;
@@ -159,7 +160,21 @@ public class DataLoaderGenerator extends AbstractIncrementalGenerator<MH5Domain<
 		    p_oMDataLoader.getLoadDao().getMEntityImpl().getFactory()!=null && 
 		   	p_oMDataLoader.getLoadDao().getMEntityImpl().getFactory().getName()!=null){
 		   		p_oMH5ImportDelegate.addImport(p_oMDataLoader.getLoadDao().getMEntityImpl().getFactory().getName() );
-		 }			
+		}
+		
+		Boolean p_oIsApplicationScope = false;
+		Boolean p_oIsTransient = false;
+		for (MStereotype oStereotype : p_oMDataLoader.getMasterInterface().getEntity().getStereotypes()) {
+			if (oStereotype.getName().equalsIgnoreCase("Mm_ApplicationScope"))  {
+				p_oIsApplicationScope = true;
+			}
+			if (oStereotype.getName().equalsIgnoreCase("Mm_transient"))  {
+				p_oIsTransient = true;
+			}
+		}
+		if(p_oIsApplicationScope && p_oIsTransient){
+			p_oMH5ImportDelegate.addImport(p_oMDataLoader.getMasterInterface().getEntity().getFactory().getName() );
+		}
 	}
 	
 	

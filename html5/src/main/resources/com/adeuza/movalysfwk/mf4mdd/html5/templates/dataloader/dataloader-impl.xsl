@@ -99,6 +99,11 @@
 				<xsl:text>combosDaoCalls.push(&#10;</xsl:text>
 				<xsl:value-of select="."/><xsl:text>DaoProxy.getList</xsl:text><xsl:value-of select="."/>(context, []).then(function(combo<xsl:value-of select="."/><xsl:text>ModelEntities) {&#10;
 				 self.</xsl:text><xsl:value-of select="$comboAttrName"/><xsl:text> = combo</xsl:text><xsl:value-of select="."/><xsl:text>ModelEntities;&#10;</xsl:text>
+				<xsl:text>deferred.resolve({&#10;</xsl:text>
+				<xsl:value-of select="$comboAttrName"/><xsl:text>: self.</xsl:text><xsl:value-of select="$comboAttrName"/><xsl:text>&#10;</xsl:text>
+				<xsl:text>}); &#10;</xsl:text>
+				<xsl:text>}, function(error) { &#10;</xsl:text>
+				<xsl:text>deferred.reject(error); &#10;</xsl:text>
 				<xsl:text>})&#10;</xsl:text>
 				<xsl:text>) ;&#10;</xsl:text>
 			</xsl:if>	
@@ -140,6 +145,11 @@
         
         <xsl:text>var combosDaoCalls = [] ;&#10;&#10;</xsl:text>
 	
+		<xsl:if test="dataloader-interface/entity-type/application-scope='true'">
+			<xsl:text>if(!self.dataModel) {&#10;</xsl:text>
+			<xsl:text>self.dataModel = </xsl:text><xsl:value-of select="dataloader-interface/entity-type/name"/><xsl:text>Factory.createInstance();&#10;</xsl:text>
+			<xsl:text>}</xsl:text>
+		</xsl:if>
 		<xsl:text>&#10;//@non-generated-start[data-loader-transient]&#10;</xsl:text>
 		<xsl:value-of select="/*/non-generated/bloc[@id='data-loader-transient']"/>
 		<xsl:text>//@non-generated-end&#10;</xsl:text>

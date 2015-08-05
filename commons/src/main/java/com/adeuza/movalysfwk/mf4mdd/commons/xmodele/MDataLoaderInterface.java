@@ -26,6 +26,7 @@ import org.dom4j.Element;
 import com.a2a.adjava.xmodele.MDaoInterface;
 import com.a2a.adjava.xmodele.MEntityImpl;
 import com.a2a.adjava.xmodele.MPackage;
+import com.a2a.adjava.xmodele.MStereotype;
 import com.a2a.adjava.xmodele.MViewModelImpl;
 import com.a2a.adjava.xmodele.SInterface;
 
@@ -164,6 +165,20 @@ public class MDataLoaderInterface extends SInterface {
 		String sAttributeName = this.entity.getMasterInterface().getName();
 		xEntity.addElement("attribute-name").setText(StringUtils.uncapitalize(sAttributeName));
 		xEntity.addElement("transient").setText(Boolean.toString(this.entity.isTransient()));
+		
+		Boolean p_oIsApplicationScope = false;
+		for (MStereotype p_oStereotype : this.entity.getStereotypes()) {
+			if (p_oStereotype.getName().equalsIgnoreCase("Mm_ApplicationScope")) {
+				p_oIsApplicationScope = true;
+				break;
+			}
+		}
+		if (p_oIsApplicationScope) {
+			xEntity.addElement("application-scope").setText(Boolean.toString(true));
+		} else {
+			xEntity.addElement("application-scope").setText(Boolean.toString(false));
+		}
+		
 		xEntity.addElement("scope").setText(this.entity.getScope().name());
 		
 		Set<String> oDaos = new HashSet<>();
