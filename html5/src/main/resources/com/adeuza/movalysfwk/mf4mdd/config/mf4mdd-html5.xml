@@ -163,7 +163,7 @@
 				
 				<type>
 					<uml-type>Email</uml-type>
-					<language-type>NSString</language-type>
+					<language-type>String</language-type>
 					<init-format>"?"</init-format>
 					<default-value>null</default-value>
 					<variable-prefix></variable-prefix>
