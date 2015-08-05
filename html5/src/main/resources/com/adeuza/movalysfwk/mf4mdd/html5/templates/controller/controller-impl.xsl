@@ -60,6 +60,9 @@
 			<xsl:with-param name="scopebuilder" select="$scopebuilder"/>
 		</xsl:apply-templates>
 		
+		<xsl:apply-templates select="." mode="non-generated-functions">
+		</xsl:apply-templates>
+		
 		<xsl:text>}]);&#10;</xsl:text>
 		
 	</xsl:template>
@@ -267,6 +270,13 @@
 		</xsl:call-template>
 		<xsl:text>});&#10;</xsl:text>
 	</xsl:template>
+	
+	<xsl:template match="view" mode="non-generated-functions">
+		<xsl:text>&#10;//@non-generated-start[functions]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='functions']"/>
+		<xsl:text>//@non-generated-end&#10;&#10;</xsl:text>
+	</xsl:template>
+	
 	
 	
 	<xsl:template match="view" mode="declare-extra-imports">
