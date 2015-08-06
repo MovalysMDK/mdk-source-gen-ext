@@ -116,12 +116,10 @@
 				oActionParameter<xsl:value-of select="$siblingNumber"/>.setVm( <xsl:value-of select="$viewmodel"/>.class );
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:if test="$isVmScreen = 'true'">
-			<xsl:apply-templates select="." mode="generate-adapter-registration">
-				<xsl:with-param name="siblingNumber" select="$siblingNumber"/>
-				<xsl:with-param name="currentPosition" select="$currentPosition"/>
-			</xsl:apply-templates>
-		</xsl:if>
+		<xsl:apply-templates select="." mode="generate-adapter-registration">
+			<xsl:with-param name="siblingNumber" select="$siblingNumber"/>
+			<xsl:with-param name="currentPosition" select="$currentPosition"/>
+		</xsl:apply-templates>
 		<xsl:if test="$launchFrom = 'page'">
 			<xsl:text>this</xsl:text> 
 		</xsl:if>
