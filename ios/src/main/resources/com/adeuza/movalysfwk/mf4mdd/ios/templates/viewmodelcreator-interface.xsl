@@ -44,7 +44,7 @@ ROOT TEMPLATE
 	<xsl:apply-templates select="viewmodelcreator" mode="declare-protocol-imports"/>
 		
 
-	<xsl:text>&#13;@interface </xsl:text><xsl:value-of select="name"/><xsl:text> : </xsl:text>
+	<xsl:text>&#13;@interface </xsl:text><xsl:value-of select="viewmodelcreator/name"/><xsl:text> : </xsl:text>
 	<xsl:call-template name="non-generated-bloc">
 		<xsl:with-param name="blocId">class-signature</xsl:with-param>
 		<xsl:with-param name="defaultSource">MFDefaultViewModelCreator</xsl:with-param>
@@ -63,7 +63,7 @@ ROOT TEMPLATE
 	<xsl:apply-templates select="viewmodelcreator/screens/screen/viewmodel" mode="create-vm"/>
 	
 	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel" mode="create-vm"/>
-	<xsl:apply-templates select="./screens/screen/pages/page/viewmodel" mode="update-vm"/>
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel" mode="update-vm"/>
 		
 	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel/external-lists/external-list/viewmodel" mode="create-vm"/>
 	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel/external-lists/external-list/viewmodel" mode="update-vm"/>
