@@ -81,7 +81,7 @@
 				<xsl:with-param name="defaultSource">
 					<xsl:apply-templates select="." mode="generate-doOnReload-body">
 						<xsl:with-param name="viewmodel" select="/page/viewmodel/implements/interface/@name"/>
-						<xsl:with-param name="isScreenVm" select="true"/>
+						<xsl:with-param name="isVmScreen" select="'true'"/>
 					</xsl:apply-templates>
 				</xsl:with-param>
 			</xsl:call-template>
