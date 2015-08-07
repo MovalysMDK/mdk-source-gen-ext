@@ -109,6 +109,9 @@
 						<xsl:text>that.rejectPromise(error, context);&#10;</xsl:text>
 						<xsl:text>});&#10;&#10;</xsl:text>
 					</xsl:when>
+					<xsl:when test="$dataloader and class/transient = 'true' and not(../workspace/workspace-screen='true')">
+						<xsl:text>that.resolvePromise(</xsl:text><xsl:value-of select="$dataloader"/><xsl:text>.dataModel.idToString, context);&#10;</xsl:text>
+					</xsl:when>
 					<xsl:otherwise>
 					</xsl:otherwise>
 				</xsl:choose>
