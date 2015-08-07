@@ -66,9 +66,8 @@ public class MF4IViewModelCreatorGenerator extends AbstractIncrementalGenerator<
 	public void genere(XProject<IDomain<IModelDictionary,IModelFactory>> p_oProject, DomainGeneratorContext p_oContext) throws Exception {
 		log.debug("> ViewModelCreatorGenerator.genere");
 		Chrono oChrono = new Chrono(true);
-		NonGeneratedBlocExtractor oNonGeneratedBlocExtractor = new NonGeneratedBlocExtractor();
 		
-		this.createViewModelCreator(oNonGeneratedBlocExtractor, p_oProject, p_oContext);
+		this.createViewModelCreator(p_oProject, p_oContext);
 		log.debug("< ViewModelCreatorGenerator.genere: {}", oChrono.stopAndDisplay());
 	}
 	
@@ -79,8 +78,7 @@ public class MF4IViewModelCreatorGenerator extends AbstractIncrementalGenerator<
 	 * @param p_oContext context
 	 * @throws Exception
 	 */
-	private void createViewModelCreator(NonGeneratedBlocExtractor p_oNonGeneratedBlocExtractor,
-			XProject<IDomain<IModelDictionary,IModelFactory>> p_oProject, DomainGeneratorContext p_oContext) throws Exception {
+	private void createViewModelCreator(XProject<IDomain<IModelDictionary,IModelFactory>> p_oProject, DomainGeneratorContext p_oContext) throws Exception {
 		MViewModelCreator oVmc = p_oProject.getDomain().getDictionnary().getViewModelCreator();
 		if (oVmc != null) {			
 			this.createVmcInterface( oVmc, p_oProject, p_oContext);

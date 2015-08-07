@@ -35,13 +35,13 @@
 <!-- 
 ROOT TEMPLATE
 -->
-<xsl:template match="/master-viewmodelcreator/viewmodelcreator">
+<xsl:template match="master-viewmodelcreator">
 	
-	<xsl:apply-templates select=".." mode="file-header">
-		<xsl:with-param name="fileName"><xsl:value-of select="name"/>.h</xsl:with-param>
+	<xsl:apply-templates select="." mode="file-header">
+		<xsl:with-param name="fileName"><xsl:value-of select="viewmodelcreator/name"/>.h</xsl:with-param>
 	</xsl:apply-templates>
 	
-	<xsl:apply-templates select="." mode="declare-protocol-imports"/>
+	<xsl:apply-templates select="viewmodelcreator" mode="declare-protocol-imports"/>
 		
 
 	<xsl:text>&#13;@interface </xsl:text><xsl:value-of select="name"/><xsl:text> : </xsl:text>
@@ -55,28 +55,29 @@ ROOT TEMPLATE
 		<xsl:with-param name="defaultSource"/>
 	</xsl:call-template>
 	
-	<xsl:apply-templates select="./screens/screen/viewmodel" mode="create-vm"/>
-	
-	<xsl:apply-templates select="./screens/screen/pages/page/viewmodel" mode="create-vm"/>
-	<xsl:apply-templates select="./screens/screen/pages/page/viewmodel" mode="update-vm"/>
-		
-	<xsl:apply-templates select="./screens/screen/pages/page/viewmodel/external-lists/external-list/viewmodel" mode="create-vm"/>
-	<xsl:apply-templates select="./screens/screen/pages/page/viewmodel/external-lists/external-list/viewmodel" mode="update-vm"/>
-		
-	<xsl:apply-templates select="./screens/screen/pages/page/viewmodel/subvm/viewmodel" mode="create-vm"/>
-	<xsl:apply-templates select="./screens/screen/pages/page/viewmodel/subvm/viewmodel" mode="update-vm"/>
-	
-	<xsl:apply-templates select="./screens/screen/pages/page/viewmodel/subvm/viewmodel/subvm/viewmodel" mode="create-vm"/>
-	<xsl:apply-templates select="./screens/screen/pages/page/viewmodel/subvm/viewmodel/subvm/viewmodel/subvm/viewmodel" mode="create-vm"/>
-	
-	
-	<xsl:apply-templates select="./screens/screen/pages/page/dialogs/dialog/viewmodel" mode="create-vm"/>
-	<xsl:apply-templates select="./screens/screen/pages/page/dialogs/dialog/viewmodel" mode="update-vm"/>
-	
 	<xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">other-methods</xsl:with-param>
+		<xsl:with-param name="blocId">custom-methods</xsl:with-param>
 		<xsl:with-param name="defaultSource"/>
 	</xsl:call-template>
+	
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/viewmodel" mode="create-vm"/>
+	
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel" mode="create-vm"/>
+	<xsl:apply-templates select="./screens/screen/pages/page/viewmodel" mode="update-vm"/>
+		
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel/external-lists/external-list/viewmodel" mode="create-vm"/>
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel/external-lists/external-list/viewmodel" mode="update-vm"/>
+		
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel/subvm/viewmodel" mode="create-vm"/>
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel/subvm/viewmodel" mode="update-vm"/>
+	
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel/subvm/viewmodel/subvm/viewmodel" mode="create-vm"/>
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/viewmodel/subvm/viewmodel/subvm/viewmodel/subvm/viewmodel" mode="create-vm"/>
+	
+	
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/dialogs/dialog/viewmodel" mode="create-vm"/>
+	<xsl:apply-templates select="viewmodelcreator/screens/screen/pages/page/dialogs/dialog/viewmodel" mode="update-vm"/>
+	
 		
 	<xsl:text>@end</xsl:text>
 </xsl:template>
