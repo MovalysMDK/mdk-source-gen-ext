@@ -85,7 +85,14 @@
 							<xsl:when test="contains(@type-name,'enumimage')"><xsl:text>MFValueImageVMFactory.createInstance('key',MFPictureTypeEnum.png,'assets/pictures');&#10;</xsl:text></xsl:when>
 							<xsl:otherwise><xsl:text>MFRadioVMFactory.createInstance('value');&#10;</xsl:text></xsl:otherwise>
 						</xsl:choose>
-						<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>.selectedItem = </xsl:text><xsl:value-of select="@type-short-name"/><xsl:text>.</xsl:text><xsl:value-of select="enumeration-values/enum-value"/><xsl:text>;&#10;</xsl:text>
+						<xsl:choose>
+						<xsl:when test ="contains(@init, '_NONE')">
+							<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>.selectedItem = null ;&#10;</xsl:text>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>.selectedItem = </xsl:text><xsl:value-of select="@init"/><xsl:text>;&#10;</xsl:text>
+						</xsl:otherwise>
+						</xsl:choose>
 						<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>.itemsList = </xsl:text><xsl:value-of select="@type-short-name"/><xsl:text>.toItemsList();&#10;</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
