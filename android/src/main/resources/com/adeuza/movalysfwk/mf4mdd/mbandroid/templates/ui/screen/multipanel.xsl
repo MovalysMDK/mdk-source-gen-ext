@@ -85,22 +85,5 @@
 	</xsl:template>
 	
 	<xsl:template match="page[ancestor::screen[workspace='false' and multi-panel='true']]|dialog[ancestor::screen[workspace='false' and multi-panel='true']]" mode="generate-adapter-registration">
-		<xsl:if test="count(adapter | external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']) > 0">
-		<xsl:variable name="fragmentVar">o<xsl:value-of select="name"/></xsl:variable>
-		<xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="$fragmentVar"/>
-			<xsl:text> = (</xsl:text><xsl:value-of select="name"/><xsl:text>) getSupportFragmentManager().findFragmentById(R.id.main__</xsl:text>
-				<xsl:value-of select="ancestor::screen/name-lowercase"/>sect<xsl:value-of select="parameters/parameter[@name='grid-section-parameter']"/>__visualpanel);
-		if ( <xsl:value-of select="$fragmentVar"/> != null ) {
-			<xsl:apply-templates select="adapter" mode="generate-adapter-registration">
-				<xsl:with-param name="adapterName"><xsl:value-of select="$fragmentVar"/>.getListAdapter()</xsl:with-param>
-			</xsl:apply-templates>
-			<xsl:for-each select="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED' and ancestor::screen[workspace='false' and multi-panel='true']]">
-				<xsl:variable name="adapterName"><xsl:value-of select="$fragmentVar"/>.getSpinnerAdapter<xsl:value-of select="position()"/>()</xsl:variable>
-				<xsl:apply-templates select="." mode="generate-adapter-registration">
-					<xsl:with-param name="adapterName" select="$adapterName"/>
-				</xsl:apply-templates>
-			</xsl:for-each>
-		}
-		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>

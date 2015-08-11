@@ -142,13 +142,6 @@
 	<xsl:template match="page" mode="generate-doFillAction-body">
 	</xsl:template>
 
-	<xsl:template match="adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']" mode="generate-adapter-registration">
-		<xsl:param name="adapterName">this.spinnerAdapter<xsl:value-of select="position()"/></xsl:param>
-		<xsl:param name="position"/>
-		<xsl:text>oActionParameter</xsl:text><xsl:value-of select="$position"/><xsl:text>.addAdapter(</xsl:text><xsl:value-of select="$adapterName"/>
-		<xsl:text>);&#13;</xsl:text>
-	</xsl:template>
-
 	<xsl:template match="adapter" mode="generate-adapter-registration">
 		<xsl:param name="adapterName"/>
 		<xsl:param name="position"/>

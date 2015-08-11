@@ -139,11 +139,6 @@
 			<xsl:with-param name="adapterName">this.mAdapter</xsl:with-param>
 			<xsl:with-param name="position" select="$siblingNumber"/>
 		</xsl:apply-templates>
-		<xsl:apply-templates select="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']" 
-			mode="generate-adapter-registration">
-			<xsl:with-param name="adapterName">this.spinnerAdapter<xsl:value-of select="$currentPosition"/></xsl:with-param>
-			<xsl:with-param name="position" select="$siblingNumber"/>
-		</xsl:apply-templates>
 	</xsl:template>
 	
 </xsl:stylesheet>
