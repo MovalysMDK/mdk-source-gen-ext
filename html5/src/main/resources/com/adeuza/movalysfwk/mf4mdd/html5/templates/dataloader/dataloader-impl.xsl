@@ -136,19 +136,21 @@
 
 	<xsl:template match="*[dataloader-interface/entity-type/transient='true']" mode="dataloader-reload-attributes">
 	    <xsl:text>var deferred = $qSync.defer();&#10;</xsl:text>
+   		<xsl:text>var self = this;&#10;&#10;</xsl:text>
+	    
     
-        <xsl:choose>
-			<xsl:when test="dataloader-interface/entity-type/application-scope='true'">
-           		<xsl:text>var self = this;&#10;&#10;</xsl:text>
-  			</xsl:when>
-  			<xsl:otherwise>
-  				<xsl:for-each select="dataloader-interface/combos/combo/entity/text()[generate-id() = generate-id(key('comboEntity',.)[1]) and (../../transient!='true')]">
-					<xsl:if test="(position()) =1">
- 						<xsl:text>var self = this;&#10;&#10;</xsl:text>
-					</xsl:if>	
-				</xsl:for-each>
-  			</xsl:otherwise>
-		</xsl:choose>
+<!--         <xsl:choose> -->
+<!-- 			<xsl:when test="dataloader-interface/entity-type/application-scope='true'"> -->
+<!--            		<xsl:text>var self = this;&#10;&#10;</xsl:text> -->
+<!--   			</xsl:when> -->
+<!--   			<xsl:otherwise> -->
+<!--   				<xsl:for-each select="dataloader-interface/combos/combo/entity/text()[generate-id() = generate-id(key('comboEntity',.)[1]) and (../../transient!='true')]"> -->
+<!-- 					<xsl:if test="(position()) =1"> -->
+<!--  						<xsl:text>var self = this;&#10;&#10;</xsl:text> -->
+<!-- 					</xsl:if>	 -->
+<!-- 				</xsl:for-each> -->
+<!--   			</xsl:otherwise> -->
+<!-- 		</xsl:choose> -->
         
         <xsl:text>var combosDaoCalls = [] ;&#10;&#10;</xsl:text>
 	
@@ -168,6 +170,7 @@
 	</xsl:template>
 	
 	<xsl:template match="*[dataloader-interface/entity-type/transient='true']" mode="dataloader-qsync">
+	<xsl:text>deferred.resolve({&#10;data: self.dataModel&#10;});&#10;</xsl:text>
 	</xsl:template>
 	
 	<xsl:template match="*" mode="dataloader-qsync">
