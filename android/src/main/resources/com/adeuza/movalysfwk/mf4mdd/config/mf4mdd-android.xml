@@ -619,6 +619,11 @@
 					<property name="minor-version" value="3" />
 					<property name="revision-number" value="2" />
 				</project-upgrader>
+				<project-upgrader class="com.adeuza.movalysfwk.mf4mdd.commons.projectupgrader.UpgraderTo440">
+					<property name="major-version" value="4" />
+					<property name="minor-version" value="4" />
+					<property name="revision-number" value="0" />
+				</project-upgrader>
 				<project-upgrader class="com.adeuza.movalysfwk.mf4mdd.commons.projectupgrader.UpgraderTo441">
 					<property name="major-version" value="4" />
 					<property name="minor-version" value="4" />
