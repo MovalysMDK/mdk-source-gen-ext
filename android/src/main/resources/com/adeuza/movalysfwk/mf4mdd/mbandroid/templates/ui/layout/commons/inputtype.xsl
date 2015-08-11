@@ -27,6 +27,7 @@
 
 <!-- fallback template -->
 <xsl:template match="visualfield" mode="inputtype">
+<!-- 	<xsl:text>android:inputType="</xsl:text>N/A<xsl:text>" </xsl:text> -->
 </xsl:template>
 
 </xsl:stylesheet>
