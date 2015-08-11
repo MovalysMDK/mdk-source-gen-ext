@@ -89,6 +89,10 @@
 			<import><xsl:value-of select="master-package"/>.viewmodel.ViewModelCreator</import>
 		</xsl:if>
 
+		<xsl:if test="layout/visualfields/visualfield[parameters/parameter/@name='dialog']">
+			<import><xsl:value-of select="layout/visualfields/visualfield[parameters/parameter/@name='dialog']/component" /></import>
+		</xsl:if>
+	
 	</xsl:template>
 
 	<xsl:template match="page" mode="methods-import">

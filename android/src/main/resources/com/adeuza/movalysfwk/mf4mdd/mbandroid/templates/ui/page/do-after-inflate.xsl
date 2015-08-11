@@ -36,6 +36,7 @@
 			
 			<xsl:apply-templates select="adapter" mode="doAfterInflate-method"/>
 			<xsl:apply-templates select="external-adapters/adapter" mode="doAfterInflate-method"/>
+			<xsl:apply-templates select="layout/visualfields" mode="doAfterInflate-method"/>
 
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">do-after-inflate-2</xsl:with-param>
@@ -153,6 +154,18 @@
 		<xsl:text>.setAdapter(this.fixedListAdapter</xsl:text>
 		<xsl:value-of select="position()"/>
 		<xsl:text>);&#13;}&#13;</xsl:text>
+	</xsl:template>
+
+	<!-- ##########################################################################################
+											SEARCH_DIALOG
+		########################################################################################## -->
+		
+	<xsl:template match="visualfield" mode="doAfterInflate-method">
+		<xsl:if test="parameters/parameter/@name='dialog'">
+			// sets this fragment's tag on the MMFilterButton
+			MMFilterButton dialog = (MMFilterButton) p_oRoot.findViewById(R.id.<xsl:value-of select="name" />);
+			dialog.getComponentFwkDelegate().setFragmentTag(this.getTag());
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="external-list/viewmodel" mode="add-reference-to">

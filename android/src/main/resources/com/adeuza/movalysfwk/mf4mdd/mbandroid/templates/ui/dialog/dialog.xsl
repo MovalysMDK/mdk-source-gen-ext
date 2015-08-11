@@ -47,8 +47,8 @@
 	<!-- CONSTRUCTORS ............................................................................................... -->
 
 	<xsl:template match="dialog" mode="constructors">
-	public <xsl:value-of select="name"/>() {
-		super();
+	public <xsl:value-of select="name"/>(ConfigurableVisualComponent p_oParent) {
+		super(p_oParent);
 	}
 	</xsl:template>
 	
@@ -167,7 +167,7 @@
 		</xsl:call-template>
 
 		this.dismiss();
-		((AbstractAutoBindMMActivity) this.getOwnerActivity()).doFillAction();
+		((AbstractInflateMMFragment)this.getPanelParentFragment()).doFillAction();
 	}
 
 	/**
@@ -186,7 +186,7 @@
 		</xsl:call-template>
 		
 		this.dismiss();
-		((AbstractAutoBindMMActivity) this.getOwnerActivity()).doFillAction();
+		((AbstractInflateMMFragment)this.getPanelParentFragment()).doFillAction();
 	}
 	
 
@@ -199,6 +199,14 @@
 		oOwnerActivity = (AbstractAutoBindMMActivity) this.getParentActivity().get();
 
 		return oOwnerActivity;
+	}
+	
+	/**
+	 * Get the get the parent fragment of this DialogFragment
+	 * @return the {@link Fragment} parent of this DialogFragment
+	 */
+	private Fragment getPanelParentFragment() {
+		return getOwnerActivity().getSupportFragmentManager().findFragmentByTag(this.componentFragmentTag);
 	}
 </xsl:template>
 

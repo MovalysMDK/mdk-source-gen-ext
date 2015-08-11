@@ -25,6 +25,7 @@
 		<import>java.util.Map</import>
 		<import>android.content.Context</import>
 		<import>android.os.Bundle</import>
+		<import>android.support.v4.app.Fragment</import>
 		<import>android.view.View</import>
 		<import>android.view.View.OnClickListener</import>
 		<import>android.content.DialogInterface.OnDismissListener</import>
@@ -34,9 +35,11 @@
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.GenericLoadDataForDisplayDetailAction</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.GenericUpdateVMForDisplayDetailAction</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.InUpdateVMParameter</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4android.fragment.AbstractInflateMMFragment</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKBaseAdapter</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKSpinnerAdapter</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.connectors.MDKViewConnectorWrapper</import>
+		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.component.configurable.ConfigurableVisualComponent</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.component.configurable.WidgetWrapperHelper</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMButton</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4javacommons.dataloader.listener.ListenerOnDataLoaderReload</import>
