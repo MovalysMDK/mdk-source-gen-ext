@@ -50,7 +50,13 @@
 	
 	<xsl:template match="class" mode="factory-body">
 	    <xsl:text>return {&#10; createInstance: function () {&#10; var result = new </xsl:text>
+	    
 	    <xsl:value-of select="name"/><xsl:text>();&#10;</xsl:text>		
+		
+	    <xsl:text>&#10;//@non-generated-start[createInstance]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='createInstance']"/>
+		<xsl:text>//@non-generated-end&#10;</xsl:text>
+		
 		<!-- 		All attributes are initialised differently depending on their type, if they're attributes or association, and (if association) their association's type -->
 		<xsl:if test="transient != 'true'">
 		
@@ -98,6 +104,10 @@
 			</xsl:call-template>
 
 		</xsl:if>
+		
+		<xsl:text>&#10;//@non-generated-start[functions]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='functions']"/>
+		<xsl:text>//@non-generated-end&#10;</xsl:text>
 
 		<xsl:text>&#10;return result;&#10;&#10; }&#10;};&#10;</xsl:text>
 	</xsl:template>
