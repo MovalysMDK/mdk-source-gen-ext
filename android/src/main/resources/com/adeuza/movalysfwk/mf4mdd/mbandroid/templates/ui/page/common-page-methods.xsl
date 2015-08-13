@@ -75,7 +75,7 @@
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="page[in-workspace='true' and parameters/parameter[@name='workspace-panel-type'] = 'detail' and parameters/parameter[@name='grid-column-parameter'] = '1' and parameters/parameter[@name='grid-section-parameter'] = '1']" 
+	<xsl:template match="page[in-workspace='true' and parameters/parameter[@name='workspace-panel-type'] = 'detail']"
 		mode="generate-doFillAction-body">
 		InDisplayParameter oInDisplayParameter = new InDisplayParameter();
 		oInDisplayParameter.setDataLoader(<xsl:value-of select="./viewmodel/dataloader-impl/implements/interface/@name"/>.class);
