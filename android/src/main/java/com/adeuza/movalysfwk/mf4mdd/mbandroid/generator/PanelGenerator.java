@@ -79,7 +79,7 @@ public class PanelGenerator extends AbstractIncrementalGenerator<IDomain<IModelD
 			r_xFile.addElement("screen-vm-interface").setText(p_oScreen.getViewModel().getMasterInterface().getName());
 			r_xFile.addElement("screen-vm-interface-fullname").setText(p_oScreen.getViewModel().getMasterInterface().getFullName());
 		}
-		if ((p_oScreen instanceof MF4AScreen) && p_oScreen.isWorkspace() && p_oScreen.getMasterPage().equals(p_oPage)) {
+		if (p_oScreen instanceof MF4AScreen) {
 			Collection<MF4AEvent> listenEvents =  ((MF4AScreen) p_oScreen).getListenEvents();
 			
 			Element xEvents = r_xFile.addElement("events");

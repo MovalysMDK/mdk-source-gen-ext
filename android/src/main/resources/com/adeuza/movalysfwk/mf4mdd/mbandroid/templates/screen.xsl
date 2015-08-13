@@ -109,7 +109,6 @@
 
 		<xsl:apply-templates select="." mode="action-events"/>
 		
-		<xsl:apply-templates select="events/event"/>
 	</xsl:template>
 	
 	
@@ -119,24 +118,6 @@
 	-->
 	<xsl:template match="screen|page" mode="extra-methods">
 		<xsl:apply-templates select="." mode="do-keep-modifications"/>
-	</xsl:template>
- 
-	<xsl:template match="event">
-		/**
-		 * Listener on <xsl:value-of select="action/@name"/>.<xsl:value-of select="name"/>
-		 * @param p_oEvent the event which triggered the callback
-		 */
-		@ListenerOnBusinessNotification(<xsl:value-of select="action/@name"/>.<xsl:value-of select="name"/>.class)
-		public void doOn<xsl:value-of select="name"/>(<xsl:value-of select="action/@name"/>.<xsl:value-of select="name"/> p_oEvent) {
-			<xsl:call-template name="non-generated-bloc">
-			<xsl:with-param name="blocId">doOn<xsl:value-of select="action/@name"/>.<xsl:value-of select="name"/></xsl:with-param>
-			<xsl:with-param name="defaultSource">
-				if(!p_oEvent.isExitMode()) {
-					this.doFillAction();
-				}
-			</xsl:with-param>
-			</xsl:call-template>
-		}
 	</xsl:template>
 </xsl:stylesheet>
 
