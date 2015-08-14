@@ -126,30 +126,37 @@
 	<!-- 		Ici le body -->
 	<xsl:template match="view" mode="partial-body">
 			<xsl:if test="@isScreen='true'">
-				<xsl:choose>
-					<!-- case when multilist in workspace -->
-					<xsl:when test="@isWorkspace='true' and count(nestedSubviews/nestedSubview[@isList='true'])>1">
-						<tabset>
-							<xsl:attribute name="class"><xsl:value-of select="name"/>-workspace-column</xsl:attribute>
-							<xsl:apply-templates select="./nestedSubviews/nestedSubview[@isList='true']" mode="display-nested-subviews">
-								<xsl:with-param name="tabset" select="1"/>
+				<div>
+					<xsl:attribute name="class">flex-container</xsl:attribute>
+					<xsl:choose>
+						<!-- case when multilist in workspace -->
+						<xsl:when test="@isWorkspace='true' and count(nestedSubviews/nestedSubview[@isList='true'])>1">
+							<tabset>
+								<xsl:attribute name="class"><xsl:value-of select="name"/>-workspace-column</xsl:attribute>
+								<xsl:apply-templates select="./nestedSubviews/nestedSubview[@isList='true']" mode="display-nested-subviews">
+									<xsl:with-param name="tabset" select="1"/>
+									<xsl:with-param name="panelCount" select="count(nestedSubviews/nestedSubview)"/>
+								</xsl:apply-templates>
+							</tabset>
+							<xsl:apply-templates select="./nestedSubviews/nestedSubview[@isList='false']" mode="display-nested-subviews">
+								<xsl:with-param name="tabset" select="0"/>
+								<xsl:with-param name="panelCount" select="count(nestedSubviews/nestedSubview)"/>
 							</xsl:apply-templates>
-						</tabset>
-						<xsl:apply-templates select="./nestedSubviews/nestedSubview[@isList='false']" mode="display-nested-subviews">
-							<xsl:with-param name="tabset" select="0"/>
-						</xsl:apply-templates>
-					</xsl:when>
-					<xsl:when test="@isWorkspace='true'">
-						<xsl:apply-templates select="./nestedSubviews/nestedSubview" mode="display-nested-subviews">
-							<xsl:with-param name="tabset" select="0"/>
-						</xsl:apply-templates>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:apply-templates select="./nestedSubviews/nestedSubview" mode="display-nested-subviews">
+						</xsl:when>
+						<xsl:when test="@isWorkspace='true'">
+							<xsl:apply-templates select="./nestedSubviews/nestedSubview" mode="display-nested-subviews">
+								<xsl:with-param name="tabset" select="0"/>
+								<xsl:with-param name="panelCount" select="count(nestedSubviews/nestedSubview)"/>
+							</xsl:apply-templates>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="./nestedSubviews/nestedSubview" mode="display-nested-subviews">
 								<xsl:with-param name="tabset" select="-1"/>
+								<xsl:with-param name="panelCount" select="count(nestedSubviews/nestedSubview)"/>
 							</xsl:apply-templates>
-					</xsl:otherwise>
-				</xsl:choose>
+						</xsl:otherwise>
+					</xsl:choose>
+				</div>
 			</xsl:if>
 						
 			<xsl:apply-templates select="." mode="partial-menu-list"/>
@@ -168,28 +175,38 @@
 	
 	<xsl:template match="nestedSubview" mode="display-nested-subviews">
 		<xsl:param name="tabset"/>
-		
+		<xsl:param name="panelCount"/>
+		<xsl:variable name="fullsize">100</xsl:variable>
+		<xsl:variable name="panelSize"><xsl:value-of select="$fullsize div $panelCount"/></xsl:variable>
+
+
 		<xsl:choose>
 			<xsl:when test="$tabset='1'">
 				<tab>
 					<xsl:attribute name="heading"><xsl:value-of select="."/></xsl:attribute>
 					<div>
+						<xsl:attribute name="class">flex-item</xsl:attribute>
 						<xsl:attribute name="ui-view"><xsl:value-of select="."/></xsl:attribute>
+						<xsl:attribute name="style">height: <xsl:value-of select="$panelSize"/>vh</xsl:attribute>
 					</div>
 				</tab>
 			</xsl:when>
+			<xsl:when test="$tabset='0'">
+				<div>
+					<xsl:if test="@isFirstDetail='true'">
+						<xsl:attribute name="id">firstColumnScroll</xsl:attribute>
+					</xsl:if>
+					<xsl:attribute name="class">flex-item <xsl:value-of select="../../name"/>-workspace-column </xsl:attribute>
+					<xsl:attribute name="data-snap-ignore">true</xsl:attribute>
+				    <xsl:attribute name="ui-view"><xsl:value-of select="."/></xsl:attribute>
+				    <xsl:attribute name="style">height: <xsl:value-of select="$panelSize"/>vh</xsl:attribute>
+				</div>
+			</xsl:when>
 			<xsl:otherwise>
 				<div>
-					<xsl:if test="$tabset='0'">
-						<xsl:if test="@isFirstDetail='true'">
-							<xsl:attribute name="id">firstColumnScroll</xsl:attribute>
-						</xsl:if>
-						<xsl:attribute name="class"><xsl:value-of select="../../name"/>-workspace-column</xsl:attribute>
-						<xsl:attribute name="data-snap-ignore">true</xsl:attribute>
-					</xsl:if>
-					
+					<xsl:attribute name="class">flex-item</xsl:attribute>
 					<xsl:attribute name="ui-view"><xsl:value-of select="."/></xsl:attribute>
-					
+					<xsl:attribute name="style">height: <xsl:value-of select="$panelSize"/>vh</xsl:attribute>
 				</div>
 			</xsl:otherwise>
 		</xsl:choose>
