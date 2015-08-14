@@ -45,6 +45,11 @@
 		<!-- attribut de  COMBOBOX  -->
 		<xsl:apply-templates select="mapping/entity" mode="definePropertyForCombo"/>
 
+        <xsl:text>&#10;&#10;//@non-generated-start[attributes-settings]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='attributes-settings']"/>
+		<xsl:text>//@non-generated-end&#10;</xsl:text>
+
+
 		<xsl:text>&#10;});&#10;</xsl:text>
 	</xsl:template>
 
