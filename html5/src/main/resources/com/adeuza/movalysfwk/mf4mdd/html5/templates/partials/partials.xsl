@@ -187,7 +187,7 @@
 					<div>
 						<xsl:attribute name="class">flex-item</xsl:attribute>
 						<xsl:attribute name="ui-view"><xsl:value-of select="."/></xsl:attribute>
-						<xsl:attribute name="style">height: <xsl:value-of select="$panelSize"/>vh</xsl:attribute>
+						<xsl:attribute name="style">height: <xsl:value-of select='format-number($panelSize,"0.##" )'/>vh</xsl:attribute>
 					</div>
 				</tab>
 			</xsl:when>
@@ -199,14 +199,14 @@
 					<xsl:attribute name="class">flex-item <xsl:value-of select="../../name"/>-workspace-column </xsl:attribute>
 					<xsl:attribute name="data-snap-ignore">true</xsl:attribute>
 				    <xsl:attribute name="ui-view"><xsl:value-of select="."/></xsl:attribute>
-				    <xsl:attribute name="style">height: <xsl:value-of select="$panelSize"/>vh</xsl:attribute>
+				    <xsl:attribute name="style">height: <xsl:value-of select='format-number($panelSize,"0.##" )'/>vh</xsl:attribute>
 				</div>
 			</xsl:when>
 			<xsl:otherwise>
 				<div>
 					<xsl:attribute name="class">flex-item</xsl:attribute>
 					<xsl:attribute name="ui-view"><xsl:value-of select="."/></xsl:attribute>
-					<xsl:attribute name="style">height: <xsl:value-of select="$panelSize"/>vh</xsl:attribute>
+					<xsl:attribute name="style">height: <xsl:value-of select='format-number($panelSize,"0.##" )'/>vh</xsl:attribute>
 				</div>
 			</xsl:otherwise>
 		</xsl:choose>
