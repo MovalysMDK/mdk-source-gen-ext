@@ -83,10 +83,12 @@
 		<xsl:text>_</xsl:text><xsl:value-of select="@name"/><xsl:text> = </xsl:text><xsl:value-of select="parameter-name"/><xsl:text>;&#10;</xsl:text>
 	</xsl:if>
 	<xsl:variable name="setter" select="concat('setter-', @name)"/>
-	<xsl:text>&#10;//@non-generated-start[setter-</xsl:text><xsl:value-of select="@name"/><xsl:text>]&#10;</xsl:text>
-	<xsl:value-of select="/class/non-generated/bloc[@id=$setter]"/>
-		<xsl:apply-templates select="../attribute" mode="call-derived-attr-update"></xsl:apply-templates>
-	<xsl:text>	//@non-generated-end[setter-</xsl:text><xsl:value-of select="@name"/><xsl:text>]&#10;</xsl:text>	
+	<xsl:call-template name="non-generated-bloc">
+		<xsl:with-param name="blocId"><xsl:text>setter-</xsl:text><xsl:value-of select="@name"/></xsl:with-param>
+		<xsl:with-param name="defaultSource">
+			<xsl:apply-templates select="../attribute" mode="call-derived-attr-update"></xsl:apply-templates>
+        </xsl:with-param>
+	</xsl:call-template>
 	
 	<xsl:text>&#10;},&#10;</xsl:text>
 		

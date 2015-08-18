@@ -54,12 +54,10 @@
 	
 	<!-- 	IF panel of list -->
 	<xsl:template match="view[@isScreen='false' and @is-list='true']" mode="partial-hmtl">
-		<div>
 			<div>
-				<xsl:attribute name="class">form-horizontal panel-body</xsl:attribute>
+				<xsl:attribute name="class">form-horizontal panel-body panel-list-container</xsl:attribute>
 				<xsl:apply-templates select="." mode="partial-body"/>
 			</div>
-		</div>
 	</xsl:template>
 	
 
@@ -126,8 +124,7 @@
 	<!-- 		Ici le body -->
 	<xsl:template match="view" mode="partial-body">
 			<xsl:if test="@isScreen='true'">
-				<div>
-					<xsl:attribute name="class">flex-container</xsl:attribute>
+
 					<xsl:choose>
 						<!-- case when multilist in workspace -->
 						<xsl:when test="@isWorkspace='true' and count(nestedSubviews/nestedSubview[@isList='true'])>1">
@@ -156,7 +153,6 @@
 							</xsl:apply-templates>
 						</xsl:otherwise>
 					</xsl:choose>
-				</div>
 			</xsl:if>
 						
 			<xsl:apply-templates select="." mode="partial-menu-list"/>
