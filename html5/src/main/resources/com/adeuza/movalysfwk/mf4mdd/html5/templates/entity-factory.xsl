@@ -69,7 +69,7 @@
 			</xsl:for-each>
 			
 			<!-- // ATTRIBUTES -->
-			<xsl:for-each select="./attribute[@transient ='false']">
+			<xsl:for-each select="./attribute[@transient ='false' and not(@derived='true')]">
 				<xsl:choose>
 					<!--  if NOT enum -->
 					<xsl:when test="not(@enum) or @enum = 'false'">
