@@ -105,11 +105,13 @@
 		<xsl:value-of select="/*/non-generated/bloc[@id='createInstance']"/>
 		<xsl:text>//@non-generated-end&#10;</xsl:text>
 		
+		<xsl:text>&#10;return result;&#10;&#10; }&#10;</xsl:text>
+		
 		<xsl:text>&#10;//@non-generated-start[functions]&#10;</xsl:text>
 		<xsl:value-of select="/*/non-generated/bloc[@id='functions']"/>
 		<xsl:text>//@non-generated-end&#10;</xsl:text>
-
-		<xsl:text>&#10;return result;&#10;&#10; }&#10;};&#10;</xsl:text>
+		
+		<xsl:text>};&#10;</xsl:text>
 	</xsl:template>
 	
 	
