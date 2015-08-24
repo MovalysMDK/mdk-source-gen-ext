@@ -23,8 +23,11 @@ xmlns:exsl="http://exslt.org/common" extension-element-prefixes="exsl">
 	<!-- THIS STARTS THE CLASS -->
 	<xsl:template match="node()[package and name]" mode="declare-class">
 		<xsl:text>'use strict';&#10;</xsl:text>
-
 		<xsl:apply-templates select="." mode="documentation"/>
+		<xsl:text>&#10;//@non-generated-start[jshint-override]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='jshint-override']"/>
+		<xsl:text>//@non-generated-end&#10;&#10;</xsl:text>
+		
 		<xsl:apply-templates select="." mode="class-prototype"/>
 		<xsl:text>{&#10;</xsl:text>
 			<xsl:apply-templates select="." mode="class-body"/>

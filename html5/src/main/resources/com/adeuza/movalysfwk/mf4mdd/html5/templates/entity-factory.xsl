@@ -24,8 +24,12 @@
 
 	<xsl:template match="pojo-factory">
 		<xsl:text>'use strict';&#10;</xsl:text>
-
 		<xsl:apply-templates select="." mode="factory-documentation"/>
+		
+		<xsl:text>&#10;//@non-generated-start[jshint-override]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='jshint-override']"/>
+		<xsl:text>//@non-generated-end&#10;&#10;</xsl:text>
+		
 		<xsl:apply-templates select="." mode="factory-prototype"/>
 		<xsl:text>{&#10;</xsl:text>
 			<xsl:apply-templates select="class" mode="factory-body"/>

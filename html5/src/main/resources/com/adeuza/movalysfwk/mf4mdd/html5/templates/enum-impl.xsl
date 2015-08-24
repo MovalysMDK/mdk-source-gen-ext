@@ -21,8 +21,12 @@
 	
 	<xsl:template match="enum">
 		<xsl:text>'use strict';&#10;</xsl:text>
-
 		<xsl:apply-templates select="." mode="enum-documentation"/>
+		
+		<xsl:text>//@non-generated-start[jshint-override]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='jshint-override']"/>
+		<xsl:text>//@non-generated-end&#10;</xsl:text>
+		
 		<xsl:apply-templates select="." mode="enum-prototype"/>
 		<xsl:text>{&#10;</xsl:text>
 			<xsl:apply-templates select="." mode="enum-body"/>
