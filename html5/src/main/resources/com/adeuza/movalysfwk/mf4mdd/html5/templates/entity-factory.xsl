@@ -54,13 +54,13 @@
 	    <xsl:value-of select="name"/><xsl:text>();&#10;</xsl:text>
 		
 		<!-- 		All attributes are initialised differently depending on their type, if they're attributes or association, and (if association) their association's type -->
-		<xsl:if test="transient != 'true'">
+<!-- 		<xsl:if test="transient != 'true'"> -->
 		
 			<!-- // IDENTIFIER ATTRIBUTES -->
 			<xsl:for-each select="./identifier/attribute">
 				<xsl:choose>
 					<xsl:when test="@type-name='Long'">
-						<xsl:text>result.</xsl:text><xsl:value-of select="@name"/><xsl:text> = -1;&#10;</xsl:text>						
+						<xsl:text>result.</xsl:text><xsl:value-of select="@name"/><xsl:text> = -1;&#10;</xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>result.</xsl:text><xsl:value-of select="@name"/><xsl:text> = </xsl:text><xsl:value-of select="@init"/><xsl:text>;&#10;</xsl:text>
@@ -69,7 +69,7 @@
 			</xsl:for-each>
 			
 			<!-- // ATTRIBUTES -->
-			<xsl:for-each select="./attribute[@transient ='false' and not(@derived='true')]">
+			<xsl:for-each select="./attribute">
 				<xsl:choose>
 					<!--  if NOT enum -->
 					<xsl:when test="not(@enum) or @enum = 'false'">
@@ -84,7 +84,7 @@
 			</xsl:for-each>
 			
 			<!-- // ASSOCIATIONS -->
-			<xsl:for-each select="./association[(@type='one-to-many' or @type='many-to-many') and @opposite-navigable='true']">
+			<xsl:for-each select="./association[(@type='one-to-many' or @type='many-to-many' or @type='many-to-one') and @opposite-navigable='true']">
 				<xsl:text>result.</xsl:text><xsl:value-of select="@name"/><xsl:text> = [];&#10;</xsl:text>
 			</xsl:for-each>
 			
@@ -92,14 +92,14 @@
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">child-instantiation-factory</xsl:with-param>
 				<xsl:with-param name="defaultSource">
-					<xsl:for-each select="./association[(@type='many-to-one' or (@type='one-to-one' and @transient='false'))]">	
+					<xsl:for-each select="./association[(@type='many-to-one' or (@type='one-to-one') or @type='one-to-many')]">	
 							<xsl:text>&#10;// uncomment the following line (and add imports) only if you want to instantiate the child object here	&#10;</xsl:text>				
 							<xsl:text>//result.</xsl:text><xsl:value-of select="@name"/><xsl:text> = </xsl:text><xsl:value-of select="pojo-factory-interface/name"/><xsl:text>.createInstance();&#10;</xsl:text>
 					</xsl:for-each>
 				</xsl:with-param>
 			</xsl:call-template>
 
-		</xsl:if>
+<!-- 		</xsl:if> -->
 
 		<xsl:text>&#10;//@non-generated-start[createInstance]&#10;</xsl:text>
 		<xsl:value-of select="/*/non-generated/bloc[@id='createInstance']"/>
