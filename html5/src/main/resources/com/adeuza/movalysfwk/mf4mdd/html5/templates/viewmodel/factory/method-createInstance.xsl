@@ -68,7 +68,10 @@
 					<!--  if NOT enum -->
 					<xsl:when test="not(@enum) or @enum = 'false' and not(@type-name='MFPositionViewModel' or @type-name='MFPhotoViewModel')">
 						<!-- 	default case -->
-						<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text> = </xsl:text><xsl:value-of select="@init"/><xsl:text>;&#10;</xsl:text>
+						<xsl:variable name="name"><xsl:value-of select="@name"/></xsl:variable>
+						<xsl:for-each select="../mapping/attribute[@vm-attr=$name]">
+								<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="$name"/><xsl:text> = </xsl:text><xsl:value-of select="@initial-value"/><xsl:text>;&#10;</xsl:text>
+						</xsl:for-each>					
 					</xsl:when>
 					<xsl:when test="@type-name='MFPositionViewModel'">
 						<!-- 	MFAddressLocation-->
