@@ -90,41 +90,55 @@
 	
 	<xsl:template match="dataloader-impl" mode="dataloader-reload">
 		<xsl:text>&#10;</xsl:text><xsl:value-of select="name"/><xsl:text>.prototype.reload = function reload(context, params){&#10;</xsl:text>
-        <xsl:apply-templates select="." mode="dataloader-reload-attributes"/>
-        
-			<!--        FOR COMBO-->
+		<xsl:apply-templates select="." mode="dataloader-reload-attributes"/>
+
+		<!--        FOR COMBO-->
 		<xsl:for-each select="dataloader-interface/combos/combo/entity/text()[generate-id() = generate-id(key('comboEntity',.)[1])]">
 			<xsl:variable name="comboAttrName">
 				<xsl:text>combo</xsl:text><xsl:value-of select="."/><xsl:text>DataModel</xsl:text>
 			</xsl:variable>
 			
 			<xsl:if test="../../transient!='true'">
-				<xsl:text>combosDaoCalls.push(&#10;</xsl:text>
-				<xsl:value-of select="."/><xsl:text>DaoProxy.getList</xsl:text><xsl:value-of select="."/>(context, []).then(function(combo<xsl:value-of select="."/><xsl:text>ModelEntities) {&#10;
-				 self.</xsl:text><xsl:value-of select="$comboAttrName"/><xsl:text> = combo</xsl:text><xsl:value-of select="."/><xsl:text>ModelEntities;&#10;</xsl:text>
-				<xsl:text>deferred.resolve({&#10;</xsl:text>
-				<xsl:value-of select="$comboAttrName"/><xsl:text>: self.</xsl:text><xsl:value-of select="$comboAttrName"/><xsl:text>&#10;</xsl:text>
-				<xsl:text>}); &#10;</xsl:text>
-				<xsl:text>}, function(error) { &#10;</xsl:text>
-				<xsl:text>deferred.reject(error); &#10;</xsl:text>
-				<xsl:text>})&#10;</xsl:text>
+				<xsl:text>combosDaoCalls.push(</xsl:text>
+				<xsl:value-of select="."/><xsl:text>DaoProxy.getList</xsl:text><xsl:value-of select="."/><xsl:text>(context, [])</xsl:text>
+<!-- 				<xsl:value-of select="."/><xsl:text>DaoProxy.getList</xsl:text><xsl:value-of select="."/>(context, []).then(function(combo<xsl:value-of select="."/><xsl:text>ModelEntities) {&#10; -->
+<!-- 				 self.</xsl:text><xsl:value-of select="$comboAttrName"/><xsl:text> = combo</xsl:text><xsl:value-of select="."/><xsl:text>ModelEntities;&#10;</xsl:text> -->
+<!-- 				<xsl:text>deferred.resolve({&#10;</xsl:text> -->
+<!-- 				<xsl:value-of select="$comboAttrName"/><xsl:text>: self.</xsl:text><xsl:value-of select="$comboAttrName"/><xsl:text>&#10;</xsl:text> -->
+<!-- 				<xsl:text>}); &#10;</xsl:text> -->
+<!-- 				<xsl:text>}, function(error) { &#10;</xsl:text> -->
+<!-- 				<xsl:text>deferred.reject(error); &#10;</xsl:text> -->
+<!-- 				<xsl:text>})&#10;</xsl:text> -->
 				<xsl:text>) ;&#10;</xsl:text>
-			</xsl:if>	
+			</xsl:if>
 		</xsl:for-each>
 			
 			
 		<!--       FOR ALL-->
-		<xsl:text>$qSync.all(combosDaoCalls).then(function success() {&#10;</xsl:text>
+		<xsl:text>$qSync.all(combosDaoCalls).then(function success(comboValues) {&#10;</xsl:text>
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">reload-dataloader</xsl:with-param>
 			<xsl:with-param name="defaultSource">
-			
+
+				<!--        FOR COMBO-->
+				<xsl:text>if (!angular.isUndefinedOrNull(comboValues)) {&#10;</xsl:text>
+				<xsl:for-each select="dataloader-interface/combos/combo/entity/text()[generate-id() = generate-id(key('comboEntity',.)[1])]">
+					<xsl:variable name="comboAttrName">
+						<xsl:text>combo</xsl:text><xsl:value-of select="."/><xsl:text>DataModel</xsl:text>
+					</xsl:variable>
+					
+					<xsl:if test="../../transient!='true'">
+						<xsl:text>self.</xsl:text><xsl:value-of select="$comboAttrName"/><xsl:text> = comboValues[</xsl:text><xsl:value-of select="position()-1"/><xsl:text>];&#10;</xsl:text>
+					</xsl:if>
+				</xsl:for-each>
+				<xsl:text>}&#10;</xsl:text>
+
 				<xsl:apply-templates select="." mode="dataloader-qsync"/>
-		
+
 			</xsl:with-param>
 		</xsl:call-template>
 		
-        <xsl:text>&#10;});&#10;</xsl:text>
+        <xsl:text>&#10;}, function failure(error) {&#10;deferred.reject(error);&#10;});&#10;</xsl:text>
         <xsl:text>return deferred.promise;&#10;</xsl:text>
         
     	<xsl:text>};&#10;</xsl:text>
