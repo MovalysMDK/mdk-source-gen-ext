@@ -121,34 +121,36 @@
 			<xsl:with-param name="defaultSource">
 
 				<!--        FOR COMBO-->
-				<xsl:text>if (!angular.isUndefinedOrNull(comboValues)) {&#10;</xsl:text>
-				<xsl:for-each select="dataloader-interface/combos/combo/entity/text()[generate-id() = generate-id(key('comboEntity',.)[1])]">
-					<xsl:variable name="comboAttrName">
-						<xsl:text>combo</xsl:text><xsl:value-of select="."/><xsl:text>DataModel</xsl:text>
-					</xsl:variable>
-					
-					<xsl:if test="../../transient!='true'">
-						<xsl:text>self.</xsl:text><xsl:value-of select="$comboAttrName"/><xsl:text> = comboValues[</xsl:text><xsl:value-of select="position()-1"/><xsl:text>];&#10;</xsl:text>
-					</xsl:if>
-				</xsl:for-each>
-				<xsl:text>}&#10;</xsl:text>
-
+				<xsl:if test="dataloader-interface/combos/combo/entity/text()[generate-id() = generate-id(key('comboEntity',.)[1])]">
+					<xsl:text>if (!angular.isUndefinedOrNull(comboValues)) {&#10;</xsl:text>
+					<xsl:for-each select="dataloader-interface/combos/combo/entity/text()[generate-id() = generate-id(key('comboEntity',.)[1])]">
+						<xsl:variable name="comboAttrName">
+							<xsl:text>combo</xsl:text><xsl:value-of select="."/><xsl:text>DataModel</xsl:text>
+						</xsl:variable>
+						
+						<xsl:if test="../../transient!='true'">
+							<xsl:text>self.</xsl:text><xsl:value-of select="$comboAttrName"/><xsl:text> = comboValues[</xsl:text><xsl:value-of select="position()-1"/><xsl:text>];&#10;</xsl:text>
+						</xsl:if>
+					</xsl:for-each>
+					<xsl:text>}&#10;</xsl:text>
+				</xsl:if>
+				
 				<xsl:apply-templates select="." mode="dataloader-qsync"/>
 
 			</xsl:with-param>
 		</xsl:call-template>
 		
-        <xsl:text>&#10;}, function failure(error) {&#10;deferred.reject(error);&#10;});&#10;</xsl:text>
-        <xsl:text>return deferred.promise;&#10;</xsl:text>
-        
-    	<xsl:text>};&#10;</xsl:text>
-    	
+		<xsl:text>&#10;}, function failure(error) {&#10;deferred.reject(error);&#10;});&#10;</xsl:text>
+		<xsl:text>return deferred.promise;&#10;</xsl:text>
+
+		<xsl:text>};&#10;</xsl:text>
+		
 	</xsl:template>
 
 	<xsl:template match="*" mode="dataloader-reload-attributes">
-	    <xsl:text>var deferred = $qSync.defer();&#10;</xsl:text>
-        <xsl:text>var self = this;&#10;&#10;</xsl:text>
-        <xsl:text>var combosDaoCalls = [] ;&#10;</xsl:text>
+		<xsl:text>var deferred = $qSync.defer();&#10;</xsl:text>
+		<xsl:text>var self = this;&#10;&#10;</xsl:text>
+		<xsl:text>var combosDaoCalls = [] ;&#10;</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="*[dataloader-interface/entity-type/transient='true']" mode="dataloader-reload-attributes">
