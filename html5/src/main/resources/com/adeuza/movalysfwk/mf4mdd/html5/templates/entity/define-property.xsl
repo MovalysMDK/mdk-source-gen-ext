@@ -45,7 +45,7 @@
 	
          <xsl:text>&#10;}</xsl:text>
          
-         <xsl:if test="@primitif = 'true' and parent::identifier">
+         <xsl:if test="parent::identifier">
         	 <xsl:apply-templates select="." mode="define-idToString-property"/>
          </xsl:if>
          
