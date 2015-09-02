@@ -96,7 +96,10 @@
 							<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>.selectedItem = </xsl:text><xsl:value-of select="@init"/><xsl:text>;&#10;</xsl:text>
 						</xsl:otherwise>
 						</xsl:choose>
-						<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>.itemsList = </xsl:text><xsl:value-of select="@type-short-name"/><xsl:text>.toItemsList();&#10;</xsl:text>
+						<xsl:choose>
+							<xsl:when test="contains(@type-name,'enumimage')"><xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>.itemsList = </xsl:text><xsl:value-of select="@type-short-name"/><xsl:text>.toItemsList();&#10;</xsl:text></xsl:when>
+							<xsl:otherwise><xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>.itemsList = </xsl:text><xsl:value-of select="@type-short-name"/><xsl:text>Converter.toItemsList();&#10;</xsl:text></xsl:otherwise>
+						</xsl:choose>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:for-each>

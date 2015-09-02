@@ -672,6 +672,7 @@
 					    
 						<!-- 					    Couche Model 							  -->
 						<generator class="com.a2a.adjava.languages.html5.generators.EntityGenerator"/>
+						<generator class="com.a2a.adjava.languages.html5.generators.EnumConverterGenerator"/>	
 						<generator class="com.a2a.adjava.languages.html5.generators.EnumGenerator"/>	
 						<generator class="com.a2a.adjava.languages.html5.generators.FactoryGenerator"/>												
 						
