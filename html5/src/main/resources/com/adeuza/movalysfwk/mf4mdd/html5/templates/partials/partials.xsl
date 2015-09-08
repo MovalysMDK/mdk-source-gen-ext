@@ -181,9 +181,7 @@
 				<tab>
 					<xsl:attribute name="heading"><xsl:value-of select="."/></xsl:attribute>
 					<div>
-						<xsl:attribute name="class">flex-item</xsl:attribute>
 						<xsl:attribute name="ui-view"><xsl:value-of select="."/></xsl:attribute>
-						<xsl:attribute name="style">height: <xsl:value-of select='format-number($panelSize,"0.##" )'/>vh</xsl:attribute>
 					</div>
 				</tab>
 			</xsl:when>
@@ -192,10 +190,9 @@
 					<xsl:if test="@isFirstDetail='true'">
 						<xsl:attribute name="id">firstColumnScroll</xsl:attribute>
 					</xsl:if>
-					<xsl:attribute name="class">flex-item <xsl:value-of select="../../name"/>-workspace-column </xsl:attribute>
+					<xsl:attribute name="class"><xsl:value-of select="../../name"/>-workspace-column </xsl:attribute>
 					<xsl:attribute name="data-snap-ignore">true</xsl:attribute>
 				    <xsl:attribute name="ui-view"><xsl:value-of select="."/></xsl:attribute>
-				    <xsl:attribute name="style">height: <xsl:value-of select='format-number($panelSize,"0.##" )'/>vh</xsl:attribute>
 				</div>
 			</xsl:when>
 			<xsl:otherwise>
