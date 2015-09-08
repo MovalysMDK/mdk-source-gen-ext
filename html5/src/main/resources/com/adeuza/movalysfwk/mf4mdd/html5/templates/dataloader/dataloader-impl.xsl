@@ -121,7 +121,7 @@
 			<xsl:with-param name="defaultSource">
 
 				<!--        FOR COMBO-->
-				<xsl:if test="dataloader-interface/combos/combo/entity/text()[generate-id() = generate-id(key('comboEntity',.)[1])]">
+					<xsl:if test="count(dataloader-interface/combos/combo[transient!='true'])>0">
 					<xsl:text>if (!angular.isUndefinedOrNull(comboValues)) {&#10;</xsl:text>
 					<xsl:for-each select="dataloader-interface/combos/combo/entity/text()[generate-id() = generate-id(key('comboEntity',.)[1])]">
 						<xsl:variable name="comboAttrName">
