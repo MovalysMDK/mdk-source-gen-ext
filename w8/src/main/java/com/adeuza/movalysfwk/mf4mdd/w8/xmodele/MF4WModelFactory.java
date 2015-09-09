@@ -80,12 +80,6 @@ public class MF4WModelFactory extends MW8ModeleFactory implements MFModelFactory
 	}
 	
 	@Override
-	public MF4WEntityImpl createMEntity(String p_sName, MPackage p_oPackage,
-			String p_sUmlName, String p_sEntityName) {
-		return new MF4WEntityImpl(p_sName, p_oPackage, p_sUmlName, p_sEntityName);
-	}
-	
-	@Override
 	public MPage createPage(MScreen p_oParent,
 			IDomain<IModelDictionary, IModelFactory> p_oDomain,
 			String p_sPageName, UmlClass p_oUmlPage, MPackage p_oPackage,

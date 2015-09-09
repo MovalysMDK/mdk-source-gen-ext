@@ -18,62 +18,66 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:output method="text"/>
+	<xsl:output method="text"/>
 
-<xsl:include href="commons/file-header.xsl"/>
-<xsl:include href="commons/imports.xsl"/>
-<xsl:include href="commons/non-generated.xsl"/>
+	<xsl:include href="commons/file-header.xsl"/>
+	<xsl:include href="commons/imports.xsl"/>
+	<xsl:include href="commons/non-generated.xsl"/>
 
-<xsl:template match="factory-interface">
+	<xsl:template match="factory-interface">
 
-	<xsl:apply-templates select="pojo-factory-interface" mode="file-header">
-		<xsl:with-param name="fileName"><xsl:value-of select="pojo-factory-interface/name"/>.cs</xsl:with-param>
-	</xsl:apply-templates>
-	
-	<xsl:call-template name="pojo-factory-interface-using"/>
-	<xsl:for-each select="class/import">
-		<xsl:text>using </xsl:text><xsl:value-of select="."/><xsl:text>;</xsl:text>
-	</xsl:for-each>
-	
-	<xsl:text>&#13;</xsl:text>
-	<xsl:text>&#13;</xsl:text>
-	
-	<xsl:text>namespace </xsl:text><xsl:value-of select="pojo-factory-interface/package"/><xsl:text></xsl:text>
-	<xsl:text>{&#13;</xsl:text>
-	<xsl:text>[ScopePolicyAttribute(ScopePolicy.Singleton)]&#13;</xsl:text>
-	<xsl:text>public interface </xsl:text><xsl:value-of select="pojo-factory-interface/name"/>
-	<xsl:choose>
-		<xsl:when test="pojo-factory/class/create-from-expandable-processor = 'true'">
-			<!-- Dans le cas d'une factory d'une classe d'association ou contenant uniquement des champs en BD sans clé primaire (Id), l'interface n'implémente pas IEntityFactory<T> where T : IMEntity -->
-			<xsl:text>&#13;</xsl:text>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:text><![CDATA[ : IEntityFactory<]]></xsl:text><xsl:value-of select="pojo-factory-interface/interface/@name"/><xsl:text><![CDATA[>]]>&#13;</xsl:text>
-		</xsl:otherwise>
-	</xsl:choose>
-	<xsl:text>{&#13;</xsl:text>
-	
-	<xsl:choose>
-		<xsl:when test="pojo-factory/class/create-from-expandable-processor = 'true'">
-			<!-- Dans le cas d'une factory d'une classe d'association ou contenant uniquement des champs en BD sans clé primaire (Id), pas de mot clé new -->
-			<xsl:text>&#13;</xsl:text>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:text>new </xsl:text>
-		</xsl:otherwise>
-	</xsl:choose>
-	<xsl:value-of select="pojo-factory-interface/interface/@name"/><xsl:text> CreateInstance();</xsl:text>
-	
-	<xsl:text>&#13;</xsl:text>
-	
-	<xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">other-methods</xsl:with-param>
-	</xsl:call-template>
-	
-	<xsl:text>&#13;</xsl:text>
-	
-	<xsl:text>}</xsl:text>
-	<xsl:text>}</xsl:text>
+		<xsl:apply-templates select="pojo-factory-interface" mode="file-header">
+			<xsl:with-param name="fileName"><xsl:value-of select="pojo-factory-interface/name"/>.cs
+			</xsl:with-param>
+		</xsl:apply-templates>
 
-</xsl:template>
+		<xsl:call-template name="pojo-factory-interface-using"/>
+		<xsl:for-each select="class/import">
+			<xsl:text>using </xsl:text><xsl:value-of select="."/><xsl:text>;</xsl:text>
+		</xsl:for-each>
+
+		<xsl:text>&#13;</xsl:text>
+		<xsl:text>&#13;</xsl:text>
+
+		<xsl:text>namespace </xsl:text><xsl:value-of select="pojo-factory-interface/package"/><xsl:text></xsl:text>
+		<xsl:text>{&#13;</xsl:text>
+		<xsl:text>[ScopePolicyAttribute(ScopePolicy.Singleton)]&#13;</xsl:text>
+		<xsl:text>public interface </xsl:text><xsl:value-of select="pojo-factory-interface/name"/>
+		<xsl:choose>
+			<xsl:when test="pojo-factory/class/embedded = 'true'">
+				<!-- When generating a factory for an association class or a class that only handles database fields -->
+				<!-- without primary key (as for an embedded entity), the interface does not implement IEntityFactory -->
+				<xsl:text>&#13;</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text><![CDATA[ : IEntityFactory<]]></xsl:text><xsl:value-of
+					select="pojo-factory-interface/interface/@name"/><xsl:text><![CDATA[>]]>&#13;</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text>{&#13;</xsl:text>
+
+		<xsl:choose>
+			<xsl:when test="pojo-factory/class/embedded = 'true'">
+				<!-- Dans le cas d'une factory d'une classe d'association ou contenant uniquement des champs en BD -->
+				<!-- sans clé primaire (Id), pas de mot clé new -->
+				<xsl:text>&#13;</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>new </xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:value-of select="pojo-factory-interface/interface/@name"/><xsl:text> CreateInstance();</xsl:text>
+
+		<xsl:text>&#13;</xsl:text>
+
+		<xsl:call-template name="non-generated-bloc">
+			<xsl:with-param name="blocId">other-methods</xsl:with-param>
+		</xsl:call-template>
+
+		<xsl:text>&#13;</xsl:text>
+
+		<xsl:text>}</xsl:text>
+		<xsl:text>}</xsl:text>
+
+	</xsl:template>
 </xsl:stylesheet>

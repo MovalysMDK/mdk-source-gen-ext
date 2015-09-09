@@ -15,16 +15,12 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.w8.extractor;
 
-import com.a2a.adjava.AdjavaException;
-import com.a2a.adjava.uml.UmlClass;
-import com.a2a.adjava.uml.UmlStereotype;
 import com.a2a.adjava.uml2xmodele.extractors.PojoExtractor;
 import com.a2a.adjava.xmodele.MAttribute;
 import com.a2a.adjava.xmodele.MEntityImpl;
 import com.a2a.adjava.xmodele.MEntityInterface;
 import com.a2a.adjava.xmodele.MIdentifierElem;
 import com.a2a.adjava.xmodele.MPackage;
-import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WEntityImpl;
 
 public class MF4WPojoExtractor extends PojoExtractor {
 	
@@ -85,26 +81,5 @@ public class MF4WPojoExtractor extends PojoExtractor {
 		p_oMClass.setMasterInterface(r_oInterface);
 		getDomain().getDictionnary().registerInterface(r_oInterface, p_oMClass);
 		return r_oInterface;
-	}
-	
-	@Override
-	protected MF4WEntityImpl convertUmlClass(UmlClass p_oClass) throws AdjavaException {
-		MF4WEntityImpl mf4wEntity = (MF4WEntityImpl) super.convertUmlClass(p_oClass);
-		for(UmlStereotype us : p_oClass.getStereotypes()){
-			if(us.getName().startsWith(MF4WExpandableTypeProcessor.COMPLEX_ENTITY_W8)) {
-				mf4wEntity.setCreateFromExpandableProcessor(true);
-				String [] entityInfos = us.getName().split(";");
-				String sPackage = entityInfos[2].substring(0, entityInfos[2].lastIndexOf('.'));
-				String sName = entityInfos[2].substring(entityInfos[2].lastIndexOf('.')+1);
-				String sOriginEntityPackage = entityInfos[1].substring(0, entityInfos[1].lastIndexOf('.'));
-				String sOriginEntityName = entityInfos[1].substring(entityInfos[1].lastIndexOf('.')+1);
-				mf4wEntity.setPackageFromExpandableProcessor(sPackage);
-				mf4wEntity.setClassFromExpandableProcessor(sName);
-				mf4wEntity.setOriginPackageFromExpandableProcessor(sOriginEntityPackage);
-				mf4wEntity.setOriginClassFromExpandableProcessor(sOriginEntityName);
-				mf4wEntity.setOriginAttributeFromExpandableProcessor(entityInfos[3]);
-			}
-		}
-		return mf4wEntity;
 	}
 }

@@ -47,7 +47,7 @@
 		  </xsl:when>
 		</xsl:choose>
     	<xsl:if test="page-package"><xsl:text>&#13;using </xsl:text><xsl:value-of select="page-package"/><xsl:text>;</xsl:text></xsl:if>
-	<xsl:text>&#13;namespace </xsl:text><xsl:value-of select="package"/><xsl:text></xsl:text>
+	<xsl:text>&#13;&#13;namespace </xsl:text><xsl:value-of select="package"/><xsl:text></xsl:text>
 	<xsl:text>{</xsl:text>
 	<xsl:call-template name="partial-class">
 			<xsl:with-param name="BaseClass"><xsl:call-template name="screen-type"/></xsl:with-param>

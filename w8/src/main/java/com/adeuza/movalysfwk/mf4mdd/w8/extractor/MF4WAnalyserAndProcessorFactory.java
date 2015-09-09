@@ -32,14 +32,6 @@ public class MF4WAnalyserAndProcessorFactory extends AnalyserAndProcessorFactory
 		}
 		return instanceAdditionalLayoutProcessor;
 	}
-
-	@Override
-	public IExpandableTypeProcessor createExpandableTypesProcessor() {
-		if(instanceExpandableTypeProcessor == null){
-			instanceExpandableTypeProcessor = new MF4WExpandableTypeProcessor();
-		}
-		return instanceExpandableTypeProcessor;
-	}
 	
 	@Override
 	public ICUDActionProcessor createCUDActionProcessor() {
