@@ -88,7 +88,7 @@
 			</xsl:for-each>
 			
 			<!-- // ASSOCIATIONS -->
-			<xsl:for-each select="./association[(@type='one-to-many' or @type='many-to-many' or @type='many-to-one') and @opposite-navigable='true']">
+			<xsl:for-each select="./association[(@type='one-to-many' or @type='many-to-many') and @opposite-navigable='true']">
 				<xsl:text>result.</xsl:text><xsl:value-of select="@name"/><xsl:text> = [];&#10;</xsl:text>
 			</xsl:for-each>
 			
@@ -96,7 +96,7 @@
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">child-instantiation-factory</xsl:with-param>
 				<xsl:with-param name="defaultSource">
-					<xsl:for-each select="./association[(@type='many-to-one' or (@type='one-to-one') or @type='one-to-many')]">	
+					<xsl:for-each select="./association[(@type='many-to-one' or (@type='one-to-one'))]">	
 							<xsl:text>&#10;// uncomment the following line (and add imports) only if you want to instantiate the child object here	&#10;</xsl:text>				
 							<xsl:text>//result.</xsl:text><xsl:value-of select="@name"/><xsl:text> = </xsl:text><xsl:value-of select="pojo-factory-interface/name"/><xsl:text>.createInstance();&#10;</xsl:text>
 					</xsl:for-each>
