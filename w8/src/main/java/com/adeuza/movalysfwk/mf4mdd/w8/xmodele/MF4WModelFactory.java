@@ -78,7 +78,15 @@ public class MF4WModelFactory extends MW8ModeleFactory implements MFModelFactory
 			MEntityImpl p_oEntityToUpdate, String p_sPathToModel, boolean p_bCustomizable) {
 		return this.modelFactoryDlg.createViewModel(p_sName, p_sUmlName, p_oPackage, p_oType, p_oEntityToUpdate, p_sPathToModel, p_bCustomizable);
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public MScreen createScreen(String p_sUmlName, String p_sName, MPackage p_oScreenPackage) {
+		return new MF4WScreen(p_sUmlName, p_sName, p_oScreenPackage );
+	}
+
 	@Override
 	public MPage createPage(MScreen p_oParent,
 			IDomain<IModelDictionary, IModelFactory> p_oDomain,

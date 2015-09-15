@@ -59,7 +59,16 @@ public class MF4WScreenDependencyProcessor extends ScreenDependencyProcessor {
 		super.treatScreenRelations(p_oScreenContext, p_oUmlDict);
 		treatWorkspaceRelation(p_oScreenContext);
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 * @param p_oScreen
+	 */
+	@Override
+	protected void setLayoutForSinglePageScreen(MScreen p_oScreen) {
+		// Do not put the panel layout inside the screen layout
+	}
+
 	private void treatWorkspaceRelation(ScreenContext p_oScreenContext){
 		IDomain<IModelDictionary, IModelFactory> oDomain = p_oScreenContext.getDomain();
 		for (MScreen screen : oDomain.getDictionnary().getAllScreens()) {

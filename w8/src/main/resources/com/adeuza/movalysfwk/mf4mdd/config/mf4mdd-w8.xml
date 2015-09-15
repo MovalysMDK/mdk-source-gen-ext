@@ -92,8 +92,7 @@
 					<data-type>BINARY</data-type>
 					<type-conversions>
 						<type-conversion to="AddressLocation">
-							<formula>RESULT = (dynamic) MFPositionViewModel.ConvertViewModelToComponent(VALUE,
-								COMPONENT)
+							<formula>RESULT = (dynamic) MFPositionViewModel.ConvertViewModelToComponent(VALUE, COMPONENT)
 							</formula>
 						</type-conversion>
 					</type-conversions>
@@ -133,8 +132,7 @@
 					<data-type>BINARY</data-type>
 					<type-conversions>
 						<type-conversion to="Photo">
-							<formula>RESULT = (dynamic) MFPhotoViewModel.ConvertViewModelToComponent&lt;FACTORY&gt;(VALUE,
-								COMPONENT)
+							<formula>RESULT = (dynamic) MFPhotoViewModel.ConvertViewModelToComponent&lt;FACTORY&gt;(VALUE, COMPONENT)
 							</formula>
 						</type-conversion>
 					</type-conversions>

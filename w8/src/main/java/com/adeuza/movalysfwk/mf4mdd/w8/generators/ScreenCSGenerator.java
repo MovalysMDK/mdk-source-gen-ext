@@ -15,6 +15,11 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.w8.generators;
 
+import com.a2a.adjava.languages.w8.xmodele.MW8ImportDelegate;
+import com.a2a.adjava.xmodele.ui.component.MAbstractButton;
+import com.a2a.adjava.xmodele.ui.component.MButtonType;
+import com.a2a.adjava.xmodele.ui.component.MNavigationButton;
+import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WImportDelegate;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -26,7 +31,6 @@ import com.a2a.adjava.generators.DomainGeneratorContext;
 import com.a2a.adjava.utils.Chrono;
 import com.a2a.adjava.utils.FileTypeUtils;
 import com.a2a.adjava.xmodele.MScreen;
-import com.a2a.adjava.xmodele.SGeneratedElement;
 import com.a2a.adjava.xmodele.XProject;
 import com.a2a.adjava.xmodele.ui.menu.MMenu;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MFDomain;
@@ -55,28 +59,9 @@ public class ScreenCSGenerator extends AbstractIncrementalGenerator<MFDomain<MFM
 			.getLogger(ScreenCSGenerator.class);
 
 	/**
-	 * XSL Template for Phone CS layout
+	 * XSL Template for CS screen
 	 */
-	private static final String PHONE_CS_LAYOUT_XSL_TEMPLATE = "ui/cs-layout.xsl";
-
-	/**
-	 * XSL Template for Store CS layout
-	 */
-	private static final String STORE_CS_LAYOUT_XSL_TEMPLATE = "ui/cs-layout.xsl";
-	/**
-	 * XSL Template for Phone CS screen
-	 */
-	private static final String PHONE_CS_SCREEN_XSL_TEMPLATE = "ui/cs-screen.xsl";
-
-	/**
-	 * XSL Template for Store CS screen
-	 */
-	private static final String STORE_CS_SCREEN_XSL_TEMPLATE = "ui/cs-screen.xsl";
-
-	/**
-	 * Currently selected XSL template
-	 */
-	private static String selectedXslTemplate;
+	private static final String CS_SCREEN_XSL_TEMPLATE = "ui/cs-screen.xsl";
 
 	/**
 	 * {@inheritDoc}
@@ -122,43 +107,22 @@ public class ScreenCSGenerator extends AbstractIncrementalGenerator<MFDomain<MFM
 		sCSLayoutFile = FileTypeUtils.computeFilenameForXamlCSharpImpl("View/Screens",
 				p_oScreen.getName(), p_oMProject.getSourceDir());
 
-		// Check whether it is a Screen layout or a layout that is being generated
-		if (p_oScreen.getPageCount() == 0) {
-			// Check if the target platform is Windows Store 8.1 or Windows Phone 8.1
-			if (p_oMProject.getSourceDir().contains("Store")) {
-				this.selectedXslTemplate = STORE_CS_LAYOUT_XSL_TEMPLATE;
-			} else {
-				this.selectedXslTemplate = PHONE_CS_LAYOUT_XSL_TEMPLATE;
+		// Get the base XML description from the generated element
+		Element r_xFile = p_oScreen.toXml();
+
+		// Add the imports for navigation items
+		if (p_oScreen.getLayout() != null) {
+			MF4WImportDelegate oImportDelegate = new MF4WImportDelegate(this);
+			for (MAbstractButton oButton : p_oScreen.getLayout().getButtons()) {
+				if (oButton.getButtonType() == MButtonType.NAVIGATION) {
+					MNavigationButton oNavigationButton = (MNavigationButton) oButton;
+					String sImportName = oNavigationButton.getNavigation().getTarget().getPackage().getFullName();
+					oImportDelegate.addImport(MW8ImportDelegate.MW8ImportCategory.CONTROLLER.name(), sImportName);
+				}
 			}
-			xCSLayout = this.computeXmlForCSLayout(p_oScreen, p_oScreen.getLayout(), p_oMProject);
-		} else {
-			// Check if the target platform is Windows Store 8.1 or Windows Phone 8.1
-			if (p_oMProject.getSourceDir().contains("Store")) {
-				this.selectedXslTemplate = STORE_CS_SCREEN_XSL_TEMPLATE;
-			} else {
-				this.selectedXslTemplate = PHONE_CS_SCREEN_XSL_TEMPLATE;
-			}
-			xCSLayout = this.computeXmlForCSLayout(p_oScreen, p_oScreen, p_oMProject);
+			r_xFile.add(oImportDelegate.toXml());
 		}
 
-		// Apply the xsl template to the xml description
-		log.debug("generation du fichier {}", sCSLayoutFile);
-		this.doIncrementalTransform(this.selectedXslTemplate, sCSLayoutFile,
-				xCSLayout, p_oMProject, p_oContext);
-	}
-
-	/**
-	 * Compute xml node of the .xaml.cs layout
-	 * @param p_oScreen
-	 * @param p_oElement
-	 * @param p_oMProject
-	 * @return
-	 */
-	protected Document computeXmlForCSLayout(MScreen p_oScreen, SGeneratedElement p_oElement,
-	                                         XProject<MFDomain<MFModelDictionary, MFModelFactory>> p_oMProject) {
-
-		// Get the base XML description from the generated element
-		Element r_xFile = p_oElement.toXml();
 		// Add the store/phone flag
 		if (p_oMProject.getSourceDir().contains("Store")) {
 			r_xFile.addElement("is-store").setText("true");
@@ -174,7 +138,7 @@ public class ScreenCSGenerator extends AbstractIncrementalGenerator<MFDomain<MFM
 		}
 
 		// Generate a dom4j Document
-		Document xCSLayout = DocumentHelper.createDocument(r_xFile);
+		xCSLayout = DocumentHelper.createDocument(r_xFile);
 
 		// Add menus to the XML description
 		Element xMenuElement = DocumentHelper.createElement("menus");
@@ -183,8 +147,9 @@ public class ScreenCSGenerator extends AbstractIncrementalGenerator<MFDomain<MFM
 		}
 		xCSLayout.getRootElement().add(xMenuElement);
 
-		// Add imports to other packages
-
-		return xCSLayout;
+		// Apply the xsl template to the xml description
+		log.debug("generation du fichier {}", sCSLayoutFile);
+		this.doIncrementalTransform(CS_SCREEN_XSL_TEMPLATE, sCSLayoutFile,
+				xCSLayout, p_oMProject, p_oContext);
 	}
 }

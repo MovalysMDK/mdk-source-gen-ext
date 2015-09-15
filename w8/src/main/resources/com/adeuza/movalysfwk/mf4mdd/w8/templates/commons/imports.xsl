@@ -37,95 +37,95 @@
 	<xsl:variable name="ancestorId" select="generate-id(/node())"/>
 	
 	<xsl:variable name="imports">
-		<objc-imports>
-			<xsl:copy-of select="objc-imports/objc-import"/>
+		<imports>
+			<xsl:copy-of select="imports/import"/>
 			<xsl:if test="$currentId != $ancestorId">
-				<xsl:copy-of select="/node()/objc-imports/objc-import"/>
+				<xsl:copy-of select="/node()/imports/import"/>
 			</xsl:if>
 			<xsl:apply-templates select="." mode="declare-extra-imports"/>
-		</objc-imports>
+		</imports>
 	</xsl:variable>
 
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'FRAMEWORK' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'FRAMEWORK' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Frameworks&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'FRAMEWORK' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'FRAMEWORK' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>
 
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'ENUMERATION' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'ENUMERATION' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Enumeration headers&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'ENUMERATION' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'ENUMERATION' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>
 
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'ENTITIES' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'ENTITIES' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Entity headers&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'ENTITIES' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'ENTITIES' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>
 
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'FACTORIES' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'FACTORIES' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Factory headers&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'FACTORIES' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'FACTORIES' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>
 
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'DAO' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'DAO' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Dao headers&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'DAO' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'DAO' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>
 
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'VALIDATORS' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'VALIDATORS' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Validator headers&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'VALIDATORS' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'VALIDATORS' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>
 	
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'VIEWMODEL' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'VIEWMODEL' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Viewmodel headers&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'VIEWMODEL' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'VIEWMODEL' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>
 
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'DATALOADER' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'DATALOADER' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Dataloader headers&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'DATALOADER' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'DATALOADER' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>
 
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'CONTROLLER' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'CONTROLLER' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Controller headers&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'CONTROLLER' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'CONTROLLER' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>
 	
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'ACTION' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'ACTION' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Action headers&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'ACTION' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'ACTION' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>		
 
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'UI' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'UI' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// UI headers&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'UI' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'UI' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>		
 	
-	<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[@category = 'OTHERS' and (not(@self) or @self != '$useClass')]) > 0">
+	<xsl:if test="count(exsl:node-set($imports)/imports/import[@category = 'OTHERS' and (not(@self) or @self != '$useClass')]) > 0">
 	<xsl:text>// Others&#13;</xsl:text>
-	<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[@category = 'OTHERS' and (not(@self) or @self != '$useClass')]" mode="write-import">
+	<xsl:apply-templates select="exsl:node-set($imports)/imports/import[@category = 'OTHERS' and (not(@self) or @self != '$useClass')]" mode="write-import">
 		<xsl:sort/>
 	</xsl:apply-templates>
 	</xsl:if>
@@ -136,30 +136,30 @@
 	<xsl:variable name="currentId" select="generate-id(.)"/>
 	<xsl:variable name="ancestorId" select="generate-id(/node())"/>
 	<xsl:variable name="classes">
-		<objc-classes>
-			<xsl:copy-of select="objc-classes/objc-class"/>
+		<classes>
+			<xsl:copy-of select="classes/class"/>
 			<xsl:apply-templates select="." mode="declare-extra-class"/>
-		</objc-classes>
+		</classes>
 	</xsl:variable>
 
-	<xsl:apply-templates select="exsl:node-set($classes)/objc-classes/objc-class" mode="write-class">
+	<xsl:apply-templates select="exsl:node-set($classes)/classes/class" mode="write-class">
 		<xsl:sort/>
 	</xsl:apply-templates>
 
 </xsl:template>
 
-<xsl:template match="objc-import" mode="write-import">
+<xsl:template match="import" mode="write-import">
 	<xsl:variable name="currentImport" select="text()"/>
-	<xsl:if test="count(preceding-sibling::objc-import[text()=$currentImport]) = 0">
+	<xsl:if test="count(preceding-sibling::import[text()=$currentImport]) = 0">
 		<xsl:text>using </xsl:text>
 		<xsl:value-of select="@class"/>
 		<xsl:text>;&#13;</xsl:text>
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="objc-class" mode="write-class">
+<xsl:template match="class" mode="write-class">
 	<xsl:variable name="currentImport" select="text()"/>
-	<xsl:if test="count(preceding-sibling::objc-class[text()=$currentImport]) = 0">
+	<xsl:if test="count(preceding-sibling::class[text()=$currentImport]) = 0">
 		<xsl:if test="position() = 1">
 			<xsl:text>@class </xsl:text>
 		</xsl:if>
@@ -177,6 +177,7 @@
 <xsl:template match="text()|@*" mode="import">
 	<xsl:text>using "</xsl:text> 
 	<xsl:value-of select="."/>
+	<xsl:text>;</xsl:text>
 </xsl:template>
 
 <!-- permet de créer une import C# à partir de n importe quel texte ou attribut -->
