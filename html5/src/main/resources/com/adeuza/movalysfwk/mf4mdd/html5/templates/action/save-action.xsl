@@ -100,9 +100,16 @@
 						<xsl:value-of select="$daoProxy"/><xsl:text>.saveOrUpdate</xsl:text>
 						<xsl:value-of select="$entity"/><xsl:text>(</xsl:text><xsl:value-of select="$dataloader"/>
 						<xsl:text>.dataModel, context, </xsl:text>
-						<xsl:apply-templates select="viewmodel/savecascades" mode="cascades"/>
+						<xsl:choose>
+							<xsl:when test="../workspace/workspace-screen='true'">
+								<xsl:apply-templates select="viewmodel/subvm/viewmodel/savecascades" mode="cascades-workspace"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:apply-templates select="viewmodel/savecascades" mode="cascades"/>
+							</xsl:otherwise>
+						</xsl:choose>
 						<xsl:text>, true).then( function(modelEntity) {&#10;</xsl:text>
-						
+
 						<xsl:if test="not(../workspace/workspace-screen='true')">
 							<xsl:value-of select="$vmFactory"/><xsl:text>.updateViewModelWithDataLoader(viewModel, </xsl:text><xsl:value-of select="$dataloader"/><xsl:text>);&#10;</xsl:text>
 						</xsl:if>
