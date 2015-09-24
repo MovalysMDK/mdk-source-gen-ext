@@ -26,7 +26,7 @@
 		<xsl:text> * Update the viewmodel </xsl:text><xsl:value-of select="name"/><xsl:text>with the data of its corresponding dataloader&#10;</xsl:text>
 		<xsl:text> */&#10;</xsl:text>
 		
-		<xsl:value-of select="nameFactory"/><xsl:text>.prototype.updateViewModelWithDataLoader = function(viewModel, dataLoader) {&#10;</xsl:text>
+		<xsl:value-of select="nameFactory"/><xsl:text>.prototype.updateViewModelWithDataLoader = function(viewModel, dataLoader, params) {&#10;</xsl:text>
 		<xsl:text>console.log('</xsl:text><xsl:value-of select="nameFactory"/><xsl:text>.updateViewModelWithDataLoader');&#10;</xsl:text>
 		
 		<xsl:apply-templates select="." mode="update-viewmodel-with-dataloader-body"/>
@@ -49,7 +49,14 @@
         <!-- possible values for combo (included those in a fixed list) -->       
         <xsl:apply-templates select="mapping/entity | subvm/viewmodel/mapping/entity" mode="update-viewmodel-with-dataloader-for-combo"/>
         <!-- regular attributes -->
-		<xsl:text>this.updateViewModelWithEntity(viewModel, entity);&#10;</xsl:text>
+		<xsl:call-template name="non-generated-bloc">
+		<xsl:with-param name="blocId"><xsl:text>update-viewmodel-with-entity</xsl:text></xsl:with-param>
+		<xsl:with-param name="defaultSource">
+			<xsl:text>if (angular.isUndefinedOrNull(params) || angular.isUndefinedOrNull(params.entitiesToReload) || params.entitiesToReload.indexOf('Data') !== -1) {</xsl:text>
+			<xsl:text>this.updateViewModelWithEntity(viewModel, entity);&#10;</xsl:text>
+			<xsl:text>}&#10;</xsl:text>
+		</xsl:with-param>
+		</xsl:call-template>
 	</xsl:template>
 	
 	<!-- 	List case -->
@@ -66,7 +73,8 @@
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId"><xsl:text>update-viewmodel-with-dataloader-for-combo-</xsl:text><xsl:value-of select="@vm-attr"/></xsl:with-param>
 			<xsl:with-param name="defaultSource">
-				<xsl:text>&#10;this.setViewModelListWithEntities(</xsl:text>
+				<xsl:text>if (angular.isUndefinedOrNull(params) || angular.isUndefinedOrNull(params.entitiesToReload) || params.entitiesToReload.indexOf('</xsl:text><xsl:value-of select="@type"/><xsl:text>') !== -1) {&#10;</xsl:text>
+				<xsl:text>this.setViewModelListWithEntities(</xsl:text>
 				<xsl:choose>
 					<xsl:when test="../../type/name='FIXED_LIST'">
 						<xsl:value-of select="../../factory-name"/>
@@ -76,6 +84,7 @@
 					</xsl:otherwise>
 				</xsl:choose>
 				<xsl:text>.singleton</xsl:text><xsl:value-of select="@vm-type"/><xsl:text>, dataLoader.combo</xsl:text><xsl:value-of select="@type"/><xsl:text>DataModel, </xsl:text><xsl:value-of select="@vm-type-factory"/><xsl:text>);&#10;</xsl:text>
+				<xsl:text>}&#10;</xsl:text>
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>

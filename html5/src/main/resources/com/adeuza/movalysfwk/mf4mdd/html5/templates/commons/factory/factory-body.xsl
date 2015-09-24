@@ -41,8 +41,11 @@
 		
 		<xsl:apply-templates select="." mode="mapping"/>
 		
-		<xsl:apply-templates select="." mode="create-and-update-vm-factory"/>	
-		
+		<xsl:apply-templates select="." mode="create-and-update-vm-factory"/>
+
+		<xsl:text>&#10;//@non-generated-start[functions]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='functions']"/>
+		<xsl:text>//@non-generated-end&#10;&#10;</xsl:text>
 		
 		<xsl:text>return new </xsl:text><xsl:value-of select="nameFactory"/><xsl:text>();&#10;</xsl:text>
 	</xsl:template>
