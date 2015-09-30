@@ -34,30 +34,35 @@ extension-element-prefixes="exsl">
 		 ################################################## -->
 
 	<xsl:template match="dao" mode="generateCascadeData">
-		<xsl:for-each select="/dao/class/association[(			(@type='many-to-many')
-															or	(@type='many-to-one')
-															or	(@type='one-to-many')
-															or	(@type='one-to-one')
-														)
-														and (@opposite-navigable='true')
-														and (@transient='false')]">
-			<xsl:element name="cascade">
-				<xsl:attribute name="readAction">
-					<xsl:choose>
-						<!-- rules: xxx-to-many = getList, xxx-to-one = get -->
-						<xsl:when test="(@type='many-to-many')">getList</xsl:when>
-						<xsl:when test="(@type='many-to-one')">get</xsl:when>
-						<xsl:when test="(@type='one-to-many')">getList</xsl:when>
-						<xsl:when test="(@type='one-to-one')">get</xsl:when>
-					</xsl:choose>
-				</xsl:attribute>
-				<xsl:attribute name="parentAttrPointingChild">	<xsl:value-of select="@name"/>												</xsl:attribute>
-				<xsl:attribute name="childDao">					<xsl:value-of select="class/name"/><xsl:text>Dao</xsl:text>					</xsl:attribute>
-				<xsl:attribute name="childAttrPointingParent">	<xsl:value-of select="@opposite-name"/>										</xsl:attribute>
-			</xsl:element>
-		</xsl:for-each>
+		<!-- Traite les cascades vers 1 -->
+		<xsl:apply-templates select="class/association[@transient='false' and @type !='one-to-many' and descendant::attribute[@transient = 'false']]"
+				mode="generate-cascade-data"/>
+
+		<!-- Traite les cascades vers n -->
+		<xsl:apply-templates select="class/association[@transient = 'false' and (@type='one-to-many' or @type='many-to-many' or (@type='one-to-one' and @relation-owner='false')) and not(parent::association)]"
+				mode="generate-cascade-data"/>
 	</xsl:template>
 
+	<xsl:template match="association" mode="generate-cascade-data">
+		<xsl:variable name="readAction">
+			<xsl:apply-templates select="." mode="generate-cascade-readAction"/>
+		</xsl:variable>
+
+		<xsl:element name="cascade">
+			<xsl:attribute name="readAction">				<xsl:value-of select="$readAction"/></xsl:attribute>
+			<xsl:attribute name="parentAttrPointingChild">	<xsl:value-of select="@name"/>												</xsl:attribute>
+			<xsl:attribute name="childDao">					<xsl:value-of select="class/name"/><xsl:text>Dao</xsl:text>					</xsl:attribute>
+			<xsl:attribute name="childAttrPointingParent">	<xsl:value-of select="@opposite-name"/>										</xsl:attribute>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="association[@type='many-to-many' or @type='one-to-many']" mode="generate-cascade-readAction">
+		<xsl:text>getList</xsl:text>
+	</xsl:template>
+
+	<xsl:template match="association[@type='many-to-one' or @type='one-to-one']" mode="generate-cascade-readAction">
+		<xsl:text>get</xsl:text>
+	</xsl:template>
 
 	<!-- ############################################################
 			METHODES SIMPLES : GET/SAVE/UPDATE/SAVEORUPDATE/DELETE
