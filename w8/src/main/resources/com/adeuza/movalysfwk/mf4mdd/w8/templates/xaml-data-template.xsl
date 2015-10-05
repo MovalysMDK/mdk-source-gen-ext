@@ -52,28 +52,8 @@
 		</xsl:if>
 	<xsl:apply-templates select="buttons" mode="display-buttons-without-navigation" />
 	<xsl:call-template name="create-visual-fields" />
-	<xsl:call-template name="xaml-delete-button" />
 	<xsl:text>&lt;&#47;Grid&gt;</xsl:text>
 	<xsl:text>&lt;&#47;DataTemplate&gt;</xsl:text>
-</xsl:template>
-
-
-<xsl:template name="xaml-delete-button">
-	<xsl:if test="/layout/parameters/parameter[@name='vmtype-itemlayoutforinnerlist']='FIXED_LIST'">
-		<xsl:text>&lt;mf:MFButton Grid.RowSpan="2147483647" Grid.Column="1"</xsl:text> 
-           <xsl:text> HorizontalAlignment="Center"</xsl:text> 
-           <xsl:text> VerticalAlignment="Center"</xsl:text>
-           <xsl:text> Tag="{Binding Path=Id_id}"</xsl:text>
-           <xsl:text> mf:ButtonContent="Delete"&gt;</xsl:text>
-           <xsl:text>&lt;mf:MFButton.FWKEvents&gt;</xsl:text>
-           <xsl:text>&lt;mf:EventManagerCollection&gt;</xsl:text>
-           <xsl:text>&lt;mf:EventManager EventName="Tapped" MethodName="Lst</xsl:text>
-           <xsl:value-of select="/layout/visualfields/visualfield/parameters/parameter[@name='fixedListVm']"/>
-           <xsl:text>DeleteButton_Tapped"&#47;&gt;</xsl:text>
-           <xsl:text>&lt;&#47;mf:EventManagerCollection&gt;</xsl:text>
-           <xsl:text>&lt;&#47;mf:MFButton.FWKEvents&gt;</xsl:text>
-        <xsl:text>&lt;&#47;mf:MFButton&gt;</xsl:text>
-    </xsl:if>
 </xsl:template>
 
 

@@ -15,6 +15,8 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.w8.xmodele;
 
+import com.a2a.adjava.xmodele.ui.navigation.MNavigation;
+import com.a2a.adjava.xmodele.ui.navigation.MNavigationType;
 import org.apache.commons.lang3.StringUtils;
 
 import com.a2a.adjava.languages.w8.xmodele.MW8ModeleFactory;
@@ -127,5 +129,13 @@ public class MF4WModelFactory extends MW8ModeleFactory implements MFModelFactory
 		String sKey = ( !StringUtils.isEmpty(p_sPath) ? p_sPath+"_" : "") + labelName;
 				
 		return new MF4WLabel(sKey, sKey);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public MNavigation createNavigation(String p_sNavigationName, MNavigationType p_oNavigationType, MScreen p_oScreen, MScreen p_oScreenEnd) {
+		return new MF4WNavigation(p_sNavigationName, p_oNavigationType, p_oScreen, p_oScreenEnd);
 	}
 }

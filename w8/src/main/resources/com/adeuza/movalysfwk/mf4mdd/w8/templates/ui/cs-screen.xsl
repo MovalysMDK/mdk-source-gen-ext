@@ -74,12 +74,6 @@
 		<xsl:text>{</xsl:text>
 		<xsl:text>this.InitializeComponent();</xsl:text>
 		<xsl:text>GC.Collect();&#13;</xsl:text>
-		<xsl:for-each select="pages/page">
-			<xsl:apply-templates select="navigations/navigation" mode="method-click-event" />
-			<xsl:if test="/screen/workspace = 'false' and /screen/workspace = 'false'">
-				<xsl:apply-templates select="reverse-navigationsV2/navigationV2" mode="method-click-event" />
-			</xsl:if>
-		</xsl:for-each>
 
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">constructor</xsl:with-param>
@@ -148,13 +142,6 @@
 				<xsl:text>}&#13;</xsl:text>
 			</xsl:if>
 		</xsl:if>
-
-		<xsl:for-each select="pages/page">
-			<xsl:apply-templates select="navigations/navigation" mode="method-click" />
-			<xsl:if test="/screen/workspace = 'false' and /screen/workspace = 'false'">
-				<xsl:apply-templates select="reverse-navigationsV2/navigationV2" mode="method-click" />
-			</xsl:if>
-		</xsl:for-each>
 
 		<xsl:call-template name="save-delete-multipanel" />
 

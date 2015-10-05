@@ -58,13 +58,10 @@
 	
 	
 	<xsl:if test="./parameters/parameter[@name='master']='true'">
-		<xsl:if test="../../navigationsV2/navigationV2">
+		<xsl:if test="../../navigations/navigation">
 			<xsl:text> AddClick="</xsl:text>
-			<xsl:value-of select="../../navigationsV2/navigationV2[@type='MASTER_DETAIL']/source/component-name-capitalized"/><xsl:text>_AddItem</xsl:text>
-			<xsl:text>"</xsl:text>
-			<xsl:text> SelectionChanged="</xsl:text>
-			<xsl:value-of select="../../navigationsV2/navigationV2[@type='MASTER_DETAIL']/source/component-name-capitalized"/>
-			<xsl:text>_SelectionChanged"</xsl:text>
+			<xsl:value-of select="../../navigations/navigation[@type='NAVIGATION_DETAIL']/sourcePage/name"/>
+			<xsl:text>_AddItem"</xsl:text>
 		</xsl:if>
 		<xsl:if test="../../search-template">
 			<xsl:text> SearchClick="</xsl:text>
@@ -87,13 +84,6 @@
 			<xsl:value-of select="../../adapter/layouts/layout[@id ='list']/visualfields/visualfield[component = 'MFList2D']/name"/>
 			<xsl:text>"</xsl:text>
 			<xsl:text>&gt;</xsl:text>
-			
-			<xsl:text>&lt;mf:MFList1D.FWKEvents&gt;</xsl:text>
-                   <xsl:text>&lt;mf:EventManagerCollection&gt;</xsl:text>
-                       <xsl:text>&lt;mf:EventManager EventName="SelectionChanged" MethodName="MFList2D_SelectionChanged"&#47;&gt;</xsl:text>
-                       <xsl:text>&lt;mf:EventManager EventName="AddClick" MethodName="MFList2D_AddClickOverride"&#47;&gt;</xsl:text>
-                   <xsl:text>&lt;&#47;mf:EventManagerCollection&gt;</xsl:text>
-               <xsl:text>&lt;&#47;mf:MFList1D.FWKEvents&gt;</xsl:text>
            <xsl:text>&lt;&#47;mf:MFList1D&gt;</xsl:text>			
 		</xsl:when>
 		<xsl:otherwise>

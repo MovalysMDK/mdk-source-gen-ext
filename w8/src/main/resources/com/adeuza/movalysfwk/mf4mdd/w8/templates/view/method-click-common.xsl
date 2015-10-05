@@ -18,7 +18,7 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:exsl="http://exslt.org/common" extension-element-prefixes="exsl">
-		
+
 
 <xsl:template match="button[@type='NAVIGATION']" mode="method-click-interface">
 </xsl:template>
@@ -142,7 +142,7 @@
 	<xsl:if test="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']">
 		<xsl:value-of select="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']/source/component-name-capitalized"/><xsl:text>_ReloadEvent();</xsl:text>
 	    <xsl:text>if (this.</xsl:text><xsl:value-of select="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']/source/screen-name"/><xsl:text>_Navigate != null)</xsl:text>
-		<xsl:text>this.</xsl:text><xsl:value-of select="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']/source/screen-name"/><xsl:text>_Navigate(this, e);</xsl:text>               
+		<xsl:text>this.</xsl:text><xsl:value-of select="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']/source/screen-name"/><xsl:text>_Navigate(this, e);</xsl:text>
 	</xsl:if>
 	<xsl:text>}&#13;</xsl:text>
 	<xsl:text>&#13;</xsl:text>
@@ -190,12 +190,6 @@
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="navigation" mode="method-click-usercontrol-event">
-	<xsl:if test="@type='NAVIGATION_DETAIL'">
-		<xsl:text>public event RoutedEventHandler </xsl:text><xsl:value-of select="target/name"/><xsl:text>_Navigate;</xsl:text>
-	</xsl:if>
-</xsl:template>
-
 <xsl:template match="navigationV2" mode="method-click-usercontrol-event">
 	<xsl:if test="@type='MASTER_DETAIL'">
 		<xsl:text>public event RoutedEventHandler </xsl:text><xsl:value-of select="source/screen-name"/><xsl:text>_Navigate;</xsl:text>
@@ -212,8 +206,7 @@
 	</xsl:call-template>
 	<xsl:if test="../../../navigationsV2/navigationV2[@type = 'MASTER_DETAIL']">
 		<xsl:value-of select="../../../navigationsV2/navigationV2[@type = 'MASTER_DETAIL']/source/component-name-capitalized"/><xsl:text>_AddItem(sender, e);&#13;</xsl:text>
-	</xsl:if>               
+	</xsl:if>
 	<xsl:text>&#13;}&#13;</xsl:text>
 </xsl:template>
-
 </xsl:stylesheet>

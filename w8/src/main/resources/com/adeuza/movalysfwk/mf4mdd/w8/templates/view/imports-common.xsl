@@ -19,7 +19,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:exsl="http://exslt.org/common" extension-element-prefixes="exsl">
 
-<!-- permet de créer une import C# à partir de n importe quel texte ou attribut -->
+<!-- Using used in Panels -->
 <xsl:template name="panel-imports">
 	<xsl:text>using mdk_common;</xsl:text>
 	<xsl:text>using mdk_common.Application;</xsl:text>

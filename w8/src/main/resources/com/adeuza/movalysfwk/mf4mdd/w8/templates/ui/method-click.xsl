@@ -118,12 +118,6 @@
 </xsl:if>
 </xsl:template>
 
-<xsl:template match="navigation" mode="method-click-usercontrol-event">
-<xsl:if test="@type='NAVIGATION_DETAIL'">
-<xsl:text>public event RoutedEventHandler </xsl:text><xsl:value-of select="target/name"/><xsl:text>_Navigate;</xsl:text>
-</xsl:if>
-</xsl:template>
-
 <xsl:template match="navigationV2" mode="method-click-usercontrol-event">
 <xsl:if test="@type='MASTER_DETAIL'">
 <xsl:text>public event RoutedEventHandler </xsl:text><xsl:value-of select="source/screen-name"/><xsl:text>_Navigate;</xsl:text>

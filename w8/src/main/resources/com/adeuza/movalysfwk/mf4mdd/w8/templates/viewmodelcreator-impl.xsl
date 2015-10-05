@@ -29,8 +29,6 @@
 	<xsl:include href="ui/viewmodelcreator/impl/master-create-vm.xsl"/>
 	<xsl:include href="ui/viewmodelcreator/impl/master-update-vm.xsl"/>
 
-	<xsl:key name="viewmodel-name" match="viewmodel" use="implements/interface/@name"/>
-
 	<!-- 
 	ROOT Template
 	 -->

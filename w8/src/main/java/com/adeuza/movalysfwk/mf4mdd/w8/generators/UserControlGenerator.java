@@ -18,6 +18,8 @@ package com.adeuza.movalysfwk.mf4mdd.w8.generators;
 import java.lang.ref.WeakReference;
 import java.util.Map.Entry;
 
+import com.a2a.adjava.xmodele.ui.navigation.MNavigation;
+import com.a2a.adjava.xmodele.ui.navigation.MNavigationType;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -38,7 +40,6 @@ import com.a2a.adjava.xmodele.ui.viewmodel.ViewModelType;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MFDomain;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MFModelDictionary;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MFModelFactory;
-import com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WScreenDependencyProcessor.MF4WNavigationV2;
 import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WPage;
 
 /**
@@ -126,18 +127,15 @@ public class UserControlGenerator extends AbstractIncrementalGenerator<MFDomain<
 
 		WeakReference<MPage> opage = p_oLayout.getPage();
 
-		if (opage != null) {
+		if (opage != null && opage.get() != null) {
 			if (opage.get() instanceof MF4WPage) {
-				Element xNavs = xXamlLayout.getRootElement().addElement("navigationsV2");
-				for (MF4WNavigationV2 oNavigation : ((MF4WPage) opage.get()).getNavigationV2()) {
-					xNavs.add(oNavigation.toXml());
-				}
-
-				xNavs = xXamlLayout.getRootElement().addElement("reverse-navigationsV2");
-				for (MF4WNavigationV2 oNavigation : ((MF4WPage) opage.get()).getReverseNavigationV2()) {
-					xNavs.add(oNavigation.toXml());
+				Element oNavigations = xXamlLayout.getRootElement().addElement("navigations");
+				MNavigation oNavigation = opage.get().getNavigationOfType(MNavigationType.NAVIGATION_DETAIL);
+				if (oNavigation != null) {
+					oNavigations.add(oNavigation.toXml());
 				}
 			}
+
 			if (opage.get().getParent()!= null)
 			{
 				xXamlLayout.getRootElement().addElement("in-workspace").setText(Boolean.toString(opage.get().getParent().isWorkspace()));

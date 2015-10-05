@@ -886,7 +886,6 @@
 						<!-- VIEW -->
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ActionGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ActionChainedGenerator"/>
-						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.EventGenerator"/>
 					</resource-generators>
 				</project>
 				<project name="phone" base-dir="${mainProject}">

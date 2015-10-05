@@ -106,8 +106,7 @@ public class PanelCommonGenerator extends AbstractIncrementalGenerator<MFDomain<
 		LanguageConfiguration langConf = p_oMProject.getDomain().getLanguageConf();
 		Element r_xFile = p_oPage.toXml();
 		log.debug("  >> adding Element :<master-package>"+p_oMProject.getDomain().getRootPackage()+"</>");
-		
-		//Document xDoc = this.computeXmlForPanelImpl(p_oPage);
+
 		r_xFile.addElement("section-interface").setText(VMNamingHelper.getInstance().computeSectionInterfaceName(p_oPage.getName(),false,langConf));
 		r_xFile.addElement("section-implementation").setText(VMNamingHelper.getInstance().computeSectionImplementationName(p_oPage.getName(),false,langConf));
 		r_xFile.addElement("master-package").setText(p_oScreen.getPackage().getFullName());
@@ -134,59 +133,10 @@ public class PanelCommonGenerator extends AbstractIncrementalGenerator<MFDomain<
 		Document xDoc = DocumentHelper.createDocument(r_xFile);
 		
 		String sFile = this.getImplFileName(p_oPage, p_oMProject);
-		//String sFile = FileTypeUtils.computeFilenameForJavaClass(p_oMProject.getSourceDir(), p_oPage.getFullName());
 		
 		log.debug("  generation du fichier: {}", sFile);
-		this.doIncrementalTransform(this.getImplTemplate(), sFile, xDoc, p_oMProject, p_oContext);
+		this.doIncrementalTransform(PANEL_COMMON_IMPL_TEMPLATE, sFile, xDoc, p_oMProject, p_oContext);
 	}
-	
-	/**
-	 * Create panel impl
-	 * @param p_oScreen panel
-	 * @param p_oMProject project
-	 * @param p_oContext context
-	 * @throws Exception
-	 */
-	protected void createPanelImpl( MPage p_oScreen, 
-			XProject<MFDomain<MFModelDictionary, MFModelFactory>> p_oMProject, DomainGeneratorContext p_oContext ) throws Exception {
-		
-		String sPanelImplFile = this.getImplFileName(p_oScreen, p_oMProject);
-		
-		Document xPanelImpl = this.computeXmlForPanelImpl(p_oScreen);
-		
-		log.debug("  generation du fichier {}", sPanelImplFile);
-		this.doIncrementalTransform( this.getImplTemplate(), sPanelImplFile, xPanelImpl,
-				p_oMProject, p_oContext);
-	}
-	
-	/**
-	 * Compute xml node of the panel
-	 * @param p_oPanel panel
-	 * @return xml 
-	 */
-	protected Document computeXmlForPanelInterface( MPage p_oPanel ) {
-		Document p_oPanelInt = DocumentHelper.createDocument(p_oPanel.getMasterInterface().toXml());
-		return p_oPanelInt ;
-	}
-	
-	/**
-	 * Compute xml node of the panel
-	 * @param p_oPanel panel
-	 * @return xml 
-	 */
-	protected Document computeXmlForPanelImpl( MPage p_oPanel ) {
-		Document xPanelImpl = DocumentHelper.createDocument(p_oPanel.toXml());
-		return xPanelImpl ;
-	}
-	
-	/**
-	 * Get template for panel implementation
-	 * @return template for panel implementation
-	 */
-	protected String getImplTemplate() {
-		return PANEL_COMMON_IMPL_TEMPLATE ;
-	}
-
 	
 	/**
 	 * Get filename for panel implementation

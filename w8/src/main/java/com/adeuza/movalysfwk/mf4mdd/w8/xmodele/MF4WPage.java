@@ -29,7 +29,6 @@ import com.a2a.adjava.xmodele.MPackage;
 import com.a2a.adjava.xmodele.MPage;
 import com.a2a.adjava.xmodele.MScreen;
 import com.a2a.adjava.xmodele.MViewModelImpl;
-import com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WScreenDependencyProcessor.MF4WNavigationV2;
 
 public class MF4WPage extends MPage{
 	
@@ -114,62 +113,10 @@ public class MF4WPage extends MPage{
 	public void setHasChainedDeleteAction(boolean hasChainedDeleteAction) {
 		this.hasChainedDeleteAction = hasChainedDeleteAction;
 	}
-
-
-	/**
-	 * Navigation V2
-	 */
-	private List<MF4WNavigationV2> navigationsV2 = new ArrayList<MF4WNavigationV2>();
-	
-	/**
-	 * Reverse Navigation V2
-	 */
-	private List<MF4WNavigationV2> reverseNavigationsV2 = new ArrayList<MF4WNavigationV2>();
-	
-	
-
-	/**
-	 * @param p_oNavigationV2
-	 */
-	public void addNavigationV2( MF4WNavigationV2 p_oNavigation ) {
-		this.navigationsV2.add(p_oNavigation);
-	}
-	/**
-	 * @param p_oNavigationV2
-	 */
-	public void addReverseNavigationV2( MF4WNavigationV2 p_oNavigation ) {
-		this.reverseNavigationsV2.add(p_oNavigation);
-	}
-	
-
-	/**
-	 * @param p_oNavigation
-	 */
-	public List<MF4WNavigationV2> getNavigationV2() {
-		return this.navigationsV2;
-	}	/**
-	 * @param p_oNavigation
-	 * @return 
-	 */
-	public List<MF4WNavigationV2> getReverseNavigationV2() {
-		return this.reverseNavigationsV2;
-	}
 	
 	@Override
 	protected void toXmlInsertBeforeDocumentation(Element p_xElement) {
 		super.toXmlInsertBeforeDocumentation(p_xElement);
-		
-		
-		Element xNavs = p_xElement.addElement("navigationsV2");
-		for( MF4WNavigationV2 oNavigation : this.navigationsV2 ) {
-			xNavs.add(oNavigation.toXml());
-		}
-		
-		
-		xNavs = p_xElement.addElement("reverse-navigationsV2");
-		for( MF4WNavigationV2 oNavigation : this.reverseNavigationsV2 ) {
-			xNavs.add(oNavigation.toXml());
-		}
 		
 		if (this.searchLayout != null) {
 			p_xElement.addElement("search-template").setText(this.searchLayout.getName());
