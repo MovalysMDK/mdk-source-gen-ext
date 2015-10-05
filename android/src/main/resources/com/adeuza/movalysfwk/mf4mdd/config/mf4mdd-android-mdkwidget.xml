@@ -139,11 +139,11 @@
 				<ui-type uml-name="AddressLocation">
 					<read-write>
 						<view-model-type>AddressLocationVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPositionEditText</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.position.MDKRichPosition</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>AddressLocationVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPositionTextView</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.position.MDKRichPosition</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Thumbnail">
