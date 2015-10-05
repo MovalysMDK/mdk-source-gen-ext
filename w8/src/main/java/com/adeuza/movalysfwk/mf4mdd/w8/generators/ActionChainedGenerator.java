@@ -116,7 +116,7 @@ public class ActionChainedGenerator extends AbstractIncrementalGenerator<MFDomai
 		r_xFile.addElement("namespace-action").setText(oMScreen.getPackage().getFullName());			
 		
 		MF4WImportDelegate oImportDlg = new MF4WImportDelegate(this);
-		// Cas d'une entitÃ© non transient
+		// Cas d'une entité non transient
 		if (p_oAction.getDao() != null)
 		{
 			oImportDlg.addImport(MW8ImportDelegate.MW8ImportCategory.DAO.name(), p_oAction.getDao().getPackage().getFullName());
@@ -208,7 +208,7 @@ public class ActionChainedGenerator extends AbstractIncrementalGenerator<MFDomai
 		sName.append(p_sActionImplPrefix);
 		sName.append(oMScreen.getName());		
  	return FileTypeUtils.computeFilenameForCSharpImpl(
-				"View.Actions",sName.toString(),p_oMProject.getSourceDir());
+				"Application.Actions",sName.toString(),p_oMProject.getSourceDir());
 	}
 	
 	/**
@@ -222,6 +222,6 @@ public class ActionChainedGenerator extends AbstractIncrementalGenerator<MFDomai
 		sName.append(p_sActionItfPrefix);
 		sName.append(oMScreen.getName());		
 		return FileTypeUtils.computeFilenameForCSharpImpl(
-				"View.Actions.Interfaces",sName.toString(),p_oMProject.getSourceDir());
+				"Application.Actions.Interfaces",sName.toString(),p_oMProject.getSourceDir());
 	}
 }

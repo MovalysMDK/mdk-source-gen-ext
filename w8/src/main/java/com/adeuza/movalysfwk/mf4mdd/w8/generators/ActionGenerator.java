@@ -186,7 +186,7 @@ public class ActionGenerator extends AbstractIncrementalGenerator<MFDomain<MFMod
 	protected String getImplFileName( MAction p_oAction, XProject<MFDomain<MFModelDictionary, MFModelFactory>> p_oMProject) {
 		LanguageConfiguration langConf = p_oMProject.getDomain().getLanguageConf();
  	return FileTypeUtils.computeFilenameForCSharpImpl(
-				"View.Actions", p_oAction.getName(),p_oMProject.getSourceDir());
+				"Application.Actions", p_oAction.getName(),p_oMProject.getSourceDir());
 	}
 	
 	/**
@@ -198,6 +198,6 @@ public class ActionGenerator extends AbstractIncrementalGenerator<MFDomain<MFMod
 	protected String getInterfaceFileName( MActionInterface p_oAction, XProject<MFDomain<MFModelDictionary, MFModelFactory>> p_oMProject) {
 		LanguageConfiguration langConf = p_oMProject.getDomain().getLanguageConf();
 		return FileTypeUtils.computeFilenameForCSharpImpl(
-				"View.Actions.Interfaces",p_oAction.getName(),p_oMProject.getSourceDir());
+				"Application.Actions.Interfaces",p_oAction.getName(),p_oMProject.getSourceDir());
 	}
 }
