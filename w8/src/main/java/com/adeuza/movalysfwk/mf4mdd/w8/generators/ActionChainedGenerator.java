@@ -116,7 +116,7 @@ public class ActionChainedGenerator extends AbstractIncrementalGenerator<MFDomai
 		r_xFile.addElement("namespace-action").setText(oMScreen.getPackage().getFullName());			
 		
 		MF4WImportDelegate oImportDlg = new MF4WImportDelegate(this);
-		// Cas d'une entité non transient
+		// Cas d'une entitÃ© non transient
 		if (p_oAction.getDao() != null)
 		{
 			oImportDlg.addImport(MW8ImportDelegate.MW8ImportCategory.DAO.name(), p_oAction.getDao().getPackage().getFullName());
