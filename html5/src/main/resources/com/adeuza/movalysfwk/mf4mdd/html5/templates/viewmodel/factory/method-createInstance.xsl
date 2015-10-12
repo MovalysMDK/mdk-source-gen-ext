@@ -43,12 +43,13 @@
 							<xsl:with-param name="viewModelParent"><xsl:value-of select="$viewModelVar"/></xsl:with-param>
 						</xsl:apply-templates>
 					</xsl:if>
+				</xsl:with-param>
+		</xsl:call-template>			
 		
 					<!--       // initialize external viewmodels (combolist) -->
 					<xsl:apply-templates select="mapping/entity" mode="create-instance-init-property"/>
 
-				</xsl:with-param>
-		</xsl:call-template>
+
       
       	<xsl:text>return </xsl:text><xsl:value-of select="$viewModelVar"/><xsl:text>;&#10;</xsl:text>
       	<xsl:text>};&#10;</xsl:text>
@@ -109,7 +110,6 @@
 				<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text> = [];&#10;</xsl:text>
 			</xsl:for-each>
 			
-			<xsl:text>&#10;</xsl:text>
 			<xsl:for-each select="./association[(@type='many-to-one' or (@type='one-to-one' and @transient='false')) and @opposite-navigable='true']">	
 					<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text> = </xsl:text><xsl:value-of select="pojo-factory-interface/name"/><xsl:text>.createInstance();&#10;</xsl:text>
 			</xsl:for-each>
@@ -126,14 +126,13 @@
 		<xsl:value-of select="$viewModelParent"/><xsl:text>.lst</xsl:text>
 		<xsl:value-of select="implements/interface/@name"/>
 		<xsl:text> = [];&#10;</xsl:text>
-		<xsl:text>&#10;</xsl:text>
 	</xsl:template>
 	
 	<!--       // initialize subviewmodel for list 1D/2D/3D -->
 	<xsl:template match="viewmodel[type/name='LISTITEM_1' or type/name='LISTITEM_2' or type/name='LISTITEM_3']" mode="create-instance-init-property">
 		<xsl:param name="viewModelParent"/>
 		<xsl:text>&#10;</xsl:text>
-		<xsl:value-of select="$viewModelParent"/><xsl:text>.list = [];&#10;&#10;</xsl:text>
+		<xsl:value-of select="$viewModelParent"/><xsl:text>.list = [];&#10;</xsl:text>
 	</xsl:template>
 	
 	<!--       // initialize combolist -->	
