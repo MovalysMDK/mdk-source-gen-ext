@@ -32,9 +32,7 @@
          <xsl:text>&#10;'</xsl:text><xsl:value-of select="@name"/><xsl:text>': {&#10;</xsl:text>
                  
          <xsl:apply-templates select="." mode="define-getter-method"/>
-         <xsl:if test="@derived != 'true' or name()= 'association'">
-	         <xsl:apply-templates select="." mode="define-setter-method"/>
-   		 </xsl:if>
+         <xsl:apply-templates select="." mode="define-setter-method"/>
          
          <xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId"><xsl:text>attribute-</xsl:text><xsl:value-of select="@name"/><xsl:text>-settings</xsl:text></xsl:with-param>
@@ -76,7 +74,7 @@
 
 <xsl:template match="*" mode="define-setter-method">
 	<xsl:text>set: function (</xsl:text><xsl:value-of select="parameter-name"/><xsl:text>) {&#10;</xsl:text>
-	<xsl:if test="(name() = 'attribute' and not(parent::association) and @derived = 'false') or (name()= 'association' and  (@type='many-to-one' or @type='one-to-one') and not(parent::association))">
+	<xsl:if test="(name() = 'attribute' and not(parent::association)) or (name()= 'association' and  (@type='many-to-one' or @type='one-to-one') and not(parent::association))">
 		<xsl:text>_</xsl:text><xsl:value-of select="@name"/><xsl:text> = </xsl:text><xsl:value-of select="parameter-name"/><xsl:text>;&#10;</xsl:text>
 	</xsl:if>
 	<xsl:if test="(name()= 'association' and  (@type='one-to-many' or @type='many-to-many')) and not(parent::association)">
