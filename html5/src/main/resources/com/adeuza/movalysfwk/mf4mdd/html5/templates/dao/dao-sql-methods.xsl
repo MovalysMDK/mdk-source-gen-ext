@@ -418,7 +418,7 @@ extension-element-prefixes="exsl">
 						<xsl:text>		/* saveList</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>() => save</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>() */&#10;</xsl:text>
 						<xsl:text>		var o_arrayPromisesSave</xsl:text><xsl:value-of select="//uml-name"/><xsl:text> = [];&#10;</xsl:text>
 						<xsl:text>		for( var i = 0; i &lt; </xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>.length; i++ ) {&#10;</xsl:text>
-						<xsl:text>			o_arrayPromisesSave</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.push( self.saveList</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>[i], p_context, angular.copy(p_cascadeSet), p_toSync) );&#10;</xsl:text>
+						<xsl:text>			o_arrayPromisesSave</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.push( self.save</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>[i], p_context, angular.copy(p_cascadeSet), p_toSync) );&#10;</xsl:text>
 						<xsl:text>		}&#10;</xsl:text>
 						<xsl:text>		// $qSync.all() returns an array of the results of o_arrayPromisesSave</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
 						<xsl:text>		// If the value returned by $qSync.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
@@ -533,7 +533,7 @@ extension-element-prefixes="exsl">
 						<xsl:text>		/* updateList</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>() => update</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>() */&#10;</xsl:text>
 						<xsl:text>		var o_arrayPromisesUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text> = [];&#10;</xsl:text>
 						<xsl:text>		for( var i = 0; i &lt; </xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>.length; i++ ) {&#10;</xsl:text>
-						<xsl:text>			o_arrayPromisesUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.push( self.updateList</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>[i], p_context, angular.copy(p_cascadeSet), p_toSync, angular.copy(p_cascadeSetForDelete)) );&#10;</xsl:text>
+						<xsl:text>			o_arrayPromisesUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.push( self.update</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>[i], p_context, angular.copy(p_cascadeSet), p_toSync, angular.copy(p_cascadeSetForDelete)) );&#10;</xsl:text>
 						<xsl:text>		}&#10;</xsl:text>
 						<xsl:text>		// $qSync.all() returns an array of the results of o_arrayPromisesUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
 						<xsl:text>		// If the value returned by $qSync.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
