@@ -21,44 +21,52 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	exclude-result-prefixes="xalan">
 
-<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" xalan:indent-amount="2"/>	
+	<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" xalan:indent-amount="2" />
 
-<xsl:template match="screens/screen">
+	<xsl:template match="screens/screen">
 
-<activity >
-	<xsl:attribute name="android:name">
-		<xsl:value-of select="./full-name"/>
+		<activity>
+			<xsl:attribute name="android:name">
+		<xsl:value-of select="./full-name" />
 	</xsl:attribute>
-	<xsl:attribute name="android:label">
-		<xsl:text>@string/</xsl:text><xsl:value-of select="./name"/>
+			<xsl:attribute name="android:label">
+		<xsl:text>@string/</xsl:text><xsl:value-of select="./name" />
 	</xsl:attribute>
-	<xsl:attribute name="android:windowSoftInputMode">
+			<xsl:attribute name="android:windowSoftInputMode">
 		<xsl:text>adjustPan</xsl:text>
 	</xsl:attribute>
-		
-	<xsl:if test="./main='true'">
-		<intent-filter>
-			<action>
-				<xsl:attribute name="android:name">
-					<xsl:value-of select="../@root-package"/>
-					<xsl:text>.action.PROJECT_MAIN</xsl:text>
-				</xsl:attribute>
-			</action>
-			<category>
-				<xsl:attribute name="android:name">
-					<xsl:value-of select="../@root-package"/>
-					<xsl:text>.category.MF4A</xsl:text>
-				</xsl:attribute>
-			</category>
-	    	<category>
-	    		<xsl:attribute name="android:name">
-	    			<xsl:text>android.intent.category.DEFAULT</xsl:text>
-	    		</xsl:attribute>
-	    	</category>
-		</intent-filter>
-	</xsl:if>
-</activity>
 
-</xsl:template>
+			<xsl:if test="./main='true'">
+				<intent-filter>
+					<action>
+						<xsl:attribute name="android:name"><xsl:text>android.intent.action.MAIN</xsl:text></xsl:attribute>
+					</action>
+					<category>
+						<xsl:attribute name="android:name"><xsl:text>android.intent.category.LAUNCHER</xsl:text></xsl:attribute>
+					</category>
+				</intent-filter>
+				<!-- <intent-filter>
+					<action>
+						<xsl:attribute name="android:name">
+							<xsl:value-of select="../@root-package" />
+							<xsl:text>.action.PROJECT_MAIN</xsl:text>
+						</xsl:attribute>
+					</action>
+					<category>
+						<xsl:attribute name="android:name">
+							<xsl:value-of select="../@root-package" />
+							<xsl:text>.category.MF4A</xsl:text>
+						</xsl:attribute>
+					</category>
+					<category>
+						<xsl:attribute name="android:name">
+							<xsl:text>android.intent.category.DEFAULT</xsl:text>
+						</xsl:attribute>
+					</category>
+				</intent-filter> -->
+			</xsl:if>
+		</activity>
+
+	</xsl:template>
 
 </xsl:stylesheet>
