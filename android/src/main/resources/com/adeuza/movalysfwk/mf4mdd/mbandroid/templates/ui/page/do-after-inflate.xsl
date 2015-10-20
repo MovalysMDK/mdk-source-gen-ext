@@ -46,7 +46,10 @@
 		}
 	</xsl:template>
 
-	<xsl:template match="page/adapter[viewmodel/type[name='LIST_1' or name='LIST_2' or name='LIST_3']]" mode="doAfterInflate-method"/>
+	<xsl:template match="page/adapter[viewmodel/type[name='LIST_1' or name='LIST_2' or name='LIST_3']]" mode="doAfterInflate-method">
+		<!-- TODO : ajouter la gestion des external-lists (cf fixedlist, add-reference-to) -->
+		<!-- viewmodel/subvm/viewmodel[type/name='LISTITEM_1']/external-lists -->
+	</xsl:template>
 
 	<!-- ##########################################################################################
 											SPINNER
@@ -55,6 +58,7 @@
 	<xsl:template match="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']" mode="doAfterInflate-method">
 		<xsl:param name="viewGroup">p_oRoot</xsl:param>
 		<xsl:variable name="vm-name" select="viewmodel/implements/interface/@full-name"/>
+		<!-- TODO : a revoir ; cf doAfterInflate-method pour les LIST_1, LIST_2, LIST_3 -->
 		<xsl:if test="not(../adapter/viewmodel/external-lists/external-list/viewmodel[implements/interface/@full-name=$vm-name])">
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">set-spinner-adapter<xsl:value-of select="position()"/></xsl:with-param>
@@ -114,21 +118,37 @@
 		<xsl:variable name="vm" select="../../viewmodel-interface/name"/>
 
 		<xsl:text>// FixedList of </xsl:text><xsl:value-of select="viewmodel/uml-name"/><xsl:text>.&#13;</xsl:text>
-		<xsl:text>MMAdaptableFixedListView&lt;</xsl:text>
-		<xsl:value-of select="viewmodel/entity-to-update/name"/>
-		<xsl:text>, </xsl:text>
-		<xsl:value-of select="viewmodel/implements/interface/@name"/>
-		<xsl:text>&gt; </xsl:text>
+		
+		<xsl:choose>
+			<xsl:when test="viewmodel/type/component-name = 'MMFixedListView'">
+				<xsl:text>MMAdaptableFixedListView&lt;</xsl:text>
+				<xsl:value-of select="viewmodel/entity-to-update/name"/>
+				<xsl:text>, </xsl:text>
+				<xsl:value-of select="viewmodel/implements/interface/@name"/>
+				<xsl:text>&gt; </xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>MMRecyclableList </xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:value-of select="$component-name"/>
 		<xsl:text> = null;&#13;</xsl:text>
 
 		<xsl:value-of select="$component-name"/>
 		<xsl:text> = (</xsl:text>
-		<xsl:text>MMAdaptableFixedListView&lt;</xsl:text>
-		<xsl:value-of select="viewmodel/entity-to-update/name"/>
-		<xsl:text>, </xsl:text>
-		<xsl:value-of select="viewmodel/implements/interface/@name"/>
-		<xsl:text>&gt;) p_oRoot.findViewById(R.id.</xsl:text>
+		<xsl:choose>
+			<xsl:when test="viewmodel/type/component-name='MMFixedListView'">
+				<xsl:text>MMAdaptableFixedListView&lt;</xsl:text>
+				<xsl:value-of select="viewmodel/entity-to-update/name"/>
+				<xsl:text>, </xsl:text>
+				<xsl:value-of select="viewmodel/implements/interface/@name"/>
+				<xsl:text>&gt;</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>MMRecyclableList</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text>) p_oRoot.findViewById(R.id.</xsl:text>
 		<xsl:value-of select="@component-ref"/>
 		<xsl:text>);&#13;</xsl:text>
 
@@ -136,7 +156,14 @@
 		<xsl:value-of select="$component-name"/>
 		<xsl:text> != null) {&#13;</xsl:text>
 
-		<xsl:text>this.</xsl:text>
+		<xsl:choose>
+			<xsl:when test="viewmodel/type/component-name='MMFixedListView'">
+				<xsl:value-of select="name"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>MDKBaseAdapter </xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:value-of select="$adapter-name"/>
 		<xsl:text> = new </xsl:text>
 		<xsl:value-of select="name"/>
@@ -150,10 +177,28 @@
 			<xsl:with-param name="fixedAdapterName" select="$adapter-name"/>
 		</xsl:apply-templates>
 
-		<xsl:value-of select="$component-name"/>
-		<xsl:text>.setAdapter(this.fixedListAdapter</xsl:text>
-		<xsl:value-of select="position()"/>
-		<xsl:text>);&#13;}&#13;</xsl:text>
+		<xsl:choose>
+			<xsl:when test="viewmodel/type/component-name='MMFixedListView'">
+				<xsl:value-of select="$component-name"/>
+				<xsl:text>.setAdapter(this.fixedListAdapter</xsl:text>
+				<xsl:value-of select="position()"/>
+				<xsl:text>);&#13;}&#13;</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>MDKViewConnectorWrapper mConnectorWrapper</xsl:text>
+				<xsl:value-of select="position()"/>
+				<xsl:text> = WidgetWrapperHelper.getInstance().getConnectorWrapper(((View) </xsl:text>
+				<xsl:value-of select="$component-name"/>
+				<xsl:text>).getClass());&#13;</xsl:text>
+				<xsl:text>mConnectorWrapper</xsl:text>
+				<xsl:value-of select="position()"/>
+				<xsl:text>.configure(</xsl:text>
+				<xsl:value-of select="$adapter-name"/>
+				<xsl:text>, (View) </xsl:text>
+				<xsl:value-of select="$component-name"/>
+				<xsl:text>);&#13;}&#13;</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<!-- ##########################################################################################
@@ -198,7 +243,7 @@
 				<xsl:apply-templates select="." mode="constructor-parameters">
 					<xsl:with-param name="position" select="$adapter-pos"/>
 				</xsl:apply-templates>
-				<xsl:text>, true);&#13;this.</xsl:text>
+				<xsl:text>, true);&#13;</xsl:text>
 				<xsl:value-of select="$fixedAdapterName"/>
 				<xsl:text>.addReferenceTo(R.id.sel</xsl:text>
 				<xsl:value-of select="@component-ref"/>
@@ -222,7 +267,15 @@
 		<xsl:apply-templates select="." mode="generate-super-constructor-parameters"/>
 	</xsl:template>
 
-	<xsl:template match="adapter[viewmodel/type/name='FIXED_LIST']" mode="constructor-parameters"/>
+	<xsl:template match="adapter[viewmodel/type/component-name='MMFixedListView']" mode="constructor-parameters"/>
+	
+	<xsl:template match="adapter[viewmodel/type/component-name='MMFixedList']" mode="constructor-parameters">
+		<xsl:text>application.getViewModelCreator().getViewModel(</xsl:text>
+		<xsl:value-of select="viewmodel/parent-viewmodel/master-interface/@name"/>
+		<xsl:text>.class).</xsl:text>
+		<xsl:value-of select="viewmodel/list-accessor-get-name"/>
+		<xsl:text>()</xsl:text>
+	</xsl:template>
 
 
 	<!-- ##########################################################################################
@@ -237,7 +290,14 @@
 	
 	<xsl:template match="page[viewmodel/type[name='LIST_1' or name='LIST_2' or name='LIST_3']]" mode="get-page-vm">
 		<xsl:text>((</xsl:text>
-		<xsl:value-of select="screen-vm-interface"/>
+		<xsl:choose>
+			<xsl:when test="./in-workspace='true'">
+				<xsl:value-of select="screen-vm-interface"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="viewmodel/parent-viewmodel/master-interface/@name"/>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:text>) ((AbstractAutoBindMMActivity) this.getActivity()).getViewModel()).get</xsl:text>
 		<xsl:value-of select="viewmodel/implements/interface/@name"/>
 		<xsl:text>()</xsl:text>

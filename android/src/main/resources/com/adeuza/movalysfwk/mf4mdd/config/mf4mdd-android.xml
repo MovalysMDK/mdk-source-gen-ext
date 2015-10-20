@@ -444,12 +444,6 @@
 					</configuration>
 				</type-viewmodel>
 				<type-viewmodel id="FIXED_LIST">
-					<configuration name="default">
-						<list-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel" />
-						<item-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ItemViewModel" />
-						<adapter ref="com.adeuza.movalysfwk.mobile.mf4android.ui.modele.AbstractConfigurableFixedListAdapter" />
-						<component ref="com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFixedListView" />
-					</configuration>
 					<configuration name="photo">
 						<list-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel" />
 						<item-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ItemViewModel" />

@@ -23,7 +23,7 @@
 <!-- >>>>> TEMPLATES DEDIES A LA GENERATION DES TYPES PARAMETRES EN FONCTION DE L'ADAPTEUR -->
 
 <!-- Cas du AbstractConfigurableSpinnerAdapter (combo) -->
-<xsl:template match="adapter[short-adapter='AbstractConfigurableSpinnerAdapter' or short-adapter='AbstractConfigurableFixedListAdapter']" mode="generate-parameter-types">
+<xsl:template match="adapter[short-adapter='AbstractConfigurableSpinnerAdapter' or short-adapter='AbstractConfigurableFixedListAdapter' or short-adapter='MDKFixedListAdapter']" mode="generate-parameter-types">
 	<xsl:value-of select="./viewmodel/entity-to-update/name"/>,
 	<xsl:value-of select="./viewmodel/implements/interface/@name"/>,
 	ListViewModel&lt;<xsl:value-of select="./viewmodel/entity-to-update/name"/>, <xsl:value-of select="./viewmodel/implements/interface/@name"/>&gt;

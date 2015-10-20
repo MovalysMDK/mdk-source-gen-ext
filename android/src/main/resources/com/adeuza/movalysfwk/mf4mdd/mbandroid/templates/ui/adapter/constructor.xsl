@@ -121,6 +121,15 @@
 <xsl:template match="adapter[short-adapter='AbstractConfigurableFixedListAdapter']" mode="generate-constructor-parameters">
 </xsl:template>
 
+<!--  Constructor params for widget FixedList -->
+<xsl:template match="adapter[short-adapter='MDKFixedListAdapter']" mode="generate-constructor-parameters">
+	<xsl:text>ListViewModel&lt;</xsl:text>
+	<xsl:value-of select="./viewmodel/entity-to-update/name"/>
+	<xsl:text>, </xsl:text>
+	<xsl:value-of select="./viewmodel/implements/interface/@name"/>
+	<xsl:text>&gt; p_oMasterVM</xsl:text>
+</xsl:template>
+
 <!-- Default constructor -->
 <xsl:template match="adapter" mode="generate-constructor-parameters">
 	<xsl:text>ListViewModel&lt;</xsl:text>
@@ -222,6 +231,18 @@ R.layout.<xsl:value-of  select="./layouts/layout[3]/name"/>, R.id.<xsl:value-of 
 		<xsl:text>R.layout.</xsl:text>
 		<xsl:value-of  select="./layouts/layout[2]/name"/>
 	</xsl:template>
+	
+<!--  Constructor params for widget FixedList -->
+<xsl:template match="adapter[short-adapter='MDKFixedListAdapter']" mode="generate-super-constructor-parameters">
+	<xsl:text>p_oMasterVM, </xsl:text>
+	<xsl:text>R.layout.</xsl:text>
+	<xsl:value-of  select="./layouts/layout[1]/name"/>
+	<xsl:text>, R.id.</xsl:text>
+	<xsl:value-of  select="./layouts/layout[1]/name"/>,
+	<xsl:text>R.layout.</xsl:text>
+	<xsl:value-of  select="./layouts/layout[2]/name"/>
+</xsl:template>
+	
 </xsl:stylesheet>
 
 

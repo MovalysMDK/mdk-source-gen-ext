@@ -74,7 +74,7 @@
 	</xsl:template>
 
 	<!--  FixedList adapter imports -->
-	<xsl:template match="adapter[short-adapter='AbstractConfigurableFixedListAdapter']" mode="generate-imports">
+	<xsl:template match="adapter[short-adapter='AbstractConfigurableFixedListAdapter' or short-adapter='MDKFixedListAdapter']" mode="generate-imports">
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.application.Application</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.core.services.BeanLoader</import>
 		<import><xsl:value-of select="./viewmodel/import"/></import>

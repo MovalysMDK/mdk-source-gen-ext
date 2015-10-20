@@ -303,7 +303,7 @@ Root template
 	}
 </xsl:template>
 
-<xsl:template match="adapter[short-adapter='AbstractConfigurableFixedListAdapter']" mode="generate-extra-methods">
+<xsl:template match="adapter[short-adapter='AbstractConfigurableFixedListAdapter' or short-adapter='MDKFixedListAdapter']" mode="generate-extra-methods">
 	/**
 	 * {@inheritDoc}
 	 */

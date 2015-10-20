@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adjava-project>
+	<languages>
+		<language name="android">
+			<type-viewmodels>
+		        <type-viewmodel id="FIXED_LIST">
+					<configuration name="default">
+						<list-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel" />
+						<item-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ItemViewModel" />
+						<adapter ref="com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKFixedListAdapter" />
+						<component ref="com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFixedList" />
+					</configuration>
+				</type-viewmodel>
+	        </type-viewmodels>
+		</language>
+	</languages>
+</adjava-project>

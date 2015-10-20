@@ -77,6 +77,13 @@
 		<xsl:if test="viewmodel/subvm/viewmodel[type/component-name='MMFixedListView']">
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMAdaptableFixedListView</import>
 		</xsl:if>
+		<xsl:if test="viewmodel/subvm/viewmodel[type/component-name='MMFixedList']">
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.abstractviews.MMRecyclableList</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKBaseAdapter</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.connectors.MDKViewConnectorWrapper</import>
+			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.component.configurable.WidgetWrapperHelper</import>
+			<import>android.view.View</import>
+		</xsl:if>
 		<xsl:if test="viewmodel/subvm/viewmodel[type/component-name='MMPhotoFixedListView']">
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMAdaptableFixedListView</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoFixedListView</import>
@@ -84,8 +91,8 @@
 		
 		<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.business.genericdisplay.InDisplayParameter</import>
 		<import>com.adeuza.movalysfwk.mobile.mf4android.activity.business.genericdisplay.GenericLoadDataForDisplayDetailAction</import>
+		<import><xsl:value-of select="viewmodel/parent-viewmodel/master-interface/@full-name"/></import>
 		<xsl:if test="viewmodel/multiInstance='true'">	
-			<import><xsl:value-of select="viewmodel/parent-viewmodel/master-interface/@full-name"/></import>
 			<import><xsl:value-of select="master-package"/>.viewmodel.ViewModelCreator</import>
 		</xsl:if>
 
