@@ -120,7 +120,7 @@
 		<xsl:text>// FixedList of </xsl:text><xsl:value-of select="viewmodel/uml-name"/><xsl:text>.&#13;</xsl:text>
 		
 		<xsl:choose>
-			<xsl:when test="viewmodel/type/component-name = 'MMFixedListView'">
+			<xsl:when test="viewmodel/type/component-name='MMFixedListView' or viewmodel/type/component-name='MMPhotoFixedListView'">
 				<xsl:text>MMAdaptableFixedListView&lt;</xsl:text>
 				<xsl:value-of select="viewmodel/entity-to-update/name"/>
 				<xsl:text>, </xsl:text>
@@ -137,7 +137,7 @@
 		<xsl:value-of select="$component-name"/>
 		<xsl:text> = (</xsl:text>
 		<xsl:choose>
-			<xsl:when test="viewmodel/type/component-name='MMFixedListView'">
+			<xsl:when test="viewmodel/type/component-name='MMFixedListView' or viewmodel/type/component-name='MMPhotoFixedListView'">
 				<xsl:text>MMAdaptableFixedListView&lt;</xsl:text>
 				<xsl:value-of select="viewmodel/entity-to-update/name"/>
 				<xsl:text>, </xsl:text>
@@ -156,14 +156,8 @@
 		<xsl:value-of select="$component-name"/>
 		<xsl:text> != null) {&#13;</xsl:text>
 
-		<xsl:choose>
-			<xsl:when test="viewmodel/type/component-name='MMFixedListView'">
-				<xsl:value-of select="name"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:text>MDKBaseAdapter </xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
+		
+		<xsl:text>this.</xsl:text>
 		<xsl:value-of select="$adapter-name"/>
 		<xsl:text> = new </xsl:text>
 		<xsl:value-of select="name"/>
@@ -178,7 +172,7 @@
 		</xsl:apply-templates>
 
 		<xsl:choose>
-			<xsl:when test="viewmodel/type/component-name='MMFixedListView'">
+			<xsl:when test="viewmodel/type/component-name='MMFixedListView' or viewmodel/type/component-name='MMPhotoFixedListView'">
 				<xsl:value-of select="$component-name"/>
 				<xsl:text>.setAdapter(this.fixedListAdapter</xsl:text>
 				<xsl:value-of select="position()"/>
@@ -267,7 +261,7 @@
 		<xsl:apply-templates select="." mode="generate-super-constructor-parameters"/>
 	</xsl:template>
 
-	<xsl:template match="adapter[viewmodel/type/component-name='MMFixedListView']" mode="constructor-parameters"/>
+	<xsl:template match="adapter[viewmodel/type/component-name='MMFixedListView' or viewmodel/type/component-name='MMPhotoFixedListView']" mode="constructor-parameters"/>
 	
 	<xsl:template match="adapter[viewmodel/type/component-name='MMFixedList']" mode="constructor-parameters">
 		<xsl:text>application.getViewModelCreator().getViewModel(</xsl:text>

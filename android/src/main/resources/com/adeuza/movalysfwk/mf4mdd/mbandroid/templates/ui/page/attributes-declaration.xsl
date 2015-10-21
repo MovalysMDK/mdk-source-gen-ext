@@ -50,4 +50,20 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
+	<xsl:template match="external-adapters/adapter[viewmodel/type/name='FIXED_LIST']" mode="attributes">	
+		<xsl:text>/**&#13;</xsl:text>
+		<xsl:text> * Adapter associated to the fixedList of </xsl:text><xsl:value-of select="viewmodel/uml-name"/><xsl:text>.&#13;</xsl:text>
+		<xsl:text> */&#13;</xsl:text>
+		<xsl:text>private </xsl:text>
+		<xsl:choose>
+			<xsl:when test="viewmodel/type/component-name='MMFixedListView' or viewmodel/type/component-name='MMPhotoFixedListView'">
+				<xsl:value-of select="name"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>MDKBaseAdapter </xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text> fixedListAdapter</xsl:text><xsl:value-of select="position()"/> = null;
+	</xsl:template>
 </xsl:stylesheet>
