@@ -165,7 +165,15 @@
 	
 	<xsl:template match="external-adapters/adapter[viewmodel/type/name='FIXED_LIST']" mode="action-events-notify-dataset">
 		<xsl:param name="dataloader"/>
-		<xsl:text>this.fixedListAdapter</xsl:text><xsl:value-of select="position()"/><xsl:text>.getMasterVM().notifyCollectionChanged();&#13;</xsl:text>
+		<xsl:text>this.fixedListAdapter</xsl:text><xsl:value-of select="position()"/>
+		<xsl:choose>
+			<xsl:when test="viewmodel/type/component-name='MMFixedListView' or viewmodel/type/component-name='MMPhotoFixedListView'">
+				<xsl:text>.getMasterVM().notifyCollectionChanged();&#13;</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>.notifyDataSetChanged();&#13;</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 </xsl:stylesheet>
