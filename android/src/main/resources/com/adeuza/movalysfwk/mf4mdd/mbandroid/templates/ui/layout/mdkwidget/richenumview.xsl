@@ -18,18 +18,14 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:output method="xml" indent="yes"/>
+<xsl:output method="xml" indent="yes"/>
 
 <!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichEmail']" 
+<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView']" 
 	mode="componentAttributes">
 	<xsl:apply-templates select="." mode="standard-alignment"/>
 	<xsl:apply-templates select="." mode="view-focusable"/>
 	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:apply-templates select="." mode="mandatory"/>
-	<xsl:apply-templates select="." mode="inputtype"/>
-	<xsl:apply-templates select="." mode="maxlength"/>
-	<xsl:apply-templates select="." mode="hint"/>
 	<xsl:apply-templates select="." mode="label"/>
 </xsl:template>
 </xsl:stylesheet>

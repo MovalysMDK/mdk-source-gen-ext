@@ -57,6 +57,8 @@
 	<xsl:include href="ui/layout/mdkwidget/richdate.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richdatetime.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richemail.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richenumview.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richseekbar.xsl"/>
 	
 	<!-- custom widgets -->
 	<xsl:include href="ui/custom-components.xsl"/>
@@ -93,6 +95,7 @@
 					<ScrollView  
 						android:layout_width="match_parent" 
 						android:layout_height="match_parent">
+
 						<xsl:attribute name="android:id">@+id/<xsl:value-of select="substring-before($addscroll, '__master')"/>scroll__visualpanel</xsl:attribute>
 						<xsl:if test="$addtitle != ''">
 							<xsl:attribute name="android:layout_below">@id/<xsl:value-of select="$addtitle"/></xsl:attribute>

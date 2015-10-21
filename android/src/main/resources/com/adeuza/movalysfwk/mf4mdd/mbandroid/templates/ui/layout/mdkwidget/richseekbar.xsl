@@ -18,18 +18,26 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:output method="xml" indent="yes"/>
+<xsl:output method="xml" indent="yes"/>
+
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/initial-value.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/seekbar-min.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/seekbar-max.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/min-allowed.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/max-allowed.xsl"/>
 
 <!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichEmail']" 
+<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar']" 
 	mode="componentAttributes">
 	<xsl:apply-templates select="." mode="standard-alignment"/>
 	<xsl:apply-templates select="." mode="view-focusable"/>
 	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:apply-templates select="." mode="mandatory"/>
-	<xsl:apply-templates select="." mode="inputtype"/>
-	<xsl:apply-templates select="." mode="maxlength"/>
-	<xsl:apply-templates select="." mode="hint"/>
 	<xsl:apply-templates select="." mode="label"/>
+	<xsl:apply-templates select="." mode="initial-value"/>
+	<xsl:apply-templates select="." mode="seekbar-min"/>
+	<xsl:apply-templates select="." mode="seekbar-max"/>
+	<xsl:apply-templates select="." mode="min-allowed"/>
+	<xsl:apply-templates select="." mode="max-allowed"/>
+	
 </xsl:template>
 </xsl:stylesheet>

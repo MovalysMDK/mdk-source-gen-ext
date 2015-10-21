@@ -1,283 +1,337 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <adjava-project>
-    
+
 	<languages>
 
 		<language name="android">
-		    
-		    <ui-types>
+
+			<ui-types>
 				<ui-type uml-name="Text">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEditText</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="UIDouble">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEditText</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEditText
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="UIInteger">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEditText</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEditText
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="CheckedText">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSpinnerCheckedTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSpinnerCheckedTextView
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSpinnerCheckedTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSpinnerCheckedTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Date">
 					<read-write>
 						<view-model-type>Date</view-model-type>
-						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichDate</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichDate
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Long</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMDateTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMDateTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="DateTime">
 					<read-write>
 						<view-model-type>Date</view-model-type>
-						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Long</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMDateTimeTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMDateTimeTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="CheckBox">
 					<read-write>
 						<view-model-type>Boolean</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMCheckBox</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMCheckBox
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Boolean</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMCheckBox</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMCheckBox
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="FilterButton">
 					<read-write>
 						<view-model-type>Object</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFilterButton</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFilterButton
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Object</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFilterButton</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFilterButton
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Button">
 					<read-write>
 						<view-model-type>Object</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMButton</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMButton
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Object</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMButton</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMButton
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="ImageButton">
 					<read-write>
 						<view-model-type>Object</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMImageButton</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMImageButton
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Object</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMImageButton</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMImageButton
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="RadioGroup">
 					<read-write>
 						<view-model-type>enumeration</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMRadioGroup</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMRadioGroup
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>enumeration</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEnumTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEnumTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="EnumImage">
 					<read-write>
 						<view-model-type>enumeration</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEnumImageView</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>enumeration</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEnumImageView</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Signature">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSignature</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSignature
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSignature</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSignature
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="AddressLocation">
 					<read-write>
 						<view-model-type>AddressLocationVO</view-model-type>
-						<language-type>com.soprasteria.movalysmdk.widget.position.MDKRichPosition</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>AddressLocationVO</view-model-type>
-						<language-type>com.soprasteria.movalysmdk.widget.position.MDKRichPosition</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Thumbnail">
 					<read-write>
 						<view-model-type>PhotoVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>PhotoVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="AutoCompleteText">
-				    <read-write>
+					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMMultiAutoCompleteEditTextWithDialog</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMMultiAutoCompleteEditTextWithDialog
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMMultiAutoCompleteEditTextWithDialog</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMMultiAutoCompleteEditTextWithDialog
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="MultilineText">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextViewEllipsizedWithDialog</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextViewEllipsizedWithDialog
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextViewEllipsizedWithDialog</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextViewEllipsizedWithDialog
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Phone">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhoneEditText</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhoneEditText
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhoneTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhoneTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Email">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEmail</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>EMailVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEmailTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEmailTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="EmailText">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEmail</language-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEmailSimpleViewText</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEmailSimpleViewText
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="EnumBackground">
 					<read-write>
 						<view-model-type>enumeration</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMLinearBackgroundedLayout</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMLinearBackgroundedLayout
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>enumeration</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMLinearBackgroundedLayout</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMLinearBackgroundedLayout
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Chronometer">
 					<read-write>
 						<view-model-type>ChronometerVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMChronometer</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMChronometer
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>ChronometerVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMChronometer</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMChronometer
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="WebView">
-				    <read-write>
-				        <view-model-type>String</view-model-type>
-				        <language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMWebView</language-type>
-				    </read-write>
-				    <read-only>
-				        <view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMWebView</language-type>
-				    </read-only>
+					<read-write>
+						<view-model-type>String</view-model-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMWebView
+						</language-type>
+					</read-write>
+					<read-only>
+						<view-model-type>String</view-model-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMWebView
+						</language-type>
+					</read-only>
 				</ui-type>
 				<ui-type uml-name="Url">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMURLEditText</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMURLEditText
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMURLTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMURLTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="CodeScanner">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMScanEditText</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMScanEditText
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="NumberPicker">
 					<read-write>
 						<view-model-type>Integer</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMNumberPicker</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMNumberPicker
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Slider">
 					<read-write>
-						<view-model-type>Double</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSeekBarDouble</language-type>
+						<view-model-type>Integer</view-model-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView</language-type>
+						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView
+						</language-type>
 					</read-only>
 				</ui-type>
 			</ui-types>
-			
+
 		</language>
 	</languages>
 </adjava-project>

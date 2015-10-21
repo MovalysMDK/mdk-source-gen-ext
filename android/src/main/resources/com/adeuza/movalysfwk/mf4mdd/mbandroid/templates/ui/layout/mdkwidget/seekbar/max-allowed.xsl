@@ -18,18 +18,12 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:output method="xml" indent="yes"/>
+<xsl:output method="xml" indent="yes"/>
 
-<!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichEmail']" 
-	mode="componentAttributes">
-	<xsl:apply-templates select="." mode="standard-alignment"/>
-	<xsl:apply-templates select="." mode="view-focusable"/>
-	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:apply-templates select="." mode="mandatory"/>
-	<xsl:apply-templates select="." mode="inputtype"/>
-	<xsl:apply-templates select="." mode="maxlength"/>
-	<xsl:apply-templates select="." mode="hint"/>
-	<xsl:apply-templates select="." mode="label"/>
+<!-- MAX ALLOWED ATTRIBUTE for mdk widgets SEEKBAR -->
+<xsl:template match="visualfield" mode="max-allowed">
+	<xsl:text>mdk:max_allowed="100" </xsl:text>
 </xsl:template>
+
+
 </xsl:stylesheet>
