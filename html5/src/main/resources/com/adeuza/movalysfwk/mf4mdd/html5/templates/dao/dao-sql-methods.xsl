@@ -266,15 +266,22 @@ extension-element-prefixes="exsl">
 			<xsl:when test="(substring($methodNameToken, 1, 12) = 'saveOrUpdate')">
 				<xsl:choose>
 					<xsl:when test="($methodParameterToken='p_entity')">
-							<xsl:text>		if(p_entity.idToString === -1) {&#10;</xsl:text>
-							<xsl:text>			/* save</xsl:text><xsl:value-of select="//uml-name"/><xsl:text> */&#10;</xsl:text>
-							<xsl:text>			console.log('</xsl:text><xsl:value-of select="//name"/><xsl:text>.</xsl:text><xsl:value-of select="$methodNameFull" /><xsl:text>(): ID =-1  => save</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>()');&#10;</xsl:text>
-							<xsl:text>			deferred.resolve( self.save</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParametersFull" /><xsl:text>) ); // last parameter ignored by called method&#10;</xsl:text>
-							<xsl:text>		} else {&#10;</xsl:text>
-							<xsl:text>			/* update</xsl:text><xsl:value-of select="//uml-name"/><xsl:text> */&#10;</xsl:text>
-							<xsl:text>			console.log('</xsl:text><xsl:value-of select="//name"/><xsl:text>.</xsl:text><xsl:value-of select="$methodNameFull" /><xsl:text>(): ID !=-1  => update</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>()');&#10;</xsl:text>
-							<xsl:text>			deferred.resolve( self.update</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParametersFull" /><xsl:text>) );&#10;</xsl:text>
-							<xsl:text>		}&#10;</xsl:text>
+							<xsl:text>		this.get</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>ById(p_entity.idToString, p_context).then(function(modelEntity) {&#10;</xsl:text>
+							<xsl:text>      		//success of DAO call &#10;</xsl:text>
+							<xsl:text>				if(angular.isUndefinedOrNull(modelEntity)){ &#10;</xsl:text>
+							<xsl:text>					/* save</xsl:text><xsl:value-of select="//uml-name"/><xsl:text> */&#10;</xsl:text>
+							<xsl:text>					console.log('</xsl:text><xsl:value-of select="//name"/><xsl:text>.</xsl:text><xsl:value-of select="$methodNameFull" /><xsl:text>(): entity does not exist  => save</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>()');&#10;</xsl:text>
+							<xsl:text>					deferred.resolve( self.save</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParametersFull" /><xsl:text>) ); // last parameter ignored by called method&#10;</xsl:text>
+							<xsl:text>				} else {&#10;</xsl:text>
+							<xsl:text>					/* update</xsl:text><xsl:value-of select="//uml-name"/><xsl:text> */&#10;</xsl:text>
+							<xsl:text>					console.log('</xsl:text><xsl:value-of select="//name"/><xsl:text>.</xsl:text><xsl:value-of select="$methodNameFull" /><xsl:text>(): entity exists  => update</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>()');&#10;</xsl:text>
+							<xsl:text>					deferred.resolve( self.update</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParametersFull" /><xsl:text>) );&#10;</xsl:text>
+							<xsl:text>				}&#10;</xsl:text>
+							<xsl:text>			},&#10; </xsl:text>
+							<xsl:text>			function(error) { &#10;</xsl:text>
+							<xsl:text>				deferred.reject(error); &#10;</xsl:text>
+							<xsl:text>			}&#10;</xsl:text>
+							<xsl:text>		);&#10;</xsl:text>
 					</xsl:when>
 					
 					<xsl:when test="($methodParameterToken='p_entities')">
