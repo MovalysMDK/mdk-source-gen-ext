@@ -575,7 +575,7 @@ extension-element-prefixes="exsl">
 					
 					<xsl:when test="($methodParameterToken='p_entity')">
 					    <xsl:text>		//0. load children that should always be deleted or updated&#10;</xsl:text>
-            			<xsl:text>		self.loadChildrenIfNeeded(p_context, </xsl:text><xsl:value-of select="$methodParameterToken" /><xsl:text>).then(&#10;</xsl:text>
+            			<xsl:text>		self.loadChildrenIfNeeded(p_context, </xsl:text><xsl:value-of select="$methodParameterToken" /><xsl:text>, p_cascadeSet).then(&#10;</xsl:text>
                 		<xsl:text>			function(returnedSuccess_loadChildrenIfNeeded){&#10;</xsl:text>
 						<xsl:text>				var pointersDeletes = [];&#10;</xsl:text>
 						<xsl:text>&#10;</xsl:text>				
