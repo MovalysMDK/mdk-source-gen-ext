@@ -267,7 +267,7 @@ extension-element-prefixes="exsl">
 				<xsl:choose>
 					<xsl:when test="($methodParameterToken='p_entity')">
 							<xsl:text>		if(p_entity.idToString === -1) { &#10;</xsl:text>
-							<xsl:text>			this.get</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>ById(p_entity.idToString, p_context).then(function(modelEntity) {&#10;</xsl:text>
+							<xsl:text>			this.get</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>ById(p_entity.idToString, p_context, []).then(function(modelEntity) {&#10;</xsl:text>
 							<xsl:text>      			//success of DAO call &#10;</xsl:text>
 							<xsl:text>					if(angular.isUndefinedOrNull(modelEntity)){ &#10;</xsl:text>
 							<xsl:text>						/* save</xsl:text><xsl:value-of select="//uml-name"/><xsl:text> */&#10;</xsl:text>
