@@ -173,6 +173,7 @@
 					<return-prefix></return-prefix>
 					<get-accessor-prefix></get-accessor-prefix>
 					<set-accessor-prefix></set-accessor-prefix>
+					<default-options>_L255</default-options>
 					<data-type>ALPHANUMERIC</data-type>
 					<default-ui-type>Email</default-ui-type>
 					<coredata-type>String</coredata-type>
