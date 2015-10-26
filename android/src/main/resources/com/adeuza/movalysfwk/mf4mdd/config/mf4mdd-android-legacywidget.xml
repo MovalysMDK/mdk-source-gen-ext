@@ -5,6 +5,23 @@
 
 		<language name="android">
 		    
+		    <type-viewmodels>
+   				<type-viewmodel id="LIST_1__ONE_SELECTED">
+					<configuration name="default">
+						<list-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel" />
+						<item-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ItemViewModel" />
+						<adapter ref="com.adeuza.movalysfwk.mobile.mf4android.ui.modele.AbstractConfigurableSpinnerAdapter" />
+						<component ref="com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSpinner" />
+					</configuration>
+					<configuration name="filter">
+						<list-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel" />
+						<item-interface ref="com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ItemViewModel" />
+						<adapter ref="com.adeuza.movalysfwk.mobile.mf4android.ui.modele.AbstractConfigurableSpinnerAdapter" />
+						<component ref="com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSearchSpinner" />
+					</configuration>
+				</type-viewmodel>
+		    </type-viewmodels>
+		    
 		    <ui-types>
 				<ui-type uml-name="Text">
 					<read-write>

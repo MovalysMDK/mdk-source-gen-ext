@@ -92,7 +92,11 @@
 		</xsl:if>
 	</xsl:template>
 
-	<xsl:template match="external-adapters/adapter/viewmodel[type/name='LIST_1__ONE_SELECTED']" mode="doAfterInflate-method">
+	<xsl:template match="external-adapters/adapter/viewmodel[type/name='LIST_1__ONE_SELECTED' and type/component-name='MDKRichSpinner']" mode="doAfterInflate-method">
+		<xsl:text>MDKRichSpinner</xsl:text>
+	</xsl:template>
+	
+	<xsl:template match="external-adapters/adapter/viewmodel[type/name='LIST_1__ONE_SELECTED' and not(type/component-name='MDKRichSpinner')]" mode="doAfterInflate-method">
 		<xsl:text>MMSpinner&lt;?,?&gt;</xsl:text>
 	</xsl:template>
 

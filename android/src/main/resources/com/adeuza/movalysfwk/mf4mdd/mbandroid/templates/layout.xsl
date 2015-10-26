@@ -57,6 +57,7 @@
 	<xsl:include href="ui/layout/mdkwidget/richdate.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richdatetime.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richemail.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richspinner.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richenumview.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richseekbar.xsl"/>
 	
