@@ -20,8 +20,10 @@
 
 	<xsl:output method="text"/>	
 
-	<xsl:template match="node()" mode="extra-methods">
-		
+	<xsl:template match="*" mode="extra-methods">
+		<xsl:text>&#10;//@non-generated-start[functions]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='functions']"/>
+		<xsl:text>//@non-generated-end&#10;&#10;</xsl:text>
 	</xsl:template>
 
 </xsl:stylesheet>
