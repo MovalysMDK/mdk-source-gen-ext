@@ -65,10 +65,10 @@
 					<properties>
 						<property name="latitude" type="Double" default-value="0" default-options="_L30_P10"/>
 						<property name="longitude" type="Double" default-value="0" default-options="_L30_P10"/>
-						<property name="compl" type="String" default-options="_O"/>
-						<property name="street" type="String" default-options="_O"/>
-						<property name="city" type="String" default-options="_O"/>
-						<property name="country" type="String" default-options="_O"/>
+						<property name="compl" type="String"/>
+						<property name="street" type="String"/>
+						<property name="city" type="String"/>
+						<property name="country" type="String"/>
 					</properties>
 					<type-conversions>
 						<type-conversion to="AddressLocationVO">

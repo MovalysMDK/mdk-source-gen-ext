@@ -359,7 +359,7 @@ Option#</xsl:text>
 </xsl:for-each>
 <xsl:for-each select="/diagram/classes/class[table-name=$nameTable]/association/field">
 	<xsl:if test="../@type='many-to-one' or (../@type='one-to-one' and ../@relation-owner='true'  and ../@transient='false')">
-		<xsl:variable name="nameClass" select="../@type-short-name"/>
+		<xsl:variable name="nameClass" select="../class/name"/>
 		<xsl:apply-templates select="/diagram/classes/class[uml-name=$nameClass]" mode="csvOptionType"/>
 	</xsl:if>
 </xsl:for-each>
@@ -380,6 +380,15 @@ Option#</xsl:text>
 <!-- *** Option2 : NON GERE *** -->
 <xsl:text>
 Option2#</xsl:text>
+<xsl:for-each select="/diagram/classes/class[table-name=$nameTable]/association/field">
+	<xsl:if test="../@type='many-to-one' or (../@type='one-to-one' and ../@relation-owner='true'  and ../@transient='false')">
+		<xsl:variable name="nameClass" select="../class/name"/>
+		<xsl:apply-templates select="/diagram/classes/class[uml-name=$nameClass]" mode="csvOption2Type"/>
+	</xsl:if>
+</xsl:for-each>
+<xsl:for-each select="/diagram/classes/class[table-name=$nameTable]/attribute[count(field)>0]">
+	<xsl:apply-templates select="." mode="csvOption2"/>
+</xsl:for-each>
 
 <!-- *** Unique *** -->
 <xsl:text>
@@ -416,7 +425,7 @@ Reference from#</xsl:text>
 </xsl:for-each>
 <xsl:for-each select="/diagram/classes/class[table-name=$nameTable]/association/field">
 	<xsl:if test="../@type='many-to-one' or (../@type='one-to-one' and ../@relation-owner='true'  and ../@transient='false')">
-		<xsl:variable name="nameClass" select="../@type-short-name"/>
+		<xsl:variable name="nameClass" select="../class/name"/>	
 		<xsl:apply-templates select="/diagram/classes/class[uml-name=$nameClass]" mode="csvReferenceFrom"/>
 	</xsl:if>
 	<xsl:text>#</xsl:text>
@@ -442,7 +451,7 @@ Reference to#</xsl:text>
 </xsl:for-each>
 <xsl:for-each select="/diagram/classes/class[table-name=$nameTable]/association/field">
 	<xsl:if test="../@type='many-to-one' or (../@type='one-to-one' and ../@relation-owner='true'  and ../@transient='false')">
-		<xsl:variable name="nameClass" select="../@type-short-name"/>
+		<xsl:variable name="nameClass" select="../class/name"/>
 		<xsl:apply-templates select="/diagram/classes/class[uml-name=$nameClass]" mode="csvReferenceTo"/>
 	</xsl:if>
 	<xsl:text>#</xsl:text>
@@ -818,6 +827,7 @@ Req#U##</xsl:text><xsl:value-of select="$nameTable"/><xsl:text>#</xsl:text>
 		<xsl:when test="@type-short-name='boolean'"><xsl:text>yes[1];no[0]#</xsl:text></xsl:when>
 		<xsl:when test="@type-short-name='ref1'"><xsl:text>string#</xsl:text></xsl:when>
 		<xsl:when test="@enum='true'">
+			<xsl:if test="@nullable='true'"><xsl:text>FWK_NONE[0];</xsl:text></xsl:if>
 			<xsl:for-each select="enumeration-values/enum-value">
 				<xsl:value-of select="."/><xsl:text>[</xsl:text><xsl:value-of select="@pos"/><xsl:text>];</xsl:text>
 			</xsl:for-each>
@@ -825,6 +835,36 @@ Req#U##</xsl:text><xsl:value-of select="$nameTable"/><xsl:text>#</xsl:text>
 		</xsl:when>
 		<xsl:otherwise><xsl:text>#</xsl:text></xsl:otherwise>
 	</xsl:choose>
+</xsl:template>
+
+<!-- *** Template Csv Option - Type 2 *** -->	
+
+<xsl:template match="field|attribute|property" mode="csvOption2">
+	<xsl:variable name="smallTypeShortName" select="translate(@type-short-name,$majuscules,$minuscules)"/>
+	<xsl:choose>
+		<xsl:when test="$smallTypeShortName='boolean'">
+			<xsl:variable name="boolean-init" select="substring-before(substring-after(@init, '('), ')')"/>
+			<xsl:if test="$boolean-init='true'"><xsl:text>yes#</xsl:text></xsl:if>
+			<xsl:if test="$boolean-init='false'"><xsl:text>no#</xsl:text></xsl:if>
+		</xsl:when>
+		<xsl:when test="@enum='true' and @nullable='true'">
+			<xsl:text>FWK_NONE#</xsl:text>
+		</xsl:when>
+		<xsl:when test="@enum='true' and @nullable='false'">
+			<xsl:variable name="enum-init" select="substring-after(@init, '.')"/>
+			<xsl:for-each select="enumeration-values/enum-value">
+				<xsl:variable name="enum-value" select="."/>
+				<xsl:if test="$enum-init=$enum-value"><xsl:value-of select="$enum-value"/></xsl:if>
+			</xsl:for-each>
+			<xsl:text>#</xsl:text>
+		</xsl:when>
+		<xsl:otherwise><xsl:text>#</xsl:text></xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+<xsl:template match="class" mode="csvOption2Type">
+	<xsl:if test="count(identifier/attribute) = 1">
+		<xsl:text>#</xsl:text>
+	</xsl:if>
 </xsl:template>
 
 <!-- *** Template Option - Type *** -->	
@@ -862,10 +902,12 @@ Req#U##</xsl:text><xsl:value-of select="$nameTable"/><xsl:text>#</xsl:text>
 		<xsl:when test="$smallTypeShortName='float' or $smallTypeShortName='double'"><xsl:text>champ de type float;champ de type float#</xsl:text></xsl:when>
 		<xsl:when test="@enum='true'">
 			<xsl:text>champ de type enum ( </xsl:text>
+			<xsl:if test="@nullable='true'"><xsl:text>FWK_NONE </xsl:text></xsl:if>
 			<xsl:for-each select="enumeration-values/enum-value">
 				<xsl:value-of select="."/><xsl:text> </xsl:text>
 			</xsl:for-each>
 			<xsl:text>) ;champ de type enum ( </xsl:text>
+			<xsl:if test="@nullable='true'"><xsl:text>FWK_NONE </xsl:text></xsl:if>
 			<xsl:for-each select="enumeration-values/enum-value">
 				<xsl:value-of select="."/><xsl:text> </xsl:text>
 			</xsl:for-each>
