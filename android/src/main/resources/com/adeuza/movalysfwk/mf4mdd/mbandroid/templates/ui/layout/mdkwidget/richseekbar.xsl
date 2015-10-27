@@ -38,6 +38,7 @@
 	<xsl:apply-templates select="." mode="seekbar-max"/>
 	<xsl:apply-templates select="." mode="min-allowed"/>
 	<xsl:apply-templates select="." mode="max-allowed"/>
+	<xsl:apply-templates select="." mode="editable"/>
 	
 </xsl:template>
 </xsl:stylesheet>

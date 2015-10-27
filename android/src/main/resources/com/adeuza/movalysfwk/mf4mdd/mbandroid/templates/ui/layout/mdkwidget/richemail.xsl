@@ -21,7 +21,7 @@
 <xsl:output method="xml" indent="yes"/>
 
 <!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime']" 
+<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichEmail']" 
 	mode="componentAttributes">
 	<xsl:apply-templates select="." mode="standard-alignment"/>
 	<xsl:apply-templates select="." mode="view-focusable"/>
@@ -31,5 +31,6 @@
 	<xsl:apply-templates select="." mode="maxlength"/>
 	<xsl:apply-templates select="." mode="hint"/>
 	<xsl:apply-templates select="." mode="label"/>
+	<xsl:apply-templates select="." mode="editable"/>
 </xsl:template>
 </xsl:stylesheet>

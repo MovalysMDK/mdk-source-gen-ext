@@ -35,6 +35,7 @@
 	<xsl:include href="ui/layout/commons/mandatory.xsl"/>
 	<xsl:include href="ui/layout/commons/maxlength.xsl"/>
 	<xsl:include href="ui/layout/commons/style.xsl"/>
+	<xsl:include href="ui/layout/commons/editable.xsl"/>
 	
 	<!-- legacy widgets -->
 	<xsl:include href="ui/layout/button.xsl"/>

@@ -172,10 +172,16 @@ public class MF4AModeleFactory extends MAndroidModeleFactory implements MFModelF
 			MVFModifier p_bMVFModifier, MVFLabelKind p_oLabelKind, MAttribute p_oAttribute,
 			MVFLocalization p_oLocalisation, IDomain<IModelDictionary, IModelFactory> p_oDomain,
 			String p_sAttributeName, boolean p_bMandatory) {
-		return new MF4AVisualField(p_sPrefix + (p_bMVFModifier == MVFModifier.READONLY ? "__value" : "__edit"), p_oLabel,
+		MF4AVisualField mvf = new MF4AVisualField(p_sPrefix + (p_bMVFModifier == MVFModifier.READONLY ? "__value" : "__edit"), p_oLabel,
 				p_oTypeVisual.getComponentType(p_bMVFModifier), p_oAttribute.getTypeDesc().getEditType(),
 				p_oAttribute.getLength(), p_oAttribute.getPrecision(), p_oAttribute.getScale(),
 				p_oLabelKind, p_oLocalisation, p_sAttributeName, p_bMandatory, p_oAttribute.getMEnumeration());
+	
+		if(p_bMVFModifier == MVFModifier.READONLY){
+			mvf.setReadOnly(true);
+		}
+		
+		return mvf;
 	}
 
 	/**

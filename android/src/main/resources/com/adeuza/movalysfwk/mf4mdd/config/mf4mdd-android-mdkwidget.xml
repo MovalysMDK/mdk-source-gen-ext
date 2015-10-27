@@ -31,31 +31,31 @@
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
 						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="UIDouble">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEditText
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
 						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
 						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="UIInteger">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEditText
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
 						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
 						</language-type>
 					</read-only>
 				</ui-type>
@@ -79,7 +79,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>Long</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMDateTextView
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichDate
 						</language-type>
 					</read-only>
 				</ui-type>
@@ -91,19 +91,19 @@
 					</read-write>
 					<read-only>
 						<view-model-type>Long</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMDateTimeTextView
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime
 						</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="CheckBox">
 					<read-write>
 						<view-model-type>Boolean</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMCheckBox
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichCheckBox
 						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Boolean</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMCheckBox
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichCheckBox
 						</language-type>
 					</read-only>
 				</ui-type>
@@ -230,12 +230,12 @@
 				<ui-type uml-name="Phone">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhoneEditText
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
 						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhoneTextView
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
 						</language-type>
 					</read-only>
 				</ui-type>
@@ -246,8 +246,8 @@
 						</language-type>
 					</read-write>
 					<read-only>
-						<view-model-type>EMailVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEmailTextView
+						<view-model-type>String</view-model-type>
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
 						</language-type>
 					</read-only>
 				</ui-type>
@@ -259,7 +259,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEmailSimpleViewText
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
 						</language-type>
 					</read-only>
 				</ui-type>
@@ -302,12 +302,12 @@
 				<ui-type uml-name="Url">
 					<read-write>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMURLEditText
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichUri
 						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMURLTextView
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichUri
 						</language-type>
 					</read-only>
 				</ui-type>
@@ -343,7 +343,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>String</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMTextView
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
 						</language-type>
 					</read-only>
 				</ui-type>

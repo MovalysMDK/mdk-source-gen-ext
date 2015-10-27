@@ -31,5 +31,6 @@
 	<xsl:apply-templates select="." mode="maxlength"/>
 	<xsl:apply-templates select="." mode="hint"/>
 	<xsl:apply-templates select="." mode="label"/>
+	<xsl:apply-templates select="." mode="editable"/>
 </xsl:template>
 </xsl:stylesheet>

@@ -20,17 +20,13 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichDate']" 
-	mode="componentAttributes">
-	<xsl:apply-templates select="." mode="standard-alignment"/>
-	<xsl:apply-templates select="." mode="view-focusable"/>
-	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:apply-templates select="." mode="mandatory"/>
-	<xsl:apply-templates select="." mode="inputtype"/>
-	<xsl:apply-templates select="." mode="maxlength"/>
-	<xsl:apply-templates select="." mode="hint"/>
-	<xsl:apply-templates select="." mode="label"/>
-	<xsl:apply-templates select="." mode="editable"/>
+<!-- editable for mdk widgets -->
+<xsl:template match="visualfield[./readonly='true' and contains(./component, 'com.soprasteria.movalysmdk.widget')]" mode="editable">
+	<xsl:text>mdk:editable="false" </xsl:text>
 </xsl:template>
+
+<!-- fallback template -->
+<xsl:template match="visualfield" mode="editable">
+</xsl:template>
+
 </xsl:stylesheet>

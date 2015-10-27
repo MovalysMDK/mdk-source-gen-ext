@@ -27,5 +27,6 @@
 	<xsl:apply-templates select="." mode="view-focusable"/>
 	<xsl:apply-templates select="." mode="dimensions"/>
 	<xsl:apply-templates select="." mode="label"/>
+	<xsl:apply-templates select="." mode="editable"/>
 </xsl:template>
 </xsl:stylesheet>
