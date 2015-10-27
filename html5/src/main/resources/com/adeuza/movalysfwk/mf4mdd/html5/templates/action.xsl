@@ -44,8 +44,11 @@
 	</xsl:template>
 
 	<xsl:template match="savecascades" mode="cascades-workspace">
-		<xsl:if test="../entity-to-update/name = ../../../../class/name">
+		<xsl:if test="position() = 1">
 			<xsl:text>[</xsl:text>
+		</xsl:if>
+		<xsl:if test="../entity-to-update/name = ../../../../class/name">
+			
 			<xsl:for-each select="cascade">
 				<xsl:text>'</xsl:text>
 				<xsl:value-of select="@assoName"/>
@@ -54,8 +57,11 @@
 					<xsl:text>, </xsl:text>
 				</xsl:if>
 			</xsl:for-each>
+		</xsl:if>
+		<xsl:if test="position() = last()">
 			<xsl:text>]</xsl:text>
 		</xsl:if>
+		
 	</xsl:template>
 
 	<xsl:template match="action" mode="genereAction">
