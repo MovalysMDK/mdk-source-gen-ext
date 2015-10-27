@@ -55,12 +55,16 @@
 	
 	<!-- mdk widgets -->
 	<xsl:include href="ui/layout/mdkwidget/richedittext.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richcheckbox.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richdate.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richdatetime.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richemail.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richphone.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richspinner.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richenumview.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richseekbar.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richswitch.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richuri.xsl"/>
 	
 	<!-- custom widgets -->
 	<xsl:include href="ui/custom-components.xsl"/>

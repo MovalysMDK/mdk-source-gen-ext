@@ -18,10 +18,10 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:output method="xml" indent="yes"/>
+<xsl:output method="xml" indent="yes"/>
 
 <!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichDate']" 
+<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichUri']" 
 	mode="componentAttributes">
 	<xsl:apply-templates select="." mode="standard-alignment"/>
 	<xsl:apply-templates select="." mode="view-focusable"/>

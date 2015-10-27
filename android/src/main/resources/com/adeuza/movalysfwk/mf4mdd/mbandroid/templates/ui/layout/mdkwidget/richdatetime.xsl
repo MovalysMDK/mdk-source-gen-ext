@@ -21,7 +21,7 @@
 <xsl:output method="xml" indent="yes"/>
 
 <!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichDate']" 
+<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime']" 
 	mode="componentAttributes">
 	<xsl:apply-templates select="." mode="standard-alignment"/>
 	<xsl:apply-templates select="." mode="view-focusable"/>
