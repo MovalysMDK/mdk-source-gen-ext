@@ -157,6 +157,7 @@
 					<parameter-prefix></parameter-prefix>
 					<return-prefix></return-prefix>
 					<sql-type>STRING</sql-type>
+					<default-options>_L255</default-options>
 					<sql-compare>=</sql-compare>
 					<get-accessor-prefix></get-accessor-prefix>
 					<set-accessor-prefix></set-accessor-prefix>
