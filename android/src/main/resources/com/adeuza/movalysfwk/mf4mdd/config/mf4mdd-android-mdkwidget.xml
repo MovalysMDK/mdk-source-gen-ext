@@ -98,12 +98,12 @@
 				<ui-type uml-name="CheckBox">
 					<read-write>
 						<view-model-type>Boolean</view-model-type>
-						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichCheckBox
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox
 						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Boolean</view-model-type>
-						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichCheckBox
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox
 						</language-type>
 					</read-only>
 				</ui-type>
