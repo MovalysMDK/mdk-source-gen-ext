@@ -15,6 +15,7 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.w8.xmodele;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,8 @@ import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MFViewModel;
 
 public class MF4WViewModel extends MFViewModel {
 
+	private List<MF4WNavigation> navigations = new ArrayList<>();;
+
 	public MF4WViewModel(String p_sName, String p_sUmlName,
 			MPackage p_oPackage, ViewModelType p_sType,
 			MEntityImpl p_oEntityToUpdate, String p_sPath,
@@ -36,11 +39,19 @@ public class MF4WViewModel extends MFViewModel {
 				p_bCustomizable, p_oMapping);
 	}
 
+	public void addNavigation(MF4WNavigation navigation) {
+		this.navigations.add(navigation);
+	}
+
+	public List<MF4WNavigation> getNavigations() {
+		return this.navigations;
+	}
+
 	@Override
 	public Element toXml() {
 		Element r_xViewModel = super.toXml();
 		
-		Element xMapping = (Element) r_xViewModel.element("mapping");
+		Element xMapping = r_xViewModel.element("mapping");
 		if ( xMapping != null ) {
 			for( Element xElem : (List<Element>) xMapping.elements("entity")) {
 				if ( "vmlist".equals(xElem.attributeValue("mapping-type"))) {
@@ -50,6 +61,12 @@ public class MF4WViewModel extends MFViewModel {
 				}
 			}
 		}
+
+		Element xNavigations = r_xViewModel.addElement("navigations");
+		for (MF4WNavigation oNavigation : this.navigations) {
+			xNavigations.add(oNavigation.toXml());
+		}
+
 		return r_xViewModel;
 	}
 }

@@ -265,6 +265,7 @@
 	<xsl:text>using mdk_common.Controller;</xsl:text>
 	<xsl:text>using mdk_common.MFAction;</xsl:text>
 	<xsl:text>using mdk_common.Model;</xsl:text>
+	<xsl:text>using mdk_common.Navigation;</xsl:text>
 	<xsl:text>using mdk_common.ViewModel;</xsl:text>
 	<xsl:text>using System;</xsl:text>
 	<xsl:text>using System.Collections.Generic;</xsl:text>
@@ -273,6 +274,7 @@
 	<xsl:text>using System.Linq;</xsl:text>
 	<xsl:text>using System.Text;</xsl:text>
 	<xsl:text>using System.Threading.Tasks;</xsl:text>
+	<xsl:text>using System.Windows.Input;</xsl:text>
 	<xsl:text>using System.Xml.Serialization;</xsl:text>
 	<xsl:text>&#13;</xsl:text>
 </xsl:template>

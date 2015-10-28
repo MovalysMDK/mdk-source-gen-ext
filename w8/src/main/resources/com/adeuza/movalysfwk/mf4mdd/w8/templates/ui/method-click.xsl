@@ -96,20 +96,14 @@
 </xsl:template>
 
 <xsl:template match="button[@type='NAVIGATION']" mode="method-click-usercontrol">
-<!-- <xsl:if test="@type='NAVIGATION'"> -->
-<xsl:text>&#13;private void </xsl:text><xsl:value-of select="navigation/target/name"/><xsl:text>_Click(object sender, RoutedEventArgs e)</xsl:text>
-<xsl:text>&#13;</xsl:text>
-<xsl:text>{</xsl:text>
-		<xsl:call-template name="non-generated-bloc">
-			<xsl:with-param name="blocId">before-<xsl:value-of select="navigation/target/name"/>-method</xsl:with-param>
-			<xsl:with-param name="defaultSource"></xsl:with-param>
+	<xsl:text>&#13;private void </xsl:text><xsl:value-of select="navigation/target/name"/><xsl:text>_Click(object sender, RoutedEventArgs e)</xsl:text>
+	<xsl:text>&#13;</xsl:text>
+	<xsl:text>{</xsl:text>
+	<xsl:call-template name="non-generated-bloc">
+		<xsl:with-param name="blocId">before-<xsl:value-of select="navigation/target/name"/>-method</xsl:with-param>
+		<xsl:with-param name="defaultSource"></xsl:with-param>
 		</xsl:call-template>
-
-<xsl:if test="../../../navigationsV2/navigationV2[@type = 'MASTER_DETAIL']">
-	<xsl:value-of select="../../../navigationsV2/navigationV2[@type = 'MASTER_DETAIL']/source/component-name-capitalized"/><xsl:text>_AddItem(sender, e);&#13;</xsl:text>
-</xsl:if>               
-<xsl:text>&#13;}&#13;</xsl:text>
-<!-- </xsl:if> -->
+	<xsl:text>&#13;}&#13;</xsl:text>
 </xsl:template>
 
 <xsl:template match="button" mode="method-click-usercontrol-event">

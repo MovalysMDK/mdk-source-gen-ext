@@ -806,7 +806,7 @@
 				</extractor>
 				<extractor class="com.a2a.adjava.uml2xmodele.extractors.DaoExtractor"/>
 				<extractor class="com.a2a.adjava.uml2xmodele.extractors.ViewModelExtractor">
-					<property name="stereotypes" value="Mm_panel,Mm_panellist,Mm_panellist2,Mm_panellist3"/>
+					<property name="stereotypes" value="Mm_screenroot,Mm_screen,Mm_panel,Mm_panellist,Mm_panellist2,Mm_panellist3"/>
 					<property name="stereotypes-usage-viewmodel2model" value="Mm_model"/>
 					<property name="customizable-stereotypes" value="Mm_customizable"/>
 				</extractor>
@@ -899,6 +899,7 @@
 						__________________________________ -->
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenCSGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.MF4WExtendedSplashScreenGenerator"/>
 					</resource-generators>
 				</project>
 				<project name="store" base-dir="${mainProject}">
@@ -911,6 +912,7 @@
 						__________________________________ -->
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenCSGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.MF4WExtendedSplashScreenGenerator"/>
 					</resource-generators>
 				</project>
 				<project name="shared" base-dir="${mainProject}">

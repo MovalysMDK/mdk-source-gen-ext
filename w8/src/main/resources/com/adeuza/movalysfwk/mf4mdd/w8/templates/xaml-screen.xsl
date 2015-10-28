@@ -230,7 +230,10 @@
 		<xsl:value-of select="name"/>
 		<xsl:text>" Grid.Row="</xsl:text>
 		<xsl:value-of select="position()"/>
-		<xsl:text>" Grid.ColumnSpan="2"&#47;&gt;</xsl:text>
+		<xsl:text>" Grid.ColumnSpan="2"</xsl:text>
+		<xsl:text> DataContext="{Binding </xsl:text>
+		<xsl:value-of select="viewmodel/name"/>
+		<xsl:text>}" &#47;&gt;</xsl:text>
 	</xsl:template>
 				
 	<xsl:template match="page" mode="declare-grid-row" >

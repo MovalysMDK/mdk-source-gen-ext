@@ -91,7 +91,7 @@ public class PropertiesGenerator extends AbstractIncrementalGenerator<MFDomain<M
 	private void addMainScreenProperty(XProject<MFDomain<MFModelDictionary, MFModelFactory>> p_oMProject) throws Exception {
 		// phone/store
 		if (p_oMProject.getDomain().getDictionnary().getMainScreen() != null) {
-			mapResource.put("mainscreen", p_oMProject.getDomain().getDictionnary().getMainScreen().getFullName());
+			mapResource.put("mainscreen", p_oMProject.getDomain().getDictionnary().getMainScreen().getViewModel().getName());
 		}
 	}
 		

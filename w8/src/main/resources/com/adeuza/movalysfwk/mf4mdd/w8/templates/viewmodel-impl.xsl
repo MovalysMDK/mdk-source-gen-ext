@@ -58,12 +58,19 @@
 	mode="generate-init-subvm" />
 	<xsl:text>_controller.AnalyzeType&lt;</xsl:text><xsl:value-of select="./name" /><xsl:text>&gt;();</xsl:text>
 	<xsl:text>PopulateValidation();</xsl:text>
-	<xsl:text>}&#13;</xsl:text>
 	<xsl:text>&#13;</xsl:text>
-	 <xsl:call-template name="non-generated-bloc">
+
+	<xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">constructor</xsl:with-param>
-	<xsl:with-param name="defaultSource"/>
+	<xsl:with-param name="defaultSource">
+		<!-- Génération des initialisations liées à la navigation -->
+		<xsl:apply-templates select="navigations/navigation" mode="navigation-constructor" />
+	</xsl:with-param>
 	</xsl:call-template>
+
+	<xsl:text>}&#13;</xsl:text>
+
+
 	<xsl:call-template name="generate-populateValidation" />
 	
 	<xsl:text>&#13;#endregion&#13;</xsl:text>
@@ -72,8 +79,11 @@
 	
 	<xsl:text>&#13;</xsl:text>	
 	
-	<xsl:apply-templates select="attribute"
-	mode="generate-attribute-get-and-set" />
+	<xsl:apply-templates select="attribute" mode="generate-attribute-get-and-set" />
+
+	<!-- Génération des propriétés liées à la navigation -->
+	<xsl:apply-templates select="navigations/navigation" mode="navigation-properties" />
+
 	<xsl:text>&#13;</xsl:text>	
 	<xsl:apply-templates select="subvm/viewmodel"
 	mode="generate-subvm-get-and-set" />
@@ -120,6 +130,9 @@
 	<xsl:text>&#13;#endregion&#13;</xsl:text>
 	
 	<xsl:text>&#13;#region Methods&#13;</xsl:text>
+
+	<!-- Génération des méthodes liées à la navigation -->
+	<xsl:apply-templates select="navigations/navigation" mode="navigation-methods" />
 	
 	<xsl:apply-templates select="." mode="generate-deepCopy" />
 	
@@ -510,5 +523,57 @@
 	<xsl:text> = viewModelCreator.create</xsl:text><xsl:value-of select="implements/interface/@name"/>
 	<xsl:text>();&#13;</xsl:text>
 </xsl:template>
+
+
+	<xsl:template match="navigation" mode="navigation-constructor">
+		<!-- Property for a button navigation. Generate a command -->
+		<xsl:if test="@type='NAVIGATION'">
+			<xsl:value-of select="target/vm-name"/>
+			<xsl:text>NavigationCommand = new MDKDelegateCommand(Execute</xsl:text>
+			<xsl:value-of select="target/vm-name"/>
+			<xsl:text>Navigation);&#13;</xsl:text>
+		</xsl:if>
+	</xsl:template>
+
+	<xsl:template match="navigation" mode="navigation-properties">
+		<!-- Property for a button navigation. Generate a command -->
+		<xsl:if test="@type='NAVIGATION'">
+			<xsl:text>private ICommand vm</xsl:text>
+			<xsl:value-of select="target/vm-name"/>
+			<xsl:text>NavigationCommand;&#13;</xsl:text>
+
+			<xsl:text>/// &lt;summary&gt;
+				/// Command that navigates to</xsl:text>
+			<xsl:value-of select="target/vm-name"/>
+			<xsl:text>.&#13;/// &lt;/summary&gt;</xsl:text>
+			<xsl:text>&#13;public ICommand </xsl:text>
+			<xsl:value-of select="target/vm-name"/>
+			<xsl:text>NavigationCommand&#13;</xsl:text>
+			<xsl:text>{&#13;</xsl:text>
+			<xsl:text>get;&#13;</xsl:text>
+			<xsl:text>set;&#13;</xsl:text>
+			<xsl:text>}&#13;</xsl:text>
+		</xsl:if>
+	</xsl:template>
+
+	<xsl:template match="navigation" mode="navigation-methods">
+		<!-- Property for a button navigation. Generate a command -->
+		<xsl:if test="@type='NAVIGATION'">
+			<xsl:text>&#13;public void Execute</xsl:text>
+			<xsl:value-of select="target/vm-name"/>
+			<xsl:text>Navigation(Object parameter)&#13;</xsl:text>
+			<xsl:text>{&#13;</xsl:text>
+			<xsl:call-template name="non-generated-bloc">
+				<xsl:with-param name="blocId">Execute<xsl:value-of select="target/vm-name"/>Navigation-method</xsl:with-param>
+				<xsl:with-param name="defaultSource">
+					<xsl:text>IMDKNavigationService navigationService = ClassLoader.GetInstance().GetBean&lt;IMDKNavigationService&gt;();&#13;</xsl:text>
+					<xsl:text>navigationService.Navigate("</xsl:text>
+					<xsl:value-of select="target/vm-name"/>
+					<xsl:text>");&#13;</xsl:text>
+				</xsl:with-param>
+			</xsl:call-template>
+			<xsl:text>}&#13;</xsl:text>
+		</xsl:if>
+	</xsl:template>
 
 </xsl:stylesheet>

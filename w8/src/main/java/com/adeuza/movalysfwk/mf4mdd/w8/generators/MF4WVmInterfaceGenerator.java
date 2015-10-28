@@ -33,7 +33,6 @@ import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WImportDelegate;
 public class MF4WVmInterfaceGenerator extends VMInterfaceGenerator {
 
 	private static String PARAMETER_VIEWMODEL_HAS_SUBLIST_KEY = "hasSublist";
-	private static String IMPORT_VIEW_MODEL_WITH_SUBLIST_PROTOCOL = "MFBaseViewModelWithSublistProtocol";
 
 	/**
 	 * {@inheritDoc}
@@ -57,17 +56,6 @@ public class MF4WVmInterfaceGenerator extends VMInterfaceGenerator {
 		for(MViewModelImpl oExtVM : oVm.getExternalViewModels())
 		{
 			oImportDlg.addImport(MW8ImportDelegate.MW8ImportCategory.VIEWMODEL.name(), oExtVM.getPackage().getFullName());
-			if ( oExtVM.getType().equals(ViewModelType.LIST_1__ONE_SELECTED )) {
-//				ViewModelTypeConfiguration clonedVMTypeConf= ViewModelType.LIST_1__ONE_SELECTED.getVMTypeOptionMap().get(oExtVM.getConfigName());	
-//				oImportDlg.addImport(MW8ImportDelegate.MW8ImportCategory.VIEWMODEL.name(), clonedVMTypeConf.getInterfaceFullName());
-			}
-		}
-
-		
-		for( MAttribute oAttr : p_oMViewModel.getAttributes()) {
-			if ( oAttr.isEnum()) {
-				//oImportDlg.addImport(MW8ImportDelegate.MW8ImportCategory.ENTITIES.name(), oAttr.getTypeDesc().getName());
-			}
 		}
 		
 		for( MViewModelImpl oSubVm : oVm.getSubViewModels()) {

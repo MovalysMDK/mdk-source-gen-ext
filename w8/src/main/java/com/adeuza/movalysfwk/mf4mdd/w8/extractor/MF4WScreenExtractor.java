@@ -17,14 +17,37 @@ package com.adeuza.movalysfwk.mf4mdd.w8.extractor;
 
 import com.a2a.adjava.uml.UmlDictionary;
 import com.a2a.adjava.uml2xmodele.extractors.ScreenExtractor;
+import com.a2a.adjava.uml2xmodele.extractors.viewmodel.VMNamingHelper;
+import com.a2a.adjava.utils.StrUtils;
+import com.a2a.adjava.xmodele.IModelDictionary;
+import com.a2a.adjava.xmodele.MScreen;
+import com.a2a.adjava.xmodele.MViewModelImpl;
+import org.apache.commons.lang3.StringUtils;
 
 public class MF4WScreenExtractor extends ScreenExtractor {
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	protected void treatScreenRelations(UmlDictionary p_oUmlDict) throws Exception {
-		MF4WScreenDependencyProcessor.getInstance().treatScreenRelations(this.screenContext, p_oUmlDict );
-	}	
+
+		// First bind each screen to its viewmodel
+		IModelDictionary oDictionary = this.screenContext.getDomain().getDictionnary();
+		String sSubPackageName = this.screenContext.getDomain().getLanguageConf().getViewModelImplementationSubPackageName();
+		for (MScreen oScreen : oDictionary.getAllScreens()) {
+			String sVmFullName = VMNamingHelper.getInstance().computeViewModelImplName(oScreen.getUmlName(), false,
+					this.screenContext.getDomain().getLanguageConf());
+			if ( sSubPackageName != null && !sSubPackageName.isEmpty()) {
+				sVmFullName = StringUtils.join(sSubPackageName, StrUtils.DOT_S, sVmFullName);
+			}
+			sVmFullName = StringUtils.join(oScreen.getPackage().getFullName(), StrUtils.DOT_S, sVmFullName);
+
+			MViewModelImpl oVm = oDictionary.getViewModel(sVmFullName);
+			oVm.setScreenViewModel(true);
+			oScreen.setViewModel(oVm);
+		}
+		// Treat screen relations
+		MF4WScreenDependencyProcessor.getInstance().treatScreenRelations(this.screenContext, p_oUmlDict);
+	}
 }

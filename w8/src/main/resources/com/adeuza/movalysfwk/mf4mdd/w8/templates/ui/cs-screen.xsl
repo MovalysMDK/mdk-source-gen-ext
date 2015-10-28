@@ -73,7 +73,6 @@
 		<xsl:text>public </xsl:text><xsl:value-of select="name" /><xsl:text> ()</xsl:text>
 		<xsl:text>{</xsl:text>
 		<xsl:text>this.InitializeComponent();</xsl:text>
-		<xsl:text>GC.Collect();&#13;</xsl:text>
 
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">constructor</xsl:with-param>
@@ -84,10 +83,6 @@
 		<xsl:text>&#13;#endregion&#13;</xsl:text>
 
 		<xsl:text>&#13;#region Methods&#13;</xsl:text>
-
-		<xsl:for-each select="layout/buttons/button">
-			<xsl:apply-templates select="." mode="method-click" />
-		</xsl:for-each>
 
 		<xsl:if test="menus">
 			<xsl:text disable-output-escaping="yes"><![CDATA[

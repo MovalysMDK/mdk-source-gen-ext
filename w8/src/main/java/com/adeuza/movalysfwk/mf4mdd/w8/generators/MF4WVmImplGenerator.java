@@ -85,13 +85,8 @@ public class MF4WVmImplGenerator extends VMImplGenerator {
 		if ( oVm.getDataLoader() != null ||
 				oVm.getType() == ViewModelType.LISTITEM_2 ||
 				oVm.getType() == ViewModelType.LISTITEM_3) {
-			//oImportDlg.addImport(MW8ImportDelegate.MW8ImportCategory.VIEWMODEL.name(), p_oProject.getDomain().getDictionnary().getViewModelCreator().getPackage().getFullName());
-			if(oVm.getDataLoader() != null) {
-				oImportDlg.addImport(MF4WImportDelegate.MF4WImportCategory.DATALOADER.name(), oVm.getDataLoader().getPackage().getFullName());
-			}
+			oImportDlg.addImport(MF4WImportDelegate.MF4WImportCategory.DATALOADER.name(), oVm.getDataLoader().getPackage().getFullName());
 		}
-
-
 
 		for( MViewModelImpl oSubVm : oVm.getSubViewModels()) {
 			// for fixed list	

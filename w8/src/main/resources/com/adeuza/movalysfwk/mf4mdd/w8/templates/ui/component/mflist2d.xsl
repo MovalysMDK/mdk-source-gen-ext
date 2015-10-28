@@ -40,17 +40,6 @@
 				<xsl:value-of select="../../buttons/button[@type='NAVIGATION']/navigation/target/name"/><xsl:text>_Click</xsl:text>
 				<xsl:text>"</xsl:text>
 			</xsl:if>
-			<xsl:if test="../../navigationsV2/navigationV2">
-				<xsl:text> mf:SelectionChanged="</xsl:text>
-				<xsl:value-of select="../../navigationsV2/navigationV2[@type='MASTER_DETAIL']/source/component-name-capitalized"/>
-				<xsl:text>_SelectionChanged"</xsl:text>
-				<xsl:text> mf:AddClick="</xsl:text>
-				<xsl:value-of select="../../navigationsV2/navigationV2[@type='MASTER_DETAIL']/source/component-name-capitalized"/>
-				<xsl:text>_AddItem"</xsl:text>
-				<xsl:text> mf:DeleteClick="</xsl:text>
-				<xsl:value-of select="../../navigationsV2/navigationV2[@type='MASTER_DETAIL']/source/component-name-capitalized"/>
-				<xsl:text>_DeleteItem"</xsl:text>
-			</xsl:if>
 		</xsl:if>
 		<xsl:text> mf:OpenTemplate="{StaticResource </xsl:text>
 		<xsl:value-of select="../../adapter/layouts/layout[@id = 'listitem2_open']/name" />

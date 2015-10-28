@@ -55,20 +55,7 @@
 	<xsl:if test="(/layout/parameters/parameter[@name='vmtype']='LIST_1' and /layout/in-workspace = 'false') or not(/layout/buttons/button[@type = 'NAVIGATION'])">
 	<xsl:text> ButtonAddVisibility="Collapsed"</xsl:text>
 	</xsl:if>
-	
-	
-	<xsl:if test="./parameters/parameter[@name='master']='true'">
-		<xsl:if test="../../navigations/navigation">
-			<xsl:text> AddClick="</xsl:text>
-			<xsl:value-of select="../../navigations/navigation[@type='NAVIGATION_DETAIL']/sourcePage/name"/>
-			<xsl:text>_AddItem"</xsl:text>
-		</xsl:if>
-		<xsl:if test="../../search-template">
-			<xsl:text> SearchClick="</xsl:text>
-			<xsl:value-of select="./name"/><xsl:text>_SearchClick</xsl:text>
-			<xsl:text>"</xsl:text>
-		</xsl:if>
-	</xsl:if>
+
 	<xsl:text> mf:ItemTemplate="{StaticResource </xsl:text>
 	<xsl:value-of select="../../adapter/layouts/layout[@id = 'listitem1']/name" />
 	<xsl:text>}"</xsl:text>

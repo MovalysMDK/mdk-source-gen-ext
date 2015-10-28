@@ -15,9 +15,12 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.w8.xmodele;
 
+import com.a2a.adjava.utils.ToXmlUtils;
 import com.a2a.adjava.xmodele.MScreen;
+import com.a2a.adjava.xmodele.MViewModelImpl;
 import com.a2a.adjava.xmodele.ui.navigation.MNavigation;
 import com.a2a.adjava.xmodele.ui.navigation.MNavigationType;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 /**
@@ -41,12 +44,40 @@ public class MF4WNavigation extends MNavigation {
 	 */
 	@Override
 	public Element toXml() {
-		Element r_xElement = super.toXml();
+		Element r_xElem = DocumentHelper.createElement("navigation");
+		r_xElem.addAttribute("type", this.getNavigationType().name());
+		r_xElem.addAttribute("name", this.getName());
+
+		if (this.getTarget() != null) {
+			r_xElem.addAttribute("internal", Boolean.toString(this.getTarget().equals(this.getSource())));
+		} else {
+			r_xElem.addAttribute("internal", Boolean.toString(false));
+		}
+
+		Element xSource = r_xElem.addElement("source");
+		xSource.addElement("name").setText(this.getSource().getName());
+		xSource.addElement("name-lowercase").setText(this.getSource().getName().toLowerCase());
+		xSource.addElement("full-name").setText(this.getSource().getFullName());
+		ToXmlUtils.addImplements(xSource, this.getSource().getMasterInterface());
+
+		Element xTarget = r_xElem.addElement("target");
+		if (this.getTarget() != null) {
+			xTarget.addElement("name").setText(this.getTarget().getName());
+			xTarget.addElement("vm-name").setText(this.getTarget().getViewModel().getName());
+			xTarget.addElement("name-lc").setText(this.getTarget().getName().toLowerCase());
+			xTarget.addElement("full-name").setText(this.getTarget().getFullName());
+
+			if ( this.getTargetPageIdx() != -1 ) {
+				xTarget.addElement("page-idx").setText(Integer.toString(this.getTargetPageIdx()));
+			}
+			ToXmlUtils.addImplements(xTarget, this.getTarget().getMasterInterface());
+		}
+
 		if (this.getSourcePage() != null) {
-			Element sourcePageElt = r_xElement.addElement("sourcePage");
+			Element sourcePageElt = r_xElem.addElement("sourcePage");
 			sourcePageElt.addElement("name")
 				.setText(this.getSourcePage().getName());
 		}
-		return r_xElement;
+		return r_xElem;
 	}
 }

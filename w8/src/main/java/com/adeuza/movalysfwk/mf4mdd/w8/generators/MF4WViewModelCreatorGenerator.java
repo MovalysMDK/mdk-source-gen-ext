@@ -111,12 +111,10 @@ public class MF4WViewModelCreatorGenerator extends AbstractIncrementalGenerator<
 		
 		for (MViewModelImpl oViewModel : p_oProject.getDomain().getDictionnary().getAllViewModels())
 		{
-			if(!oViewModel.isScreenViewModel()){
-				oImportDlg.addImport(MW8ImportDelegate.MW8ImportCategory.VIEWMODEL.name(), oViewModel.getPackage().getFullName());
-				MDataLoader oDataLoader = ((MFViewModel)oViewModel).getDataLoader();
-				if(oDataLoader != null){
-					oImportDlg.addImport(MF4WImportDelegate.MF4WImportCategory.DATALOADER.name(), oDataLoader.getPackage().getFullName());
-				}
+			oImportDlg.addImport(MW8ImportDelegate.MW8ImportCategory.VIEWMODEL.name(), oViewModel.getPackage().getFullName());
+			MDataLoader oDataLoader = ((MFViewModel)oViewModel).getDataLoader();
+			if(oDataLoader != null){
+				oImportDlg.addImport(MF4WImportDelegate.MF4WImportCategory.DATALOADER.name(), oDataLoader.getPackage().getFullName());
 			}
 		}
 		
@@ -148,12 +146,10 @@ public class MF4WViewModelCreatorGenerator extends AbstractIncrementalGenerator<
 		
 		for (MViewModelImpl oViewModel : p_oProject.getDomain().getDictionnary().getAllViewModels())
 		{
-			if(!oViewModel.isScreenViewModel()){
-				oImportDlg.addImport(MW8ImportDelegate.MW8ImportCategory.VIEWMODEL.name(), oViewModel.getPackage().getFullName());
-				MDataLoader oDataLoader = ((MFViewModel)oViewModel).getDataLoader();
-				if(oDataLoader != null){
-					oImportDlg.addImport(MF4WImportDelegate.MF4WImportCategory.DATALOADER.name(), oDataLoader.getPackage().getFullName());
-				}
+			oImportDlg.addImport(MW8ImportDelegate.MW8ImportCategory.VIEWMODEL.name(), oViewModel.getPackage().getFullName());
+			MDataLoader oDataLoader = ((MFViewModel)oViewModel).getDataLoader();
+			if(oDataLoader != null){
+				oImportDlg.addImport(MF4WImportDelegate.MF4WImportCategory.DATALOADER.name(), oDataLoader.getPackage().getFullName());
 			}
 		}
 		xViewModelDoc.getRootElement().add(oImportDlg.toXml());
