@@ -33,9 +33,4 @@ public enum Widget implements ItfWidget {
 		return this.version;
 	}
 
-	@Override
-	public ItfWidget getLastWidget() {
-		return MDK_WIDGET;
-	}
-
 }
