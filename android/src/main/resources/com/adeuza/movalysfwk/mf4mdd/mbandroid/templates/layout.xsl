@@ -200,6 +200,39 @@
 				</xsl:apply-templates>
 				<xsl:apply-templates select="buttons/button[@type!='NAVIGATION']"/>
 			</xsl:when>
+			<xsl:when test="widget-variant='mdkwidget' and (parameters/parameter[@name='vmtype']='LIST_1' or parameters/parameter[@name='vmtype']='LIST_2' or parameters/parameter[@name='vmtype']='LIST_3')">
+				<android.support.design.widget.CoordinatorLayout
+				    android:id="@+id/gpanellistpanel__screenlist1__master"
+				    android:layout_height="match_parent"
+				    android:layout_width="match_parent"
+				    xmlns:android="http://schemas.android.com/apk/res/android"
+				    xmlns:mdk="http://schemas.android.com/apk/res-auto" xmlns:movalys="http://www.adeuza.com/movalys/mm/android">
+				    
+				<xsl:if test="$addtitle != ''">
+					<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSectionTitle
+						android:layout_width="match_parent" 
+						android:layout_height="wrap_content" 
+						android:gravity="center" 
+						style="?attr/SectionTitle">
+						<xsl:attribute name="android:id">@+id/<xsl:value-of select="$addtitle"/></xsl:attribute>
+						<xsl:attribute name="android:text">@string/<xsl:value-of select="$addtitle"/></xsl:attribute>
+					</com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSectionTitle>				
+				</xsl:if>
+				<xsl:apply-templates select="buttons/button[@type='NAVIGATION']"/>
+				<xsl:apply-templates select="visualfields/visualfield">
+					<xsl:with-param name="titleId"><xsl:value-of select="$addtitle"/></xsl:with-param>
+				</xsl:apply-templates>
+				<xsl:apply-templates select="buttons/button[@type!='NAVIGATION']"/>
+					
+					<android.support.design.widget.FloatingActionButton
+				        android:id="@+id/fab"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_gravity="bottom|end"
+				        android:src="@android:drawable/ic_menu_add"/>
+					
+				</android.support.design.widget.CoordinatorLayout>
+			</xsl:when>
 			<xsl:otherwise>
 				<RelativeLayout
 					xmlns:android="http://schemas.android.com/apk/res/android" 

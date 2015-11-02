@@ -73,6 +73,7 @@ public class PanelGenerator extends AbstractIncrementalGenerator<IDomain<IModelD
 		Element r_xFile = p_oPage.toXml();
 		log.debug("  >> adding Element :<master-package>"+p_oMProject.getDomain().getRootPackage()+"</>");
 		r_xFile.addElement("master-package").setText(p_oMProject.getDomain().getRootPackage());
+		r_xFile.addElement("widget-variant").setText(VersionHandler.getWidgetVariant().getStringWidget());
 		if (p_oScreen.isWorkspace()) {
 			r_xFile.addElement("screen-class").setText(p_oScreen.getName());
 			r_xFile.addElement("screen-class-fullname").setText(p_oScreen.getFullName());

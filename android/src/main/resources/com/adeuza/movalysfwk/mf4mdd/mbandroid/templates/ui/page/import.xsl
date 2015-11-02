@@ -100,6 +100,11 @@
 			<import><xsl:value-of select="layout/visualfields/visualfield[parameters/parameter/@name='dialog']/component" /></import>
 		</xsl:if>
 	
+		<xsl:if test="widget-variant='mdkwidget' and (./viewmodel/type/name='LIST_1' or ./viewmodel/type/name='LIST_2' or ./viewmodel/type/name='LIST_3')">
+			<import>android.content.Intent</import>
+			<import>android.view.View</import>
+		</xsl:if>
+	
 	</xsl:template>
 
 	<xsl:template match="page" mode="methods-import">

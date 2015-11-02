@@ -49,6 +49,33 @@
 	<xsl:template match="page/adapter[viewmodel/type[name='LIST_1' or name='LIST_2' or name='LIST_3']]" mode="doAfterInflate-method">
 		<!-- TODO : ajouter la gestion des external-lists (cf fixedlist, add-reference-to) -->
 		<!-- viewmodel/subvm/viewmodel[type/name='LISTITEM_1']/external-lists -->
+		<xsl:if test="/page/widget-variant='mdkwidget'">
+			<xsl:if test="layouts/layout/buttons/button[@type='NAVIGATION']">
+			p_oRoot.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				<xsl:call-template name="non-generated-bloc">
+					<xsl:with-param name="blocId">doOnFabClick</xsl:with-param>
+					<xsl:with-param name="defaultSource">
+						<xsl:text>Intent oIntent = new Intent(</xsl:text>
+						<xsl:value-of select="/page/name"/>
+						<xsl:text>.this.getActivity(), </xsl:text>
+						<xsl:value-of select="layouts/layout/buttons/button[@type='NAVIGATION']/navigation/target/name"/>
+						<xsl:text>.class);&#13;</xsl:text>
+						<xsl:text>oIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);&#13;</xsl:text>
+						<xsl:value-of select="/page/name"/>
+						<xsl:text>.this.getActivity().startActivityForResult(oIntent, </xsl:text>
+						<xsl:value-of select="layouts/layout/buttons/button[@type='NAVIGATION']/navigation/target/name"/>
+						<xsl:text>.</xsl:text>
+						<xsl:value-of select="layouts/layout/buttons/button[@type='NAVIGATION']/navigation/target/request-code"/>
+						<xsl:text>);&#13;</xsl:text>
+					</xsl:with-param>
+	 			</xsl:call-template>
+	 			}
+			});
+			</xsl:if>
+		</xsl:if>
+		
 	</xsl:template>
 
 	<!-- ##########################################################################################

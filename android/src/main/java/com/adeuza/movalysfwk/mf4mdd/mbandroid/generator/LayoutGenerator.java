@@ -101,6 +101,8 @@ public class LayoutGenerator extends AbstractAppendGenerator<MF4ADomain<MF4ADict
 				
 				File oTargetFile = new File(p_oMProject.getLayoutDir(), sLayoutFileName);
 				
+				x.addElement("widget-variant").setText(VersionHandler.getWidgetVariant().getStringWidget());
+				
 				Document xDoc = DocumentHelper.createDocument(x);
 				log.debug("  generate layout file {}", oTargetFile.getPath());
 				

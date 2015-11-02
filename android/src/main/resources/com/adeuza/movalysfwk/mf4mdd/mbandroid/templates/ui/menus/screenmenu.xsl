@@ -124,23 +124,30 @@
 		</xsl:when>
 		<!-- case actions menu -->
 		<xsl:when test="target/name and ../../@id">
-			/**
-			 * Listener du menu contextuel d'id <xsl:value-of select="../../@id"/> 
-			 */
-			<xsl:call-template name="non-generated-bloc">
-				<xsl:with-param name="blocId">onMenuItem<xsl:value-of select="../../@id"/></xsl:with-param>
-				<xsl:with-param name="defaultSource">
-					@ListenerOnMenuItemClick(R.id.<xsl:value-of select="../../@id"/>)
-				</xsl:with-param>
-			</xsl:call-template>
-			public void launch<xsl:value-of select="target/name"/><xsl:value-of select="$suffix"/>() {
-			<xsl:call-template name="non-generated-bloc">
-				<xsl:with-param name="blocId">onMenuItem<xsl:value-of select="target/name"/></xsl:with-param>
-				<xsl:with-param name="defaultSource">
-					<xsl:apply-templates select="."/>
-				</xsl:with-param>
-			</xsl:call-template>
-			}
+<!-- 			<xsl:choose> -->
+<!-- 			<xsl:when test="@type='NAVIGATION_WKS_SWITCHPANEL' and /screen/widget-variant='mdkWidget'"> -->
+			
+<!-- 			</xsl:when> -->
+<!-- 			<xsl:otherwise> -->
+<!-- 			/** -->
+<!-- 			 * Listener du menu contextuel d'id <xsl:value-of select="../../@id"/>  -->
+<!-- 			 */ -->
+<!-- 			<xsl:call-template name="non-generated-bloc"> -->
+<!-- 				<xsl:with-param name="blocId">onMenuItem<xsl:value-of select="../../@id"/></xsl:with-param> -->
+<!-- 				<xsl:with-param name="defaultSource"> -->
+<!-- 					@ListenerOnMenuItemClick(R.id.<xsl:value-of select="../../@id"/>) -->
+<!-- 				</xsl:with-param> -->
+<!-- 			</xsl:call-template> -->
+<!-- 			public void launch<xsl:value-of select="target/name"/><xsl:value-of select="$suffix"/>() { -->
+<!-- 			<xsl:call-template name="non-generated-bloc"> -->
+<!-- 				<xsl:with-param name="blocId">onMenuItem<xsl:value-of select="target/name"/></xsl:with-param> -->
+<!-- 				<xsl:with-param name="defaultSource"> -->
+<!-- 					<xsl:apply-templates select="."/> -->
+<!-- 				</xsl:with-param> -->
+<!-- 			</xsl:call-template> -->
+<!-- 			} -->
+<!-- 			</xsl:otherwise> -->
+<!-- 			</xsl:choose> -->
 		</xsl:when>
 		<xsl:when test="source/name and ../../@id">
 			<xsl:variable name="methodMiddleName">
