@@ -187,9 +187,14 @@
 			</xsl:when>
 			<xsl:when test="$tabset='0'">
 				<div>
-					<xsl:if test="@isFirstDetail='true'">
-						<xsl:attribute name="id">firstColumnScroll</xsl:attribute>
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="@isFirstDetail='true'">
+							<xsl:attribute name="id">secondColumn</xsl:attribute>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:attribute name="id">firstColumn</xsl:attribute>
+						</xsl:otherwise>
+					</xsl:choose>
 					<xsl:attribute name="class"><xsl:value-of select="../../name"/>-workspace-column </xsl:attribute>
 					<xsl:attribute name="data-snap-ignore">true</xsl:attribute>
 				    <xsl:attribute name="ui-view"><xsl:value-of select="."/></xsl:attribute>
