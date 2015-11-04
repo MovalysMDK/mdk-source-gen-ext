@@ -283,14 +283,14 @@
 				<ui-type uml-name="CheckedText">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFTextField</language-type>
+						<language-type>MDKTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFTextField</language-type>
+						<language-type>MDKTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -299,14 +299,14 @@
 				<ui-type uml-name="MFLabel">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFLabel</language-type>
+						<language-type>MDKLabel</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>21</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFLabel</language-type>
+						<language-type>MDKLabel</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>21</component-height>
 						<component-width>260</component-width>
@@ -331,14 +331,14 @@
 				<ui-type uml-name="Text">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFTextField</language-type>
+						<language-type>MDKTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>	<!-- see http://www.idev101.com/code/User_Interface/sizes.html -->
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFTextField</language-type>
+						<language-type>MDKTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -407,14 +407,14 @@
 				<ui-type uml-name="UIInteger">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFIntegerTextField</language-type>
+						<language-type>MDKIntegerTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFIntegerTextField</language-type>
+						<language-type>MDKIntegerTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -423,14 +423,14 @@
 				<ui-type uml-name="UIDouble">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFDoubleTextField</language-type>
+						<language-type>MDKDoubleTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFDoubleTextField</language-type>
+						<language-type>MDKDoubleTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -439,14 +439,14 @@
 				<ui-type uml-name="Url">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFUrlTextField</language-type>
+						<language-type>MDKUrlTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFUrlTextField</language-type>
+						<language-type>MDKUrlTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -455,14 +455,14 @@
 				<ui-type uml-name="Phone">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFPhoneTextField</language-type>
+						<language-type>MDKPhoneTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFPhoneTextField</language-type>
+						<language-type>MDKPhoneTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -471,14 +471,14 @@
 				<ui-type uml-name="Email">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFEmailTextField</language-type>
+						<language-type>MDKEmailTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFEmailTextField</language-type>
+						<language-type>MDKEmailTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
@@ -551,14 +551,14 @@
 				<ui-type uml-name="EnumImage">
 					<read-write>
 						<view-model-type>enumeration</view-model-type>
-						<language-type>MFEnumImage</language-type>
+						<language-type>MDKEnumImage</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>50</component-height><!-- see https://developer.apple.com/library/ios/documentation/userexperience/conceptual/MobileHIG/IconMatrix.html -->
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>enumeration</view-model-type>
-						<language-type>MFEnumImage</language-type>
+						<language-type>MDKEnumImage</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>50</component-height>
 						<component-width>260</component-width>
@@ -567,7 +567,7 @@
 				<ui-type uml-name="DateTime">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFDatePicker</language-type>
+						<language-type>MDKDateTime</language-type>
 						<language-type-options>
 							<datePickerMode>2</datePickerMode>
 						</language-type-options>
@@ -577,7 +577,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFDatePicker</language-type>
+						<language-type>MDKDateTime</language-type>
 						<language-type-options>
 							<datePickerMode>2</datePickerMode>
 						</language-type-options>
@@ -589,7 +589,7 @@
 				<ui-type uml-name="Date">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFDatePicker</language-type>
+						<language-type>MDKDateTime</language-type>
 						<language-type-options>
 							<datePickerMode>0</datePickerMode>
 						</language-type-options>
@@ -599,7 +599,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFDatePicker</language-type>
+						<language-type>MDKDateTime</language-type>
 						<language-type-options>
 							<datePickerMode>0</datePickerMode>
 						</language-type-options>
@@ -611,7 +611,7 @@
 				<ui-type uml-name="Slider">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFSlider</language-type>
+						<language-type>MDKSlider</language-type>
 						<language-type-options>
 							<minValue>0</minValue>
 							<maxValue>100</maxValue>
@@ -623,7 +623,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFSlider</language-type>
+						<language-type>MDKSlider</language-type>
 						<language-type-options>
 							<minValue>0</minValue>
 							<maxValue>100</maxValue>
