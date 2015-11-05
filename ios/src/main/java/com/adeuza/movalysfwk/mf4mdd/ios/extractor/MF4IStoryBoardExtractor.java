@@ -30,6 +30,6 @@ public class MF4IStoryBoardExtractor extends StoryBoardExtractor {
 	 */
 	@Override
 	protected String getLabelType() {
-		return MF4ITypes.MFLabel.name();
+		return MF4ITypes.MDKLabel.name();
 	}
 }

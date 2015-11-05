@@ -25,7 +25,7 @@ public enum MF4ITypes {
 	/**
 	 * Label type
 	 */
-	MFLabel("MFLabel"),
+	MDKLabel("MDKLabel"),
 	
 	/**
 	 * Detail form view controller type
