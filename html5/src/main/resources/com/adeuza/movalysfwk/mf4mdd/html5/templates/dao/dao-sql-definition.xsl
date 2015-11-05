@@ -40,7 +40,6 @@
 		<objc-import import="MFDaoSqlAbstract" import-in-function="MFDaoSqlAbstract" scope="local"/>
 		<objc-import import="MFUtils" import-in-function="MFUtils" scope="local"/>
 		<objc-import import="MFMappingHelper" import-in-function="MFMappingHelper" scope="local"/>
-		<objc-import import="MFDataModelCache" import-in-function="MFDataModelCache" scope="local"/>
 		
 	</xsl:template>
 	
