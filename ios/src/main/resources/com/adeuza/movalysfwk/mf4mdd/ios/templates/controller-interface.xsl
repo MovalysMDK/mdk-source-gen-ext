@@ -74,7 +74,7 @@
 </xsl:template>
 
 <xsl:template match="subView[localization = 'DEFAULT' or localization = 'DETAIL']" mode="noTable-outlets">
-	<xsl:text>@property (weak, nonatomic) IBOutlet MFLabel</xsl:text>
+	<xsl:text>@property (weak, nonatomic) IBOutlet MDKLabel</xsl:text>
 	<xsl:text> *</xsl:text>
 	<xsl:value-of select="propertyName"></xsl:value-of><xsl:text>_label_</xsl:text><xsl:value-of select="../../@name"></xsl:value-of>
 	<xsl:text>;&#13;</xsl:text>

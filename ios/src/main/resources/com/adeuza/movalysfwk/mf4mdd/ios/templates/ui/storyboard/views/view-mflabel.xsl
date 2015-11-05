@@ -23,21 +23,21 @@
 <!-- *************************************************
 *****  
 ***** ENTRY POINT:
-*****  	/storyboard/scenes/*scene/controller[@controllerType='LISTVIEW']/sections/*section/subViews/*subView[customClass='UILabel' or customClass='MFLabel']
+*****  	/storyboard/scenes/*scene/controller[@controllerType='LISTVIEW']/sections/*section/subViews/*subView[customClass='UILabel' or customClass='MDKLabel']
 *****  	or
-*****  	/xib-container/components/*component[customClass='UILabel' or customClass='MFLabel']
+*****  	/xib-container/components/*component[customClass='UILabel' or customClass='MDKLabel']
 *****  
 ****************************************************** -->
 
-<xsl:template match="subView[customClass='UILabel' or customClass='MFLabel']|component[customClass='UILabel' or customClass='MFLabel']" mode="subview-runtimeAttributes-generation" priority="1000">
-	<xsl:comment>"subView[customClass='UILabel' or customClass='MFLabel']" mode="subview-runtimeAttributes-generation"</xsl:comment>
+<xsl:template match="subView[customClass='UILabel' or customClass='MDKLabel']|component[customClass='UILabel' or customClass='MDKLabel']" mode="subview-runtimeAttributes-generation" priority="1000">
+	<xsl:comment>"subView[customClass='UILabel' or customClass='MDKLabel']" mode="subview-runtimeAttributes-generation"</xsl:comment>
 	
 	
 </xsl:template>
 
 
-<xsl:template match="subView[customClass='UILabel' or customClass='MFLabel']|component[customClass='UILabel' or customClass='MFLabel']" mode="subview-outlets-generation"  priority="1000">
-	<xsl:comment>subView|component[customClass='UILabel' or customClass='MFLabel']" mode="subview-outlets-generation"</xsl:comment>
+<xsl:template match="subView[customClass='UILabel' or customClass='MDKLabel']|component[customClass='UILabel' or customClass='MDKLabel']" mode="subview-outlets-generation"  priority="1000">
+	<xsl:comment>subView|component[customClass='UILabel' or customClass='MDKLabel']" mode="subview-outlets-generation"</xsl:comment>
 		<!--  xsl:if test="$controllerId!=''">
 			<outlet property="delegate">
 				<xsl:attribute name="id"><xsl:value-of select="@id"/>-<xsl:value-of select="customClass"/>-SOD</xsl:attribute>

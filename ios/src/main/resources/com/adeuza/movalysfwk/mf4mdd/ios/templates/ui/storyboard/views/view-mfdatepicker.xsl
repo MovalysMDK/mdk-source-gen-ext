@@ -110,7 +110,7 @@
 	<xsl:param name="controllerId"/>
 	<xsl:param name="posY"/>
 
-	<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" customClass="MFLabel">
+	<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" customClass="MDKLabel">
 		<xsl:attribute name="id"><xsl:value-of select="@id"/>-L</xsl:attribute>
 	 	<constraints>
         	<constraint firstAttribute="height" constant="21">

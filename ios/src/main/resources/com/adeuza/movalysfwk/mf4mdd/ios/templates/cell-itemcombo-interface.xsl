@@ -64,7 +64,7 @@
 
 <xsl:template match="subView[customClass]|component[customClass]" mode="propertiesForCellInterface">
 
-	@property (strong, nonatomic) IBOutlet MFLabel *<xsl:value-of select="./propertyName"/>Label<xsl:text>;&#13;</xsl:text>
+	@property (strong, nonatomic) IBOutlet MDKLabel *<xsl:value-of select="./propertyName"/>Label<xsl:text>;&#13;</xsl:text>
 
 	@property (strong, nonatomic) IBOutlet <xsl:value-of select="./customClass"/> *<xsl:value-of select="./propertyName"/><xsl:text>;&#13;</xsl:text>
 

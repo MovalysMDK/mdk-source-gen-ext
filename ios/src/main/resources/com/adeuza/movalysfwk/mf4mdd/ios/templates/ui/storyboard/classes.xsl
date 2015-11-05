@@ -49,7 +49,7 @@
 		<source key="sourceIdentifier" type="project" relativePath="./Classes/MFCell1ComponentHorizontal.h"/>
 		<relationships>
 			<relationship kind="outlet" name="componentView" candidateClass="UIView"/>
-			<relationship kind="outlet" name="label" candidateClass="MFLabel"/>
+			<relationship kind="outlet" name="label" candidateClass="MDKLabel"/>
 		</relationships>
 	</class>
 
@@ -62,7 +62,7 @@
        <source key="sourceIdentifier" type="project" relativePath="./Classes/MFCellComponentFixedList.h"/>
        <relationships>
            <relationship kind="outlet" name="fixedList" candidateClass="MFFixedList"/>
-           <relationship kind="outlet" name="label" candidateClass="MFLabel"/>
+           <relationship kind="outlet" name="label" candidateClass="MDKLabel"/>
        </relationships>
    </class>
    
@@ -70,7 +70,7 @@
        <source key="sourceIdentifier" type="project" relativePath="./Classes/MFCellPhotoFixedList.h"/>
        <relationships>
            <relationship kind="outlet" name="fixedList" candidateClass="MFFixedList"/>
-           <relationship kind="outlet" name="label" candidateClass="MFLabel"/>
+           <relationship kind="outlet" name="label" candidateClass="MDKLabel"/>
        </relationships>
    </class>
    
@@ -82,7 +82,7 @@
        <source key="sourceIdentifier" type="project" relativePath="./Classes/MFCellComponentPickerList.h"/>
        <relationships>
            <relationship kind="outlet" name="pickerList" candidateClass="MFPickerList"/>
-           <relationship kind="outlet" name="label" candidateClass="MFLabel"/>
+           <relationship kind="outlet" name="label" candidateClass="MDKLabel"/>
        </relationships>
    </class>
    
@@ -111,9 +111,9 @@
         </class>
 	</xsl:if>
     
-    <!-- MFLabel -->
-	<class className="MFLabel" superclassName="MFUIBaseComponent">
-		<source key="sourceIdentifier" type="project" relativePath="./Classes/MFLabel.h"/>
+    <!-- MDKLabel -->
+	<class className="MDKLabel" superclassName="MFUIBaseComponent">
+		<source key="sourceIdentifier" type="project" relativePath="MDKLabel"/>
 		<!--  relationships>
             <relationship kind="outlet" name="delegate"/>
         </relationships -->

@@ -23,7 +23,7 @@
 *****                   gen-cell-table common                 **********
 ************************************************************************-->
 	
-<xsl:template match="subView[customClass!='MFLabel']" mode="gen-table-cell">
+<xsl:template match="subView[customClass!='MDKLabel']" mode="gen-table-cell">
 	<xsl:param name="controllerId"/>
 	<xsl:param name="viewId"/>
 	<xsl:param name="posY"/>
@@ -104,14 +104,14 @@
 </xsl:template>
 
 
-<xsl:template match="subView[customClass!='MFLabel']" mode="gen-table-cell-view">
+<xsl:template match="subView[customClass!='MDKLabel']" mode="gen-table-cell-view">
 	<xsl:param name="controllerId"/>
 	<xsl:param name="viewId"/>
 	
 	<xsl:comment> [cell-common.xsl] subView[customClass='<xsl:value-of select="customClass"/>'] mode='gen-table-cell-view' (controllerId=<xsl:value-of select="$controllerId"/>, viewId=<xsl:value-of select="$viewId"/>)</xsl:comment>
 
 	<xsl:if test="@visibleLabel='true'">
-	<label contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" customClass="MFLabel" opaque="NO">
+	<label contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" customClass="MDKLabel" opaque="NO">
 		<xsl:attribute name="id"><xsl:value-of select="$viewId"/>-L</xsl:attribute>
 		<constraints>
 			<constraint constant="{@labelViewHeight}" firstAttribute="height">
@@ -129,7 +129,7 @@
 	
 </xsl:template>
 
-<xsl:template match="subView[customClass!='MFLabel']" mode="gen-table-cell-view-type" priority="1">
+<xsl:template match="subView[customClass!='MDKLabel']" mode="gen-table-cell-view-type" priority="1">
 		<xsl:param name="controllerId"/>
 		<xsl:param name="viewId"/>
 	
@@ -152,7 +152,7 @@
 	</view>
 </xsl:template>
 
-<xsl:template match="subView[customClass!='MFLabel']" mode="gen-table-cell-constraints">
+<xsl:template match="subView[customClass!='MDKLabel']" mode="gen-table-cell-constraints">
 	<xsl:param name="parentId"/>
 	<xsl:param name="viewId"/>
 
@@ -247,7 +247,7 @@
 </xsl:template>
 
 
-<xsl:template match="subView[customClass!='MFLabel']" mode="gen-table-cell-connections">
+<xsl:template match="subView[customClass!='MDKLabel']" mode="gen-table-cell-connections">
 	<xsl:param name="viewId"/>
 	
 	<xsl:comment> [cell-common.xsl] subView[customClass='<xsl:value-of select="customClass"/>'] mode='gen-table-cell-connections' (viewId=<xsl:value-of select="$viewId"/>)</xsl:comment>

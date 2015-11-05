@@ -59,8 +59,8 @@
 			translatesAutoresizingMaskIntoConstraints="NO" contentVerticalAlignment="center" misplaced="YES" >
 			<xsl:attribute name="id"><xsl:value-of select="@labelView"/></xsl:attribute>
 			<xsl:attribute name ="tag"><xsl:value-of select="position()"/></xsl:attribute>
-			<xsl:attribute name ="customClass">MFLabel</xsl:attribute>
-			<xsl:attribute name ="userLabel"><xsl:value-of select="binding"/>-label (MFLabel)</xsl:attribute>
+			<xsl:attribute name ="customClass">MDKLabel</xsl:attribute>
+			<xsl:attribute name ="userLabel"><xsl:value-of select="binding"/>-label (MDKLabel)</xsl:attribute>
 	 		<constraints>
 	        	<constraint firstAttribute="height" >
 	            	<xsl:attribute name="id"><xsl:value-of select="@id"/>-label-height</xsl:attribute>
