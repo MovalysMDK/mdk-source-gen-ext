@@ -19,16 +19,11 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:output method="xml" indent="yes"/>
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/spinner/has_blank_row.xsl"/>
-<!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.spinner.MDKRichSpinner']" 
-	mode="componentAttributes">
-	<xsl:apply-templates select="." mode="standard-alignment"/>
-	<xsl:apply-templates select="." mode="view-focusable"/>
-	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:apply-templates select="." mode="mandatory"/>
-	<xsl:apply-templates select="." mode="hint"/>
-	<xsl:apply-templates select="." mode="label"/>
-	<xsl:apply-templates select="." mode="has_blank_row"/>
+
+<!-- HAS BLANK ROW ATTRIBUTE for mdk widgets RICHSPINNER -->
+<xsl:template match="visualfield" mode="has_blank_row">
+	<xsl:text>mdk:has_blank_row="true" </xsl:text>
 </xsl:template>
+
+
 </xsl:stylesheet>

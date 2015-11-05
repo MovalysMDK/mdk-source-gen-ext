@@ -51,12 +51,12 @@
 			</xsl:when>
 		</xsl:choose>
 
-		<xsl:if test="external-adapters/adapter[short-adapter='AbstractConfigurableSpinnerAdapter' and viewmodel/type/component-name='MMSpinner']">
+		<xsl:if test="external-adapters/adapter[short-adapter='AbstractConfigurableSpinnerAdapter' and (viewmodel/type/component-name='MDKRichSpinner' or viewmodel/type/component-name='MMSpinner')]">
+			<import><xsl:value-of select="layout/visualfields/visualfield[viewmodel-interface-name=../../../external-adapters/adapter/viewmodel/name]/component"/></import>
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKBaseAdapter</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKSpinnerAdapter</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.connectors.MDKViewConnectorWrapper</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.component.configurable.WidgetWrapperHelper</import>
-			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSpinner</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel</import>
 			<xsl:apply-templates select="external-adapters/adapter/viewmodel/entity-to-update/full-name" mode="declare-import"/>
 			<xsl:apply-templates select="external-adapters/adapter/viewmodel/implements/interface/@full-name" mode="declare-import"/>

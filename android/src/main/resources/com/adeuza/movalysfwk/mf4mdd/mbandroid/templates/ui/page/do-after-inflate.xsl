@@ -110,7 +110,7 @@
 					<xsl:apply-templates select="." mode="constructor-parameters">
 						<xsl:with-param name="position" select="position()"/>
 					</xsl:apply-templates>
-					<xsl:text>, true);&#13;</xsl:text>
+					<xsl:text>);&#13;</xsl:text>
 					MDKViewConnectorWrapper mConnectorWrapper = WidgetWrapperHelper.getInstance().getConnectorWrapper(oSpinner<xsl:value-of select="position()"/>.getClass());
 					mConnectorWrapper.configure((MDKBaseAdapter)this.spinnerAdapter<xsl:value-of select="position()"/>, oSpinner<xsl:value-of select="position()"/>);
 					}
