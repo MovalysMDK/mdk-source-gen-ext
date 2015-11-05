@@ -22,7 +22,7 @@
 
 <!-- editable for mdk widgets -->
 <xsl:template match="visualfield[./readonly='true' and contains(./component, 'com.soprasteria.movalysmdk.widget')]" mode="editable">
-	<xsl:text>mdk:editable="false" </xsl:text>
+	<xsl:text>mdk:readonly="true" </xsl:text>
 </xsl:template>
 
 <!-- fallback template -->
