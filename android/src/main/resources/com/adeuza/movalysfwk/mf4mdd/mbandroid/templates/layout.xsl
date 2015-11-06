@@ -64,7 +64,8 @@
 	<xsl:include href="ui/layout/mdkwidget/richenumview.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richseekbar.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richswitch.xsl"/>
-	<xsl:include href="ui/layout/mdkwidget/richuri.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richmedia.xsl"/>
+	
 	
 	<!-- custom widgets -->
 	<xsl:include href="ui/custom-components.xsl"/>

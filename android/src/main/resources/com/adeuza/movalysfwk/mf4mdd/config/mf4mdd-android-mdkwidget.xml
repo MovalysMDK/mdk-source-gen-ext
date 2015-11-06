@@ -194,12 +194,12 @@
 				<ui-type uml-name="Thumbnail">
 					<read-write>
 						<view-model-type>PhotoVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView
+						<language-type>com.soprasteria.movalysmdk.widget.media.MDKRichMedia
 						</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>PhotoVO</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMPhotoThumbnailView
+						<language-type>com.soprasteria.movalysmdk.widget.media.MDKRichMedia
 						</language-type>
 					</read-only>
 				</ui-type>
