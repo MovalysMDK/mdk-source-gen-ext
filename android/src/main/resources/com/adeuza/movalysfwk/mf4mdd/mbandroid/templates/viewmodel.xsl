@@ -160,11 +160,26 @@
 		<xsl:apply-templates select="." mode="generate-constant-declaration"/>
 	
 		<!-- Génération des attributs du viewmodel -->
+<!-- 		<xsl:apply-templates select="." mode="generate-specific-attribute"/> -->
+	
+		<!-- Génération des attributs du viewmodel -->
 		<xsl:apply-templates select="./identifier/attribute[not(@name='id_id') and not(@name='id_identifier')]|attribute" mode="generate-attribute-declaration"/>
 
 		<!-- Génération d'attributs représentant les viewmodels liés -->
 		<xsl:apply-templates select="subvm/viewmodel|.//external-lists/external-list/viewmodel" mode ="generate-attributes"/>
 	</xsl:template>
+	
+<!-- 	<xsl:template match="viewmodel[type/name='LISTITEM_1'] and widget-variant='mdkwidget'" mode="generate-specific-attribute"> -->
+
+<!-- 		/** -->
+<!-- 		 * Generated view model for presenter view -->
+<!-- 		 */ -->
+<!-- 		 <xsl:text>MDKPresenter o</xsl:text><xsl:value-of select="uml-name"/> -->
+<!-- 		 <xsl:text> = new MDKPresenter();</xsl:text> -->
+<!-- 	</xsl:template> -->
+	
+<!-- 	<xsl:template match="*" mode="generate-specific-attribute"> -->
+<!-- 	</xsl:template> -->
 	
 	<!-- Attribute declaration (non-derived attribute) -->
 	<xsl:template match="attribute[@derived='false']" mode="generate-attribute-declaration">

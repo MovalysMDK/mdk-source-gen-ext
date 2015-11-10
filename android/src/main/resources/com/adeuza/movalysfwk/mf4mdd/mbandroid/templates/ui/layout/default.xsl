@@ -29,7 +29,7 @@ Following templates are applied :
 -->
 <xsl:template match="visualfield">
 	<xsl:param name="titleId"/>
-	<xsl:param name="addNamespace"/>	
+	<xsl:param name="addNamespace"/>
 
 	<xsl:text>
 	</xsl:text>

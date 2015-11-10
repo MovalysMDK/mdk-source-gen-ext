@@ -331,6 +331,20 @@
 						</type-conversion>
 					</type-conversions>
 				</type>
+				<type>
+					<uml-type>MDKPresenter</uml-type>
+					<language-type>com.soprasteria.movalysmdk.widget.basic.model.MDKPresenter</language-type>
+					<init-format>new MDKPresenter()</init-format>
+					<default-value></default-value>
+					<variable-prefix>o</variable-prefix>
+					<parameter-prefix>p_o</parameter-prefix>
+					<return-prefix>r_o</return-prefix>
+					<get-accessor-prefix>get</get-accessor-prefix>
+					<set-accessor-prefix>set</set-accessor-prefix>
+					<data-type>BINARY</data-type>
+					<type-conversions>
+					</type-conversions>
+				</type>
 			</types>
 
 			<type-viewmodels>
@@ -572,6 +586,9 @@
 					class="com.adeuza.movalysfwk.mf4mdd.mbandroid.extractors.ClassesJavadocExtractor">
 					<property name="activated" value="false" />
 				</extractor>
+				
+				<extractor class="com.adeuza.movalysfwk.mf4mdd.mbandroid.extractors.VMPresenterExtractor"></extractor>
+				
 			</extractors>
 			<project-upgraders>
 				<project-upgrader class="com.adeuza.movalysfwk.mf4mdd.commons.projectupgrader.UpgraderTo408">

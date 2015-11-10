@@ -36,6 +36,7 @@
 	<xsl:include href="ui/layout/commons/maxlength.xsl"/>
 	<xsl:include href="ui/layout/commons/style.xsl"/>
 	<xsl:include href="ui/layout/commons/editable.xsl"/>
+	<xsl:include href="ui/layout/listitem.xsl"/>
 	
 	<!-- legacy widgets -->
 	<xsl:include href="ui/layout/button.xsl"/>
@@ -145,36 +146,9 @@
 					android:layout_width="match_parent" 
 					android:layout_height="match_parent">
 					<xsl:attribute name="android:id">@+id/<xsl:value-of select="./name"/></xsl:attribute>
-					
-				<xsl:if test="$addtitle != ''">
-					<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSectionTitle
-						android:layout_width="match_parent" 
-						android:layout_height="wrap_content" 
-						android:gravity="center" 
-						style="?attr/SectionTitle">
-						<xsl:attribute name="android:id">@+id/<xsl:value-of select="$addtitle"/></xsl:attribute>
-						<xsl:attribute name="android:text">@string/<xsl:value-of select="$addtitle"/></xsl:attribute>
-					</com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSectionTitle>				
-				</xsl:if>
 				
-				<xsl:if test="parameters/parameter[@name='vmtype']='LISTITEM_2'">
-					<xsl:attribute name="android:paddingLeft">35dip</xsl:attribute>
-				 	<xsl:attribute name="android:paddingRight">5dip</xsl:attribute>
-				</xsl:if>
-				<xsl:if test="parameters/parameter[@name='vmtype']='LISTITEM_1' and parameters/parameter[@name='parentvmtype']='LISTITEM_2'">
-					<xsl:attribute name="android:paddingLeft">40dip</xsl:attribute>
-				 	<xsl:attribute name="android:paddingRight">5dip</xsl:attribute>
-				</xsl:if>
-				<!--Default style for ListItem-->
-				<xsl:attribute name="style"><xsl:text>?attr/</xsl:text><xsl:value-of select="./parameters/parameter[@name='vmtype']"/></xsl:attribute>
-				<xsl:if test="parameters/parameter[@name='vmtype-itemlayoutforinnerlist']='FIXED_LIST'">
-					<xsl:attribute name="style">?attr/fixedListItemBloc</xsl:attribute>
-				</xsl:if>						
-				<xsl:apply-templates select="buttons/button[@type='NAVIGATION']"/>
-				<xsl:apply-templates select="visualfields/visualfield">
-					<xsl:with-param name="titleId"><xsl:value-of select="$addtitle"/></xsl:with-param>
-				</xsl:apply-templates>
-				<xsl:apply-templates select="buttons/button[@type!='NAVIGATION']"/>
+				<xsl:apply-templates select="." mode="item-list"/>
+				
 				</com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMCheckableRelativeLayout>
 			</xsl:when>
 			<xsl:when test="parameters/parameter[@name='vmtype-selecteditemlayoutforinnerlist' or @name='vmtype-itemlayoutforinnerlist']='LIST_1__ONE_SELECTED' and count(visualfields/visualfield) = 1">
