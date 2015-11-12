@@ -391,16 +391,16 @@
 				<ui-type uml-name="AddressLocation">
 					<read-write>
 						<view-model-type>AddressLocationVO</view-model-type>
-						<language-type>MFPosition</language-type>
+						<language-type>MDKPosition</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
-						<component-height>78</component-height>
+						<component-height>140</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>AddressLocationVO</view-model-type>
-						<language-type>MFPosition</language-type>
+						<language-type>MDKPosition</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
-						<component-height>78</component-height>
+						<component-height>140</component-height>
 						<component-width>260</component-width>
 					</read-only>
 				</ui-type>
@@ -569,7 +569,7 @@
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MDKDateTime</language-type>
 						<language-type-options>
-							<datePickerMode>2</datePickerMode>
+							<dateTimeMode>2</dateTimeMode>
 						</language-type-options>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
@@ -579,7 +579,7 @@
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MDKDateTime</language-type>
 						<language-type-options>
-							<datePickerMode>2</datePickerMode>
+							<dateTimeMode>2</dateTimeMode>
 						</language-type-options>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
@@ -591,7 +591,7 @@
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MDKDateTime</language-type>
 						<language-type-options>
-							<datePickerMode>0</datePickerMode>
+							<dateTimeMode>0</dateTimeMode>
 						</language-type-options>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
@@ -601,7 +601,7 @@
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MDKDateTime</language-type>
 						<language-type-options>
-							<datePickerMode>0</datePickerMode>
+							<dateTimeMode>0</dateTimeMode>
 						</language-type-options>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
