@@ -31,8 +31,7 @@ public class VMPresenterExtractor extends AbstractExtractor<MF4ADomain<MF4ADicti
 
 	@Override
 	public void initialize(Element p_xConfig) throws Exception {
-		// TODO Auto-generated method stub
-		
+		// no init
 	}
 
 	@Override
