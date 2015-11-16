@@ -22,36 +22,6 @@
 
 	<xsl:output method="xml" indent="yes"/>
 	
-	
-	<xsl:template match="layout[parameters/parameter[@name='vmtype']='LISTITEM_1' and widget-variant='mdkwidget']" mode="item-list">
-		<xsl:variable name="vmprefix"><xsl:value-of select="substring-before(visualfields/visualfield[1]/name, '__')"/></xsl:variable>
-		<xsl:variable name="presenterId"><xsl:value-of select="$vmprefix"/>__presenter__value</xsl:variable>
-	
-	
-		<com.soprasteria.movalysmdk.widget.basic.MDKPresenterView
-			android:layout_centerVertical="true">
-			<xsl:attribute name="android:layout_alignParentLeft"><xsl:text>true</xsl:text></xsl:attribute>
-			<xsl:attribute name="android:layout_alignParentStart"><xsl:text>true</xsl:text></xsl:attribute>
-			<xsl:attribute name="android:layout_width"><xsl:text>56dp</xsl:text></xsl:attribute>
-			<xsl:attribute name="android:layout_height"><xsl:text>56dp</xsl:text></xsl:attribute>
-			
-			<xsl:attribute name="android:id"><xsl:text>@+id/</xsl:text><xsl:value-of select="$presenterId"/></xsl:attribute>
-		</com.soprasteria.movalysmdk.widget.basic.MDKPresenterView>
-
-		<RelativeLayout>
-			<xsl:attribute name="android:id"><xsl:text>@+id/</xsl:text><xsl:value-of select="name"/><xsl:text>2</xsl:text></xsl:attribute>
-			<xsl:attribute name="android:layout_toRightOf"><xsl:text>@+id/</xsl:text><xsl:value-of select="$presenterId"/></xsl:attribute>
-			<xsl:attribute name="android:layout_alignParentRight"><xsl:text>true</xsl:text></xsl:attribute>
-			<xsl:attribute name="android:layout_centerVertical"><xsl:text>true</xsl:text></xsl:attribute>
-			<xsl:attribute name="android:layout_width"><xsl:text>match_parent</xsl:text></xsl:attribute>
-			<xsl:attribute name="android:layout_height"><xsl:text>wrap_content</xsl:text></xsl:attribute>
-			
-			<xsl:apply-templates select="." mode="item-list-inner"/>
-			
-		</RelativeLayout>
-	
-	</xsl:template>
-	
 	<xsl:template match="layout[contains(parameters/parameter[@name='vmtype'],'LISTITEM')]" mode="item-list">
 		<xsl:apply-templates select="." mode="item-list-inner"/>
 	</xsl:template>
