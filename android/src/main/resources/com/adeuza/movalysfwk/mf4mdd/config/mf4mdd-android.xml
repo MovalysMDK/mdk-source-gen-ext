@@ -573,8 +573,6 @@
 					<property name="activated" value="false" />
 				</extractor>
 				
-				<extractor class="com.adeuza.movalysfwk.mf4mdd.mbandroid.extractors.VMPresenterExtractor"></extractor>
-				
 			</extractors>
 			<project-upgraders>
 				<project-upgrader class="com.adeuza.movalysfwk.mf4mdd.commons.projectupgrader.UpgraderTo408">
