@@ -24,7 +24,6 @@
 	
 	
 	<xsl:template match="layout[parameters/parameter[@name='vmtype']='LISTITEM_1' and widget-variant='mdkwidget']" mode="item-list">
-	
 		<xsl:variable name="vmprefix"><xsl:value-of select="substring-before(visualfields/visualfield[1]/name, '__')"/></xsl:variable>
 		<xsl:variable name="presenterId"><xsl:value-of select="$vmprefix"/>__presenter__value</xsl:variable>
 	
@@ -53,7 +52,7 @@
 	
 	</xsl:template>
 	
-	<xsl:template match="layout[contains(parameters/parameter[@name='vmtype'],'LISTITEM') and widget-variant!='mdkwidget']" mode="item-list">
+	<xsl:template match="layout[contains(parameters/parameter[@name='vmtype'],'LISTITEM')]" mode="item-list">
 		<xsl:apply-templates select="." mode="item-list-inner"/>
 	</xsl:template>
 	
