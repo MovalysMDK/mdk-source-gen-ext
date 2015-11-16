@@ -29,7 +29,14 @@ import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MFViewModel;
 
 public class MF4WViewModel extends MFViewModel {
 
-	private List<MF4WNavigation> navigations = new ArrayList<>();;
+	private List<MF4WNavigation> navigations = new ArrayList<>();
+
+	/**
+	 * Lower case version of the property name
+	 */
+	private String propertyNameLowerCase;
+
+
 
 	public MF4WViewModel(String p_sName, String p_sUmlName,
 			MPackage p_oPackage, ViewModelType p_sType,
@@ -37,6 +44,9 @@ public class MF4WViewModel extends MFViewModel {
 			boolean p_bCustomizable, IVMMappingDesc p_oMapping) {
 		super(p_sName, p_sUmlName, p_oPackage, p_sType, p_oEntityToUpdate, p_sPath,
 				p_bCustomizable, p_oMapping);
+
+		// Capitalize the property name so that it matches C# coding style
+		this.setPropertyName(StringUtils.capitalize(this.getPropertyName()));
 	}
 
 	public void addNavigation(MF4WNavigation navigation) {
@@ -47,9 +57,15 @@ public class MF4WViewModel extends MFViewModel {
 		return this.navigations;
 	}
 
+	public void setPropertyNameLowerCase(String propertyNameLowerCase) {
+		this.propertyNameLowerCase = propertyNameLowerCase;
+	}
+
 	@Override
 	public Element toXml() {
 		Element r_xViewModel = super.toXml();
+
+		r_xViewModel.addElement("property-name-lowercase").setText(this.propertyNameLowerCase);
 		
 		Element xMapping = r_xViewModel.element("mapping");
 		if ( xMapping != null ) {

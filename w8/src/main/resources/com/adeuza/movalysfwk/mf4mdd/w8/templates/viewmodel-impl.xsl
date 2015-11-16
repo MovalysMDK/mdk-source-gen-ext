@@ -43,32 +43,35 @@
 	<xsl:text>&#13;&#13;</xsl:text>	
 			
 	<xsl:text>namespace </xsl:text><xsl:value-of select="./package" /><xsl:text>{</xsl:text>
-	<xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
+	<xsl:text>&#13;&#13;/// &lt;summary&gt;&#13;</xsl:text>
 	<xsl:text>/// Class </xsl:text><xsl:value-of select="./name" /><xsl:text>.&#13;</xsl:text>
 	<xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
 	<xsl:text>public class </xsl:text><xsl:value-of select="./name" /><xsl:text> : AbstractViewModel&lt;</xsl:text><xsl:value-of select="./name" /><xsl:text>&gt; </xsl:text>
 	<xsl:apply-templates select="implements/interface"	mode="generate-implement-interface" />
 	<xsl:text>{</xsl:text>
 	
-	<xsl:text>&#13;#region Constructor&#13;</xsl:text>
-	
-	<xsl:text>private IViewModelCreator viewModelCreator = ClassLoader.GetInstance().GetBean&lt;IViewModelCreator&gt;();</xsl:text>
+	<xsl:text>&#13;&#13;#region Constructor&#13;</xsl:text>
+
+	<!-- Constructor -->
+	<xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
+	<xsl:text>/// Constructor.&#13;</xsl:text>
+	<xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
 	<xsl:text>public </xsl:text><xsl:value-of select="./name" /><xsl:text>()</xsl:text><xsl:text>{</xsl:text>
-	<xsl:apply-templates select="subvm/viewmodel"
-	mode="generate-init-subvm" />
+	<xsl:apply-templates select="subvm/viewmodel" mode="subvm-constructor" />
 	<xsl:text>_controller.AnalyzeType&lt;</xsl:text><xsl:value-of select="./name" /><xsl:text>&gt;();</xsl:text>
-	<xsl:text>PopulateValidation();</xsl:text>
+	<xsl:text>PopulateValidation();&#13;</xsl:text>
 	<xsl:text>&#13;</xsl:text>
 
 	<xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">constructor</xsl:with-param>
 	<xsl:with-param name="defaultSource">
-		<!-- Génération des initialisations liées à la navigation -->
+		<!-- Navigation initialization -->
 		<xsl:apply-templates select="navigations/navigation" mode="navigation-constructor" />
 	</xsl:with-param>
 	</xsl:call-template>
 
 	<xsl:text>}&#13;</xsl:text>
+	<!-- End constructor -->
 
 
 	<xsl:call-template name="generate-populateValidation" />
@@ -85,8 +88,7 @@
 	<xsl:apply-templates select="navigations/navigation" mode="navigation-properties" />
 
 	<xsl:text>&#13;</xsl:text>	
-	<xsl:apply-templates select="subvm/viewmodel"
-	mode="generate-subvm-get-and-set" />
+	<xsl:apply-templates select="subvm/viewmodel" mode="generate-subvm-get-and-set" />
 	<xsl:text>&#13;</xsl:text>	
 	<xsl:apply-templates select="." mode="generate-combo-attribute"/>
 	
@@ -330,15 +332,8 @@
 			<xsl:with-param name="defaultSource">
 				<xsl:text>return base.HasErrors()</xsl:text>
 				<xsl:for-each select="viewmodel">
-					<xsl:text> | _</xsl:text>
-					<xsl:choose>
-						<xsl:when test="parameters/parameter[@name='baseName'] or type/name='LIST_1'">
-							<xsl:text>lst</xsl:text><xsl:value-of select="implements/interface/@name" />
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="property-name"/>
-						</xsl:otherwise>
-					</xsl:choose>
+					<xsl:text> | </xsl:text>
+					<xsl:value-of select="property-name" />
 					<xsl:text>.HasErrors()</xsl:text>
 				</xsl:for-each>
 				<xsl:text>;&#13;</xsl:text>
@@ -404,8 +399,8 @@
 <xsl:template match="viewmodel" mode="generate-deepCopy-subvm">
 	<xsl:choose>
 		<xsl:when test="parameters/parameter[@name = 'baseName'] or type/name='LIST_1'">
-			<xsl:text>_vm.Lst</xsl:text><xsl:value-of select="implements/interface/@name"/>
-			<xsl:text> = this.Lst</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>;</xsl:text>
+			<xsl:text>_vm.</xsl:text><xsl:value-of select="property-name"/>
+			<xsl:text> = this.</xsl:text><xsl:value-of select="property-name"/><xsl:text>;</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:choose>
@@ -480,16 +475,8 @@
 </xsl:template>
 
 <xsl:template match="viewmodel" mode="generate-updateFromViewModel-subvm">
-	<xsl:choose>
-		<xsl:when test="parameters/parameter[@name = 'baseName'] or type/name='LIST_1'">
-			<xsl:text>this.Lst</xsl:text><xsl:value-of select="implements/interface/@name"/>
-			<xsl:text> = _vm.Lst</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>;</xsl:text>
-		</xsl:when>
-		<xsl:otherwise>
-		<xsl:text>this.</xsl:text><xsl:value-of select="property-name"/>
-		<xsl:text> = _vm.</xsl:text><xsl:value-of select="property-name"/><xsl:text>;</xsl:text>
-		</xsl:otherwise>
-	</xsl:choose>
+	<xsl:text>this.</xsl:text><xsl:value-of select="property-name"/>
+	<xsl:text> = _vm.</xsl:text><xsl:value-of select="property-name"/><xsl:text>;</xsl:text>
 </xsl:template>
 
 <xsl:template match="viewmodel" mode="generate-updateFromViewModel-external-list">
@@ -518,11 +505,11 @@
 	</xsl:call-template>
 </xsl:template>
 
-<xsl:template match="viewmodel" mode="generate-init-subvm">
-	<xsl:text>this.Lst</xsl:text><xsl:value-of select="implements/interface/@name"/>
-	<xsl:text> = viewModelCreator.create</xsl:text><xsl:value-of select="implements/interface/@name"/>
-	<xsl:text>();&#13;</xsl:text>
-</xsl:template>
+	<xsl:template match="viewmodel" mode="subvm-constructor">
+		<xsl:text>this.</xsl:text><xsl:value-of select="name"/>
+		<xsl:text> = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="implements/interface/@name"/>
+		<xsl:text>&gt;();&#13;</xsl:text>
+	</xsl:template>
 
 
 	<xsl:template match="navigation" mode="navigation-constructor">

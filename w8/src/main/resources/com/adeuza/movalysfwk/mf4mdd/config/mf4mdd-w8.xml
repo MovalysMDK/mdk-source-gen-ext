@@ -853,6 +853,7 @@
 					<property name="impl-naming-suffix" value="Loader"/>
 				</extractor>
 				<extractor class="com.a2a.adjava.languages.w8.extractors.W8ViewModelProcessor"/>
+				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WViewModelProcessor"/>
 				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WListNDExtractor"/>
 			</extractors>
 			<m-updaters>
@@ -887,6 +888,8 @@
 						<!-- VIEW -->
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ActionGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ActionChainedGenerator"/>
+						<!-- CONTROLLER -->
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ControllerGenerator"/>
 					</resource-generators>
 				</project>
 				<project name="phone" base-dir="${mainProject}">

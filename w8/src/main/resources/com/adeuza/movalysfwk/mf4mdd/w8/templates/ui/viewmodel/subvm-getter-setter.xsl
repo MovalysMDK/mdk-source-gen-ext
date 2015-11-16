@@ -20,29 +20,13 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<!-- Generate getter/setter for viewmodel non derived attribute -->
 <xsl:template match="viewmodel" mode="generate-subvm-get-and-set">
-	
-<xsl:choose>
-	<xsl:when test="parameters/parameter[@name='baseName'] or type/name='LIST_1'">
-		<xsl:text>private </xsl:text><xsl:value-of select="implements/interface/@name" /><xsl:text> _lst</xsl:text><xsl:value-of select="implements/interface/@name" /><xsl:text>;&#13;</xsl:text>
-		<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name" /><xsl:text> Lst</xsl:text><xsl:value-of select="implements/interface/@name" /><xsl:text>&#13;</xsl:text>
-		<xsl:text>{</xsl:text>
-		<xsl:text>get { return _lst</xsl:text><xsl:value-of select="implements/interface/@name" /><xsl:text>; }&#13;</xsl:text>
-		<xsl:text>set{_lst</xsl:text><xsl:value-of select="implements/interface/@name" /><xsl:text> = value;</xsl:text>
-		<xsl:text>OnPropertyChanged("Lst</xsl:text><xsl:value-of select="implements/interface/@name" /><xsl:text>");</xsl:text>
-		<xsl:text>}&#13;</xsl:text>
-		<xsl:text>}&#13;</xsl:text>
-	</xsl:when>
-	<xsl:otherwise>
-		<xsl:text>private </xsl:text><xsl:value-of select="name"/><xsl:text> _</xsl:text><xsl:value-of select="property-name"/><xsl:text>;&#13;</xsl:text>
-		<xsl:text>public </xsl:text><xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="property-name"/><xsl:text>&#13;</xsl:text>
-		<xsl:text>{</xsl:text>
-		<xsl:text>get { return _</xsl:text><xsl:value-of select="property-name"/><xsl:text>; }&#13;</xsl:text>
-		<xsl:text>set{_</xsl:text><xsl:value-of select="property-name"/><xsl:text> = value;</xsl:text>
-		<xsl:text>OnPropertyChanged("</xsl:text><xsl:value-of select="property-name"/><xsl:text>");</xsl:text>
-		<xsl:text>}&#13;</xsl:text>
-		<xsl:text>}&#13;</xsl:text>
- 	</xsl:otherwise>
-</xsl:choose>
+	<xsl:text>private </xsl:text><xsl:value-of select="implements/interface/@name" /><xsl:text> </xsl:text><xsl:value-of select="property-name-lowercase" /><xsl:text>;&#13;</xsl:text>
+	<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name" /><xsl:text> </xsl:text><xsl:value-of select="property-name" /><xsl:text>&#13;</xsl:text>
+	<xsl:text>{</xsl:text>
+	<xsl:text>get&#13;{&#13;return </xsl:text><xsl:value-of select="property-name-lowercase" /><xsl:text>; &#13;}&#13;</xsl:text>
+	<xsl:text>set{&#13;</xsl:text><xsl:value-of select="property-name-lowercase" /><xsl:text> = value;</xsl:text>
+	<xsl:text>OnPropertyChanged("</xsl:text><xsl:value-of select="property-name" /><xsl:text>");</xsl:text>
+	<xsl:text>}&#13;}&#13;</xsl:text>
 </xsl:template>
 
 <xsl:template match="viewmodel" mode="generate-combo-attribute">
