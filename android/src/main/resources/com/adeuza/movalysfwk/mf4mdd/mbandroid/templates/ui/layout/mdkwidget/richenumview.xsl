@@ -21,9 +21,12 @@
 <xsl:output method="xml" indent="yes"/>
 
 <!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView']" 
-	mode="componentAttributes">
-	<xsl:apply-templates select="." mode="standard-alignment"/>
+<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView']" mode="componentAttributes">
+	<xsl:param name="titleId"/>
+
+	<xsl:apply-templates select="." mode="standard-alignment">
+		<xsl:with-param name="titleId" select="$titleId"/>
+	</xsl:apply-templates>
 	<xsl:apply-templates select="." mode="view-focusable"/>
 	<xsl:apply-templates select="." mode="dimensions"/>
 	<xsl:apply-templates select="." mode="label"/>

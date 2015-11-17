@@ -37,7 +37,8 @@
 		    android:layout_marginTop="2dp"
 		    android:layout_marginLeft="2dp"
 		    android:layout_marginRight="2dp"
-		    card_view:cardElevation="8dp">
+		    card_view:cardElevation="8dp"
+		    card_view:cardUseCompatPadding="true">
 		
 			<android.support.design.widget.CoordinatorLayout
 					android:layout_height="match_parent"
@@ -81,7 +82,8 @@
 			android:layout_marginTop="2dp"
 			android:layout_marginLeft="2dp"
 			android:layout_marginRight="2dp"
-			card_view:cardElevation="8dp">
+			card_view:cardElevation="8dp"
+			card_view:cardUseCompatPadding="true">
 		
 		<xsl:apply-templates select="." mode="layout-default-inner-relative">
 			<xsl:with-param name="addtitle"><xsl:value-of select="$addtitle"/></xsl:with-param>

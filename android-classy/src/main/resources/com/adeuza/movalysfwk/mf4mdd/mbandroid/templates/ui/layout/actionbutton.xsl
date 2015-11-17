@@ -29,6 +29,15 @@
 	<xsl:value-of select="./@name"/><xsl:text>"</xsl:text>
 	<xsl:apply-templates select="." mode="dimensions-wrap"/> 
 	<xsl:apply-templates select="." mode="buttonOptions"/>
+	<xsl:variable name="style">
+		<xsl:apply-templates select="." mode="componentStyle"/>
+	</xsl:variable>
+	<xsl:if test="string-length($style) > 0">
+		<xsl:text>
+		style="?attr/</xsl:text>
+		<xsl:value-of select="$style"/>
+		<xsl:text>"</xsl:text>
+	</xsl:if>
 	<xsl:text disable-output-escaping="yes"><![CDATA[/>]]></xsl:text>
 </xsl:template>
 
@@ -50,10 +59,24 @@
 	<xsl:text>ActionButton</xsl:text>
 </xsl:template>
 
-<xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMActionButton']" mode="componentStyle">
+<!-- <xsl:template match="button[@type='NAVIGATION']" mode="dimensions-wrap"> -->
+<!-- 	<xsl:text>android:layout_width="320dp" -->
+<!-- 	</xsl:text> -->
+<!--     <xsl:text>android:layout_height="64dp" -->
+<!--     </xsl:text> -->
+<!-- </xsl:template> -->
+<!-- DEFAULT DIMENSIONS for widget. -->
+<xsl:template match="button[@type='NAVIGATION']" mode="dimensions-wrap">
+	android:layout_width="320dp"
+	android:layout_height="64dp"
+</xsl:template>
+
+<xsl:template match="button[@type='NAVIGATION']" mode="componentStyle">
 	<xsl:text>mdk_b_actionButtonStyle</xsl:text>
 </xsl:template>
 
+<xsl:template match="button" mode="componentStyle">
+</xsl:template>
 
 <!-- Options for action button of type NAVIGATION -->
 <xsl:template match="button[@type='NAVIGATION']" mode="buttonOptions">

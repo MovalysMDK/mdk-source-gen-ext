@@ -24,9 +24,12 @@
 <xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/media/thumbnail_width.xsl"/>
 
 <!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichMedia']" 
-	mode="componentAttributes">
-	<xsl:apply-templates select="." mode="standard-alignment"/>
+<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichMedia']" mode="componentAttributes">
+	<xsl:param name="titleId"/>
+
+	<xsl:apply-templates select="." mode="standard-alignment">
+		<xsl:with-param name="titleId" select="$titleId"/>
+	</xsl:apply-templates>
 	<xsl:apply-templates select="." mode="view-focusable"/>
 	<xsl:apply-templates select="." mode="dimensions"/>
 	<xsl:apply-templates select="." mode="label"/>

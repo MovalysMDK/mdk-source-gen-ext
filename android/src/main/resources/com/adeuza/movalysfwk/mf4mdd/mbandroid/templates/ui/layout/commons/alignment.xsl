@@ -41,7 +41,7 @@
 	<xsl:if test="(create-label = 'false' or $labelFeature) and $precedingField and not(../../parameters/parameter[@name='vmtype-itemlayoutforinnerlist']='LIST_1__ONE_SELECTED') and not(../../parameters/parameter[@name='vmtype-selecteditemlayoutforinnerlist']='LIST_1__ONE_SELECTED')">
 		android:layout_below="@id/<xsl:value-of select="$precedingField/name"/><xsl:text>" </xsl:text>
 	</xsl:if>
-	<xsl:if test="(create-label = 'false' or $labelFeature) and not($precedingField) and $titleId">
+	<xsl:if test="(create-label = 'false' or /widget-variant='mdkwidget' or $labelFeature) and not($precedingField) and $titleId">
 		android:layout_below="@id/<xsl:value-of select="$titleId"/><xsl:text>" </xsl:text>
 	</xsl:if>
 	<xsl:if test="not($precedingField) and count($navButtons) > 0">
