@@ -32,7 +32,7 @@
 				xmlns:android="http://schemas.android.com/apk/res/android"
 				xmlns:mdk="http://schemas.android.com/apk/res-auto" xmlns:movalys="http://www.adeuza.com/movalys/mm/android">
 				
-				<xsl:attribute name="android:id"><xsl:value-of select="@+id/gpanellistpanel__screenlist1__master"/></xsl:attribute>
+				<xsl:attribute name="android:id">@+id/<xsl:value-of select="./name" /></xsl:attribute>
 
 			<xsl:if test="$addtitle != ''">
 				<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSectionTitle
@@ -66,8 +66,7 @@
 		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			xmlns:movalys="http://www.adeuza.com/movalys/mm/android" xmlns:mdk="http://schemas.android.com/apk/res-auto"
 			android:layout_width="match_parent" android:layout_height="match_parent">
-			<xsl:attribute name="android:id">@+id/<xsl:value-of
-				select="./name" /></xsl:attribute>
+			<xsl:attribute name="android:id">@+id/<xsl:value-of select="./name" /></xsl:attribute>
 
 			<xsl:if test="$addtitle != ''">
 				<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMSectionTitle
