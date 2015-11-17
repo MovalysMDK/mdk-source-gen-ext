@@ -52,8 +52,8 @@
 		<xsl:param name="var-name"><xsl:value-of select="@name"/></xsl:param>
 		<xsl:text>this.set</xsl:text>
 		<xsl:value-of select="translate(substring($var-name,1,1),$smallcase,$uppercase)"/>
-        <xsl:value-of select="substring($var-name,2)"/>		
-        <xsl:text>(</xsl:text>
+		<xsl:value-of select="substring($var-name,2)"/>
+		<xsl:text>(</xsl:text>
 		<xsl:value-of select="@init"/>
 		<xsl:text>);&#13;</xsl:text>
 	</xsl:template>

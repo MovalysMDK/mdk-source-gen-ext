@@ -54,7 +54,7 @@
 		<module>html5</module>
 		<module>w8</module>
 		
-		<module>android-classy</module>
+		<module>android-design</module>
 	</modules>
 	
 	<dependencyManagement>
