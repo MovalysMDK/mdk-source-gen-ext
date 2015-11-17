@@ -23,7 +23,7 @@
 	<xsl:output method="xml" indent="yes"/>
 	
 	
-	<xsl:template match="layout[parameters/parameter[@name='vmtype']='LISTITEM_1' and widget-variant='mdkwidget']" mode="item-list">
+	<xsl:template match="layout[parameters/parameter[@name='vmtype']='LISTITEM_1' and widget-variant='mdkwidget']" mode="item-list" priority="99">
 		<xsl:variable name="vmprefix"><xsl:value-of select="substring-before(visualfields/visualfield[1]/name, '__')"/></xsl:variable>
 		<xsl:variable name="presenterId"><xsl:value-of select="$vmprefix"/>__presenter__value</xsl:variable>
 	
