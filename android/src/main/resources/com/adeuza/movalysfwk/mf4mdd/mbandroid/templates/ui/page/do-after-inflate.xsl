@@ -57,18 +57,27 @@
 				<xsl:call-template name="non-generated-bloc">
 					<xsl:with-param name="blocId">doOnFabClick</xsl:with-param>
 					<xsl:with-param name="defaultSource">
-						<xsl:text>Intent oIntent = new Intent(</xsl:text>
-						<xsl:value-of select="/page/name"/>
-						<xsl:text>.this.getActivity(), </xsl:text>
-						<xsl:value-of select="layouts/layout/buttons/button[@type='NAVIGATION']/navigation/target/name"/>
-						<xsl:text>.class);&#13;</xsl:text>
-						<xsl:text>oIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);&#13;</xsl:text>
-						<xsl:value-of select="/page/name"/>
-						<xsl:text>.this.getActivity().startActivityForResult(oIntent, </xsl:text>
-						<xsl:value-of select="layouts/layout/buttons/button[@type='NAVIGATION']/navigation/target/name"/>
-						<xsl:text>.</xsl:text>
-						<xsl:value-of select="layouts/layout/buttons/button[@type='NAVIGATION']/navigation/target/request-code"/>
-						<xsl:text>);&#13;</xsl:text>
+						<xsl:choose>
+							<xsl:when test="/page/in-workspace='true'">
+								<xsl:text>((AbstractWorkspaceMasterDetailMMFragmentActivity) </xsl:text>
+								<xsl:value-of select="/page/name"/>
+								<xsl:text>.this.getActivity()).getWadapter().resetSelectedItem();&#13;</xsl:text>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text>Intent oIntent = new Intent(</xsl:text>
+								<xsl:value-of select="/page/name"/>
+								<xsl:text>.this.getActivity(), </xsl:text>
+								<xsl:value-of select="layouts/layout/buttons/button[@type='NAVIGATION']/navigation/target/name"/>
+								<xsl:text>.class);&#13;</xsl:text>
+								<xsl:text>oIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);&#13;</xsl:text>
+								<xsl:value-of select="/page/name"/>
+								<xsl:text>.this.getActivity().startActivityForResult(oIntent, </xsl:text>
+								<xsl:value-of select="layouts/layout/buttons/button[@type='NAVIGATION']/navigation/target/name"/>
+								<xsl:text>.</xsl:text>
+								<xsl:value-of select="layouts/layout/buttons/button[@type='NAVIGATION']/navigation/target/request-code"/>
+								<xsl:text>);&#13;</xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:with-param>
 	 			</xsl:call-template>
 	 			}
