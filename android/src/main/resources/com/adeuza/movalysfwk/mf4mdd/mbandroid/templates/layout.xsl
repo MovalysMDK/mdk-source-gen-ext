@@ -81,7 +81,7 @@
 		
 		<xsl:choose>
 			<xsl:when test="buttons/button[@type='NAVIGATION']/navigation[@type='NAVIGATION']">
-				<RelativeLayout
+				<ScrollView
 					xmlns:android="http://schemas.android.com/apk/res/android" 
 					xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
 					xmlns:mdk="http://schemas.android.com/apk/res-auto"
@@ -95,7 +95,7 @@
 						android:layout_centerVertical="true">
 						<xsl:apply-templates select="buttons/button[@type='NAVIGATION']"/>
 					</RelativeLayout>
-				</RelativeLayout>
+				</ScrollView>
 			</xsl:when>
 			<xsl:when test="contains(parameters/parameter[@name='vmtype'],'LISTITEM')">
 				<com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMCheckableRelativeLayout
