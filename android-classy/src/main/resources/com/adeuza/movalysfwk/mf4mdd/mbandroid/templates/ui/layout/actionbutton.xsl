@@ -60,15 +60,12 @@
 </xsl:template>
 
 <!-- <xsl:template match="button[@type='NAVIGATION']" mode="dimensions-wrap"> -->
-<!-- 	<xsl:text>android:layout_width="320dp" -->
-<!-- 	</xsl:text> -->
-<!--     <xsl:text>android:layout_height="64dp" -->
-<!--     </xsl:text> -->
+<!-- 	android:layout_width="320dp" -->
+<!-- 	android:layout_height="64dp" -->
 <!-- </xsl:template> -->
-<!-- DEFAULT DIMENSIONS for widget. -->
 <xsl:template match="button[@type='NAVIGATION']" mode="dimensions-wrap">
-	android:layout_width="320dp"
-	android:layout_height="64dp"
+	<xsl:text>
+	</xsl:text>
 </xsl:template>
 
 <xsl:template match="button[@type='NAVIGATION']" mode="componentStyle">
