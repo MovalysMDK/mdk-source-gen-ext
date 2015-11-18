@@ -148,7 +148,7 @@
 			<xsl:text>exitOnSave: </xsl:text><xsl:value-of select="$exit-boolean"/><xsl:text>,&#10;</xsl:text>
 			<xsl:text>exitOnCancel: </xsl:text><xsl:value-of select="$exit-boolean"/><xsl:text>,&#10;</xsl:text>
 			<xsl:text>exitWithoutSaving: true,&#10;</xsl:text>
-			<xsl:text>disabledModeNonEditable: true,&#10;</xsl:text>
+			<xsl:text>forceInEditionMode: true,&#10;</xsl:text>
 		</xsl:if>
 		<xsl:apply-templates select="." mode="controller-viewConfig-control-bar"/>
 		
