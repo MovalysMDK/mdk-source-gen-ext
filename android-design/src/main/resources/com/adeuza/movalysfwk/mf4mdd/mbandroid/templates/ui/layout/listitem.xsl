@@ -34,7 +34,7 @@
 			<xsl:attribute name="android:layout_alignParentStart"><xsl:text>true</xsl:text></xsl:attribute>
 			<xsl:attribute name="android:layout_width"><xsl:text>56dp</xsl:text></xsl:attribute>
 			<xsl:attribute name="android:layout_height"><xsl:text>56dp</xsl:text></xsl:attribute>
-			
+			<xsl:attribute name="android:layout_marginLeft"><xsl:text>8dp</xsl:text></xsl:attribute>
 			<xsl:attribute name="android:id"><xsl:text>@+id/</xsl:text><xsl:value-of select="$presenterId"/></xsl:attribute>
 		</com.soprasteria.movalysmdk.widget.basic.MDKPresenterView>
 
