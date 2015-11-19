@@ -16,9 +16,7 @@
 package com.adeuza.movalysfwk.mf4mdd.html5.generators;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
@@ -29,7 +27,8 @@ import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.a2a.adjava.generator.core.append.AbstractAppendGenerator;
+import com.a2a.adjava.generator.core.jsonmerge.AbstractJsonMergeGenerator;
+import com.a2a.adjava.generator.core.jsonmerge.AbstractSimpleJsonMergeGenerator;
 import com.a2a.adjava.generators.DomainGeneratorContext;
 import com.a2a.adjava.utils.Chrono;
 import com.a2a.adjava.xmodele.MEnumeration;
@@ -40,7 +39,7 @@ import com.adeuza.movalysfwk.mf4mdd.html5.xmodele.MF4HDictionary;
 import com.adeuza.movalysfwk.mf4mdd.html5.xmodele.MF4HDomain;
 import com.adeuza.movalysfwk.mf4mdd.html5.xmodele.MF4HModelFactory;
 
-public class MF4HLabelGenerator extends AbstractAppendGenerator<MF4HDomain<MF4HDictionary, MF4HModelFactory>> {
+public class MF4HLabelGenerator extends AbstractSimpleJsonMergeGenerator<MF4HDomain<MF4HDictionary, MF4HModelFactory>> {
 
 	/**
 	 * Logger
@@ -75,7 +74,7 @@ public class MF4HLabelGenerator extends AbstractAppendGenerator<MF4HDomain<MF4HD
 			File oTargetFile = this.getOutputFile(p_oProject, oLocale);
 	
 			Document xInterfacesDocument = DocumentHelper.createDocument(xLabels);
-			this.doAppendGeneration(xInterfacesDocument, this.getXslTemplate(oLocale), oTargetFile, p_oProject, p_oContext);
+			this.doJsonMergeGeneration(xInterfacesDocument, this.getXslTemplate(oLocale), oTargetFile, p_oProject, p_oContext);
 		}
 		
 		log.debug("< LabelGenerator.genere: {}", oChrono.stopAndDisplay());
