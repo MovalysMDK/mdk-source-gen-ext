@@ -22,7 +22,6 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +38,6 @@ import com.a2a.adjava.xmodele.ui.menu.MMenuActionItem;
 import com.a2a.adjava.xmodele.ui.menu.MMenuItem;
 import com.a2a.adjava.xmodele.ui.navigation.MNavigationType;
 import com.adeuza.movalysfwk.mf4mdd.commons.utils.Version;
-import com.adeuza.movalysfwk.mf4mdd.commons.utils.Widget;
 import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4ADictionnary;
 import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4ADomain;
 import com.adeuza.movalysfwk.mf4mdd.mbandroid.xmodele.MF4AModeleFactory;
@@ -90,7 +88,6 @@ public class MenuGenerator extends
 
 				if (!oMenu.getMenuItems().isEmpty()) {
 					Element xMenu = oMenu.toXml();
-					suppressAddButton(xMenu);
 					Document xDoc = DocumentHelper.createDocument(xMenu);
 
 					xDoc.getRootElement().addElement("screenname-lc")
@@ -193,8 +190,6 @@ public class MenuGenerator extends
 		
 		Element xMenu = p_oMenu.toXml();
 		
-		suppressAddButton(xMenu);
-		
 		Document xDoc = DocumentHelper.createDocument(xMenu);
 
 		xDoc.getRootElement().addElement("screenname-lc")
@@ -226,8 +221,6 @@ public class MenuGenerator extends
 		
 		Element xMenu = p_oMenu.toXml();
 		
-		suppressAddButton(xMenu);
-		
 		Document xDoc = DocumentHelper.createDocument(xMenu);
 
 		xDoc.getRootElement().addElement("screenname-lc")
@@ -243,15 +236,5 @@ public class MenuGenerator extends
 
 		log.debug("  generate menu file: {}", sFilename);
 		this.doAppendGeneration(xDoc, RESMENU_XSL, oTargetFile, p_oProject, p_oContext);
-	}
-	
-	private void suppressAddButton(Element x) {
-		// we remove the add button from the actionbar when not in legacy widget
-		if (!Widget.LEGACY_WIDGET.equals(VersionHandler.getWidgetVariant())) {
-			Node oSaveButton = x.selectSingleNode("menu-item/button[@type='NAVIGATION']");
-			if (oSaveButton != null) {
-				oSaveButton.detach();
-			}
-		}
 	}
 }

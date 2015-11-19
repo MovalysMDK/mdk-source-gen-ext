@@ -105,7 +105,7 @@
 	<xsl:template match="navigation" mode="optionPageNavigation">
 	
 		<xsl:choose>
-			<xsl:when test="@type='NAVIGATION_WKS_SWITCHPANEL' and target/name and ../../@id">
+			<xsl:when test="@type='NAVIGATION_WKS_SWITCHPANEL' and target/name and ../../@id and not(@name='navigation-oncreate')">
 			/**
 			 * Listener du menu contextuel d'id <xsl:value-of select="../../@id"/> 
 			 */
