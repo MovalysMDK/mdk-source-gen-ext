@@ -21,10 +21,11 @@
 	<xsl:include href="includes/class.xsl"/>
 	<xsl:include href="includes/string-replace-all.xsl"/>
 	
-	<xsl:include href="ui/viewmodel/import.xsl"/>	
+	<xsl:include href="ui/viewmodel/import.xsl"/>
 	<xsl:include href="ui/viewmodel/attribute-declaration.xsl"/>
 	<xsl:include href="ui/viewmodel/attribute-getter-setter.xsl"/>
 	<xsl:include href="ui/viewmodel/update-from-identifiable.xsl"/>
+	<xsl:include href="ui/viewmodel/attribute-derived.xsl"/>
 	
 	<xsl:include href="ui/viewmodel/update-from-dataloader.xsl"/>
 	<xsl:include href="ui/viewmodel/clear.xsl"/>
@@ -974,40 +975,7 @@
 	</xsl:template>
 	
 	<xsl:template match="viewmodel" mode="generate-calc-method">
-	
-		<xsl:for-each select="attribute[@derived='true']">
-		
-			<xsl:variable name="method-bloc-id"><xsl:value-of select="@name"/><xsl:text>-calc-method</xsl:text></xsl:variable>
-			
-			<xsl:call-template name="non-generated-bloc">
-				<xsl:with-param name="blocId" select="$method-bloc-id"/>
-				<xsl:with-param name="defaultSource">
-					<!-- si il y a plusieurs champs, generer une method de calcul -->
-					<xsl:text>/**&#13;</xsl:text>
-					<xsl:text> * Listener method on the fields in parameter&#13;</xsl:text>
-					<xsl:text> * @param p_sChamp modified field triggering the method&#13;</xsl:text>
-					<xsl:text> * @param p_oOldVal old value of the field&#13;</xsl:text>
-					<xsl:text> * @param p_oNewVal new value of the field&#13;</xsl:text>
-					<xsl:text> */&#13;</xsl:text>
-					<xsl:text>@ListenerOnFieldModified(fields={</xsl:text>
-					<!-- toutes les clés des champs non derivé -->
-					<xsl:for-each select="../attribute[@derived='false']">
-						<xsl:text>KEY_</xsl:text><xsl:value-of select="@name-uppercase"/>
-						<xsl:if test="position() != last()">
-							<xsl:text>, </xsl:text>
-						</xsl:if>
-					</xsl:for-each>
-					<xsl:text>})&#13;</xsl:text>
-					<xsl:text>public void </xsl:text><xsl:value-of select="@name"/><xsl:text>Operation(String p_sChamp, Object p_oOldVal, Object p_oNewVal) {</xsl:text>
-					<xsl:text>
-					// MF_DEV_MANDATORY
-					// TODO auto-generated method
-					</xsl:text>
-					<xsl:value-of select="set-accessor"/><xsl:text>(null);</xsl:text>
-					<xsl:text>}&#13;</xsl:text>
-				</xsl:with-param>
-			</xsl:call-template>
-		</xsl:for-each>
+		<xsl:apply-templates select="attribute[@derived='true']" mode="derived-method"/>
 	</xsl:template>
 
 </xsl:stylesheet>
