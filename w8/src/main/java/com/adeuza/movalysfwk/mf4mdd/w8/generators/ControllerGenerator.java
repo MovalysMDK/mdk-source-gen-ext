@@ -67,7 +67,8 @@ public class ControllerGenerator extends AbstractIncrementalGenerator<MFDomain<M
 	                                    DomainGeneratorContext p_oGeneratorContext) throws Exception {
 
 		// Compute the controller file name
-		String sControllerFileName = FileTypeUtils.computeFilenameForXamlCSharpImpl("Application.Controllers", p_oScreen.getName(), p_oMProject.getSourceDir());
+		String controllerName = p_oScreen.getName()+"Controller";
+		String sControllerFileName = FileTypeUtils.computeFilenameForCSharpImpl("Application.Controllers", controllerName, p_oMProject.getSourceDir());
 		// Convert the screen to xml
 		Element oElement = p_oScreen.toXml();
 

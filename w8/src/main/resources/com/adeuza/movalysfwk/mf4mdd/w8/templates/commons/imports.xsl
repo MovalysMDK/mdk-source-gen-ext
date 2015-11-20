@@ -308,6 +308,17 @@
 	<xsl:text>using System.Threading.Tasks;</xsl:text>
 </xsl:template>
 
+<xsl:template name="controller-imports">
+	<xsl:text>using mdk_common;</xsl:text>
+	<xsl:text>using mdk_common.Attributs;</xsl:text>
+	<xsl:text>using mdk_common.Controller;</xsl:text>
+	<xsl:text>using System;</xsl:text>
+	<xsl:text>using System.Collections.Generic;</xsl:text>
+	<xsl:text>using System.Linq;</xsl:text>
+	<xsl:text>using System.Text;</xsl:text>
+	<xsl:text>using System.Threading.Tasks;</xsl:text>
+</xsl:template>
+
 <xsl:template match="dataloader-impl" mode="data-loader-imports">
 	<xsl:text>using mdk_common;</xsl:text>
 	<xsl:text>using mdk_common.Context;</xsl:text>

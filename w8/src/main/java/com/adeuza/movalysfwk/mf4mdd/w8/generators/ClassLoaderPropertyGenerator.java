@@ -138,6 +138,10 @@ public class ClassLoaderPropertyGenerator extends AbstractIncrementalGenerator<M
 										);
 					}
 				}
+				mapfields.put(oScreen.getName()+"Controller",
+						"Application," + oScreen.getPackage().getFullName() + "." +
+							oScreen.getName()+"Controller"
+							);
 			}
 		}
 	}

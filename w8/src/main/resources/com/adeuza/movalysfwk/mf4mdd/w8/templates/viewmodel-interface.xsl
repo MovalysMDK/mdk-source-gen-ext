@@ -169,14 +169,7 @@
 <!-- Fin du cas particulier -->
 
 <xsl:template match="viewmodel" mode="subVmAttributes">
-<xsl:choose>
-	<xsl:when test="parameters/parameter[@name = 'baseName'] or type/name='LIST_1'">
-		<xsl:value-of select="implements/interface/@name" /><xsl:text> </xsl:text><xsl:value-of select="property-name" />
-	</xsl:when>
-	<xsl:otherwise>
-		<xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="property-name"/>
-	</xsl:otherwise>
-</xsl:choose>
+<xsl:value-of select="implements/interface/@name"/><xsl:text> </xsl:text><xsl:value-of select="property-name"/>
 <xsl:text> { get; set; }&#13;</xsl:text>
 </xsl:template>
 

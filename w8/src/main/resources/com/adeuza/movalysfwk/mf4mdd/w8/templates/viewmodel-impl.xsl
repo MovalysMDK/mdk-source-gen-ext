@@ -220,13 +220,29 @@
 	<xsl:text> data = p_dataloader.GetData();
      if (data == null) {
      	data = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="dataloader-impl/dataloader-interface/entity-type/name"/><xsl:text>Factory&gt;().CreateInstance();	
-      }&#13;
-      viewModelCreator.update</xsl:text>
+      }&#13;</xsl:text>
+
+	<xsl:text>ViewModelCreator viewModelCreator = ClassLoader.GetInstance().GetBean&lt;ViewModelCreator&gt;();&#13;</xsl:text>
+
+	<xsl:value-of select="./implements/interface/@name"/><xsl:text> _vm = </xsl:text>
+	<xsl:text>viewModelCreator.update</xsl:text>
     <xsl:value-of select="implements/interface/@name"/>
     <xsl:apply-templates select="./subvm/viewmodel" mode="add-update-to-dataloader-for-fixed-list-declaration"/>
     <xsl:text>(data</xsl:text>
     <xsl:apply-templates select="./subvm/viewmodel" mode="add-update-to-dataloader-for-fixed-list-parameter"/>
     <xsl:text>);</xsl:text>
+
+	<xsl:text>if (_vm != null){&#13;</xsl:text>
+	<xsl:apply-templates select="./identifier/attribute|./attribute" mode="generate-updateFromViewModel-attribute"/>
+	<xsl:apply-templates select="./subvm/viewmodel" mode="generate-updateFromViewModel-subvm"/>
+	<xsl:apply-templates select="./external-lists/external-list/viewmodel" mode="generate-updateFromViewModel-external-list"/>
+	<xsl:text>&#13;</xsl:text>
+	<xsl:call-template name="non-generated-bloc">
+		<xsl:with-param name="blocId">updateFromViewModel-method</xsl:with-param>
+	</xsl:call-template>
+	<xsl:text>&#13;</xsl:text>
+	<xsl:text>}</xsl:text>
+
 </xsl:template>
 
 
@@ -555,8 +571,8 @@
 				<xsl:with-param name="defaultSource">
 					<xsl:text>IMDKNavigationService navigationService = ClassLoader.GetInstance().GetBean&lt;IMDKNavigationService&gt;();&#13;</xsl:text>
 					<xsl:text>navigationService.Navigate("</xsl:text>
-					<xsl:value-of select="target/vm-name"/>
-					<xsl:text>");&#13;</xsl:text>
+					<xsl:value-of select="target/name"/>
+					<xsl:text>Controller");&#13;</xsl:text>
 				</xsl:with-param>
 			</xsl:call-template>
 			<xsl:text>}&#13;</xsl:text>

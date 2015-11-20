@@ -25,10 +25,8 @@
 	</xsl:template>
     <xsl:template match="entry" mode="navigation-entry">
         <xsl:text>navigationService.RegisterNavigationTarget("</xsl:text>
-        <xsl:value-of select="key" />
-        <xsl:text>", typeof(</xsl:text>
-        <xsl:value-of select="ivm-name" />
-        <xsl:text>), typeof(</xsl:text>
+        <xsl:value-of select="screen-name" />
+        <xsl:text>Controller", typeof(</xsl:text>
         <xsl:value-of select="screen-name"/>
         <xsl:text>));&#13;</xsl:text>
     </xsl:template>
