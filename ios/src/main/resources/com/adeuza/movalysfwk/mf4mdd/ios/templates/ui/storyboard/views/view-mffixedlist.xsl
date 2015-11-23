@@ -29,15 +29,15 @@
 *****  
 ****************************************************** -->
 
-<xsl:template match="subView[customClass='MFFixedList']|component[customClass='MFFixedList']" mode="subview-runtimeAttributes-generation" priority="1000">
-	<xsl:comment>"subView[customClass='MFFixedList']" mode="subview-runtimeAttributes-generation"</xsl:comment>
+<xsl:template match="subView[customClass='MDKFixedList']|component[customClass='MDKFixedList']" mode="subview-runtimeAttributes-generation" priority="1000">
+	<xsl:comment>"subView[customClass='MDKFixedList']" mode="subview-runtimeAttributes-generation"</xsl:comment>
 </xsl:template>
 
 
 
-<xsl:template match="subView[customClass='MFFixedList']|component[customClass='MFFixedList']" mode="subview-outlets-generation"  priority="1000">
+<xsl:template match="subView[customClass='MDKFixedList']|component[customClass='MDKFixedList']" mode="subview-outlets-generation"  priority="1000">
 	<xsl:param name="controllerId"/>
-		<xsl:comment>subView|component[customClass='MFFixedList']" mode="subview-outlets-generation"</xsl:comment>
+		<xsl:comment>subView|component[customClass='MDKFixedList']" mode="subview-outlets-generation"</xsl:comment>
 		<!--  xsl:if test="$controllerId!=''">
 			<outlet property="delegate">
 				<xsl:attribute name="id"><xsl:value-of select="@id"/>-<xsl:value-of select="customClass"/>-SOD</xsl:attribute>

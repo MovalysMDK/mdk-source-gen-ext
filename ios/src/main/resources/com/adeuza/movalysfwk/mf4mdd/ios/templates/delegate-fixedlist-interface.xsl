@@ -40,7 +40,7 @@
 @interface <xsl:value-of select="view-fixedlist-name"/> : 
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">class-signature</xsl:with-param>
-	<xsl:with-param name="defaultSource">MFFixedListDataDelegate</xsl:with-param>
+	<xsl:with-param name="defaultSource">MDKFixedListDataDelegate</xsl:with-param>
 </xsl:call-template>
 
 <xsl:call-template name="non-generated-bloc">

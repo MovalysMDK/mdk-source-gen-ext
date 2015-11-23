@@ -54,6 +54,8 @@ public class MF4IViewModel extends MFViewModel {
 	public Element toXml() {
 		Element r_xViewModel = super.toXml();
 		
+		r_xViewModel.element("property-name").setText(StringUtils.uncapitalize(this.getName()));
+
 		Element xMapping = (Element) r_xViewModel.element("mapping");
 		if ( xMapping != null ) {
 			for( Element xElem : (List<Element>) xMapping.elements("entity")) {

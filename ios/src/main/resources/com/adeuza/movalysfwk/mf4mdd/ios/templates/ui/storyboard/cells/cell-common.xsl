@@ -141,7 +141,7 @@
 			<xsl:with-param name="viewId"><xsl:value-of select="$viewId"/></xsl:with-param>
 		</xsl:apply-templates>
 		<xsl:apply-templates select="." mode="gen-table-cell-view-runtime-attributes"/>
-		<xsl:if test="customClass = 'MFFixedList'">
+		<xsl:if test="customClass = 'MDKFixedList'">
 		<constraints>
 			<constraint constant="{@height}" firstAttribute="height">
 				<xsl:attribute name="id"><xsl:value-of select="$viewId"/>-C-height</xsl:attribute>

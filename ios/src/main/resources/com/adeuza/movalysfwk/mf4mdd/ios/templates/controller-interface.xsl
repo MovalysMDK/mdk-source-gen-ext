@@ -81,7 +81,7 @@
 	
 	<xsl:text>@property (weak, nonatomic) IBOutlet </xsl:text>
 	<xsl:choose>
-		<xsl:when test="./customClass = 'MFPickerList' or ./customClass = 'MFFixedList'">
+		<xsl:when test="./customClass = 'MFPickerList' or ./customClass = 'MDKFixedList'">
 			<xsl:text>MFUIBaseComponent</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>

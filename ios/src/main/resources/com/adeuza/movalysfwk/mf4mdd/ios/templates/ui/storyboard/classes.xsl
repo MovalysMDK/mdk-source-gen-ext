@@ -61,7 +61,7 @@
     <class className="MFCellComponentFixedList" superclassName="MFCellAbstract">
        <source key="sourceIdentifier" type="project" relativePath="./Classes/MFCellComponentFixedList.h"/>
        <relationships>
-           <relationship kind="outlet" name="fixedList" candidateClass="MFFixedList"/>
+           <relationship kind="outlet" name="fixedList" candidateClass="MDKFixedList"/>
            <relationship kind="outlet" name="label" candidateClass="MDKLabel"/>
        </relationships>
    </class>
@@ -69,13 +69,13 @@
    <class className="MFCellPhotoFixedList" superclassName="MFCellComponentFixedList">
        <source key="sourceIdentifier" type="project" relativePath="./Classes/MFCellPhotoFixedList.h"/>
        <relationships>
-           <relationship kind="outlet" name="fixedList" candidateClass="MFFixedList"/>
+           <relationship kind="outlet" name="fixedList" candidateClass="MDKFixedList"/>
            <relationship kind="outlet" name="label" candidateClass="MDKLabel"/>
        </relationships>
    </class>
    
-   <class className="MFFixedList" superclassName="MFUIBaseComponent">
-       <source key="sourceIdentifier" type="project" relativePath="./Classes/MFFixedList.h"/>
+   <class className="MDKFixedList" superclassName="MFUIBaseComponent">
+       <source key="sourceIdentifier" type="project" relativePath="./Classes/MDKFixedList.h"/>
    </class>
    
        <class className="MFCellComponentPickerList" superclassName="MFCellAbstract">
@@ -87,7 +87,7 @@
    </class>
    
    <class className="MFPickerList" superclassName="MFUIBaseComponent">
-       <source key="sourceIdentifier" type="project" relativePath="./Classes/MFFixedList.h"/>
+       <source key="sourceIdentifier" type="project" relativePath="./Classes/MDKFixedList.h"/>
    </class>
    
    <class className="MFFormBaseViewController" superclassName="MFViewController">

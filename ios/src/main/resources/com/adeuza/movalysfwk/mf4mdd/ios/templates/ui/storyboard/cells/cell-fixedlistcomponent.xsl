@@ -21,12 +21,12 @@
 <!-- **********************************************************************
 ***** controllerType='FORMVIEW' or 'FIXEDLISTVIEW'  > subView **********-->
 	
-<xsl:template match="subView[(customClass='MFFixedList' or cellType='MFFixedList')]" mode="gen-table-cell-view-runtime-attributes">
+<xsl:template match="subView[(customClass='MDKFixedList' or cellType='MDKFixedList')]" mode="gen-table-cell-view-runtime-attributes">
 
 	<xsl:comment> [cell-fixedlistcomponent.xsl] subView[customClass='<xsl:value-of select="customClass"/>'] mode='gen-table-cell-view-runtime-attributes'</xsl:comment>
 </xsl:template>
 
-<xsl:template match="subView[(customClass='MFFixedList' or cellType='MFFixedList')]" mode="gen-table-cell-runtime-attributes">
+<xsl:template match="subView[(customClass='MDKFixedList' or cellType='MDKFixedList')]" mode="gen-table-cell-runtime-attributes">
 
 	<xsl:comment> [cell-fixedlistcomponent.xsl] subView[customClass='<xsl:value-of select="customClass"/>'] mode='gen-table-cell-runtime-attributes'</xsl:comment>
 
