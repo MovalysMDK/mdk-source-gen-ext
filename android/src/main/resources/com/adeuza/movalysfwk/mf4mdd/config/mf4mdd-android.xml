@@ -3,7 +3,7 @@
 
 	<uml-updaters>
 	    <uml-updater class="com.adeuza.movalysfwk.mf4mdd.commons.umlupdater.BackwardCompatibilityNamingUmlUpdater">
-	        <!-- like 
+	        <!-- like
 	        <property name="DeprecatedName" value="NewName"/>
 	         -->
 	        <property name="PhotoThumbnailView" value="Thumbnail"/>
@@ -195,6 +195,7 @@
 					<properties>
 						<property name="name" type="String" />
 						<property name="uri" type="String" />
+						<property name="svg" type="String" />
 						<property name="date" type="Timestamp" />
 						<property name="desc" type="String" />
 						<property name="photoState" type="PhotoState" />
@@ -439,7 +440,7 @@
 				</type-viewmodel>
 			</type-viewmodels>
 
-			
+
 
 			<type-actions>
 				<type-action id="DISPLAYSIMPLE">
@@ -544,7 +545,7 @@
 
 				<extractor
 					class="com.adeuza.movalysfwk.mf4mdd.mbandroid.extractors.ActionBarMMenuExtractor" />
-				
+
 				<extractor
 					class="com.adeuza.movalysfwk.mf4mdd.mbandroid.extractors.CustomFieldTableExtractor">
 					<configuration>
@@ -567,12 +568,12 @@
 						</db-naming-strategy>
 					</configuration>
 				</extractor>
-				
+
 				<extractor
 					class="com.adeuza.movalysfwk.mf4mdd.mbandroid.extractors.ClassesJavadocExtractor">
 					<property name="activated" value="false" />
 				</extractor>
-				
+
 			</extractors>
 			<project-upgraders>
 				<project-upgrader class="com.adeuza.movalysfwk.mf4mdd.commons.projectupgrader.UpgraderTo408">
@@ -660,7 +661,7 @@
 							class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.EntityHelperPropertiesGenerator" />
 <!-- 						<generator -->
 <!-- 							class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.ItemEnumGenerator" /> -->
-						<generator 
+						<generator
 						    class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.PanelGenerator" />
 						<generator
 							class="com.adeuza.movalysfwk.mf4mdd.mbandroid.generator.WorkspaceTabFragmentGenerator" />
