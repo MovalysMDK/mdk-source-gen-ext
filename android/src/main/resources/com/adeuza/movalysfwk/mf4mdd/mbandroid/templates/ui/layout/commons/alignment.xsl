@@ -23,7 +23,7 @@
 <!-- Options for standard alignement -->
 <xsl:template match="visualfield" mode="standard-alignment">
 	<xsl:param name="titleId"/>
-	<xsl:param name="labelFeature" select="contains(./component, 'com.soprasteria.movalysmdk.widget')"/>
+	<xsl:param name="labelFeature" select="contains(./component, 'com.soprasteria.movalysmdk.widget') or component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFixedList'"/>
 	
 	<xsl:variable name="precedingField" select="preceding-sibling::visualfield[1]"/>
 	<xsl:variable name="navButtons" select="../../buttons/button[@type='NAVIGATION']"/>

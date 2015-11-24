@@ -34,7 +34,7 @@ Following templates are applied :
 	<xsl:text>
 	</xsl:text>
 	<xsl:variable name="precedingField" select="preceding-sibling::visualfield[1]"/>
-	<xsl:variable name="labelFeature" select="contains(./component, 'com.soprasteria.movalysmdk.widget')"/>
+	<xsl:variable name="labelFeature" select="contains(./component, 'com.soprasteria.movalysmdk.widget') or component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFixedList'"/>
 	
 	<!-- Label of component -->
 	<xsl:if test="not($labelFeature) and not(../../parameters/parameter[@name='vmtype-itemlayoutforinnerlist']='LIST_1__ONE_SELECTED') and not(../../parameters/parameter[@name='vmtype-selecteditemlayoutforinnerlist']='LIST_1__ONE_SELECTED')">

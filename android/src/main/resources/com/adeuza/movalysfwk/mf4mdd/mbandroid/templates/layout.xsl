@@ -70,6 +70,7 @@
 	<xsl:include href="ui/layout/mdkwidget/richseekbar.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richswitch.xsl"/>
 	<xsl:include href="ui/layout/mdkwidget/richmedia.xsl"/>
+	<xsl:include href="ui/layout/mdkwidget/richfixedlist.xsl"/>
 	
 	
 	<!-- custom widgets -->

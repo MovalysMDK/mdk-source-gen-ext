@@ -21,12 +21,12 @@
 <xsl:output method="xml" indent="yes"/>
 
 <!-- MANDATORY for mdk widgets -->
-<xsl:template match="visualfield[./mandatory and contains(./component, 'com.soprasteria.movalysmdk.widget')]" mode="mandatory">
+<xsl:template match="visualfield[./mandatory and (contains(./component, 'com.soprasteria.movalysmdk.widget') or component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFixedList')]" mode="mandatory">
 	<xsl:text>mdk:mandatory="</xsl:text><xsl:value-of select="mandatory"/><xsl:text>" </xsl:text>
 </xsl:template>
 
 <!-- MANDATORY for legacy widgets -->
-<xsl:template match="visualfield[./mandatory and not(contains(./component, 'com.soprasteria.movalysmdk.widget'))]" mode="mandatory">
+<xsl:template match="visualfield[./mandatory and not(contains(./component, 'com.soprasteria.movalysmdk.widget')  or component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFixedList')]" mode="mandatory">
 	<xsl:text>movalys:mandatory="</xsl:text><xsl:value-of select="mandatory"/><xsl:text>" </xsl:text>
 </xsl:template>
 

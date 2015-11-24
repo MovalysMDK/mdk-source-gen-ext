@@ -20,13 +20,15 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<!-- editable for mdk widgets -->
-<xsl:template match="visualfield[./readonly='true' and (contains(./component, 'com.soprasteria.movalysmdk.widget') or component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFixedList')]" mode="editable">
-	<xsl:text>mdk:readonly="true" </xsl:text>
+<!-- Component attributes -->
+<xsl:template match="visualfield[component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFixedList']" mode="componentAttributes">
+	<xsl:param name="titleId"/>
+	<xsl:apply-templates select="." mode="standard-alignment">
+		<xsl:with-param name="titleId" select="$titleId"/>
+	</xsl:apply-templates>
+	<xsl:apply-templates select="." mode="view-focusable"/>
+	<xsl:apply-templates select="." mode="dimensions-matchparent"/>
+	<xsl:apply-templates select="." mode="label"/>
+	<xsl:apply-templates select="." mode="editable"/>
 </xsl:template>
-
-<!-- fallback template -->
-<xsl:template match="visualfield" mode="editable">
-</xsl:template>
-
 </xsl:stylesheet>
