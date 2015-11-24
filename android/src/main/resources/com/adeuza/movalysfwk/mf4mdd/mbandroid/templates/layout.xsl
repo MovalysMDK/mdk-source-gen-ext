@@ -46,6 +46,8 @@
 	<xsl:include href="ui/layout/enumimage.xsl"/>
 	<xsl:include href="ui/layout/filterbutton.xsl"/>
 	<xsl:include href="ui/layout/fixedlist.xsl"/>
+	<xsl:include href="ui/layout/listview.xsl"/>
+	<xsl:include href="ui/layout/explistview.xsl"/>
 	<xsl:include href="ui/layout/radiogroup.xsl"/>
 	<xsl:include href="ui/layout/actionbutton.xsl"/>
 	<xsl:include href="ui/layout/workspace.xsl"/>
