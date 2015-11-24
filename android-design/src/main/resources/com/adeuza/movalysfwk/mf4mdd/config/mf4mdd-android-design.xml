@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <adjava-project>
-    <languages>
+	<languages>
 		<language name="android">
 			<types>
 				<type>
 					<uml-type>MDKPresenterSVMImpl</uml-type>
-					<language-type>com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.MDKPresenterSVMImpl</language-type>
+					<language-type>com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.MDKPresenterSVMImpl
+					</language-type>
 					<init-format>new MDKPresenterSVMImpl()</init-format>
 					<default-value></default-value>
 					<variable-prefix>o</variable-prefix>
@@ -18,15 +19,30 @@
 					</type-conversions>
 				</type>
 			</types>
+			<ui-types>
+				<ui-type uml-name="AddressLocation">
+					<read-write>
+						<view-model-type>AddressLocationVO</view-model-type>
+						<language-type>com.soprasteria.movalysmdk.widget.positionmaps.MDKRichMapsPosition
+						</language-type>
+					</read-write>
+					<read-only>
+						<view-model-type>AddressLocationVO</view-model-type>
+						<language-type>com.soprasteria.movalysmdk.widget.positionmaps.MDKRichMapsPosition
+						</language-type>
+					</read-only>
+				</ui-type>
+			</ui-types>
 		</language>
 	</languages>
-	
-    <domains>
+
+	<domains>
 		<domain name="mbandroid">
-		    <extractors>
-    			<extractor class="com.adeuza.movalysfwk.mf4mdd.mbandroid.extractors.VMPresenterExtractor"></extractor>
-    		</extractors>
-    	</domain>
-    </domains>
-    
+			<extractors>
+				<extractor
+					class="com.adeuza.movalysfwk.mf4mdd.mbandroid.extractors.VMPresenterExtractor"></extractor>
+			</extractors>
+		</domain>
+	</domains>
+
 </adjava-project>
