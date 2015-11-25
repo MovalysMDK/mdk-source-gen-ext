@@ -48,8 +48,6 @@
 	<xsl:with-param name="defaultSource"/>
 </xsl:call-template>
 
--(void)setContent;
-
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">other-methods</xsl:with-param>
 </xsl:call-template>   
