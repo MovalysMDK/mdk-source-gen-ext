@@ -84,7 +84,7 @@
 			android:layout_marginRight="2dp"
 			card_view:cardElevation="8dp"
 			card_view:cardUseCompatPadding="true">
-		
+
 		<xsl:apply-templates select="." mode="layout-default-inner-relative">
 			<xsl:with-param name="addtitle"><xsl:value-of select="$addtitle"/></xsl:with-param>
 		</xsl:apply-templates>
@@ -102,14 +102,18 @@
 
 	</xsl:template>
 	
-	<xsl:template match="*" mode ="layout-default-inner-relative">
+	<xsl:template match="*" mode="layout-default-inner-relative">
 		<xsl:param name="addtitle"/>
-	
+
 		<RelativeLayout
 			xmlns:android="http://schemas.android.com/apk/res/android"
-		    xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
-		    xmlns:mdk="http://schemas.android.com/apk/res-auto"
-			android:layout_width="match_parent" android:layout_height="match_parent">
+			xmlns:movalys="http://www.adeuza.com/movalys/mm/android"
+			xmlns:mdk="http://schemas.android.com/apk/res-auto"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			<xsl:if test="parameters/parameter[@name ='vmtype']='MASTER'">
+				<xsl:attribute name="android:padding">8dp</xsl:attribute>
+			</xsl:if>
 			<xsl:attribute name="android:id">@+id/<xsl:value-of
 				select="./name" /></xsl:attribute>
 
@@ -125,7 +129,7 @@
 			<xsl:apply-templates select="." mode="layout-default-inner-scroll">
 				<xsl:with-param name="addtitle"><xsl:value-of select="$addtitle"/></xsl:with-param>
 			</xsl:apply-templates>
-			
+
 		</RelativeLayout>
 	
 	</xsl:template>
@@ -152,7 +156,7 @@
 					<xsl:apply-templates select="." mode="layout-default-inner">
 						<xsl:with-param name="addtitle"><xsl:value-of select="$addtitle"/></xsl:with-param>
 					</xsl:apply-templates>
-					
+
 			</RelativeLayout>
 		</ScrollView>
 
