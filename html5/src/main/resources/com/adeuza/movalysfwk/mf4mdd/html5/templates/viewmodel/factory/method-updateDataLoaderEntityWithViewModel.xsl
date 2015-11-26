@@ -75,8 +75,10 @@
 				<xsl:variable name="entityIdToUpdate">
 					<xsl:text>viewModel.</xsl:text><xsl:value-of select="@vm-attr"/>.<xsl:text>selectedItemValue</xsl:text>
 				</xsl:variable>
+				<xsl:text>if (!angular.isUndefinedOrNull(</xsl:text><xsl:value-of select="$entityIdToUpdate"/><xsl:text>)) {&#10;</xsl:text>
 				<xsl:text>dataLoader.dataModel.</xsl:text><xsl:value-of select="getter/@name"/><xsl:text> = </xsl:text>
 				<xsl:text>$filter('filter')(dataLoader.</xsl:text><xsl:value-of select="$comboDataModelName"/><xsl:text>, {id: </xsl:text><xsl:value-of select="$entityIdToUpdate"/><xsl:text> })[0]; &#10;</xsl:text>
+				<xsl:text>}&#10;</xsl:text>
 			</xsl:for-each>
 	        
 	        <xsl:text>};&#10;</xsl:text>
