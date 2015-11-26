@@ -20,6 +20,8 @@
 
 	<xsl:output method="text"/>	
 	
+	<xsl:key name="comboEntity" match="/viewmodel/dataloader-impl/dataloader-interface/combos/combo/entity/text()" use="." />
+	
 	<xsl:template match="viewmodel[dataloader-impl]" mode="update-dataloader-entity-with-viewmodel">
 	
 		<xsl:if test="entity-to-update/factory-name">
@@ -64,7 +66,20 @@
 	        
 	        <xsl:text>, MFDataModelCache.modelCache);&#10;</xsl:text>
 	        
-	        <xsl:text>};&#10;&#10;</xsl:text>
+	        <!-- REATTACH ENTITY FROM DATALOADER FOR COMBO-->
+        	<xsl:text>// Re-attach linked entities from data-loader&#10;</xsl:text>
+			<xsl:for-each select="mapping/entity[@mapping-type='vm_comboitemselected']">
+				<xsl:variable name="comboDataModelName">
+					combo<xsl:value-of select="@type"/><xsl:text>DataModel</xsl:text>
+				</xsl:variable>
+				<xsl:variable name="entityIdToUpdate">
+					<xsl:text>viewModel.</xsl:text><xsl:value-of select="@vm-attr"/>.<xsl:text>selectedItemValue</xsl:text>
+				</xsl:variable>
+				<xsl:text>dataLoader.dataModel.</xsl:text><xsl:value-of select="getter/@name"/><xsl:text> = </xsl:text>
+				<xsl:text>$filter('filter')(dataLoader.</xsl:text><xsl:value-of select="$comboDataModelName"/><xsl:text>, {id: </xsl:text><xsl:value-of select="$entityIdToUpdate"/><xsl:text> })[0]; &#10;</xsl:text>
+			</xsl:for-each>
+	        
+	        <xsl:text>};&#10;</xsl:text>
         </xsl:if>
 	</xsl:template>
 	
