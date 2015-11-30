@@ -48,7 +48,7 @@
 	<xsl:text>xmlns:d="http://schemas.microsoft.com/expression/blend/2008" </xsl:text>
 	<xsl:text>xmlns:common="using:mdk_common.Common" </xsl:text>
 	<xsl:text>xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" </xsl:text>
-   	<xsl:text>xmlns:mf="using:mdk_common.UI" </xsl:text>
+   	<xsl:text>xmlns:mf="using:mdk_windows8.UI" </xsl:text>
    	<xsl:text>xmlns:conv="using:mdk_common.Converters" </xsl:text>
 	<xsl:text>mc:Ignorable="d" &gt;</xsl:text>
 </xsl:template>

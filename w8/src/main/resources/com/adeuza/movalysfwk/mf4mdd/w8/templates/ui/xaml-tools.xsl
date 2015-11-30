@@ -115,7 +115,7 @@
     		<xsl:text>xmlns:conv="clr-namespace:mdk_windows8.Converters;assembly=mdk-phone" </xsl:text>
 		  </xsl:when>
 		  <xsl:otherwise>
-			<xsl:text>xmlns:mf="clr-namespace:mdk_common.UI;assembly=mdk-phone" </xsl:text>
+			<xsl:text>xmlns:mf="clr-namespace:mdk_windows8.UI;assembly=mdk-phone" </xsl:text>
     		<xsl:text>xmlns:conv="clr-namespace:mdk_common.Converters;assembly=mdk-phone" </xsl:text>
 		  </xsl:otherwise>
 		</xsl:choose>

@@ -137,7 +137,7 @@
 	<xsl:text>if (command.Equals(okCmd))</xsl:text>
 	<xsl:text>{&#13;</xsl:text>
 	<xsl:text>CUDActionArgs deleteActionArgs = new CUDActionArgs();</xsl:text>
-	<xsl:text>deleteActionArgs.viewModel = viewModel;</xsl:text>
+	<xsl:text>deleteActionArgs.viewModel = ((</xsl:text><xsl:value-of select="../../../../../vm"/><xsl:text>)ViewModel).</xsl:text><xsl:value-of select="../../../viewmodel/name"/><xsl:text>;</xsl:text>
 	<xsl:text>&#13;ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().LaunchAction(typeof(</xsl:text><xsl:value-of select="@action-name"/><xsl:text>), this, deleteActionArgs);</xsl:text>
 	<xsl:if test="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']">
 		<xsl:value-of select="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']/source/component-name-capitalized"/><xsl:text>_ReloadEvent();</xsl:text>
@@ -161,7 +161,7 @@
 	<xsl:text>{&#13;</xsl:text>
 	<xsl:text>_context.Post(delegate&#13;</xsl:text>
 	<xsl:text>{&#13;</xsl:text>
-	<xsl:text>viewModel.Clear();</xsl:text>
+	<xsl:text>((</xsl:text><xsl:value-of select="../../../../../vm"/><xsl:text>)ViewModel).</xsl:text><xsl:value-of select="../../../viewmodel/name"/><xsl:text>.Clear();</xsl:text>
 	<xsl:text>}, null);</xsl:text>
 	<xsl:call-template name="non-generated-bloc">
 		<xsl:with-param name="blocId">after-<xsl:value-of select="@action-name"/>-method</xsl:with-param>

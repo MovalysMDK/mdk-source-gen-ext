@@ -78,7 +78,7 @@
 	<xsl:text>&lt;ResourceDictionary </xsl:text>
 	<xsl:text> xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"</xsl:text>
 	<xsl:text> xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"</xsl:text>
-   	<xsl:text> xmlns:mf="using:mdk_common.UI" </xsl:text>
+   	<xsl:text> xmlns:mf="using:mdk_windows8.UI" </xsl:text>
 	<xsl:text> xmlns:conv="using:mdk_common.Converters"&gt;</xsl:text>
 	<xsl:text>&lt;ResourceDictionary.MergedDictionaries&gt;</xsl:text>
 	<xsl:if test="ExternalAdapters/adapter or adapter">

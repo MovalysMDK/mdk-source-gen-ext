@@ -696,21 +696,21 @@
 				<ui-type uml-name="Button">
 					<read-write>
 						<view-model-type>Object</view-model-type>
-						<language-type>mdk_common.UI.MFButton</language-type>
+						<language-type>mdk_windows8.UI.MFButton</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Object</view-model-type>
-						<language-type>mdk_common.UI.MFButton</language-type>
+						<language-type>mdk_windows8.UI.MFButton</language-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="ImageButton">
 					<read-write>
 						<view-model-type>Object</view-model-type>
-						<language-type>mdk_common.UI.MFButton</language-type>
+						<language-type>mdk_windows8.UI.MFButton</language-type>
 					</read-write>
 					<read-only>
 						<view-model-type>Object</view-model-type>
-						<language-type>mdk_common.UI.MFButton</language-type>
+						<language-type>mdk_windows8.UI.MFButton</language-type>
 					</read-only>
 				</ui-type>
 			</ui-types>
@@ -903,6 +903,8 @@
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenCSGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.MF4WExtendedSplashScreenGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.PanelCommonGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.UserControlGenerator"/>
 					</resource-generators>
 				</project>
 				<project name="store" base-dir="${mainProject}">
@@ -916,6 +918,8 @@
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ScreenCSGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.MF4WExtendedSplashScreenGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.PanelCommonGenerator"/>
+						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.UserControlGenerator"/>
 					</resource-generators>
 				</project>
 				<project name="shared" base-dir="${mainProject}">
@@ -926,8 +930,6 @@
 						________ GENERATORS (Win8Shared)
 						________
 						__________________________________ -->
-						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.UserControlGenerator"/>
-						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.PanelCommonGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.LabelGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ConfGenerator"/>
 						<generator class="com.adeuza.movalysfwk.mf4mdd.w8.generators.ClassLoaderPropertyGenerator"/>

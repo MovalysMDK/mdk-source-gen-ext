@@ -30,7 +30,7 @@
 <xsl:value-of select="package"/>
 <xsl:text>"</xsl:text>
 <xsl:text>&#13;</xsl:text>
-<xsl:text>xmlns:mf="using:mdk_common.UI" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;</xsl:text>
+<xsl:text>xmlns:mf="using:mdk_windows8.UI" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;</xsl:text>
 <xsl:text>&#13;</xsl:text>
 <xsl:text>&lt;conv:</xsl:text>
 <xsl:value-of select="@type-short-name" />

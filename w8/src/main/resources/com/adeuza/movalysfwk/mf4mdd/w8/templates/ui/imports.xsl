@@ -30,7 +30,7 @@
 	<xsl:text>using Windows.UI.Popups;</xsl:text>
 	<xsl:text>using Windows.UI.Xaml;</xsl:text>
 	<xsl:text>using Windows.UI.Xaml.Controls;</xsl:text>
-	<xsl:text>using mdk_common.UI;</xsl:text>
+	<xsl:text>using mdk_windows8.UI;</xsl:text>
 	<xsl:if test="main = 'true'">
 		<xsl:if test="is-store = 'false'">
 			<xsl:text>using Common.Application;</xsl:text>
@@ -45,7 +45,7 @@
 	<xsl:text>using mdk_common.Controller;</xsl:text>
 	<xsl:text>using mdk_common.MFAction;</xsl:text>
 	<xsl:text>using mdk_common.Resources;</xsl:text>
-	<xsl:text>using mdk_common.UI;</xsl:text>
+	<xsl:text>using mdk_windows8.UI;</xsl:text>
 	<xsl:text>using mdk_common.View;</xsl:text>
 	<xsl:text>using System;</xsl:text>
 	<xsl:text>using System.Threading.Tasks;</xsl:text>
@@ -60,14 +60,14 @@
 	</xsl:if>
 </xsl:template>
 
-<!-- permet de créer une import C# à partir de n importe quel texte ou attribut -->
+<!-- permet de créer une import C# à partir de n importe quel texte ou attribut
 <xsl:template name="panel-imports">
 	<xsl:text>using mdk_common;</xsl:text>
 	<xsl:text>using mdk_common.Application;</xsl:text>
 	<xsl:text>using mdk_common.Event;</xsl:text>
 	<xsl:text>using mdk_common.MFAction;</xsl:text>
 	<xsl:text>using mdk_common.Resources;</xsl:text>
-	<xsl:text>using mdk_common.UI;</xsl:text>
+	<xsl:text>using mdk_windows8.UI;</xsl:text>
 	<xsl:text>using System;</xsl:text>
 	<xsl:text>using System.Collections.Generic;</xsl:text>
 	<xsl:text>using System.IO;</xsl:text>
@@ -82,6 +82,6 @@
 	<xsl:text>using Windows.UI.Xaml.Input;</xsl:text>
 	<xsl:text>using Windows.UI.Xaml.Media;</xsl:text>
 	<xsl:text>using Windows.UI.Xaml.Navigation;</xsl:text>
-</xsl:template>
+</xsl:template>-->
 
 </xsl:stylesheet>
