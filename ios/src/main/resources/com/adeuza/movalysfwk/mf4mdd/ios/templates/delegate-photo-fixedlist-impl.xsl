@@ -75,13 +75,6 @@
     return self;
 }
 
-- (void)setContent {
-    [super setContent];
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">setContent</xsl:with-param>
-	</xsl:call-template>
-}
-
 -(NSString *)itemListViewModelName {
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">itemListViewModelName</xsl:with-param>
@@ -142,42 +135,6 @@
 	</xsl:call-template>   
 }
 
-
-#pragma mark - Buttons
-
--(NSArray *)customButtonsForFixedList {
-	NSArray * rButtons = nil;
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">customButtonsForFixedList</xsl:with-param>
-	</xsl:call-template>  
-    return rButtons;
-}
-
-/**
- * @brief Returns the margin to apply between two buttons in the topBarView of
- * the FixedList. Return the default value (by calling super implementation),
- * or return your own custom value here.
- * @return the margin (in pixels) to apply between two buttons in the topBarView of the FixedList.
- */
--(CGFloat)marginForCustomButtons {
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">marginForCustomButtons</xsl:with-param>
-	</xsl:call-template>  
-    return [super marginForCustomButtons];
-}
-
-/**
- * @brief Returns the size to apply on buttons in the topBarView of
- * the FixedList. Return the default value (by calling super implementation),
- * or return your own custom size here.
- * @return the size (in pixels) to apply on buttons in the topBarView of the FixedList.
- */
--(CGSize)sizeForCustomButtons {
-    <xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">sizeForCustomButtons</xsl:with-param>
-	</xsl:call-template>  
-    return [super sizeForCustomButtons];
-}
 
 <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">other-methods</xsl:with-param>

@@ -119,6 +119,8 @@
 	    	    <xsl:attribute name="multiplier">1</xsl:attribute>
 			</constraint>
 		</constraints>
+      	<fontDescription key="fontDescription" type="system" pointSize="12"/>
+     	<color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 	</label>
 	</xsl:if>
 	
