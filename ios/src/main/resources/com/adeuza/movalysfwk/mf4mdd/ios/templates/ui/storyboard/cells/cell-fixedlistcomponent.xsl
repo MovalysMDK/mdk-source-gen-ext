@@ -32,4 +32,98 @@
 
 </xsl:template>
 
+
+<xsl:template match="subView[(customClass='MDKFixedList' or cellType='MDKFixedList')]" mode="gen-table-cell-constraints">
+	<xsl:param name="parentId"/>
+	<xsl:param name="viewId"/>
+
+	<xsl:comment> [cell-common.xsl] subView[customClass='<xsl:value-of select="customClass"/>'] mode='gen-table-cell-constraints' (viewId=<xsl:value-of select="$viewId"/>)</xsl:comment>
+
+	<xsl:variable name="cellMargin"><xsl:value-of select="../../@cellMargin"/></xsl:variable>
+	<constraints>
+	<xsl:choose>
+	<xsl:when test="@visibleLabel='true'">
+		<constraint firstAttribute="top" secondAttribute="top" >
+	        <xsl:attribute name="id"><xsl:value-of select="$viewId"/>-L-top-top</xsl:attribute>
+	        <xsl:attribute name="firstItem"><xsl:value-of select="$viewId"/>-L</xsl:attribute>
+	        <xsl:attribute name="secondItem"><xsl:value-of select="$parentId"/></xsl:attribute>
+	        <xsl:attribute name="constant"><xsl:value-of select="$cellMargin" /></xsl:attribute>
+	        <xsl:attribute name="multiplier">1</xsl:attribute>
+	    </constraint>      
+
+	    <constraint firstAttribute="leading" secondAttribute="leading" >
+	        <xsl:attribute name="id"><xsl:value-of select="$viewId"/>-L-leading-leading</xsl:attribute>
+	        <xsl:attribute name="firstItem"><xsl:value-of select="$viewId"/>-L</xsl:attribute>
+	        <xsl:attribute name="secondItem"><xsl:value-of select="$parentId"/></xsl:attribute>
+	        <xsl:attribute name="constant"><xsl:value-of select="$cellMargin" /></xsl:attribute>
+	        <xsl:attribute name="multiplier">1</xsl:attribute>
+	    </constraint>      
+
+	    <constraint firstAttribute="trailing" secondAttribute="trailing" >
+	        <xsl:attribute name="id"><xsl:value-of select="$viewId"/>-L-trailing</xsl:attribute>
+	        <xsl:attribute name="firstItem"><xsl:value-of select="$viewId"/>-L</xsl:attribute>
+	        <xsl:attribute name="secondItem"><xsl:value-of select="$parentId"/></xsl:attribute>
+	        <xsl:attribute name="constant">-<xsl:value-of select="$cellMargin" /></xsl:attribute>
+	        <xsl:attribute name="multiplier">1</xsl:attribute>
+	    </constraint>     
+    
+	    <constraint firstAttribute="top" secondAttribute="bottom" >
+	        <xsl:attribute name="id"><xsl:value-of select="$viewId"/>-C-bottom-top</xsl:attribute>
+	        <xsl:attribute name="firstItem"><xsl:value-of select="$viewId"/>-C</xsl:attribute>
+	        <xsl:attribute name="secondItem"><xsl:value-of select="$viewId"/>-L</xsl:attribute>
+	        <xsl:attribute name="multiplier">1</xsl:attribute>
+	        <xsl:attribute name="constant">0</xsl:attribute>
+	    </constraint>      
+
+	    <constraint firstAttribute="leading" secondAttribute="leading" >
+	        <xsl:attribute name="id"><xsl:value-of select="$viewId"/>-C-leading-leading</xsl:attribute>
+	        <xsl:attribute name="firstItem"><xsl:value-of select="$viewId"/>-C</xsl:attribute>
+	        <xsl:attribute name="secondItem"><xsl:value-of select="$viewId"/>-L</xsl:attribute>
+	        <xsl:attribute name="multiplier">1</xsl:attribute>
+	        <xsl:attribute name="constant">-<xsl:value-of select="$cellMargin" /></xsl:attribute>
+	    </constraint>      
+
+	    <constraint firstAttribute="trailing" secondAttribute="trailing" >
+	        <xsl:attribute name="id"><xsl:value-of select="$viewId"/>-C-trailing-trailing</xsl:attribute>
+	        <xsl:attribute name="firstItem"><xsl:value-of select="$viewId"/>-C</xsl:attribute>
+	        <xsl:attribute name="secondItem"><xsl:value-of select="$viewId"/>-L</xsl:attribute>
+	        <xsl:attribute name="multiplier">1</xsl:attribute>
+	        <xsl:attribute name="constant"><xsl:value-of select="$cellMargin" /></xsl:attribute>
+	    </constraint>      
+	</xsl:when>
+	<xsl:otherwise>
+		<constraint firstAttribute="top" secondAttribute="top" >
+	        <xsl:attribute name="id"><xsl:value-of select="$viewId"/>-C-top-top</xsl:attribute>
+	        <xsl:attribute name="firstItem"><xsl:value-of select="$viewId"/>-C</xsl:attribute>
+	        <xsl:attribute name="secondItem"><xsl:value-of select="$parentId"/></xsl:attribute>
+	        <xsl:attribute name="constant"><xsl:value-of select="$cellMargin" /></xsl:attribute>
+	        <xsl:attribute name="multiplier">1</xsl:attribute>
+	    </constraint>      
+
+	    <constraint firstAttribute="leading" secondAttribute="leading" >
+	        <xsl:attribute name="id"><xsl:value-of select="$viewId"/>-C-leading-leading</xsl:attribute>
+	        <xsl:attribute name="firstItem"><xsl:value-of select="$viewId"/>-C</xsl:attribute>
+	        <xsl:attribute name="secondItem"><xsl:value-of select="$parentId"/></xsl:attribute>
+	        <xsl:attribute name="constant">0</xsl:attribute>
+	        <xsl:attribute name="multiplier">1</xsl:attribute>
+	    </constraint>      
+
+	    <constraint firstAttribute="trailing" secondAttribute="trailing" >
+	        <xsl:attribute name="id"><xsl:value-of select="$viewId"/>-C-trailing-trailing</xsl:attribute>
+	        <xsl:attribute name="firstItem"><xsl:value-of select="$viewId"/>-C</xsl:attribute>
+	        <xsl:attribute name="secondItem"><xsl:value-of select="$parentId"/></xsl:attribute>
+	        <xsl:attribute name="constant">0</xsl:attribute>
+	        <xsl:attribute name="multiplier">1</xsl:attribute>
+	    </constraint>
+	</xsl:otherwise>
+	</xsl:choose>
+		<constraint firstAttribute="bottom" secondAttribute="bottom" >
+	        <xsl:attribute name="id"><xsl:value-of select="$viewId"/>-C-bottom-bottom</xsl:attribute>
+	        <xsl:attribute name="firstItem"><xsl:value-of select="$parentId"/></xsl:attribute>
+	        <xsl:attribute name="secondItem"><xsl:value-of select="$viewId"/>-C</xsl:attribute>
+	        <xsl:attribute name="constant"><xsl:value-of select="$cellMargin" /></xsl:attribute>
+	        <xsl:attribute name="multiplier">1</xsl:attribute>
+	    </constraint>
+	</constraints>
+</xsl:template>
 </xsl:stylesheet>
