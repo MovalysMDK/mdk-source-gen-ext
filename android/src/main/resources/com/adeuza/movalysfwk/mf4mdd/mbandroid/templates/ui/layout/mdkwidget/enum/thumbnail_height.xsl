@@ -20,12 +20,10 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<!-- DEFAULT DIMENSIONS for ENUM. -->
-<xsl:template match="visualfield|button" mode="dimensions">
-	<xsl:param name="width">100dp</xsl:param>
-	<xsl:param name="height">100dp</xsl:param>
-	android:layout_width="<xsl:value-of select="$width"/>"
-	android:layout_height="<xsl:value-of select="$height"/>"
+<!-- MDKMEDIA THUMBNAIL HEIGHT ATTRIBUTE (DEFAULT: 100dp) -->
+<xsl:template match="visualfield" mode="thumbnail_height">
+	<xsl:text>mdk:thumbnail_height="100dp" </xsl:text>
 </xsl:template>
+
 
 </xsl:stylesheet>

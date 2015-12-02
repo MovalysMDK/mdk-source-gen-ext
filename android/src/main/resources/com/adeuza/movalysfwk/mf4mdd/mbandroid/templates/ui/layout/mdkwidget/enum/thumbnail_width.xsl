@@ -20,22 +20,10 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/enum/thumbnail_height.xsl"/>
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/enum/thumbnail_width.xsl"/>
-
-<!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView']" mode="componentAttributes">
-	<xsl:param name="titleId"/>
-
-	<xsl:apply-templates select="." mode="standard-alignment">
-		<xsl:with-param name="titleId" select="$titleId"/>
-	</xsl:apply-templates>
-	<xsl:apply-templates select="." mode="view-focusable"/>
-	<xsl:apply-templates select="." mode="dimensions"/>
-	<xsl:apply-templates select="." mode="label"/>
-	<xsl:apply-templates select="." mode="editable"/>
-	<xsl:apply-templates select="." mode="thumbnail_height"/>
-	<xsl:apply-templates select="." mode="thumbnail_width"/>
+<!-- MDKMEDIA THUMBNAIL WIDTH ATTRIBUTE (DEFAULT: 100dp) -->
+<xsl:template match="visualfield" mode="thumbnail_width">
+	<xsl:text>mdk:thumbnail_width="100dp" </xsl:text>
 </xsl:template>
+
+
 </xsl:stylesheet>
