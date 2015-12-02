@@ -115,7 +115,7 @@
 			<xsl:with-param name="blocId">getList</xsl:with-param>
 			<xsl:with-param name="defaultSource">		
 			<xsl:value-of select="dao-name"/><xsl:text> </xsl:text><xsl:value-of select="dao-attribute-name"/><xsl:text> = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="dao-name"/><xsl:text>&gt;();</xsl:text>
-		    <xsl:text>this.</xsl:text><xsl:value-of select="entity-attribute-name"/><xsl:text>Lst = </xsl:text><xsl:value-of select="dao-attribute-name"/><xsl:text>.get</xsl:text><xsl:value-of select="dao-impl-name" /><xsl:text>s(context);&#13;</xsl:text>		
+		    <xsl:text>this.</xsl:text><xsl:value-of select="entity-attribute-name"/><xsl:text>Lst = </xsl:text><xsl:value-of select="dao-attribute-name"/><xsl:text>.Get</xsl:text><xsl:value-of select="dao-impl-name" /><xsl:text>s(context);&#13;</xsl:text>		
 			</xsl:with-param>
 		</xsl:call-template>
 		<xsl:text>}&#13;</xsl:text>
@@ -146,7 +146,7 @@
 		        	<xsl:if test="dao-interface">
 			            <xsl:value-of select="observed-entities/entity/name"/><xsl:text> </xsl:text>
 			            <xsl:value-of select="dao-interface/dao/class/name-uncapitalized" />
-			        	<xsl:text> = </xsl:text><xsl:value-of select="dao-interface/bean-name" /><xsl:text>.get</xsl:text>
+			        	<xsl:text> = </xsl:text><xsl:value-of select="dao-interface/bean-name" /><xsl:text>.Get</xsl:text>
 			            <xsl:value-of select="dao-interface/dao/class/name" />
 			        	<xsl:text>(this.GetItemId(), LOAD_CASCADE, context);</xsl:text>
 						<xsl:apply-templates select="dataloader-interface/combos/combo" mode="call-combo" />
@@ -196,7 +196,7 @@
 				<xsl:with-param name="defaultSource">
 		            <xsl:text>List&lt;</xsl:text><xsl:value-of select="observed-entities/entity/name"/><xsl:text>&gt; </xsl:text>
 		            <xsl:value-of select="dao-interface/dao/class/name-uncapitalized" />
-		        	<xsl:text> = </xsl:text><xsl:value-of select="dao-interface/bean-name" /><xsl:text>.get</xsl:text>
+		        	<xsl:text> = </xsl:text><xsl:value-of select="dao-interface/bean-name" /><xsl:text>.Get</xsl:text>
 		            <xsl:value-of select="dao-interface/dao/class/name" />
 		        	<xsl:text>s(LOAD_CASCADE, context);</xsl:text>
 					<xsl:apply-templates select="dataloader-interface/combos/combo" mode="call-combo" />
@@ -254,7 +254,7 @@
 		        	<xsl:if test="dao-interface">
 						<xsl:apply-templates select="dataloader-interface/combos/combo" mode="call-combo" />
 			            <xsl:text>return await </xsl:text>
-			            <xsl:value-of select="dao-interface/bean-name" /><xsl:text>.get</xsl:text>
+			            <xsl:value-of select="dao-interface/bean-name" /><xsl:text>.Get</xsl:text>
 			            <xsl:value-of select="dao-interface/dao/class/name" />
 			        	<xsl:text>Async(this.GetItemId(), LOAD_CASCADE, context);</xsl:text>
 		        	</xsl:if>
@@ -298,7 +298,7 @@
 		        	<xsl:if test="dao-interface">
 						<xsl:apply-templates select="dataloader-interface/combos/combo" mode="call-combo" />
 			            <xsl:text>return await </xsl:text>
-			            <xsl:value-of select="dao-interface/bean-name" /><xsl:text>.get</xsl:text>
+			            <xsl:value-of select="dao-interface/bean-name" /><xsl:text>.Get</xsl:text>
 			            <xsl:value-of select="dao-interface/dao/class/name" />
 			        	<xsl:text>sAsync(LOAD_CASCADE, context);</xsl:text>
 		        	</xsl:if>

@@ -67,7 +67,8 @@
 			<xsl:value-of select="@name"/>
 			<xsl:text>, </xsl:text>
 		</xsl:for-each>
-		<xsl:text>CascadeSet p_oCascadeSet, IMFContext p_oContext);&#13;&#13;</xsl:text>
+		<xsl:text>CascadeSet p_oCascadeSet, EntitySession p_oEntitySession, IMFContext p_oContext);&#13;&#13;</xsl:text>	
+		
 			
 	<xsl:if test="$async='true'">#endregion&#13;&#13;</xsl:if>
 </xsl:template>
@@ -105,7 +106,7 @@
 				<xsl:value-of select="@name"/>
 				<xsl:text>, </xsl:text>
 			</xsl:for-each>
-			<xsl:text>CascadeSet.NONE, p_oContext);</xsl:text>
+			<xsl:text>CascadeSet.NONE, new EntitySession(), p_oContext);</xsl:text>
 	}
 
 	<xsl:text>/// &lt;inheritDoc /&gt;&#13;</xsl:text>
@@ -119,7 +120,7 @@
 				<xsl:value-of select="@name"/>
 				<xsl:text>, </xsl:text>
 			</xsl:for-each>
-			<xsl:text>CascadeSet p_oCascadeSet, IMFContext p_oContext) {&#13;</xsl:text>
+			<xsl:text>CascadeSet p_oCascadeSet, EntitySession p_oEntitySession, IMFContext p_oContext) {&#13;</xsl:text>
 		
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">before-getClass<xsl:if test="$async='true'">-async</xsl:if></xsl:with-param>
@@ -146,16 +147,25 @@
 		<xsl:text>).FirstOrDefault</xsl:text><xsl:if test="$async='true'">Async</xsl:if><xsl:text>();&#13;</xsl:text>
 		
         <xsl:for-each select="../class/descendant::association[not(@transient='true')]">
-		if (p_oCascadeSet.Contains(<xsl:value-of select="../../class/name"/>Cascade.<xsl:value-of select="@cascade-name"/>)) {
+		if (p_oCascadeSet.Contains(<xsl:value-of select="$class-name"/>Cascade.<xsl:value-of select="@cascade-name"/>)) {
 			<xsl:choose>
 				<xsl:when test="@type='many-to-many' and join-table">
 					<xsl:value-of select="./dao/name"/><xsl:text> </xsl:text><xsl:value-of select="./dao/bean-ref"/> = (<xsl:value-of select="./dao/name"/>)ClassLoader.GetInstance().GetBean&lt;<xsl:value-of select="./dao-interface/name"/>&gt;();
-					<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/>.<xsl:value-of select="@name-capitalized"/><xsl:text> = </xsl:text><xsl:if test="$async='true'">await </xsl:if><xsl:value-of select="./dao/bean-ref"/>.GetList<xsl:value-of select="./@name-capitalized"/>By<xsl:value-of select="./@opposite-capitalized-name"/><xsl:if test="$async='true'">Async</xsl:if>(<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/>, new EntitySession(), p_oCascadeSet, p_oContext);
-				</xsl:when>
+					<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/>.<xsl:value-of select="@name-capitalized"/><xsl:text> = </xsl:text><xsl:value-of select="./dao/bean-ref"/><xsl:text>.GetList</xsl:text>
+					<xsl:choose>
+						<xsl:when test="@opposite-navigable='true'">
+							<xsl:value-of select="./@name-capitalized"/>By<xsl:value-of select="./@opposite-capitalized-name"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="./class/name"/>By<xsl:value-of select="$class-name"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					<xsl:text>(</xsl:text><xsl:value-of select="$class-name"/><xsl:text>, p_oCascadeSet, p_oEntitySession, p_oContext);</xsl:text>
+				</xsl:when>				
 				<xsl:otherwise>
 					<xsl:choose>
 						<xsl:when test="@type='many-to-many' or @type='one-to-many'">
-							<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/>.<xsl:value-of select="@name-capitalized"/><xsl:text>.AddRange(</xsl:text>
+							<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/>.<xsl:value-of select="@name-capitalized"/><xsl:text> = </xsl:text>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/>.<xsl:value-of select="@name-capitalized"/><xsl:text> = </xsl:text>
@@ -166,7 +176,7 @@
 						<xsl:when test="@type='many-to-many' or @type='one-to-many'">
 							<xsl:text>c.</xsl:text><xsl:value-of select="./@opposite-capitalized-name"/>.<xsl:value-of select="../identifier/descendant::attribute[1]/@name-capitalized"/><xsl:text> == </xsl:text>
 							<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/>.<xsl:value-of select="../identifier/descendant::attribute[1]/@name-capitalized"/>
-							<xsl:text>).ToList</xsl:text><xsl:if test="$async='true'">Async</xsl:if><xsl:text>());&#13;</xsl:text>
+							<xsl:text>).ToList</xsl:text><xsl:if test="$async='true'">Async</xsl:if><xsl:text>();&#13;</xsl:text>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:text>c.</xsl:text><xsl:value-of select="../identifier/descendant::attribute[1]/@name-capitalized"/><xsl:text> == </xsl:text>
@@ -183,6 +193,7 @@
 					</xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
+			
 		}
 		</xsl:for-each>
 		<xsl:text>&#13;</xsl:text>

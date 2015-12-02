@@ -140,7 +140,7 @@
 			<xsl:text> = null ;</xsl:text>
 		
 		<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/><xsl:text> = </xsl:text>
-		<xsl:if test="$async='true'">await </xsl:if><xsl:text>this.get</xsl:text><xsl:value-of select="$class-name"/>
+		<xsl:if test="$async='true'">await </xsl:if><xsl:text>this.Get</xsl:text><xsl:value-of select="$class-name"/>
 		<xsl:if test="$async='true'">Async</xsl:if><xsl:text>(</xsl:text>
 		<xsl:for-each select="./class/identifier/descendant::attribute">
 			<xsl:value-of select="parameter-name"/>

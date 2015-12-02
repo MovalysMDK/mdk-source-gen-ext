@@ -153,7 +153,7 @@
 	 			<xsl:variable name="name" select="./@name" />
 			 	<xsl:for-each select="../../class/descendant::association[@cascade-name=$name and not(@transient='true')]">
 				if (p_oCascadeSet.Contains(<xsl:value-of select="../../class/name"/>Cascade.<xsl:value-of select="@cascade-name"/>)) {
-				   	<xsl:value-of select="./dao-interface/name"/><xsl:text> </xsl:text><xsl:value-of select="./dao/bean-ref"/> = ClassLoader.GetInstance().GetBean&lt;<xsl:value-of select="./dao-interface/name"/>&gt;();
+				   	<xsl:value-of select="./dao-interface/name"/><xsl:text> </xsl:text><xsl:value-of select="./dao/bean-ref"/> = ClassLoader.GetInstance().GetBean&lt;<xsl:value-of select="./dao-interface/name"/>&gt;(); 
 				    <xsl:choose> 
 				    	<xsl:when test="@type='one-to-many' or @type='many-to-many'">
 				    foreach (<xsl:value-of select="./interface/name"/><xsl:text> </xsl:text><xsl:value-of select="./@name"/> in <xsl:value-of select="../../class/name-uncapitalized"/>.<xsl:value-of select="@name-capitalized"/>) {

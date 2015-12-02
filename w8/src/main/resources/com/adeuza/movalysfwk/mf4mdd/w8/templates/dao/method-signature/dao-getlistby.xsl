@@ -71,7 +71,7 @@
 			<xsl:value-of select="@name"/>
 			<xsl:text>, </xsl:text>
 		</xsl:for-each>
-		<xsl:text>CascadeSet p_oCascadeSet, IMFContext p_oContext);&#13;&#13;</xsl:text>
+		<xsl:text>CascadeSet p_oCascadeSet, EntitySession p_oEntitySession, IMFContext p_oContext);&#13;&#13;</xsl:text>
 	
 	<xsl:if test="$async='true'">#endregion&#13;&#13;</xsl:if>
 </xsl:template>
@@ -111,7 +111,7 @@
 				<xsl:value-of select="@name"/>
 				<xsl:text>, </xsl:text>
 			</xsl:for-each>
-			<xsl:text>CascadeSet.NONE, p_oContext);</xsl:text>
+			<xsl:text>CascadeSet.NONE, new EntitySession(), p_oContext);</xsl:text>
 	}
 
 	<xsl:text>/// &lt;inheritDoc /&gt;&#13;</xsl:text>
@@ -127,20 +127,40 @@
 				<xsl:value-of select="@name"/>
 				<xsl:text>, </xsl:text>
 			</xsl:for-each>
-			<xsl:text>CascadeSet p_oCascadeSet, IMFContext p_oContext) {&#13;</xsl:text>
-		
+			<xsl:text>CascadeSet p_oCascadeSet, EntitySession p_oEntitySession, IMFContext p_oContext) {&#13;</xsl:text>	
+				
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">before-getListClass<xsl:if test="$async='true'">-async</xsl:if></xsl:with-param>
 		</xsl:call-template>
 		
-		List&lt;<xsl:value-of select="../interface/name"/>&gt; r_o<xsl:value-of select="$class-name"/>s = null ;
+		<xsl:variable name="ro-var" select="concat('r_o', $class-name, 'List')"/>
 		
 		<xsl:choose>
-			<xsl:when test="count(method-parameter) = 1 and method-parameter/association and method-parameter/association/@type='many-to-many'">
-				<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/>s = <xsl:value-of select="method-parameter/@name"/>.<xsl:value-of select="$class-name"/><xsl:text>s;&#13;</xsl:text>
+			<xsl:when test="count(method-parameter) = 1 and method-parameter/association and method-parameter/association/@type='many-to-many'">								
+				<xsl:variable name="association_var_root" select="substring-before(method-parameter/association/join-table/dao/bean-ref, 'Dao')"/>
+				
+				<xsl:value-of select="method-parameter/association/join-table/dao/bean-ref"/> oList<xsl:value-of select="method-parameter/association/join-table/dao/bean-ref"/> = (<xsl:value-of select="method-parameter/association/join-table/dao/bean-ref"/>)ClassLoader.GetInstance().GetBean&lt;<xsl:value-of select="method-parameter/association/join-table/dao-interface/name"/>&gt;();														
+				List&lt;<xsl:value-of select="method-parameter/association/join-table/interface/name"/>&gt; oList<xsl:value-of select="$association_var_root"/> = <xsl:if test="$async='true'">await</xsl:if> oList<xsl:value-of select="method-parameter/association/join-table/dao/bean-ref"/>.GetList<xsl:value-of select="$association_var_root"/>By<xsl:value-of select="method-parameter/association/method-crit-name"/><xsl:value-of select="method-parameter/association/attribute/@name-capitalized"/><xsl:if test="$async='true'">Async</xsl:if>(<xsl:value-of select="method-parameter/@name"/>.<xsl:value-of select="method-parameter/association/attribute/@name-capitalized"/>, p_oContext);
+				
+				List&lt;<xsl:value-of select="../interface/name"/>&gt; <xsl:value-of select="$ro-var"/> = new List&lt;<xsl:value-of select="../interface/name"/>&gt;(); 
+								
+				foreach (<xsl:value-of select="method-parameter/association/join-table/interface/name"/> o<xsl:value-of select="$association_var_root"/> in oList<xsl:value-of select="$association_var_root"/>) {
+					<xsl:value-of select="../interface/name"/> current<xsl:value-of select="$association_var_root"/> = (<xsl:value-of select="../interface/name"/>) p_oEntitySession.GetFromCache(typeof(<xsl:value-of select="../interface/name"/>), o<xsl:value-of select="$association_var_root"/>.<xsl:value-of select="method-parameter/association/join-table/key-fields/field/@method-crit-name"/>.ToString());				
+					if (current<xsl:value-of select="$association_var_root"/> == null)
+					{
+						<xsl:value-of select="$ro-var"/>.Add(this.Get<xsl:value-of select="$class-name"/>(o<xsl:value-of select="$association_var_root"/>.<xsl:value-of select="method-parameter/association/join-table/key-fields/field/@method-crit-name"/>, p_oCascadeSet, p_oEntitySession, p_oContext));
+					}
+					else
+					{
+						<xsl:value-of select="$ro-var"/>.Add(current<xsl:value-of select="$association_var_root"/> );					
+					}
+				}
+				
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/>s = <xsl:if test="$async='true'">await </xsl:if>this.GetTableQuery<xsl:if test="$async='true'">Async</xsl:if><xsl:text>(p_oContext).Where(c =&gt;</xsl:text>
+				List&lt;<xsl:value-of select="../interface/name"/>&gt; <xsl:value-of select="$ro-var"/> = null;							
+				<xsl:value-of select="$ro-var"/> = <xsl:if test="$async='true'">await </xsl:if>this.GetTableQuery<xsl:if test="$async='true'">Async</xsl:if><xsl:text>(p_oContext).Where(c =&gt;</xsl:text>
+				
 				<xsl:for-each select="method-parameter">
 					<xsl:choose>
 						<xsl:when test="./@by-value='true'">
@@ -156,63 +176,59 @@
 				</xsl:for-each>
 				<xsl:text>).ToList</xsl:text><xsl:if test="$async='true'">Async</xsl:if><xsl:text>();&#13;</xsl:text>
 			</xsl:otherwise>
-		</xsl:choose>
+		</xsl:choose> 
 		
 		<xsl:if test="../class/association">
-		foreach (<xsl:value-of select="../interface/name"/><xsl:text> </xsl:text><xsl:value-of select="../class/name-uncapitalized"/> in r_o<xsl:value-of select="$class-name"/>s) {
-		
+		<xsl:variable name="list-object" select="../class/name-uncapitalized"/>
+		foreach (<xsl:value-of select="../interface/name"/><xsl:text> </xsl:text><xsl:value-of select="$list-object"/> in <xsl:value-of select="$ro-var"/>) {		
 	        <xsl:for-each select="../class/descendant::association[not(@transient='true')]">
-       		if (p_oCascadeSet.Contains(<xsl:value-of select="../../class/name"/>Cascade.<xsl:value-of select="@cascade-name"/>)) {
+       		if (p_oCascadeSet.Contains(<xsl:value-of select="$class-name"/>Cascade.<xsl:value-of select="@cascade-name"/>)) {
 			<xsl:choose>
 				<xsl:when test="@type='many-to-many' and join-table">
 					<xsl:value-of select="./dao/name"/><xsl:text> </xsl:text><xsl:value-of select="./dao/bean-ref"/> = (<xsl:value-of select="./dao/name"/>)ClassLoader.GetInstance().GetBean&lt;<xsl:value-of select="./dao-interface/name"/>&gt;();
-					<xsl:value-of select="../name-uncapitalized"/>.<xsl:value-of select="@name-capitalized"/><xsl:text> = </xsl:text><xsl:if test="$async='true'">await </xsl:if><xsl:value-of select="./dao/bean-ref"/>.GetList<xsl:value-of select="./@name-capitalized"/>By<xsl:value-of select="./@opposite-capitalized-name"/><xsl:if test="$async='true'">Async</xsl:if>(<xsl:value-of select="../name-uncapitalized"/>, new EntitySession(), p_oCascadeSet, p_oContext);
+					<xsl:value-of select="$list-object"/>.<xsl:value-of select="@name-capitalized"/><xsl:text> = </xsl:text><xsl:value-of select="./dao/bean-ref"/><xsl:text>.GetList</xsl:text>
+					<xsl:choose>
+						<xsl:when test="@opposite-navigable='true'">
+							<xsl:value-of select="./@name-capitalized"/>By<xsl:value-of select="./@opposite-capitalized-name"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="./class/name"/>By<xsl:value-of select="$class-name"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					<xsl:text>(</xsl:text><xsl:value-of select="../name-uncapitalized"/><xsl:text>, p_oCascadeSet, p_oEntitySession, p_oContext);</xsl:text>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:value-of select="./dao/name"/><xsl:text> </xsl:text><xsl:value-of select="./dao/bean-ref"/> = (<xsl:value-of select="./dao/name"/>)ClassLoader.GetInstance().GetBean&lt;<xsl:value-of select="./dao-interface/name"/>&gt;();
+					<xsl:value-of select="./dao/name"/><xsl:text> </xsl:text><xsl:value-of select="./dao/bean-ref"/> = (<xsl:value-of select="./dao/name"/>)ClassLoader.GetInstance().GetBean&lt;<xsl:value-of select="./dao-interface/name"/>&gt;(); 
 					<xsl:choose>
 						<xsl:when test="@type='many-to-many' or @type='one-to-many'">
-							<xsl:value-of select="../name-uncapitalized"/>.<xsl:value-of select="@name-capitalized"/><xsl:text>.AddRange(</xsl:text>
+								<xsl:value-of select="$list-object"/>.<xsl:value-of select="@name-capitalized"/><xsl:text> = </xsl:text>
+								<xsl:if test="$async='true'">await </xsl:if>
+								<xsl:value-of select="./dao/bean-ref"/><xsl:text>.GetList</xsl:text>
+								<xsl:value-of select="./class/name"/>
+								<xsl:text>By</xsl:text>
+								<xsl:value-of select="@opposite-capitalized-name"/>
+								<xsl:if test="$async='true'">Async</xsl:if>
+								<xsl:text>(</xsl:text>
+								<xsl:value-of select="$list-object"/><xsl:text>, p_oCascadeSet, p_oEntitySession, p_oContext)</xsl:text>
+								<xsl:text>;&#13;</xsl:text>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:value-of select="../name-uncapitalized"/>.<xsl:value-of select="@name-capitalized"/><xsl:text> = </xsl:text>
-						</xsl:otherwise> 
-					</xsl:choose>
-					<xsl:if test="$async='true'">await </xsl:if>GetTableQuery<xsl:if test="$async='true'">Async</xsl:if>&lt;<xsl:value-of select="./interface/name"/>&gt;<xsl:text>(p_oContext).Where(c =></xsl:text>
-					<xsl:choose>
-						<xsl:when test="@type='many-to-many' or @type='one-to-many'">
-							<xsl:text>c.</xsl:text><xsl:value-of select="./@opposite-capitalized-name"/>.<xsl:value-of select="../identifier/descendant::attribute[1]/@name-capitalized"/><xsl:text> == </xsl:text>
-							<xsl:value-of select="../name-uncapitalized"/>.<xsl:value-of select="../identifier/descendant::attribute[1]/@name-capitalized"/>
-							<xsl:text>).ToList</xsl:text><xsl:if test="$async='true'">Async</xsl:if><xsl:text>());&#13;</xsl:text>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:text>c.</xsl:text><xsl:value-of select="../identifier/descendant::attribute[1]/@name-capitalized"/><xsl:text> == </xsl:text>
-							<xsl:value-of select="../name-uncapitalized"/>.<xsl:value-of select="@name-capitalized"/>.<xsl:value-of select="../identifier/descendant::attribute[1]/@name-capitalized"/>
-							<xsl:choose>
-								<xsl:when test="@type-name='List'">
-									<xsl:text>).ToList</xsl:text><xsl:if test="$async='true'">Async</xsl:if><xsl:text>();&#13;</xsl:text>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:text>).FirstOrDefault</xsl:text><xsl:if test="$async='true'">Async</xsl:if><xsl:text>();&#13;</xsl:text>
-								</xsl:otherwise>
-							</xsl:choose>						
+							<xsl:value-of select="$list-object"/>.<xsl:value-of select="@name-capitalized"/> = <xsl:value-of select="./dao/bean-ref"/>.Get<xsl:value-of select="./class/name"/>(<xsl:value-of select="$list-object"/>.<xsl:value-of select="@name-capitalized"/>.<xsl:value-of select="../identifier/descendant::attribute[1]/@name-capitalized"/>, p_oContext);
 						</xsl:otherwise> 
 					</xsl:choose>
 				</xsl:otherwise>
-			</xsl:choose>
+			</xsl:choose>			
 			}
 			</xsl:for-each>
 		}
 		</xsl:if>
 		<xsl:text>&#13;</xsl:text>
-
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">after-getListClass<xsl:if test="$async='true'">-async</xsl:if></xsl:with-param>
-		</xsl:call-template>
-
-        return r_o<xsl:value-of select="$class-name"/>s;
-	}	
-
+		</xsl:call-template>		
+		
+		return <xsl:value-of select="$ro-var"/>;
+		}
 	<xsl:if test="$async='true'">#endregion&#13;&#13;</xsl:if>
 </xsl:template>
 

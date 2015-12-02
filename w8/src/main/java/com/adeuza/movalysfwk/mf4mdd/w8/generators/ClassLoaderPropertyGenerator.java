@@ -143,6 +143,11 @@ public class ClassLoaderPropertyGenerator extends AbstractIncrementalGenerator<M
 							oScreen.getName()+"Controller"
 							);
 			}
+			
+			for (MEntityImpl oEntity : p_oMProject.getDomain().getDictionnary().getAllJoinClasses()) {
+				mapfields.put(oEntity.getMasterInterface().getName(), "Model," + oEntity.getFullName() + "=" + oEntity.getMasterInterface().getName() + "Factory");
+				mapfields.put(oEntity.getMasterInterface().getName() + "Factory", "Model," + oEntity.getFullName()  + "Factory");
+			}
 		}
 	}
 		

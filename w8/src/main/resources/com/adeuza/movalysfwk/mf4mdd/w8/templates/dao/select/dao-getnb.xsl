@@ -36,7 +36,7 @@
     /// &lt;/summary&gt;&#13;
     /// &lt;param name="p_oContext"&gt;Context for the operation&lt;/param&gt;&#13;
     /// &lt;returns&gt;The number of <xsl:value-of select="./dao/class/name"/> entities currently found in the database&lt;/returns&gt;&#13;
-	<xsl:if test="$async='true'">Task&lt;</xsl:if>int<xsl:if test="$async='true'">&gt;</xsl:if> getNb<xsl:value-of select="./dao/class/name"/><xsl:if test="$async='true'">Async</xsl:if><xsl:text>(IMFContext p_oContext);&#13;&#13;</xsl:text>	
+	<xsl:if test="$async='true'">Task&lt;</xsl:if>int<xsl:if test="$async='true'">&gt;</xsl:if> GetNb<xsl:value-of select="./dao/class/name"/><xsl:if test="$async='true'">Async</xsl:if><xsl:text>(IMFContext p_oContext);&#13;&#13;</xsl:text>	
 	
 	<xsl:if test="$async='true'">#endregion&#13;&#13;</xsl:if>
 </xsl:template>
@@ -56,7 +56,7 @@
 	<xsl:if test="$async='true'">#region Async&#13;&#13;</xsl:if>
 	
 	<xsl:text>/// &lt;inheritDoc /&gt;&#13;</xsl:text>
-	public <xsl:if test="$async='true'">async Task&lt;</xsl:if>int<xsl:if test="$async='true'">&gt;</xsl:if> getNb<xsl:value-of select="./class/name"/><xsl:if test="$async='true'">Async</xsl:if><xsl:text>(IMFContext p_oContext) {</xsl:text>
+	public <xsl:if test="$async='true'">async Task&lt;</xsl:if>int<xsl:if test="$async='true'">&gt;</xsl:if> GetNb<xsl:value-of select="./class/name"/><xsl:if test="$async='true'">Async</xsl:if><xsl:text>(IMFContext p_oContext) {</xsl:text>
 		List&lt;<xsl:value-of select="./interface/name"/>&gt; r_o<xsl:value-of select="./class/name"/>s = <xsl:if test="$async='true'">await </xsl:if>this.GetEntities<xsl:if test="$async='true'">Async</xsl:if>(p_oContext) ;
 		return r_o<xsl:value-of select="./class/name"/>s.Count;
 	}

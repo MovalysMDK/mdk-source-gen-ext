@@ -89,12 +89,13 @@
     </xsl:if>
 	<xsl:if test="./@opposite-capitalized-name != ''">                        
 	    <xsl:choose>
-			<xsl:when test="@type='many-to-one'">
+			<!-- For many-to-many and many-to-one cases, we check that the opposite navigation is possible in order to access to the cascaded data-->
+			<xsl:when test="@type='many-to-one and @opposite-navigable='true'">
 				if (<xsl:value-of select="../../class/name-uncapitalized"/>.<xsl:value-of select="./@name-capitalized"/>.<xsl:value-of select="./@opposite-capitalized-name"/>.IndexOf(<xsl:value-of select="../../class/name-uncapitalized"/>) == -1) {
 		    		<xsl:value-of select="../../class/name-uncapitalized"/>.<xsl:value-of select="./@name-capitalized"/>.<xsl:value-of select="./@opposite-capitalized-name"/>.Add(<xsl:value-of select="../../class/name-uncapitalized"/>);
 		    	}
 	        </xsl:when>
-	        <xsl:when test="@type='many-to-many'">
+	        <xsl:when test="@type='many-to-many' and @opposite-navigable='true'">
 				if (<xsl:value-of select="./variable-name"/>.<xsl:value-of select="./@opposite-capitalized-name"/>.IndexOf(<xsl:value-of select="../../class/name-uncapitalized"/>) == -1) {
 		    		<xsl:value-of select="./variable-name"/>.<xsl:value-of select="./@opposite-capitalized-name"/>.Add(<xsl:value-of select="../../class/name-uncapitalized"/>);
 		    	}
@@ -128,7 +129,7 @@
    		<xsl:text>}</xsl:text>
    		<xsl:text>List&lt;</xsl:text><xsl:value-of select="./interface/name"/><xsl:text>&gt; </xsl:text>
    		<xsl:value-of select="$object-name"/><xsl:text>s</xsl:text><xsl:text> = </xsl:text>
-   		<xsl:value-of select="./dao/bean-ref"/><xsl:text>.get</xsl:text>
+   		<xsl:value-of select="./dao/bean-ref"/><xsl:text>.Get</xsl:text>
    		<xsl:value-of select="./class/name"/><xsl:text>s</xsl:text>
    		<xsl:text>(p_oContext);</xsl:text>
 		<xsl:text>List&lt;</xsl:text><xsl:value-of select="./interface/name"/><xsl:text>&gt; </xsl:text>

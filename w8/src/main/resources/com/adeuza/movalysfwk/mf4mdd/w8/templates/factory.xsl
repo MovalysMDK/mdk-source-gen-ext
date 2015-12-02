@@ -54,18 +54,11 @@
 
 		<xsl:text>public </xsl:text><xsl:value-of select="interface/@name"/><xsl:text> CreateInstance()</xsl:text>
 		<xsl:text>{&#13;</xsl:text>
-		<xsl:choose>
-			<xsl:when test="class/@join-class='true'">
-				<xsl:text>return null;&#13;</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="interface/@name"/><xsl:text> </xsl:text><xsl:value-of
-					select="class/name-uncapitalized"/>
-				<xsl:text> = new </xsl:text><xsl:value-of select="class/name"/><xsl:text>();&#13;</xsl:text>
-				<xsl:text>this.Init(</xsl:text><xsl:value-of select="class/name-uncapitalized"/><xsl:text>);&#13;</xsl:text>
-				<xsl:text>return </xsl:text><xsl:value-of select="class/name-uncapitalized"/><xsl:text>;&#13;</xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
+			<xsl:value-of select="interface/@name"/><xsl:text> </xsl:text><xsl:value-of
+				select="class/name-uncapitalized"/>
+			<xsl:text> = new </xsl:text><xsl:value-of select="class/name"/><xsl:text>();&#13;</xsl:text>
+			<xsl:text>this.Init(</xsl:text><xsl:value-of select="class/name-uncapitalized"/><xsl:text>);&#13;</xsl:text>
+			<xsl:text>return </xsl:text><xsl:value-of select="class/name-uncapitalized"/><xsl:text>;&#13;</xsl:text>			
 		<xsl:text>}</xsl:text>
 
 		<xsl:text>&#13;&#13;</xsl:text>

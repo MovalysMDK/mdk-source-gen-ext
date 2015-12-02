@@ -508,7 +508,7 @@
 	<xsl:value-of select="dao-interface/name"/><xsl:text> oDao</xsl:text><xsl:value-of select="dao-interface/name"/>
 	<xsl:text> = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="dao-interface/name"/><xsl:text>&gt;();</xsl:text>
 	<xsl:value-of select="interface/name"/><xsl:text> parent</xsl:text><xsl:value-of select="interface/name"/>
-	<xsl:text> = oDao</xsl:text><xsl:value-of select="dao-interface/name"/><xsl:text>.get</xsl:text><xsl:value-of select="class/name"/>
+	<xsl:text> = oDao</xsl:text><xsl:value-of select="dao-interface/name"/><xsl:text>.Get</xsl:text><xsl:value-of select="class/name"/>
 	<xsl:text>(((IMFIsChildItem)viewmodel).IdParent, context);</xsl:text>
 	<xsl:if test="/action/chained-action">
 		<xsl:text>((</xsl:text><xsl:value-of select="../implements/interface/@name"/><xsl:text>)</xsl:text>

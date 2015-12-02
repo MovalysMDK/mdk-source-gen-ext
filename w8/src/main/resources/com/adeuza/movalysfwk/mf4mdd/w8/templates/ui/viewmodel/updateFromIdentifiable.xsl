@@ -137,7 +137,7 @@
 	<xsl:text>}&#13; else {</xsl:text>
 	<xsl:text>this.</xsl:text>
 	<xsl:value-of select="@vm-attr"/>
-	<xsl:text> = oVMCreator.get</xsl:text>
+	<xsl:text> = oVMCreator.Get</xsl:text>
 	<xsl:value-of select="@vm-type"/>
 	<xsl:text>(</xsl:text>
 	<xsl:value-of select="$var-parent-entity"/>

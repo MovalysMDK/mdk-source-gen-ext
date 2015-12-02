@@ -241,7 +241,7 @@
 			</xsl:for-each>
 			<xsl:text>CascadeSet p_oCascadeSet, EntitySession p_oEntitySession, IMFContext p_oContext) {&#13;</xsl:text>
 		<xsl:text>return </xsl:text><xsl:if test="$async='true'">await </xsl:if>this.Save<xsl:value-of select="./class/name"/><xsl:if test="$async='true'">Async</xsl:if><xsl:text>(</xsl:text>
-		<xsl:if test="$async='true'">await </xsl:if><xsl:text>this.get</xsl:text><xsl:value-of select="./class/name"/><xsl:if test="$async='true'">Async</xsl:if><xsl:text>(</xsl:text>
+		<xsl:if test="$async='true'">await </xsl:if><xsl:text>this.Get</xsl:text><xsl:value-of select="./class/name"/><xsl:if test="$async='true'">Async</xsl:if><xsl:text>(</xsl:text>
 		<xsl:for-each select="./class/identifier/descendant::attribute">
 			<xsl:value-of select="parameter-name"/>
 			<xsl:text>, </xsl:text>
