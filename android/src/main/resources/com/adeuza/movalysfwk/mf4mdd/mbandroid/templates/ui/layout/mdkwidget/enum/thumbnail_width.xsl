@@ -20,7 +20,7 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<!-- MDKMEDIA THUMBNAIL WIDTH ATTRIBUTE (DEFAULT: 100dp) -->
+<!-- MDKENUMVIEW THUMBNAIL WIDTH ATTRIBUTE (DEFAULT: 100dp) -->
 <xsl:template match="visualfield" mode="thumbnail_width">
 	<xsl:text>mdk:thumbnail_width="100dp" </xsl:text>
 </xsl:template>
