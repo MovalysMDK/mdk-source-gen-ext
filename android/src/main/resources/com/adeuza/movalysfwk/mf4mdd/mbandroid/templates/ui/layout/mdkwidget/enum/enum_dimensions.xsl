@@ -20,18 +20,12 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/enum/enum_dimensions.xsl"/>
-
-<!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView']" mode="componentAttributes">
-	<xsl:param name="titleId"/>
-
-	<xsl:apply-templates select="." mode="standard-alignment">
-		<xsl:with-param name="titleId" select="$titleId"/>
-	</xsl:apply-templates>
-	<xsl:apply-templates select="." mode="view-focusable"/>
-	<xsl:apply-templates select="." mode="enum_dimensions"/>
-	<xsl:apply-templates select="." mode="label"/>
-	<xsl:apply-templates select="." mode="editable"/>
+<!-- DEFAULT DIMENSIONS for ENUM. -->
+<xsl:template match="visualfield|button" mode="dimensions">
+	<xsl:param name="width">100dp</xsl:param>
+	<xsl:param name="height">100dp</xsl:param>
+	android:layout_width="<xsl:value-of select="$width"/>"
+	android:layout_height="<xsl:value-of select="$height"/>"
 </xsl:template>
+
 </xsl:stylesheet>
