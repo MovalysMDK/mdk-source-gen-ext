@@ -322,7 +322,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFWebView</language-type>
+						<language-type>MDKWebView</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>500</component-height>
 						<component-width>260</component-width>
@@ -526,7 +526,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>PhotoVO</view-model-type>
-						<language-type>MFPhotoThumbnail</language-type>
+						<language-type>MDKMedia</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>138</component-height>
 						<component-width>260</component-width>
@@ -535,7 +535,7 @@
 				<ui-type uml-name="RadioGroup">
 					<read-write>
 						<view-model-type>enumeration</view-model-type>
-						<language-type>MFSimplePickerList</language-type>
+						<language-type>MDKEnumList</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>44</component-height>
 						<component-width>260</component-width>
@@ -653,14 +653,14 @@
 				<ui-type uml-name="CodeScanner">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFBarCodeScanTextField</language-type>
+						<language-type>MDKBarCodeScanTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFBarCodeScanTextField</language-type>
+						<language-type>MDKBarCodeScanTextField</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>

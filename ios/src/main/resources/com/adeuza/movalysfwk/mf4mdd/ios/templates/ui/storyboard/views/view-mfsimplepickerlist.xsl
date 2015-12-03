@@ -23,14 +23,14 @@
 <!-- *************************************************
 *****  
 ***** ENTRY POINT:
-*****  	/storyboard/scenes/*scene/controller[@controllerType='LISTVIEW']/sections/*section/subViews/*subView[customClass='MFSimplePickerList']
+*****  	/storyboard/scenes/*scene/controller[@controllerType='LISTVIEW']/sections/*section/subViews/*subView[customClass='MDKEnumList']
 *****  	or
-*****  	/xib-container/components/*component[customClass='MFSimplePickerList']
+*****  	/xib-container/components/*component[customClass='MDKEnumList']
 *****  
 ****************************************************** -->
 
-<xsl:template match="subView[customClass='MFSimplePickerList']|component[customClass='MFSimplePickerList']" mode="subview-runtimeAttributes-generation" priority="1000">
-		<xsl:comment>"subView[customClass='MFSimplePickerList']" mode="subview-runtimeAttributes-generation"</xsl:comment>
+<xsl:template match="subView[customClass='MDKEnumList']|component[customClass='MDKEnumList']" mode="subview-runtimeAttributes-generation" priority="1000">
+		<xsl:comment>"subView[customClass='MDKEnumList']" mode="subview-runtimeAttributes-generation"</xsl:comment>
 	
 
 </xsl:template>
@@ -38,9 +38,9 @@
 
 
 
-<xsl:template match="subView[customClass='MFSimplePickerList']|component[customClass='MFSimplePickerList']" mode="subview-outlets-generation"  priority="1000">
+<xsl:template match="subView[customClass='MDKEnumList']|component[customClass='MDKEnumList']" mode="subview-outlets-generation"  priority="1000">
 	<xsl:param name="controllerId"/>
-		<xsl:comment>subView|component[customClass='MFSimplePickerList']" mode="subview-outlets-generation"</xsl:comment>
+		<xsl:comment>subView|component[customClass='MDKEnumList']" mode="subview-outlets-generation"</xsl:comment>
 
 		<!--  xsl:if test="$controllerId!=''">
 			<outlet property="delegate">
