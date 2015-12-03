@@ -27,14 +27,23 @@
 
 		<activity>
 			<xsl:attribute name="android:name">
-		<xsl:value-of select="./full-name" />
-	</xsl:attribute>
+				<xsl:value-of select="./full-name" />
+			</xsl:attribute>
+			
 			<xsl:attribute name="android:label">
-		<xsl:text>@string/</xsl:text><xsl:value-of select="./name" />
-	</xsl:attribute>
+			<xsl:choose>
+				<xsl:when test="./main='true'">
+					<xsl:text>@string/app_name</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text>@string/</xsl:text><xsl:value-of select="./name" />
+				</xsl:otherwise>
+			</xsl:choose>
+				
+			</xsl:attribute>
 			<xsl:attribute name="android:windowSoftInputMode">
-		<xsl:text>adjustPan</xsl:text>
-	</xsl:attribute>
+				<xsl:text>adjustPan</xsl:text>
+			</xsl:attribute>
 
 			<xsl:if test="./main='true'">
 				<intent-filter>
