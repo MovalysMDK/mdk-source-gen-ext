@@ -28,7 +28,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>AddressLocationVO</view-model-type>
-						<language-type>com.soprasteria.movalysmdk.widget.positionmaps.MDKRichMapsPosition
+						<language-type>com.soprasteria.movalysmdk.widget.positionmaps.MDKRichStaticMapsPosition
 						</language-type>
 					</read-only>
 				</ui-type>
