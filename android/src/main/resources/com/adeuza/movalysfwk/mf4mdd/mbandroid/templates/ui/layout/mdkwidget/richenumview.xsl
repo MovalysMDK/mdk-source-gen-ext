@@ -32,10 +32,11 @@
 		<xsl:with-param name="titleId" select="$titleId"/>
 	</xsl:apply-templates>
 	<xsl:apply-templates select="." mode="view-focusable"/>
-	<xsl:apply-templates select="." mode="dimensions"/>
+	<xsl:apply-templates select="." mode="dimensions">
+		<xsl:with-param name="width">64dp</xsl:with-param>
+		<xsl:with-param name="height">64dp</xsl:with-param>
+	</xsl:apply-templates>
 	<xsl:apply-templates select="." mode="label"/>
 	<xsl:apply-templates select="." mode="editable"/>
-	<xsl:apply-templates select="." mode="thumbnail_height"/>
-	<xsl:apply-templates select="." mode="thumbnail_width"/>
 </xsl:template>
 </xsl:stylesheet>
