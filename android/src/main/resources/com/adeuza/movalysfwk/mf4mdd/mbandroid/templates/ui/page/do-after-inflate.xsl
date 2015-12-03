@@ -33,7 +33,7 @@
 				<xsl:with-param name="defaultSource">
 				</xsl:with-param>
 			</xsl:call-template>
-			
+
 			<xsl:apply-templates select="adapter" mode="doAfterInflate-method"/>
 			<xsl:apply-templates select="external-adapters/adapter" mode="doAfterInflate-method"/>
 			<xsl:apply-templates select="layout/visualfields" mode="doAfterInflate-method"/>
@@ -84,7 +84,7 @@
 			});
 			</xsl:if>
 		</xsl:if>
-		
+
 	</xsl:template>
 
 	<!-- ##########################################################################################
@@ -131,7 +131,7 @@
 	<xsl:template match="external-adapters/adapter/viewmodel[type/name='LIST_1__ONE_SELECTED' and type/component-name='MDKRichSpinner']" mode="doAfterInflate-method">
 		<xsl:text>MDKRichSpinner</xsl:text>
 	</xsl:template>
-	
+
 	<xsl:template match="external-adapters/adapter/viewmodel[type/name='LIST_1__ONE_SELECTED' and not(type/component-name='MDKRichSpinner')]" mode="doAfterInflate-method">
 		<xsl:text>MMSpinner&lt;?,?&gt;</xsl:text>
 	</xsl:template>
@@ -158,7 +158,7 @@
 		<xsl:variable name="vm" select="../../viewmodel-interface/name"/>
 
 		<xsl:text>// FixedList of </xsl:text><xsl:value-of select="viewmodel/uml-name"/><xsl:text>.&#13;</xsl:text>
-		
+
 		<xsl:choose>
 			<xsl:when test="viewmodel/type/component-name='MMFixedListView' or viewmodel/type/component-name='MMPhotoFixedListView'">
 				<xsl:text>MMAdaptableFixedListView&lt;</xsl:text>
@@ -196,7 +196,7 @@
 		<xsl:value-of select="$component-name"/>
 		<xsl:text> != null) {&#13;</xsl:text>
 
-		
+
 		<xsl:text>this.</xsl:text>
 		<xsl:value-of select="$adapter-name"/>
 		<xsl:text> = new </xsl:text>
@@ -238,7 +238,7 @@
 	<!-- ##########################################################################################
 											SEARCH_DIALOG
 		########################################################################################## -->
-		
+
 	<xsl:template match="visualfield" mode="doAfterInflate-method">
 		<xsl:if test="parameters/parameter/@name='dialog'">
 			// sets this fragment's tag on the MMFilterButton
@@ -277,7 +277,7 @@
 				<xsl:apply-templates select="." mode="constructor-parameters">
 					<xsl:with-param name="position" select="$adapter-pos"/>
 				</xsl:apply-templates>
-				<xsl:text>, true);&#13;</xsl:text>
+				<xsl:text>);&#13;</xsl:text>
 				<xsl:value-of select="$fixedAdapterName"/>
 				<xsl:text>.addReferenceTo(R.id.sel</xsl:text>
 				<xsl:value-of select="@component-ref"/>
@@ -302,7 +302,7 @@
 	</xsl:template>
 
 	<xsl:template match="adapter[viewmodel/type/component-name='MMFixedListView' or viewmodel/type/component-name='MMPhotoFixedListView']" mode="constructor-parameters"/>
-	
+
 	<xsl:template match="adapter[viewmodel/type/component-name='MMFixedList']" mode="constructor-parameters">
 		<xsl:text>application.getViewModelCreator().getViewModel(</xsl:text>
 		<xsl:value-of select="viewmodel/parent-viewmodel/master-interface/@name"/>
@@ -321,7 +321,7 @@
 		<xsl:text>((</xsl:text><xsl:value-of select="viewmodel/implements/interface/@name"/>
 		<xsl:text>) ((AbstractAutoBindMMActivity) this.getActivity()).getViewModel())</xsl:text>
 	</xsl:template>
-	
+
 	<xsl:template match="page[viewmodel/type[name='LIST_1' or name='LIST_2' or name='LIST_3']]" mode="get-page-vm">
 		<xsl:text>((</xsl:text>
 		<xsl:choose>
@@ -336,7 +336,7 @@
 		<xsl:value-of select="viewmodel/implements/interface/@name"/>
 		<xsl:text>()</xsl:text>
 	</xsl:template>
-	
+
 	<xsl:template match="page" mode="get-page-vm">
 		<xsl:text>application.getViewModelCreator().getViewModel(</xsl:text>
 		<xsl:value-of select="viewmodel-interface/name"/>
@@ -346,6 +346,6 @@
 <!-- 		<xsl:value-of select="viewmodel/accessor-get-name"/> -->
 <!-- 		<xsl:text>()</xsl:text> -->
 	</xsl:template>
-	
+
 
 </xsl:stylesheet>
