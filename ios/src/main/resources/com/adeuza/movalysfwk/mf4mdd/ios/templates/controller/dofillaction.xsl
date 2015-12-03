@@ -64,14 +64,29 @@
 	
 <!-- DoFillAction body for controller with multiples sections -->	
 <xsl:template match="controller[@controllerType='FORMVIEW' and count(sections/section) > 1]" mode="generate-doFillAction-body">
-	<xsl:text>[[MFApplication getInstance] launchAction:MFAction_MFGenericLoadDataAction withCaller:self withInParameter:@[&#13;</xsl:text>
-		<xsl:for-each select="sections/section">
-		    [[MFDataLoaderActionParameter alloc] initWithDataIds:@[@1] andDataLoader:@"<xsl:value-of select="dataloader"/>
-		    <xsl:text>"]</xsl:text>
-		    <xsl:if test="position() != last()">
-		    	<xsl:text>,&#13;</xsl:text>
-		    </xsl:if>
+	<xsl:text>NSArray *dataIds = @[@1];
+	if ( self.ids != nil ) {&#13;
+        dataIds = self.ids;&#13;
+    }&#13;</xsl:text>
+	<xsl:text>[[MFApplication getInstance] launchAction:MFAction_MFGenericLoadDataAction withCaller:self withInParameter:&#13;@[</xsl:text>
+		<xsl:choose>
+		<xsl:when test="./workspaceRole = 'WORKSPACE_DETAIL'">
+			<xsl:if test="sections/section[1]/dataloader">
+					[[MFDataLoaderActionParameter alloc] initWithDataIds:dataIds andDataLoader:@"<xsl:value-of select="sections/section[1]/dataloader"/>"]
+			</xsl:if>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:for-each select="sections/section">
+				<xsl:if test="./dataloader">
+					[[MFDataLoaderActionParameter alloc] initWithDataIds:dataIds andDataLoader:@"<xsl:value-of select="dataloader"/>
+				    <xsl:text>"]</xsl:text>
+				    <xsl:if test="position() != last()">
+				    	<xsl:text>,&#13;</xsl:text>
+				    </xsl:if>
+			    </xsl:if>
 		</xsl:for-each>
+		</xsl:otherwise>
+		</xsl:choose>
 	<xsl:text>]];&#13;</xsl:text>
 </xsl:template>	
 
