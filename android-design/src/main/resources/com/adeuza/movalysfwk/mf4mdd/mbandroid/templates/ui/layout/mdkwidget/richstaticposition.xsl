@@ -19,9 +19,11 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:output method="xml" indent="yes"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/position/map_thumbnail_height.xsl"/>
+
 
 <!-- Component attributes -->
-<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.positionmaps.MDKRichMapsPosition']" mode="componentAttributes">
+<xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.positionmaps.MDKRichStaticMapsPosition']" mode="componentAttributes">
 	<xsl:param name="titleId"/>
 
 	<xsl:apply-templates select="." mode="standard-alignment">
@@ -29,6 +31,7 @@
 	</xsl:apply-templates>
 	<xsl:apply-templates select="." mode="view-focusable"/>
 	<xsl:apply-templates select="." mode="dimensions"/>
+	<xsl:apply-templates select="." mode="map_thumbnail_height"/>
 	<xsl:apply-templates select="." mode="label"/>
 	<xsl:apply-templates select="." mode="editable"/>
 	mdk:positionMode="info"
