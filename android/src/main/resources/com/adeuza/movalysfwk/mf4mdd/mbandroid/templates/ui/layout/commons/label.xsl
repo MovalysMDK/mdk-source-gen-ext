@@ -21,7 +21,7 @@
 <xsl:output method="xml" indent="yes"/>
 
 <!-- LABEL ATTRIBUTE for mdk widgets -->
-<xsl:template match="visualfield[create-label = 'true' and (contains(./component, 'com.soprasteria.movalysmdk.widget') or component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFixedList')]" mode="label">
+<xsl:template match="visualfield[create-label = 'true' and (contains(./component, 'com.soprasteria.movalysmdk.widget') or component = 'com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMFixedList') and not(../../parameters/parameter[@name='vmtype-itemlayoutforinnerlist']='LIST_1__ONE_SELECTED') and not(../../parameters/parameter[@name='vmtype-selecteditemlayoutforinnerlist']='LIST_1__ONE_SELECTED')]" mode="label">
 	<xsl:text>mdk:label="@string/</xsl:text><xsl:value-of select="./label"/><xsl:text>" </xsl:text>
 </xsl:template>
 
