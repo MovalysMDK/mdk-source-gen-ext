@@ -34,11 +34,8 @@
 		    xmlns:card_view="http://schemas.android.com/apk/res-auto"
 		    android:layout_height="match_parent"
 		    android:layout_width="match_parent"
-		    android:layout_marginTop="2dp"
-		    android:layout_marginLeft="2dp"
-		    android:layout_marginRight="2dp"
-		    card_view:cardElevation="8dp"
-		    card_view:cardUseCompatPadding="true">
+		    card_view:cardUseCompatPadding="true"
+		    style="?attr/mdkCardViewStyle">
 		
 			<android.support.design.widget.CoordinatorLayout
 					android:layout_height="match_parent"
@@ -79,11 +76,8 @@
 		<android.support.v7.widget.CardView
 			android:layout_height="match_parent"
 			android:layout_width="match_parent"
-			android:layout_marginTop="2dp"
-			android:layout_marginLeft="2dp"
-			android:layout_marginRight="2dp"
-			card_view:cardElevation="8dp"
-			card_view:cardUseCompatPadding="true">
+			card_view:cardUseCompatPadding="true"
+			style="?attr/mdkCardViewStyle">
 
 		<xsl:apply-templates select="." mode="layout-default-inner-relative">
 			<xsl:with-param name="addtitle"><xsl:value-of select="$addtitle"/></xsl:with-param>
