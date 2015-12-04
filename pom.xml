@@ -23,7 +23,7 @@
 	<version>5.1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>mf4mdd</name>
-	
+
 	<organization>
 	    <name>Sopra Steria Group</name>
 	</organization>
@@ -35,17 +35,16 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	
+
 	<properties>
 		<adjava_version>6.6.1-SNAPSHOT</adjava_version>
 	</properties>
 
 	<scm>
-		<connection>scm:svn:http://svn.ntes.fr.sopra/svnpolemobility/svn/Movalys/repository/com/adeuza/movalysfwk/mf4mdd/branches/Cotopaxi</connection>
-		<developerConnection>scm:svn:http://svn.ntes.fr.sopra/svnpolemobility/svn/Movalys/repository/com/adeuza/movalysfwk/mf4mdd/branches/Cotopaxi</developerConnection>
-		<url>http://svn.ntes.fr.sopra/svnpolemobility/svn/Movalys/repository</url>
+		<connection>scm:git:ssh://gitmovalys@git.ptx.fr.sopra/mdk-source-gen-ext.git</connection>
+		<developerConnection>scm:git:ssh://gitmovalys@git.ptx.fr.sopra/mdk-source-gen-ext.git</developerConnection>
 	</scm>
-	
+
 	<modules>
 		<module>commons</module>
 		<module>backend</module>
@@ -53,10 +52,10 @@
 		<module>ios</module>
 		<module>html5</module>
 		<module>w8</module>
-		
+
 		<module>android-design</module>
 	</modules>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -69,7 +68,7 @@
 				<artifactId>mf4mdd-android</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.adeuza</groupId>
 				<artifactId>adjava-maven-plugin</artifactId>
@@ -120,7 +119,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -172,14 +171,14 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>			
-				<version>2.5.2</version>				
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
 				<configuration>
 					<preparationGoals>clean versions:use-releases verify</preparationGoals>
 					<tagNameFormat>@{project.version}</tagNameFormat>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 			   <groupId>com.mycila</groupId>
 			   <artifactId>license-maven-plugin</artifactId>
@@ -226,7 +225,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<distributionManagement>
 		<repository>
 			<id>prj-mdk-releases</id>
