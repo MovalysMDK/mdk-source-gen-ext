@@ -37,7 +37,7 @@
 	</licenses>
 
 	<properties>
-		<adjava_version>6.6.1-SNAPSHOT</adjava_version>
+		<adjava_version>6.6.1</adjava_version>
 	</properties>
 
 	<scm>
