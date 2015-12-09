@@ -134,8 +134,10 @@
 <xsl:template match="subView[customClass!='MDKLabel']" mode="gen-table-cell-view-type" priority="1">
 		<xsl:param name="controllerId"/>
 		<xsl:param name="viewId"/>
-	
-	<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO">
+	 	
+	<xsl:element name="{@storyboardType}">
+		<xsl:attribute name="translatesAutoresizingMaskIntoConstraints">NO</xsl:attribute>
+		<xsl:attribute name="contentMode">scaleToFill</xsl:attribute>
 		<xsl:attribute name="customClass"><xsl:value-of select="customClass"/></xsl:attribute>
 		<xsl:attribute name="id"><xsl:value-of select="$viewId"/>-C</xsl:attribute>
 		<xsl:apply-templates select="." mode="gen-table-cell-view-connection-outlet">
@@ -151,7 +153,7 @@
 			</constraint>
 		</constraints>
 		</xsl:if>
-	</view>
+	</xsl:element>
 </xsl:template>
 
 <xsl:template match="subView[customClass!='MDKLabel']" mode="gen-table-cell-constraints">

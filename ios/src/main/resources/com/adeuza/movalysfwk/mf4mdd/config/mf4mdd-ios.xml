@@ -303,6 +303,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>21</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>label</storyboard-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
@@ -310,6 +311,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>21</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>label</storyboard-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="WebView">
@@ -335,6 +337,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>	<!-- see http://www.idev101.com/code/User_Interface/sizes.html -->
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
@@ -342,6 +345,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="MultilineText">
@@ -411,6 +415,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
@@ -418,6 +423,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="UIDouble">
@@ -427,6 +433,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
@@ -434,6 +441,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Url">
@@ -443,6 +451,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
@@ -450,6 +459,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Phone">
@@ -459,6 +469,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
@@ -466,6 +477,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="Email">
@@ -491,6 +503,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>200</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
@@ -498,6 +511,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>200</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-only>
 				</ui-type>
 				<ui-type uml-name="NumberPicker">
@@ -657,6 +671,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
@@ -664,6 +679,7 @@
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
+						<storyboard-type>textField</storyboard-type>
 					</read-only>
 				</ui-type>
 			</ui-types>
