@@ -51,6 +51,14 @@
 	<xsl:text> mf:ListTitleContent=""</xsl:text>
 	<xsl:text> mf:ListTitleVisibility="Visible"</xsl:text>
 	<xsl:text> IsEnabled="True"</xsl:text>
+
+	<xsl:for-each select="../../buttons/button">
+		<xsl:if test="./@type='NAVIGATION' and ./navigation/@type='NAVIGATION_DETAIL'">
+			<xsl:text> mf:OnClickCommand="{Binding </xsl:text><xsl:value-of select="./navigation/sourcePage/name"/><xsl:text>NavigationDetailCommand}"</xsl:text>
+
+		</xsl:if>
+	</xsl:for-each>
+
 	
 	<xsl:if test="(/layout/parameters/parameter[@name='vmtype']='LIST_1' and /layout/in-workspace = 'false') or not(/layout/buttons/button[@type = 'NAVIGATION'])">
 	<xsl:text> ButtonAddVisibility="Collapsed"</xsl:text>

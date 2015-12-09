@@ -142,6 +142,8 @@
 
 		<xsl:call-template name="navigate-workspace" />
 
+		<xsl:apply-templates select="./layout/buttons/button" mode="method-click"/>
+
 		<xsl:if test="workspace = 'true' or multi-panel = 'true'">
 			<xsl:call-template name="ActionErrorMethod" />
 		</xsl:if>

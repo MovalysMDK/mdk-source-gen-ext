@@ -94,7 +94,13 @@
 		<xsl:text>void UpdateFromDataLoader(</xsl:text><xsl:value-of select="dataloader-impl/dataloader-interface/name"/><xsl:text> p_dataloader);
 		</xsl:text>
 	</xsl:if>
-	
+
+	<xsl:text>void ExecuteSave</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(Object parameter);&#13;</xsl:text>
+	<xsl:text>void ExecuteDelete</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(Object parameter);&#13;</xsl:text>
+	<xsl:for-each select="./navigations/navigation">
+		<xsl:text>void Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object parameter);&#13;</xsl:text>
+	</xsl:for-each>
+
 	<xsl:apply-templates select="attribute[@derived='true']" mode="generate-calculate-method-header"/>
 	
 	<xsl:text>&#13;</xsl:text>

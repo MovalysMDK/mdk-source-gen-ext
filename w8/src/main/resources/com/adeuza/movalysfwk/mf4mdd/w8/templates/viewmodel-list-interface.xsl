@@ -79,7 +79,9 @@
 	<xsl:text>&#13;#endregion&#13;</xsl:text>
 	
 	<xsl:text>&#13;#region Methods&#13;</xsl:text>
-	
+
+	<xsl:text>void Execute</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetail(object parameter);&#13;</xsl:text>
+
 	<xsl:if test="dataloader-impl">
 	<xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
 	<xsl:text>/// Update the view model with the given data loader.&#13;</xsl:text>

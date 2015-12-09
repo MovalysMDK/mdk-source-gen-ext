@@ -65,7 +65,7 @@
 				<xsl:value-of select="../../adapter/layouts/layout[@id ='list']/visualfields/visualfield[component = 'MFList2D']/name"/>
 				<xsl:text>"</xsl:text>
 				<xsl:text>&gt;</xsl:text>
-            <xsl:text>&lt;&#47;mf:MFList1D&gt;</xsl:text>			
+            <xsl:text>&lt;&#47;mf:MFList1DSearch&gt;</xsl:text>			
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>&#47;&gt;</xsl:text>

@@ -25,6 +25,7 @@
 	<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/w8/templates/commons/imports.xsl" />
 	<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/w8/templates/commons/substring.xsl" />
 	<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/w8/templates/commons/replace-all.xsl" />
+	<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/w8/templates/view/method-click-common.xsl" />
 	<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/w8/templates/ui/cs-panel-list2d-methods.xsl" />
 
 
@@ -40,6 +41,8 @@
 			<xsl:text>// Chained Action headers</xsl:text>
 			<xsl:text>&#13;using </xsl:text><xsl:value-of select="master-package" /><xsl:text>.action.chainedactions;&#13;</xsl:text>
 		</xsl:if>
+
+		<xsl:text>using </xsl:text><xsl:value-of select="viewmodel/package"/><xsl:text>;&#13;</xsl:text>
 
 		<xsl:text>&#13;&#13;namespace </xsl:text><xsl:value-of select="package" /><xsl:text></xsl:text>
 		<xsl:text>{</xsl:text>
@@ -113,9 +116,10 @@
 
 		<xsl:text>&#13;#endregion&#13;</xsl:text>
 
-		<xsl:text>}</xsl:text>
-		<xsl:text>}</xsl:text>
+		<xsl:apply-templates select="layout/buttons/button" mode="method-click-impl" />
 
+		<xsl:text>}</xsl:text>
+		<xsl:text>}</xsl:text>
 	</xsl:template>
 
 	<xsl:template name="IsList">

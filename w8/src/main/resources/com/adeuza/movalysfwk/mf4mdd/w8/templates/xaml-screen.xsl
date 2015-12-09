@@ -32,7 +32,6 @@
 
 		<xsl:call-template name="xaml-bottom-appbar" />
 
-		
 		<xsl:call-template name="xaml-file-close" />
 	
 	</xsl:template>

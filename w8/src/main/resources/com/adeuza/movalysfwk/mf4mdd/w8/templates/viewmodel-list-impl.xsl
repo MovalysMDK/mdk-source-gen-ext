@@ -70,7 +70,17 @@
 
 <xsl:text>&#13;#region Properties&#13;</xsl:text>
 
-<xsl:text>&#13;</xsl:text>
+	<xsl:text>public event NavigationRequestHandler </xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetailRequest;&#13;</xsl:text>
+	<xsl:text>protected virtual void On</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetailRequest(Object parameter)&#13;</xsl:text>
+	<xsl:text>{&#13;</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetailRequest(this,parameter);&#13;}&#13;&#13;</xsl:text>
+
+	<xsl:text>/// &lt;summary&gt;&#13;</xsl:text>
+	<xsl:text>/// Command that navigate to the list detail&#13;</xsl:text>
+	<xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
+	<xsl:text>public ICommand </xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetailCommand&#13;</xsl:text>
+	<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+
+	<xsl:text>&#13;</xsl:text>
  <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">properties</xsl:with-param>
 	<xsl:with-param name="defaultSource"/>
@@ -103,6 +113,10 @@
 <xsl:apply-templates select="." mode="generate-createEmptyItem" />
 <xsl:apply-templates select="." mode="generate-DeleteItem" />
 </xsl:if>
+
+<xsl:text>public void Execute</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetail(object parameter)&#13;{&#13;</xsl:text>
+<xsl:text>On</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetailRequest(parameter);&#13;</xsl:text>
+<xsl:text>}&#13;</xsl:text>
 
 <xsl:text>&#13;</xsl:text>
 <xsl:call-template name="non-generated-bloc">

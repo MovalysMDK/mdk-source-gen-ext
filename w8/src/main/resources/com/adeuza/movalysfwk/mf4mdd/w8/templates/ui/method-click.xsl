@@ -28,11 +28,12 @@
 		<xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
 		<xsl:text>	/// &lt;param name="e">&lt;/param&gt;</xsl:text>
 		
-		<xsl:text>&#13;private void </xsl:text><xsl:value-of select="navigation/target/name"/><xsl:text>_Click(object sender, RoutedEventArgs e)</xsl:text>
+		<xsl:text>&#13;private void </xsl:text><xsl:value-of select="navigation/target/name"/><xsl:text>_Navigation_Click(object sender, RoutedEventArgs e)</xsl:text>
 		<xsl:text>&#13;</xsl:text>
-		<xsl:text>{</xsl:text>
-		<xsl:text>this.Frame.Navigate(typeof(</xsl:text><xsl:value-of select="navigation/target/name"/><xsl:text>));</xsl:text>
-		<xsl:text>&#13;}&#13;</xsl:text>
+		<xsl:text>{&#13;</xsl:text>
+		<xsl:text>((</xsl:text><xsl:value-of select="../../../vm"/><xsl:text>)this.DataContext).Execute</xsl:text><xsl:value-of
+			select="navigation/target/name"/><xsl:text>Navigation(e);&#13;</xsl:text>
+		<xsl:text>}&#13;</xsl:text>
 	</xsl:if>
 	<xsl:if test="@type='DELETE'">
 		<xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
@@ -53,7 +54,7 @@
 <xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
 <xsl:text>	/// &lt;param name="e">&lt;/param&gt;</xsl:text>
 
-<xsl:text>&#13;private void </xsl:text><xsl:value-of select="target/name"/><xsl:text>_Click(object sender, RoutedEventArgs e)</xsl:text>
+<xsl:text>&#13;private void </xsl:text><xsl:value-of select="target/name"/><xsl:text>_Navigation_Click(object sender, RoutedEventArgs e)</xsl:text>
 <xsl:text>&#13;</xsl:text>
 <xsl:text>{</xsl:text>
 <xsl:text>this.Frame.Navigate(typeof(</xsl:text><xsl:value-of select="target/name"/><xsl:text>));</xsl:text>
@@ -96,7 +97,7 @@
 </xsl:template>
 
 <xsl:template match="button[@type='NAVIGATION']" mode="method-click-usercontrol">
-	<xsl:text>&#13;private void </xsl:text><xsl:value-of select="navigation/target/name"/><xsl:text>_Click(object sender, RoutedEventArgs e)</xsl:text>
+	<xsl:text>&#13;private void </xsl:text><xsl:value-of select="navigation/target/name"/><xsl:text>_Navigation_Click(object sender, RoutedEventArgs e)</xsl:text>
 	<xsl:text>&#13;</xsl:text>
 	<xsl:text>{</xsl:text>
 	<xsl:call-template name="non-generated-bloc">

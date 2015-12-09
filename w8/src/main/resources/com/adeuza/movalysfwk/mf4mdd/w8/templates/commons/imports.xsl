@@ -312,6 +312,7 @@
 	<xsl:text>using mdk_common;</xsl:text>
 	<xsl:text>using mdk_common.Attributs;</xsl:text>
 	<xsl:text>using mdk_common.Controller;</xsl:text>
+	<xsl:text>using mdk_common.Navigation;</xsl:text>
 	<xsl:text>using mdk_common.MFAction;</xsl:text>
 	<xsl:text>using mdk_common.Resources;</xsl:text>
 	<xsl:text>using System;</xsl:text>

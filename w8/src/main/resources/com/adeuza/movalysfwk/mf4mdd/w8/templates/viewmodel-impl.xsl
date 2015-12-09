@@ -49,7 +49,10 @@
 	<xsl:text>public class </xsl:text><xsl:value-of select="./name" /><xsl:text> : AbstractViewModel&lt;</xsl:text><xsl:value-of select="./name" /><xsl:text>&gt; </xsl:text>
 	<xsl:apply-templates select="implements/interface"	mode="generate-implement-interface" />
 	<xsl:text>{</xsl:text>
-	
+
+	<!--==================-->
+	<!--Region Constructor-->
+	<!--==================-->
 	<xsl:text>&#13;&#13;#region Constructor&#13;</xsl:text>
 
 	<!-- Constructor -->
@@ -62,11 +65,16 @@
 	<xsl:text>PopulateValidation();&#13;</xsl:text>
 	<xsl:text>&#13;</xsl:text>
 
+	<xsl:text>SaveCommand = new MDKDelegateCommand(ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
+	<xsl:text>DeleteCommand = new MDKDelegateCommand(ExecuteDelete</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
+	<xsl:for-each select="./navigations/navigation">
+		<xsl:value-of select="target/name"/><xsl:text>NavigationCommand = new MDKDelegateCommand(Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation);&#13;</xsl:text>
+	</xsl:for-each>
+
 	<xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">constructor</xsl:with-param>
 	<xsl:with-param name="defaultSource">
 		<!-- Navigation initialization -->
-		<xsl:apply-templates select="navigations/navigation" mode="navigation-constructor" />
 	</xsl:with-param>
 	</xsl:call-template>
 
@@ -77,15 +85,17 @@
 	<xsl:call-template name="generate-populateValidation" />
 	
 	<xsl:text>&#13;#endregion&#13;</xsl:text>
-	
-	<xsl:text>&#13;#region Properties&#13;</xsl:text>
-	
-	<xsl:text>&#13;</xsl:text>	
-	
+
+	<!--=================-->
+	<!--Region Properties-->
+	<!--=================-->
+	<xsl:text>&#13;#region Properties&#13;&#13;</xsl:text>
+
+	<xsl:call-template name="generate-events"/>
+
 	<xsl:apply-templates select="attribute" mode="generate-attribute-get-and-set" />
 
-	<!-- Génération des propriétés liées à la navigation -->
-	<xsl:apply-templates select="navigations/navigation" mode="navigation-properties" />
+	<xsl:call-template name="generate-commands"/>
 
 	<xsl:text>&#13;</xsl:text>	
 	<xsl:apply-templates select="subvm/viewmodel" mode="generate-subvm-get-and-set" />
@@ -130,15 +140,18 @@
 	</xsl:call-template>
 		
 	<xsl:text>&#13;#endregion&#13;</xsl:text>
-	
+
+	<!--==============-->
+	<!--Region Methods-->
+	<!--==============-->
 	<xsl:text>&#13;#region Methods&#13;</xsl:text>
 
 	<!-- Génération des méthodes liées à la navigation -->
-	<xsl:apply-templates select="navigations/navigation" mode="navigation-methods" />
-	
 	<xsl:apply-templates select="." mode="generate-deepCopy" />
 	
 	<xsl:call-template name="generate-updateFromViewModel" />
+
+	<xsl:call-template name="generate-execute-methods"/>
 	
 	<xsl:if test="dataloader-impl">
 		<xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
@@ -222,7 +235,7 @@
      	data = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="dataloader-impl/dataloader-interface/entity-type/name"/><xsl:text>Factory&gt;().CreateInstance();	
       }&#13;</xsl:text>
 
-	<xsl:text>ViewModelCreator viewModelCreator = ClassLoader.GetInstance().GetBean&lt;ViewModelCreator&gt;();&#13;</xsl:text>
+	<xsl:text>IViewModelCreator viewModelCreator = ClassLoader.GetInstance().GetBean&lt;IViewModelCreator&gt;();&#13;</xsl:text>
 
 	<xsl:value-of select="./implements/interface/@name"/><xsl:text> _vm = </xsl:text>
 	<xsl:text>viewModelCreator.update</xsl:text>
@@ -455,6 +468,57 @@
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template name="generate-events">
+	<xsl:text>public event SaveRequestHandler Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request;&#13;</xsl:text>
+	<xsl:text>protected virtual void OnSave</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(Object parameter)&#13;</xsl:text>
+	<xsl:text>{&#13;Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(this,parameter);&#13;}&#13;&#13;</xsl:text>
+
+	<xsl:text>public event DeleteRequestHandler Delete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request;&#13;</xsl:text>
+	<xsl:text>protected virtual void OnDelete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(Object parameter)&#13;</xsl:text>
+	<xsl:text>{&#13;Delete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(this,parameter);&#13;}&#13;&#13;</xsl:text>
+
+	<xsl:for-each select="./navigations/navigation">
+		<xsl:text>public event NavigationRequestHandler </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest;&#13;</xsl:text>
+		<xsl:text>protected virtual void On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(Object parameter)&#13;</xsl:text>
+		<xsl:text>{&#13;</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(this,parameter);&#13;}&#13;&#13;</xsl:text>
+	</xsl:for-each>
+</xsl:template>
+
+<xsl:template name="generate-commands">
+	<xsl:text>/// &lt;summary&gt;&#13;</xsl:text>
+	<xsl:text>/// Command that save the view model&#13;</xsl:text>
+	<xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
+	<xsl:text>public ICommand SaveCommand&#13;</xsl:text>
+	<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+
+	<xsl:text>/// &lt;summary&gt;&#13;</xsl:text>
+	<xsl:text>/// Command that delete the view model&#13;</xsl:text>
+	<xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
+	<xsl:text>public ICommand DeleteCommand&#13;</xsl:text>
+	<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+
+	<xsl:for-each select="./navigations/navigation">
+		<xsl:text>public ICommand </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationCommand&#13;</xsl:text>
+		<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+	</xsl:for-each>
+</xsl:template>
+
+<xsl:template name="generate-execute-methods">
+	<xsl:text>public void ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(Object parameter)&#13;{&#13;</xsl:text>
+	<xsl:text>OnSave</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(parameter);&#13;</xsl:text>
+	<xsl:text>}&#13;</xsl:text>
+
+	<xsl:text>public void ExecuteDelete</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(Object parameter)&#13;{&#13;</xsl:text>
+	<xsl:text>OnDelete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(parameter);&#13;</xsl:text>
+	<xsl:text>}&#13;</xsl:text>
+
+	<xsl:for-each select="./navigations/navigation">
+		<xsl:text>public void Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object parameter)&#13;{&#13;</xsl:text>
+		<xsl:text>On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(parameter);&#13;</xsl:text>
+		<xsl:text>}&#13;</xsl:text>
+	</xsl:for-each>
+</xsl:template>
+
 <xsl:template name="generate-updateFromViewModel">
 	<xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
 	<xsl:text>public override void UpdateFromViewModel(IViewModel vm)</xsl:text>
@@ -525,58 +589,6 @@
 		<xsl:text>this.</xsl:text><xsl:value-of select="name"/>
 		<xsl:text> = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="implements/interface/@name"/>
 		<xsl:text>&gt;();&#13;</xsl:text>
-	</xsl:template>
-
-
-	<xsl:template match="navigation" mode="navigation-constructor">
-		<!-- Property for a button navigation. Generate a command -->
-		<xsl:if test="@type='NAVIGATION'">
-			<xsl:value-of select="target/vm-name"/>
-			<xsl:text>NavigationCommand = new MDKDelegateCommand(Execute</xsl:text>
-			<xsl:value-of select="target/vm-name"/>
-			<xsl:text>Navigation);&#13;</xsl:text>
-		</xsl:if>
-	</xsl:template>
-
-	<xsl:template match="navigation" mode="navigation-properties">
-		<!-- Property for a button navigation. Generate a command -->
-		<xsl:if test="@type='NAVIGATION'">
-			<xsl:text>private ICommand vm</xsl:text>
-			<xsl:value-of select="target/vm-name"/>
-			<xsl:text>NavigationCommand;&#13;</xsl:text>
-
-			<xsl:text>/// &lt;summary&gt;
-				/// Command that navigates to</xsl:text>
-			<xsl:value-of select="target/vm-name"/>
-			<xsl:text>.&#13;/// &lt;/summary&gt;</xsl:text>
-			<xsl:text>&#13;public ICommand </xsl:text>
-			<xsl:value-of select="target/vm-name"/>
-			<xsl:text>NavigationCommand&#13;</xsl:text>
-			<xsl:text>{&#13;</xsl:text>
-			<xsl:text>get;&#13;</xsl:text>
-			<xsl:text>set;&#13;</xsl:text>
-			<xsl:text>}&#13;</xsl:text>
-		</xsl:if>
-	</xsl:template>
-
-	<xsl:template match="navigation" mode="navigation-methods">
-		<!-- Property for a button navigation. Generate a command -->
-		<xsl:if test="@type='NAVIGATION'">
-			<xsl:text>&#13;public void Execute</xsl:text>
-			<xsl:value-of select="target/vm-name"/>
-			<xsl:text>Navigation(Object parameter)&#13;</xsl:text>
-			<xsl:text>{&#13;</xsl:text>
-			<xsl:call-template name="non-generated-bloc">
-				<xsl:with-param name="blocId">Execute<xsl:value-of select="target/vm-name"/>Navigation-method</xsl:with-param>
-				<xsl:with-param name="defaultSource">
-					<xsl:text>IMDKNavigationService navigationService = ClassLoader.GetInstance().GetBean&lt;IMDKNavigationService&gt;();&#13;</xsl:text>
-					<xsl:text>navigationService.Navigate("</xsl:text>
-					<xsl:value-of select="target/name"/>
-					<xsl:text>Controller");&#13;</xsl:text>
-				</xsl:with-param>
-			</xsl:call-template>
-			<xsl:text>}&#13;</xsl:text>
-		</xsl:if>
 	</xsl:template>
 
 </xsl:stylesheet>

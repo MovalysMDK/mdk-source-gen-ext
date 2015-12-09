@@ -67,6 +67,9 @@
 
         <xsl:text>&#13;#endregion&#13;</xsl:text>
 
+        <!--==================-->
+        <!--Region Constructor-->
+        <!--==================-->
         <xsl:text>&#13;&#13;#region Constructor&#13;</xsl:text>
 
         <xsl:text>public </xsl:text><xsl:value-of select="name"/><xsl:text>Controller() {&#13;</xsl:text>
@@ -83,19 +86,57 @@
             <xsl:with-param name="blocId">constructor</xsl:with-param>
             <xsl:with-param name="defaultSource"></xsl:with-param>
         </xsl:call-template>
+
+        <xsl:for-each select="viewmodel/navigations/navigation[@type='NAVIGATION']">
+            <xsl:text>((</xsl:text><xsl:value-of select="../../name"/><xsl:text>) ViewModel).</xsl:text>
+            <xsl:value-of select="target/name"/><xsl:text>NavigationRequest += </xsl:text>
+            <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+        </xsl:for-each>
+
+        <xsl:for-each select="pages/page">
+            <xsl:for-each select="navigations/navigation">
+                <xsl:if test="@type='NAVIGATION_DETAIL'">
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>)</xsl:text>
+                        <xsl:text>((</xsl:text><xsl:value-of select="../../../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="../../viewmodel/name"/><xsl:text>).</xsl:text>
+                    <xsl:value-of select="sourcePage/name"/><xsl:text>NavigationDetailRequest += </xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:for-each>
         <xsl:text>}&#13;&#13;</xsl:text>
 
         <xsl:text>&#13;#endregion&#13;</xsl:text>
 
+        <!--==============-->
+        <!--Region Methods-->
+        <!--==============-->
         <xsl:text>&#13;#region Methods&#13;</xsl:text>
 
-        <xsl:text>&#13;public override void onNavigatedTo()&#13;{&#13;</xsl:text>
+        <xsl:text>&#13;public override void onNavigatedTo(object parameter)&#13;{&#13;</xsl:text>
 
         <xsl:for-each select="./pages/page">
-            <xsl:apply-templates select="./pages/page" mode="create-pages-onreload" />
+            <xsl:apply-templates select="." mode="create-pages-onreload" />
         </xsl:for-each>
 
         <xsl:text>}&#13;&#13;</xsl:text>
+
+        <xsl:for-each select="viewmodel/navigations/navigation">
+            <xsl:text>public void </xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object sender, Object parameter)&#13;{&#13;</xsl:text>
+            <xsl:text>IMDKNavigationService navigationService = ClassLoader.GetInstance().GetBean&lt;IMDKNavigationService&gt;();&#13;</xsl:text>
+            <xsl:text>navigationService.Navigate("</xsl:text><xsl:value-of select="target/name"/><xsl:text>Controller",parameter);&#13;}&#13;&#13;</xsl:text>
+        </xsl:for-each>
+
+        <xsl:for-each select="pages/page">
+            <xsl:for-each select="navigations/navigation">
+                <xsl:if test="@type='NAVIGATION_DETAIL'">
+                    <xsl:text>public void </xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object sender, Object parameter)&#13;{&#13;</xsl:text>
+                    <xsl:text>IMDKNavigationService navigationService = ClassLoader.GetInstance().GetBean&lt;IMDKNavigationService&gt;();&#13;</xsl:text>
+                    <xsl:text>IViewModel vm = parameter as IViewModel;&#13;</xsl:text>
+                    <xsl:text>navigationService.Navigate("</xsl:text><xsl:value-of select="target/name"/><xsl:text>Controller",vm.ID_id);&#13;}&#13;&#13;</xsl:text>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:for-each>
 
         <xsl:for-each select="./pages/page">
             <xsl:apply-templates select="." mode="create-pages-methods" />
@@ -114,8 +155,7 @@
     </xsl:template>
 
     <xsl:template match="page" mode="create-pages-properties">
-        <xsl:text>&#13;private long _</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId;</xsl:text>
-
+        <xsl:text>&#13;private long _</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId;&#13;</xsl:text>
         <xsl:text>public </xsl:text>
         <xsl:choose>
             <xsl:when test="viewmodel/dataloader-impl/dataloader-interface/name">
@@ -177,11 +217,11 @@
         <!--panel save data-->
         <xsl:if test="actions/action[action-type = 'SAVEDETAIL']">
             <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'SINGLE' and in-workspace = 'false' and in-multi-panel = 'false' and layout/buttons/button[@type='SAVE']">
-                <xsl:text>public void Save</xsl:text><xsl:value-of select="name"/><xsl:text>Panel()</xsl:text>
+                <xsl:text>public void Save</xsl:text><xsl:value-of select="name"/><xsl:text>()</xsl:text>
                 <xsl:text>{&#13;</xsl:text>
                 <xsl:if test="not(/dialog)">
                     <xsl:text>&#13;</xsl:text>
-                    <xsl:text>Object[] tab = this.PrepareSave</xsl:text><xsl:value-of select="name"/><xsl:text>Panel();</xsl:text>
+                    <xsl:text>Object[] tab = this.PrepareSave</xsl:text><xsl:value-of select="name"/><xsl:text>();</xsl:text>
                     <xsl:text>&#13;ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().LaunchAction((Type)tab[0], this, (CUDActionArgs)tab[1]);</xsl:text>
                     <xsl:if test="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']">
                         <xsl:value-of
@@ -197,7 +237,7 @@
                 <xsl:text>}&#13;&#13;</xsl:text>
             </xsl:if>
 
-            <xsl:text>public object[] PrepareSave</xsl:text><xsl:value-of select="name"/><xsl:text>Panel()</xsl:text>
+            <xsl:text>public object[] PrepareSave</xsl:text><xsl:value-of select="name"/><xsl:text>()</xsl:text>
             <xsl:text>{</xsl:text>
             <xsl:text>Object[] tab = new Object[2];</xsl:text>
             <xsl:text>tab[0] = typeof(</xsl:text><xsl:value-of
@@ -209,7 +249,26 @@
 
         <!--panel delete-->
         <xsl:if test="actions/action[action-type = 'DELETEDETAIL']">
-            <xsl:text>public object[] PrepareDelete</xsl:text><xsl:value-of select="name"/><xsl:text>Panel()</xsl:text>
+            <xsl:text>public void Delete</xsl:text><xsl:value-of select="name"/><xsl:text>()</xsl:text>
+            <xsl:text>{&#13;</xsl:text>
+            <xsl:if test="not(/dialog)">
+                <xsl:text>&#13;</xsl:text>
+                <xsl:text>Object[] tab = this.PrepareDelete</xsl:text><xsl:value-of select="name"/><xsl:text>();</xsl:text>
+                <xsl:text>&#13;ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().LaunchAction((Type)tab[0], this, (CUDActionArgs)tab[1]);</xsl:text>
+                <xsl:if test="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']">
+                    <xsl:value-of
+                            select="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']/source/component-name-capitalized" /><xsl:text>_ReloadEvent();</xsl:text>
+                </xsl:if>
+            </xsl:if>
+            <xsl:if test="/dialog">
+                <!-- 				SavePeopleSearchScreenSearchDialogActionArgs saveActionArgs = new SavePeopleSearchScreenSearchDialogActionArgs(); -->
+                <!-- 		saveActionArgs.viewModel = ViewModel; -->
+                <!--         saveActionArgs.dataLoader = Loader; -->
+                <!-- 		ClassLoader.GetInstance().GetBean<IMFController>().LaunchAction(typeof(SavePeopleSearchScreenSearchDialogActionArgs), this, saveActionArgs); -->
+            </xsl:if>
+            <xsl:text>}&#13;&#13;</xsl:text>
+
+            <xsl:text>public object[] PrepareDelete</xsl:text><xsl:value-of select="name"/><xsl:text>()</xsl:text>
             <xsl:text>{</xsl:text>
             <xsl:text>Object[] tab = new Object[2];</xsl:text>
             <xsl:text>tab[0] = typeof(</xsl:text><xsl:value-of
@@ -219,7 +278,7 @@
             <xsl:text>}&#13;&#13;</xsl:text>
         </xsl:if>
 
-        <xsl:apply-templates select="layout/buttons/button" mode="method-click-impl" />
+        <xsl:apply-templates select="layout/buttons/button" mode="method-click-listener-impl" />
 
         <xsl:if test="search-template">
             <xsl:call-template name="SearchClickMethod" />
@@ -240,7 +299,7 @@
         <xsl:apply-templates select="layout/visualfields/visualfield" mode="panel-fixedlist-delete-button-impl" />
 
 
-        <!-- isDirty TODO ?
+        <!-- isDirty TODO
         <xsl:text>&#13;public Boolean Is</xsl:text><xsl:value-of select="name"/><xsl:text>Dirty()&#13;{&#13;</xsl:text>
         <xsl:text>return (((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>)ViewModel).</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>).IsDirty;&#13;}&#13;</xsl:text>
         -->
@@ -249,8 +308,10 @@
     </xsl:template>
 
     <xsl:template match="page" mode="create-pages-onreload">
-        <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
 
+        <xsl:text>if (parameter != null) &#13;{&#13;</xsl:text>
+        <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = (long) parameter;&#13;}&#13;</xsl:text>
+        <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
     </xsl:template>
 
 
