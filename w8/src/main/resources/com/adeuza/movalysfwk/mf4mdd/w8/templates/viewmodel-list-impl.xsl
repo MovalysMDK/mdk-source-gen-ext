@@ -59,8 +59,9 @@
 
 <xsl:text>&#13;#region Constructor&#13;&#13;</xsl:text>
 <xsl:text>private IViewModelCreator viewModelCreator = ClassLoader.GetInstance().GetBean&lt;IViewModelCreator&gt;();</xsl:text>
-<xsl:text>public </xsl:text><xsl:value-of select="./name" /><xsl:text>()</xsl:text><xsl:text>{</xsl:text>
-<xsl:text>}&#13;</xsl:text>
+<xsl:text>public </xsl:text><xsl:value-of select="./name" /><xsl:text>()</xsl:text><xsl:text>{&#13;</xsl:text>
+	<xsl:value-of select="uml-name"/><xsl:text>NavigationDetailCommand = new MDKDelegateCommand(Execute</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetail);&#13;</xsl:text>
+	<xsl:text>}&#13;</xsl:text>
 <xsl:text>&#13;</xsl:text>
  <xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">constructor</xsl:with-param>

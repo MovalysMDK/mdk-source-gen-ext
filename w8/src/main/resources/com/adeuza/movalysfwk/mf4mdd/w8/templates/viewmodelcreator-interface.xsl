@@ -34,8 +34,7 @@
 	<xsl:template match="/master-viewmodelcreator/viewmodelcreator">
 
 		<xsl:apply-templates select="." mode="file-header">
-			<xsl:with-param name="fileName">I<xsl:value-of select="name" />.cs
-			</xsl:with-param>
+			<xsl:with-param name="fileName">I<xsl:value-of select="name" />.cs</xsl:with-param>
 		</xsl:apply-templates>
 
 		<xsl:apply-templates select="." mode="declare-protocol-imports" />
@@ -52,6 +51,7 @@
 			<xsl:with-param name="blocId">custom-properties</xsl:with-param>
 			<xsl:with-param name="defaultSource" />
 		</xsl:call-template>
+
 
 		<xsl:apply-templates select="./screens/screen/viewmodel[is-screen-viewmodel='false']" mode="create-vm" />
 

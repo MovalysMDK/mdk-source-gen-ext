@@ -90,7 +90,7 @@
 	<xsl:if test="./@opposite-capitalized-name != ''">                        
 	    <xsl:choose>
 			<!-- For many-to-many and many-to-one cases, we check that the opposite navigation is possible in order to access to the cascaded data-->
-			<xsl:when test="@type='many-to-one and @opposite-navigable='true'">
+			<xsl:when test="@type='many-to-one' and @opposite-navigable='true'">
 				if (<xsl:value-of select="../../class/name-uncapitalized"/>.<xsl:value-of select="./@name-capitalized"/>.<xsl:value-of select="./@opposite-capitalized-name"/>.IndexOf(<xsl:value-of select="../../class/name-uncapitalized"/>) == -1) {
 		    		<xsl:value-of select="../../class/name-uncapitalized"/>.<xsl:value-of select="./@name-capitalized"/>.<xsl:value-of select="./@opposite-capitalized-name"/>.Add(<xsl:value-of select="../../class/name-uncapitalized"/>);
 		    	}

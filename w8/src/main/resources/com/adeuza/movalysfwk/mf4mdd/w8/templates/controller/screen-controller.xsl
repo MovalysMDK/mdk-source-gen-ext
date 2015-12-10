@@ -116,7 +116,7 @@
         <xsl:text>&#13;public override void onNavigatedTo(object parameter)&#13;{&#13;</xsl:text>
 
         <xsl:for-each select="./pages/page">
-            <xsl:apply-templates select="." mode="create-pages-onreload" />
+            <xsl:apply-templates select="." mode="create-pages-navigated" />
         </xsl:for-each>
 
         <xsl:text>}&#13;&#13;</xsl:text>
@@ -133,7 +133,7 @@
                     <xsl:text>public void </xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object sender, Object parameter)&#13;{&#13;</xsl:text>
                     <xsl:text>IMDKNavigationService navigationService = ClassLoader.GetInstance().GetBean&lt;IMDKNavigationService&gt;();&#13;</xsl:text>
                     <xsl:text>IViewModel vm = parameter as IViewModel;&#13;</xsl:text>
-                    <xsl:text>navigationService.Navigate("</xsl:text><xsl:value-of select="target/name"/><xsl:text>Controller",vm.ID_id);&#13;}&#13;&#13;</xsl:text>
+                    <xsl:text>navigationService.Navigate("</xsl:text><xsl:value-of select="target/name"/><xsl:text>Controller",vm.Id_id);&#13;}&#13;&#13;</xsl:text>
                 </xsl:if>
             </xsl:for-each>
         </xsl:for-each>
@@ -152,6 +152,21 @@
     <xsl:template match="page" mode="create-pages-constructor">
         <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = 1;&#13;</xsl:text>
         <xsl:value-of select="viewmodel/dataloader-impl/name"/><xsl:text> = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="viewmodel/dataloader-impl/dataloader-interface/name"/><xsl:text>&gt;();&#13;</xsl:text>
+        <xsl:for-each select="actions/action">
+            <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
+                <xsl:text>((</xsl:text><xsl:value-of select="../../../../vm"/><xsl:text>) ViewModel).</xsl:text>
+            <xsl:value-of select="viewmodel/name"/><xsl:text>).</xsl:text>
+            <xsl:choose>
+                <xsl:when test="action-type = 'SAVEDETAIL'">
+                    <xsl:text>Save</xsl:text><xsl:value-of select="../../name"/><xsl:text>Request += Save</xsl:text>
+                    <xsl:value-of select="../../name"/><xsl:text>;&#13;</xsl:text>
+                </xsl:when>
+                <xsl:when test="action-type = 'DELETEDETAIL'">
+                    <xsl:text>Delete</xsl:text><xsl:value-of select="../../name"/><xsl:text>Request += Delete</xsl:text>
+                    <xsl:value-of select="../../name"/><xsl:text>;&#13;</xsl:text>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template match="page" mode="create-pages-properties">
@@ -217,7 +232,7 @@
         <!--panel save data-->
         <xsl:if test="actions/action[action-type = 'SAVEDETAIL']">
             <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'SINGLE' and in-workspace = 'false' and in-multi-panel = 'false' and layout/buttons/button[@type='SAVE']">
-                <xsl:text>public void Save</xsl:text><xsl:value-of select="name"/><xsl:text>()</xsl:text>
+                <xsl:text>public void Save</xsl:text><xsl:value-of select="name"/><xsl:text>(object sender, Object parameter)</xsl:text>
                 <xsl:text>{&#13;</xsl:text>
                 <xsl:if test="not(/dialog)">
                     <xsl:text>&#13;</xsl:text>
@@ -249,7 +264,7 @@
 
         <!--panel delete-->
         <xsl:if test="actions/action[action-type = 'DELETEDETAIL']">
-            <xsl:text>public void Delete</xsl:text><xsl:value-of select="name"/><xsl:text>()</xsl:text>
+            <xsl:text>public void Delete</xsl:text><xsl:value-of select="name"/><xsl:text>(object sender, Object parameter)</xsl:text>
             <xsl:text>{&#13;</xsl:text>
             <xsl:if test="not(/dialog)">
                 <xsl:text>&#13;</xsl:text>
@@ -307,10 +322,11 @@
         <xsl:text>&#13;#endregion&#13;</xsl:text>
     </xsl:template>
 
-    <xsl:template match="page" mode="create-pages-onreload">
+    <xsl:template match="page" mode="create-pages-navigated">
 
-        <xsl:text>if (parameter != null) &#13;{&#13;</xsl:text>
+        <xsl:text>try &#13;{&#13;</xsl:text>
         <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = (long) parameter;&#13;}&#13;</xsl:text>
+        <xsl:text>catch (InvalidCastException e)&#13;{}&#13;</xsl:text>
         <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
     </xsl:template>
 

@@ -42,7 +42,7 @@
 			<xsl:if test="$currentId != $ancestorId">
 				<xsl:copy-of select="/node()/imports/import"/>
 			</xsl:if>
-			<xsl:apply-templates select="." mode="declare-extra-imports"/>
+			<!--<xsl:apply-templates select="." mode="declare-extra-imports"/>-->
 		</imports>
 	</xsl:variable>
 
@@ -315,6 +315,7 @@
 	<xsl:text>using mdk_common.Navigation;</xsl:text>
 	<xsl:text>using mdk_common.MFAction;</xsl:text>
 	<xsl:text>using mdk_common.Resources;</xsl:text>
+	<xsl:text>using mdk_common.ViewModel;</xsl:text>
 	<xsl:text>using System;</xsl:text>
 	<xsl:text>using System.Collections.Generic;</xsl:text>
 	<xsl:text>using System.Linq;</xsl:text>

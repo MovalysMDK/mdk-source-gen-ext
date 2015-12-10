@@ -19,7 +19,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:output method="text"/>
-
 <xsl:include href="commons/file-header.xsl"/>
 <xsl:include href="commons/imports.xsl"/>
 <xsl:include href="commons/constructor.xsl"/>
@@ -33,7 +32,6 @@
 <xsl:include href="dao/method-signature/dao-getby.xsl"/>
 <xsl:include href="dao/method-signature/dao-getlistby.xsl"/>
 <xsl:include href="dao/method-signature/dao-getnbby.xsl"/>
-
 
 <xsl:template match="dao-interface">
 

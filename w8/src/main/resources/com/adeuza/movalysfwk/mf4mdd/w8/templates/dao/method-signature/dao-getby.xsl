@@ -87,7 +87,7 @@
 	<xsl:if test="$async='true'">#region Async&#13;&#13;</xsl:if>
 	
 	<xsl:variable name="class-name" select="../class/name"/>
-	
+
 	<xsl:text>/// &lt;inheritDoc /&gt;&#13;</xsl:text>
 	<xsl:value-of select="@visibility"/><xsl:text> </xsl:text>
 			<xsl:if test="$async='true'">async Task&lt;</xsl:if><xsl:value-of select="return-type/@short-name"/><xsl:if test="$async='true'">&gt;</xsl:if>
