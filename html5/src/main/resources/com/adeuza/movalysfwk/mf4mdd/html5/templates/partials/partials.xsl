@@ -109,7 +109,7 @@
 	<xsl:template match="view" mode="screen-partial-hmtl">
 		<xsl:choose> <!-- Si y y a que des liens avec d'autres écrans et PAS de liens avec des panels -->
 			<xsl:when test="count(navigation-from-screen-list/navigation-from-screen)>0">
-				<div><xsl:attribute name="class">container menu</xsl:attribute>
+				<div><xsl:attribute name="class">container mdk-menu</xsl:attribute>
 					<xsl:apply-templates select="." mode="partial-body"/>
 				</div>
 			</xsl:when>
