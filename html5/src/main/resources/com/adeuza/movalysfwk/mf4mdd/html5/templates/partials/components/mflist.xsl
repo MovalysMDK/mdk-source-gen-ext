@@ -45,10 +45,10 @@
 
 
 	<xsl:template match="view[@type='LIST_1']" mode="partial-List-generation">
-		<div>
-			<xsl:attribute name="mf-scrollable">mf-scrollable</xsl:attribute>
-			<ul>
-				<xsl:attribute name="class">mflist-1D</xsl:attribute>
+<!-- 		<div>
+			<xsl:attribute name="mf-scrollable">mf-scrollable</xsl:attribute> -->
+			<!-- <ul>
+				<xsl:attribute name="class">mflist-1D</xsl:attribute> -->
 				<mf-list>
 <!-- 					<xsl:attribute name="mf-limit-display">10</xsl:attribute> -->
 <!-- 					<xsl:attribute name="mf-view-model">viewModel</xsl:attribute> -->
@@ -56,7 +56,7 @@
 					<xsl:attribute name="mf-items-display-step">3</xsl:attribute>
 					<xsl:attribute name="mf-row-height">45</xsl:attribute>
 					<xsl:attribute name="ng-class">isSelectedItem?'selected':''</xsl:attribute>
-					<li>
+					<div>
 						<xsl:attribute name="ng-click">navigateDetail(item.<xsl:value-of select="@list-id"/>)</xsl:attribute>
 
 						<h4>
@@ -81,28 +81,27 @@
 						<p>
 							<xsl:attribute name="class">mflist-item-body</xsl:attribute>
 						</p>
-					</li>
+					</div>
 				</mf-list>
-			</ul>
-		</div>
+<!-- 			</ul>
+		</div> -->
 	</xsl:template>
 
 
 	<xsl:template match="view[@type='LIST_2']" mode="partial-List-generation">
-		<div>
-			<xsl:attribute name="mf-scrollable">mf-scrollable</xsl:attribute>
-			<accordion>
+<!-- 		<div>
+ --><!-- 			<accordion>
 				<xsl:attribute name="close-others">true</xsl:attribute>
-				<xsl:attribute name="class">mflist-2D</xsl:attribute>
+				<xsl:attribute name="class">mflist-2D</xsl:attribute> -->
 				<mf-list>
 <!-- 					<xsl:attribute name="mf-limit-display">10</xsl:attribute> -->
 <!-- 					<xsl:attribute name="mf-view-model">viewModel</xsl:attribute> -->
 					<xsl:attribute name="mf-field">viewModel.list</xsl:attribute>
 					<xsl:attribute name="mf-items-display-step">3</xsl:attribute>
 					<xsl:attribute name="mf-row-height">45</xsl:attribute>
-					<accordion-group>
-						<xsl:attribute name="is-open">isopen</xsl:attribute>
-						<accordion-heading>
+					<!-- <accordion-group> -->
+						<!-- <xsl:attribute name="is-open">isopen</xsl:attribute> -->
+						<!-- <accordion-heading> -->
 						
 							<form> 
 								<xsl:attribute name="class">form-horizontal</xsl:attribute>
@@ -126,13 +125,18 @@
 									<xsl:attribute name="ng-click">addSubItem([{level:0, id:item.<xsl:value-of select="@list-id"/>},{level:1,id:'new'}], $event)</xsl:attribute>
 								</span>
 							</xsl:if>
-						</accordion-heading>
-						<ul>
-							<xsl:attribute name="class">mflist-sublist</xsl:attribute>
-							<li>
-								<xsl:attribute name="ng-repeat">subitem in item.list</xsl:attribute>
+						<!-- </accordion-heading> -->
+						<!-- <ul> -->
+							<!-- <xsl:attribute name="class">mflist-sublist</xsl:attribute> -->
+							<!-- <li> -->
+<!-- 								<xsl:attribute name="ng-repeat">subitem in item.list</xsl:attribute>
 								<xsl:attribute name="ng-click">navigateDetail([{level:0, id:item.<xsl:value-of select="@list-id"/>},{level:1,id:subitem.<xsl:value-of select="@list-id"/>}])</xsl:attribute>
-								<xsl:attribute name="ng-class">isSelectedItem?'selected':''</xsl:attribute>
+								<xsl:attribute name="ng-class">isSelectedItem?'selected':''</xsl:attribute>	 -->			
+							<mf-list>
+
+								<xsl:attribute name="mf-sublist">true</xsl:attribute>
+								<xsl:attribute name="mf-field">item.list</xsl:attribute>
+								<xsl:attribute name="mf-item-click">navigateDetail([{level:0, id:item.<xsl:value-of select="@list-id"/>},{level:1,id:subitem.<xsl:value-of select="@list-id"/>}])</xsl:attribute>
 		
 								<form> 
 									<xsl:attribute name="class">form-horizontal mflist-item-body</xsl:attribute>
@@ -152,12 +156,13 @@
 									<xsl:attribute name="class">mflist-item-chevron</xsl:attribute>
 									</span>
 								</form>
-							</li>
-						</ul>
-					</accordion-group>
+							</mf-list>	
+							<!-- </li> -->
+						<!-- </ul> -->
+					<!-- </accordion-group> -->
 				</mf-list>
-			</accordion>
-		</div>
+			<!-- </accordion> -->
+		<!-- </div>	 -->
 	</xsl:template>
 	
 	<xsl:template match="HTML-attribute" mode="partial-component-generation" priority="-900">
