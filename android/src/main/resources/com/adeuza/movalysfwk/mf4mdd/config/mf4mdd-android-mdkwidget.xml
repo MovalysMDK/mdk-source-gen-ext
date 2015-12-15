@@ -151,7 +151,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>enumeration</view-model-type>
-						<language-type>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMEnumTextView
+						<language-type>com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView
 						</language-type>
 					</read-only>
 				</ui-type>
