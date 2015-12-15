@@ -38,6 +38,7 @@
 
 	<properties>
 		<adjava_version>6.6.1</adjava_version>
+		<sonar.projectName>mdk-source-gen-ext</sonar.projectName>
 	</properties>
 
 	<scm>
