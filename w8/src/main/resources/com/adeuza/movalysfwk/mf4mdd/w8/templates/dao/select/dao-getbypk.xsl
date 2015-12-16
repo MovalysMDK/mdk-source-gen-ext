@@ -259,10 +259,10 @@
 									</xsl:when>
 									<!-- Here is managed the case one-to-one when the current classe does not hold the foreign key and need to call the other linked class-->
 									<xsl:otherwise>
-										<xsl:value-of select="./dao/bean-ref"/>.Get<xsl:value-of select="./@name-capitalized"/>By<xsl:value-of select="$class-name"/><xsl:if test="$async='true'">Async</xsl:if>(<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/><xsl:text>, p_oCascadeSet, p_oEntitySession, p_oContext</xsl:text>
+										<xsl:value-of select="./dao/bean-ref"/>.Get<xsl:value-of select="./class/name"/>By<xsl:value-of select="./@opposite-capitalized-name"/><xsl:if test="$async='true'">Async</xsl:if>(<xsl:text>r_o</xsl:text><xsl:value-of select="$class-name"/><xsl:text>, p_oCascadeSet, p_oEntitySession, p_oContext</xsl:text>										
 									</xsl:otherwise>
 								</xsl:choose>
-								<xsl:text>);&#13;</xsl:text>
+								<xsl:text>);&#13;</xsl:text>								
 							</xsl:otherwise> 
 						</xsl:choose>
 					</xsl:otherwise>
