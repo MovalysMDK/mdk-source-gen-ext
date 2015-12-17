@@ -30,7 +30,7 @@
 </xsl:apply-templates>
 
 <xsl:apply-templates select="." mode="declare-impl-imports"/>
-#import "MFEnumHelperProtocol.h"
+#import "MDKEnumHelperProtocol.h"
 
 typedef enum <xsl:value-of select="name"/>: int16_t {
 <xsl:value-of select="name-uppercase"/><xsl:text>_</xsl:text><xsl:text>NONE = 0</xsl:text>
@@ -38,7 +38,7 @@ typedef enum <xsl:value-of select="name"/>: int16_t {
 } <xsl:value-of select="name"/> ;	
 
 
-@interface <xsl:value-of select="name"/>Helper : NSObject<xsl:text disable-output-escaping="yes">&lt;MFEnumHelperProtocol&gt;</xsl:text>
+@interface <xsl:value-of select="name"/>Helper : NSObject<xsl:text disable-output-escaping="yes">&lt;MDKEnumHelperProtocol&gt;</xsl:text>
 
 @end
 	</xsl:template>
