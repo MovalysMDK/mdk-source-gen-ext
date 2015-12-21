@@ -651,14 +651,14 @@
 				<ui-type uml-name="CheckBox">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFSwitch</language-type>
+						<language-type>MDKSwitch</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFSwitch</language-type>
+						<language-type>MDKSwitch</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>31</component-height>
 						<component-width>260</component-width>

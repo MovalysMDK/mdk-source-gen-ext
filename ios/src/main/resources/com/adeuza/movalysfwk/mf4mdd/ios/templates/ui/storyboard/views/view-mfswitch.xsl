@@ -23,23 +23,23 @@
 <!-- *************************************************
 *****  
 ***** ENTRY POINT:
-*****  	/storyboard/scenes/*scene/controller[@controllerType='LISTVIEW']/sections/*section/subViews/*subView[customClass='MFSwitch']
+*****  	/storyboard/scenes/*scene/controller[@controllerType='LISTVIEW']/sections/*section/subViews/*subView[customClass='MDKSwitch']
 *****  	or
-*****  	/xib-container/components/*component[customClass='MFSwitch']
+*****  	/xib-container/components/*component[customClass='MDKSwitch']
 *****  
 ****************************************************** -->
 
-<xsl:template match="subView[customClass='MFSwitch']|component[customClass='MFSwitch']" mode="subview-runtimeAttributes-generation"  priority="1000">
-		<xsl:comment>"subView[customClass='MFSwitch']" mode="subview-runtimeAttributes-generation"</xsl:comment>
+<xsl:template match="subView[customClass='MDKSwitch']|component[customClass='MDKSwitch']" mode="subview-runtimeAttributes-generation"  priority="1000">
+		<xsl:comment>"subView[customClass='MDKSwitch']" mode="subview-runtimeAttributes-generation"</xsl:comment>
 	
 
 </xsl:template>
 
 
 
-<xsl:template match="subView[customClass='MFSwitch']|component[customClass='MFSwitch']" mode="subview-outlets-generation"  priority="1000">
+<xsl:template match="subView[customClass='MDKSwitch']|component[customClass='MDKSwitch']" mode="subview-outlets-generation"  priority="1000">
 	<xsl:param name="controllerId"/>
-		<xsl:comment>subView|component[customClass='MFSwitch']" mode="subview-outlets-generation"</xsl:comment>
+		<xsl:comment>subView|component[customClass='MDKSwitch']" mode="subview-outlets-generation"</xsl:comment>
 		<!--  xsl:if test="$controllerId!=''">
 			<outlet property="delegate">
 				<xsl:attribute name="id"><xsl:value-of select="@id"/>-<xsl:value-of select="customClass"/>-SOD</xsl:attribute>
