@@ -653,14 +653,14 @@
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MDKSwitch</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
-						<component-height>31</component-height>
+						<component-height>41</component-height>
 						<component-width>260</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MDKSwitch</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
-						<component-height>31</component-height>
+						<component-height>41</component-height>
 						<component-width>260</component-width>
 					</read-only>
 				</ui-type>
