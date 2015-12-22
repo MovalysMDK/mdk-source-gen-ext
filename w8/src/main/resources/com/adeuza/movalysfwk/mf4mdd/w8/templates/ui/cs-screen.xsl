@@ -75,6 +75,7 @@
 		<xsl:text>public </xsl:text><xsl:value-of select="name" /><xsl:text> ()</xsl:text>
 		<xsl:text>{</xsl:text>
 		<xsl:text>this.InitializeComponent();</xsl:text>
+		<xsl:text>_controller = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="name"/><xsl:text>Controller&gt;();&#13;</xsl:text>
 
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">constructor</xsl:with-param>

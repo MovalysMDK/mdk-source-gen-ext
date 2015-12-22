@@ -54,7 +54,7 @@
 	<xsl:text>public interface </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> : </xsl:text>
 	<xsl:value-of select="./type/item"/>
 	<xsl:if test="type/name='LISTITEM_2'">
-		<xsl:text>, IMFIsSelectedItem</xsl:text>
+		<xsl:text>, IMFIsOpenItem</xsl:text>
 	</xsl:if>
 	<xsl:if test="type/name='MASTER' and type/is-list='false' and dataloader-impl/dao-interface/dao/class/association[@type='many-to-one']">
 		<xsl:text>, IMFIsChildItem</xsl:text>
@@ -73,10 +73,6 @@
 		<xsl:apply-templates select="attribute" mode="vmAttributes"/>
 		<xsl:apply-templates select="subvm/viewmodel" mode="subVmAttributes"/>
 		<xsl:apply-templates select="." mode="generate-combo-attribute"/>
-		
-		<xsl:if test="type/name='LISTITEM_2'">
-			<xsl:text>&#13;bool IsSelected { get; set; }&#13;</xsl:text>
-		</xsl:if>
 		
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">custom-properties</xsl:with-param>

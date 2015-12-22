@@ -37,9 +37,12 @@
 	</xsl:apply-templates>
 
 	<xsl:apply-templates select="." mode="declare-impl-imports" />
-	
+
 	<xsl:call-template name="viewmodel-imports" />
-			
+	<xsl:if test="./dataloader-impl/package">
+		<xsl:text>using </xsl:text><xsl:value-of select="./dataloader-impl/package"/><xsl:text>;</xsl:text><!-- TODO real imports-->
+	</xsl:if>
+
 	<xsl:text>&#13;&#13;</xsl:text>	
 			
 	<xsl:text>namespace </xsl:text><xsl:value-of select="./package" /><xsl:text>{</xsl:text>
@@ -103,17 +106,17 @@
 	<xsl:apply-templates select="." mode="generate-combo-attribute"/>
 	
 	<xsl:if test="type/name='LISTITEM_2'">
-		<xsl:text>&#13;private bool _IsSelected;
-	    public bool IsSelected
+		<xsl:text>&#13;private bool _IsOpen;
+	    public bool IsOpen
 	    {
 	        get
 	        {
-	            return _IsSelected;
+	            return _IsOpen;
 	        }
 	        set
 	        {
-	            _IsSelected = value;
-	            OnPropertyChanged("IsSelected");
+	            _IsOpen = value;
+	            OnPropertyChanged("IsOpen");
 	        }
 	    }</xsl:text>
 	</xsl:if>

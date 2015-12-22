@@ -32,7 +32,9 @@
             <xsl:with-param name="fileName"><xsl:value-of select="name"/>Controller.cs</xsl:with-param>
         </xsl:apply-templates>
 
-        <xsl:text>using </xsl:text><xsl:value-of select="./viewmodel/package" /><xsl:text>;&#13;</xsl:text>
+        <xsl:apply-templates select="." mode="declare-impl-imports" />
+        <xsl:call-template name="controller-imports"/>
+
         <xsl:for-each select="./pages/page">
             <xsl:for-each select="./actions/action">
                 <xsl:text>using </xsl:text><xsl:value-of select="./package" /><xsl:text>;&#13;</xsl:text>
@@ -41,8 +43,9 @@
         <xsl:if test="./viewmodel/subvm/viewmodel/dataloader-impl/package">
             <xsl:text>using </xsl:text><xsl:value-of select="./viewmodel/subvm/viewmodel/dataloader-impl/package" /><xsl:text>;&#13;</xsl:text>
         </xsl:if>
-        <xsl:apply-templates select="." mode="declare-impl-imports" />
-        <xsl:call-template name="controller-imports"/>
+        <xsl:if test="./viewmodel/package">
+            <xsl:text>using </xsl:text><xsl:value-of select="./viewmodel/package"/><xsl:text>;&#13;</xsl:text>
+        </xsl:if>
 
         <xsl:text>&#13;&#13;</xsl:text>
 
@@ -100,6 +103,27 @@
                         <xsl:text>((</xsl:text><xsl:value-of select="../../../../vm"/><xsl:text>) ViewModel).</xsl:text>
                     <xsl:value-of select="../../viewmodel/name"/><xsl:text>).</xsl:text>
                     <xsl:value-of select="sourcePage/name"/><xsl:text>NavigationDetailRequest += </xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:for-each>
+        <xsl:text>}&#13;&#13;</xsl:text>
+
+        <!-- destructor -->
+        <xsl:text>~</xsl:text><xsl:value-of select="name"/><xsl:text>Controller() {&#13;</xsl:text>
+        <xsl:for-each select="viewmodel/navigations/navigation[@type='NAVIGATION']">
+            <xsl:text>((</xsl:text><xsl:value-of select="../../name"/><xsl:text>) ViewModel).</xsl:text>
+            <xsl:value-of select="target/name"/><xsl:text>NavigationRequest -= </xsl:text>
+            <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+        </xsl:for-each>
+
+        <xsl:for-each select="pages/page">
+            <xsl:for-each select="navigations/navigation">
+                <xsl:if test="@type='NAVIGATION_DETAIL'">
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>)</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="../../viewmodel/name"/><xsl:text>).</xsl:text>
+                    <xsl:value-of select="sourcePage/name"/><xsl:text>NavigationDetailRequest -= </xsl:text>
                     <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
                 </xsl:if>
             </xsl:for-each>

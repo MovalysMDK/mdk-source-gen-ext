@@ -260,14 +260,14 @@
 <xsl:template match="entity[@mapping-type='vmlist' and setter and ../../type/name='LISTITEM_2' or ../../type/name='LISTITEM_3']" mode="generate-method-modify">
 	<xsl:param name="var-parent-entity">_entity</xsl:param>
 
-	<xsl:variable name="viewModelName" select="@vm-property-name"/>
+	<!--vm-property-name prefix is 'vM' instead 'VM'  fix-->
+	<xsl:variable name="viewModelName" select="concat(translate(substring(@vm-property-name,1,1),'v','V'),substring(@vm-property-name,2))"/>
 	<xsl:variable name="viewModelNode" select="../../subvm/viewmodel[property-name = $viewModelName]"/>
 	<xsl:variable name="vmIdentifier" select="$viewModelNode/subvm/viewmodel/identifier/attribute/@name"/>
 	<xsl:variable name="entityIdentifier" select="$viewModelNode/subvm/viewmodel/mapping/attribute[@vm-attr = $vmIdentifier]/getter/@name"/>
 	<xsl:variable name="cellVmType" select="$viewModelNode/subvm/viewmodel/implements/interface/@name"/>
-	
 
-	<xsl:text>if (this.Lst</xsl:text><xsl:value-of select="@vm-type"/><xsl:text> != null) {</xsl:text>
+	<xsl:text>if (this.</xsl:text><xsl:value-of select="$viewModelNode/name"/><xsl:text> != null) {</xsl:text>
 	<xsl:text>Dictionary&lt;String, </xsl:text><xsl:value-of select="@type"/><xsl:text>&gt; dictById = new Dictionary&lt;String, </xsl:text><xsl:value-of select="@type"/><xsl:text>&gt;();</xsl:text>
 	<xsl:variable name="getter-name">
 		<xsl:call-template name="string-uppercase-firstchar">
@@ -287,7 +287,7 @@
                <xsl:value-of select="$getter-name"/>
                <xsl:text> = new List&lt;</xsl:text><xsl:value-of select="@type"/><xsl:text>&gt;();</xsl:text>
            }
-           foreach( <xsl:value-of select="$cellVmType"/> vmCell in this.Lst<xsl:value-of select="@vm-type"/>.ListViewModel) {
+           foreach( <xsl:value-of select="$cellVmType"/> vmCell in this.<xsl:value-of select="$viewModelNode/name"/>.ListViewModel) {
 				<xsl:value-of select="@type"/><xsl:text> entityForList = null;</xsl:text>
 				<xsl:text>if(dictById.ContainsKey(vmCell.</xsl:text>
 				<xsl:variable name="vmIdentifier-upperfirt">

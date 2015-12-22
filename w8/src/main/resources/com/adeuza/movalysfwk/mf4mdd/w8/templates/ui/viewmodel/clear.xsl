@@ -82,8 +82,12 @@
 </xsl:template>
 
 <xsl:template match="entity[@mapping-type='vmlist']" mode="generate-call-clear">
-	<xsl:text>this.Lst</xsl:text>
-	<xsl:value-of select="@vm-type"/>
+	<!-- rustine : cf modifyToIdentifiable-->
+	<xsl:variable name="viewModelName" select="concat(translate(substring(@vm-property-name,1,1),'v','V'),substring(@vm-property-name,2))"/>
+	<xsl:variable name="viewModelNode" select="../../subvm/viewmodel[property-name = $viewModelName]"/>
+
+	<xsl:text>this.</xsl:text>
+	<xsl:value-of select="$viewModelNode/name"/><!-- $viewModelName might work to -->
 	<xsl:text> = null ;</xsl:text>
 </xsl:template>
 

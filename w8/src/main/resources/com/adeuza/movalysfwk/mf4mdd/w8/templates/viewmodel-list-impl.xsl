@@ -36,6 +36,9 @@
 
 <xsl:apply-templates select="." mode="declare-impl-imports"/>
 <xsl:call-template name="viewmodel-imports" />
+	<xsl:if test="./dataloader-impl/package">
+		<xsl:text>using </xsl:text><xsl:value-of select="./dataloader-impl/package"/><xsl:text>;</xsl:text>
+	</xsl:if>
 
 <xsl:text>namespace </xsl:text><xsl:value-of select="./package" /><xsl:text>{</xsl:text>
 <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>

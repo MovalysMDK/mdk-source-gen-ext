@@ -54,7 +54,7 @@
 
 	<xsl:for-each select="../../buttons/button">
 		<xsl:if test="./@type='NAVIGATION' and ./navigation/@type='NAVIGATION_DETAIL'">
-			<xsl:text> mf:OnClickCommand="{Binding </xsl:text><xsl:value-of select="./navigation/sourcePage/name"/><xsl:text>NavigationDetailCommand}"</xsl:text>
+			<xsl:text> mf:OnItemClickCommand="{Binding </xsl:text><xsl:value-of select="./navigation/sourcePage/name"/><xsl:text>NavigationDetailCommand}"</xsl:text>
 
 		</xsl:if>
 	</xsl:for-each>

@@ -60,9 +60,9 @@
 
 	<xsl:apply-templates select="attribute" mode="generate-method-update"/>
 
-	<!-- <xsl:if test=".//entity[@mapping-type='vm' or @mapping-type='vmlist']">
+	<xsl:if test=".//entity[@mapping-type='vm' or @mapping-type='vmlist']">
 		<xsl:text>IViewModelCreator viewModelCreator =  ClassLoader.GetInstance().GetBean&lt;IViewModelCreator&gt;();</xsl:text>
-	</xsl:if>-->
+	</xsl:if>
 	
 	<xsl:apply-templates select=".//entity[@mapping-type='vmlist']" mode="generate-method-update-initvmlist"/>
 	<xsl:apply-templates select="entity" mode="generate-method-update"/>
@@ -202,9 +202,13 @@
 	<xsl:text>.ListViewModel.Add(vmCell);</xsl:text>
 	<xsl:text>	}&#13;</xsl:text>
 	<xsl:text>	}&#13;</xsl:text>
-	
-	<xsl:text>this.Lst</xsl:text>
-	<xsl:value-of select="@vm-type"/>
+
+	<!-- rustine : cf modifyToIdentifiable-->
+	<xsl:variable name="viewModelName" select="concat(translate(substring(@vm-property-name,1,1),'v','V'),substring(@vm-property-name,2))"/>
+	<xsl:variable name="viewModelNode" select="../../subvm/viewmodel[property-name = $viewModelName]"/>
+
+	<xsl:text>this.</xsl:text>
+	<xsl:value-of select="$viewModelNode/name"/>
 	<xsl:text> = temp</xsl:text>
 	<xsl:value-of select="@vm-attr"/>
 	<xsl:text>;</xsl:text>
