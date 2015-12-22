@@ -20,9 +20,9 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<!-- MIN ALLOWED ATTRIBUTE for mdk widgets SEEKBAR -->
-<xsl:template match="visualfield" mode="min-allowed">
-	<xsl:text>mdk:min_allowed="0" </xsl:text>
+<!-- MDKMEDIA THUMBNAIL WIDTH ATTRIBUTE (DEFAULT: 100dp) -->
+<xsl:template match="visualfield" mode="thumbnailWidth">
+	<xsl:text>mdk:thumbnailWidth="100dp" </xsl:text>
 </xsl:template>
 
 

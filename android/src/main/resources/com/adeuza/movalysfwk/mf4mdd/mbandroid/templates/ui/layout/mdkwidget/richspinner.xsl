@@ -19,7 +19,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:output method="xml" indent="yes"/>
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/spinner/has_blank_row.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/spinner/hasBlankRow.xsl"/>
 <!-- Component attributes -->
 <xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.spinner.MDKRichSpinner']" mode="componentAttributes">
 	<xsl:param name="titleId"/>
@@ -32,6 +32,6 @@
 	<xsl:apply-templates select="." mode="mandatory"/>
 	<xsl:apply-templates select="." mode="hint"/>
 	<xsl:apply-templates select="." mode="label"/>
-	<xsl:apply-templates select="." mode="has_blank_row"/>
+	<xsl:apply-templates select="." mode="hasBlankRow"/>
 </xsl:template>
 </xsl:stylesheet>

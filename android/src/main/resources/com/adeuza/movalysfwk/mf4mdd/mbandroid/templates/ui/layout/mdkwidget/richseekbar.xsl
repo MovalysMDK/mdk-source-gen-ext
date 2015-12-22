@@ -20,11 +20,11 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/initial-value.xsl"/>
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/seekbar-min.xsl"/>
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/seekbar-max.xsl"/>
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/min-allowed.xsl"/>
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/max-allowed.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/initialSeekBaralue.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/seekbarMin.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/seekbarMax.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/minAllowed.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/maxAllowed.xsl"/>
 
 <!-- Component attributes -->
 <xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar']" mode="componentAttributes">
@@ -36,11 +36,11 @@
 	<xsl:apply-templates select="." mode="view-focusable"/>
 	<xsl:apply-templates select="." mode="dimensions"/>
 	<xsl:apply-templates select="." mode="label"/>
-	<xsl:apply-templates select="." mode="initial-value"/>
-	<xsl:apply-templates select="." mode="seekbar-min"/>
-	<xsl:apply-templates select="." mode="seekbar-max"/>
-	<xsl:apply-templates select="." mode="min-allowed"/>
-	<xsl:apply-templates select="." mode="max-allowed"/>
+	<xsl:apply-templates select="." mode="initialSeekBarValue"/>
+	<xsl:apply-templates select="." mode="seekbarMin"/>
+	<xsl:apply-templates select="." mode="seekbarMax"/>
+	<xsl:apply-templates select="." mode="minAllowed"/>
+	<xsl:apply-templates select="." mode="maxAllowed"/>
 	<xsl:apply-templates select="." mode="editable"/>
 	
 </xsl:template>

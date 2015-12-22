@@ -20,9 +20,9 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<!-- SEEKBAR MAX ATTRIBUTE for mdk widgets SEEKBAR -->
-<xsl:template match="visualfield" mode="seekbar-max">
-	<xsl:text>mdk:seekbar_max="100" </xsl:text>
+<!-- SEEKBAR MIN ATTRIBUTE for mdk widgets SEEKBAR -->
+<xsl:template match="visualfield" mode="seekbarMin">
+	<xsl:text>mdk:seekbarMin="0" </xsl:text>
 </xsl:template>
 
 

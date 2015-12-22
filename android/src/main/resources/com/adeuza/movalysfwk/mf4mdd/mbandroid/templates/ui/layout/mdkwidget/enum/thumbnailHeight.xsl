@@ -20,9 +20,10 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<!-- INITIAL VALUE ATTRIBUTE for mdk widgets SEEKBAR -->
-<xsl:template match="visualfield" mode="initial-value">
-	<xsl:text>mdk:initialSeekBarValue="0" </xsl:text>
+<!-- MDKENUMVIEW THUMBNAIL HEIGHT ATTRIBUTE (DEFAULT: 100dp) -->
+<xsl:template match="visualfield" mode="thumbnailHeight">
+	<xsl:text>mdk:thumbnailHeight="100dp" </xsl:text>
 </xsl:template>
+
 
 </xsl:stylesheet>

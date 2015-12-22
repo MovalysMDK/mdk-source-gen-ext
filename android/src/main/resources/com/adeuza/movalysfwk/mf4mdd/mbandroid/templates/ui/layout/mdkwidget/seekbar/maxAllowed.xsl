@@ -21,8 +21,8 @@
 <xsl:output method="xml" indent="yes"/>
 
 <!-- MAX ALLOWED ATTRIBUTE for mdk widgets SEEKBAR -->
-<xsl:template match="visualfield" mode="max-allowed">
-	<xsl:text>mdk:max_allowed="100" </xsl:text>
+<xsl:template match="visualfield" mode="maxAllowed">
+	<xsl:text>mdk:maxAllowed="100" </xsl:text>
 </xsl:template>
 
 

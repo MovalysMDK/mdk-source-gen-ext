@@ -21,8 +21,8 @@
 <xsl:output method="xml" indent="yes"/>
 
 
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/enum/thumbnail_height.xsl"/>
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/enum/thumbnail_width.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/enum/thumbnailHeight.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/enum/thumbnailWidth.xsl"/>
 
 <!-- Component attributes -->
 <xsl:template match="visualfield[component = 'com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView']" mode="componentAttributes">

@@ -20,9 +20,9 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<!-- SEEKBAR MIN ATTRIBUTE for mdk widgets SEEKBAR -->
-<xsl:template match="visualfield" mode="seekbar-min">
-	<xsl:text>mdk:seekbar_min="0" </xsl:text>
+<!-- HAS BLANK ROW ATTRIBUTE for mdk widgets RICHSPINNER -->
+<xsl:template match="visualfield" mode="hasBlankRow">
+	<xsl:text>mdk:hasBlankRow="true" </xsl:text>
 </xsl:template>
 
 

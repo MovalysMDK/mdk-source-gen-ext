@@ -20,9 +20,9 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<!-- HAS BLANK ROW ATTRIBUTE for mdk widgets RICHSPINNER -->
-<xsl:template match="visualfield" mode="has_blank_row">
-	<xsl:text>mdk:has_blank_row="true" </xsl:text>
+<!-- SEEKBAR MAX ATTRIBUTE for mdk widgets SEEKBAR -->
+<xsl:template match="visualfield" mode="seekbarMax">
+	<xsl:text>mdk:seekbarMax="100" </xsl:text>
 </xsl:template>
 
 
