@@ -499,7 +499,7 @@
 				<ui-type uml-name="Signature">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFSignature</language-type>
+						<language-type>MDKSignature</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>200</component-height>
 						<component-width>260</component-width>
@@ -507,7 +507,7 @@
 					</read-write>
 					<read-only>
 						<view-model-type>SameAsEntity|String</view-model-type>
-						<language-type>MFSignature</language-type>
+						<language-type>MDKSignature</language-type>
 						<cell-type>MFCell1ComponentHorizontal</cell-type>
 						<component-height>200</component-height>
 						<component-width>260</component-width>
