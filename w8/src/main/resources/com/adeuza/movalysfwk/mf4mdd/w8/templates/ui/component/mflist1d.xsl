@@ -41,7 +41,10 @@
 	
 	<xsl:choose>
 		<xsl:when test="../../adapter and /layout/parameters/parameter[@name = 'vmtype'] = 'LISTITEM_2'">
-			<xsl:text> mf:Value="{Binding Path=Lst</xsl:text><xsl:value-of select="../../adapter/viewmodel/subvm/viewmodel/mapping/entity[@mapping-type='vmlist']/@vm-type"/><xsl:text>, Mode=TwoWay}"</xsl:text>
+			<xsl:variable name="viewModelName" select="concat(translate(substring(../../adapter/viewmodel/subvm/viewmodel/mapping/entity[@mapping-type='vmlist']/@vm-property-name,1,1),'v','V'),substring(../../adapter/viewmodel/subvm/viewmodel/mapping/entity[@mapping-type='vmlist']/@vm-property-name,2))"/>
+			<xsl:text> mf:Value="{Binding Path=</xsl:text><xsl:value-of select="$viewModelName"/><xsl:text>, Mode=TwoWay}"</xsl:text>
+			<!--<xsl:text> mf:OnItemClickCommand="{Binding Path=</xsl:text><xsl:value-of select="$viewModelName"/><xsl:text>.</xsl:text>
+			<xsl:value-of select="../../adapter/viewmodel/subvm/viewmodel/subvm/viewmodel/uml-name"/><xsl:text>NavigationDetailCommand}"</xsl:text>-->
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:text> mf:Value="{Binding}"</xsl:text>
@@ -52,12 +55,12 @@
 	<xsl:text> mf:ListTitleVisibility="Visible"</xsl:text>
 	<xsl:text> IsEnabled="True"</xsl:text>
 
-	<xsl:for-each select="../../buttons/button">
-		<xsl:if test="./@type='NAVIGATION' and ./navigation/@type='NAVIGATION_DETAIL'">
-			<xsl:text> mf:OnItemClickCommand="{Binding </xsl:text><xsl:value-of select="./navigation/sourcePage/name"/><xsl:text>NavigationDetailCommand}"</xsl:text>
-
+	<xsl:for-each select="/layout/navigations/navigation">
+		<xsl:if test="./@type='NAVIGATION_DETAIL' and /layout/parameters/parameter[@name='vmtype']='LIST_1'">
+			<xsl:text> mf:OnItemClickCommand="{Binding </xsl:text><xsl:value-of select="./sourcePage/name"/><xsl:text>NavigationDetailCommand}"</xsl:text>
 		</xsl:if>
 	</xsl:for-each>
+
 
 	
 	<xsl:if test="(/layout/parameters/parameter[@name='vmtype']='LIST_1' and /layout/in-workspace = 'false') or not(/layout/buttons/button[@type = 'NAVIGATION'])">

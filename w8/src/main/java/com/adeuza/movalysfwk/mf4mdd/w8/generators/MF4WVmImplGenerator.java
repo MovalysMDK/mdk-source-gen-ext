@@ -83,8 +83,8 @@ public class MF4WVmImplGenerator extends VMImplGenerator {
 		addImportFactoryFromMapping(oVm.getMapping(), oImportDlg);
 
 		if ( oVm.getDataLoader() != null &&
-				oVm.getType() == ViewModelType.LISTITEM_2 ||
-				oVm.getType() == ViewModelType.LISTITEM_3) {
+				(oVm.getType() == ViewModelType.LISTITEM_2 ||
+				oVm.getType() == ViewModelType.LISTITEM_3)) {
 			oImportDlg.addImport(MF4WImportDelegate.MF4WImportCategory.DATALOADER.name(), oVm.getDataLoader().getPackage().getFullName());
 		}
 

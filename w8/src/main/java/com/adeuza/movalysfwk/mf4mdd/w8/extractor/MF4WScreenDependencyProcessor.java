@@ -23,6 +23,7 @@ import com.a2a.adjava.languages.LanguageConfiguration;
 import com.a2a.adjava.messages.MessageHandler;
 import com.a2a.adjava.uml.UmlClass;
 import com.a2a.adjava.uml2xmodele.extractors.ScreenExtractor;
+import com.a2a.adjava.xmodele.*;
 import com.a2a.adjava.xmodele.ui.component.MNavigationButton;
 import com.a2a.adjava.xmodele.ui.navigation.MNavigation;
 import com.a2a.adjava.xmodele.ui.navigation.MNavigationType;
@@ -37,12 +38,6 @@ import com.a2a.adjava.uml.UmlUsage;
 import com.a2a.adjava.uml2xmodele.ui.screens.PanelAggregation;
 import com.a2a.adjava.uml2xmodele.ui.screens.ScreenContext;
 import com.a2a.adjava.uml2xmodele.ui.screens.ScreenDependencyProcessor;
-import com.a2a.adjava.xmodele.IDomain;
-import com.a2a.adjava.xmodele.IModelDictionary;
-import com.a2a.adjava.xmodele.IModelFactory;
-import com.a2a.adjava.xmodele.MPage;
-import com.a2a.adjava.xmodele.MScreen;
-import com.a2a.adjava.xmodele.MVisualField;
 import com.a2a.adjava.xmodele.ui.viewmodel.ViewModelType;
 import com.a2a.adjava.xmodele.ui.viewmodel.ViewModelTypeConfiguration;
 import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WPage;
@@ -130,6 +125,101 @@ public class MF4WScreenDependencyProcessor extends ScreenDependencyProcessor {
 				p_oScreen.addImport(oScreenEnd.getFullName());
 
 				((MF4WViewModel)p_oScreen.getViewModel()).addNavigation((MF4WNavigation)oNav);
+			}
+		}
+	}
+
+	@Override
+	protected void treatNavigationDetailUsage( UmlUsage p_oNavigationUsage, List<PanelAggregation> p_listPanelAggregations,
+											   MScreen p_oScreen, ScreenContext p_oScreenContext ) {
+
+		IDomain<IModelDictionary, IModelFactory> oDomain = p_oScreenContext.getDomain();
+		MScreen oScreenEnd = oDomain.getDictionnary().getScreen(p_oNavigationUsage.getSupplier().getName());
+
+		log.debug("treat navigation detail usage, screen:{}, navigation name: {}", p_oScreen.getName(), p_oNavigationUsage.getName());
+		log.debug("  panel aggregation count: {}", p_listPanelAggregations.size());
+
+		// une navigation de type détail est liée à un model par son
+		// nom indiquant le type de l'élément à afficher
+		// on cherche si le nom du usage est également le nom d'une
+		// relation vers le view model.
+		// Un usage navigationdetail (entre screen1 et screen2) est
+		// lié à une relation "aggregation panel" de type list (entre
+		// screen1 et panel1).
+		for (PanelAggregation oPanelAggregation : p_listPanelAggregations) {
+
+			// on recherche le liens entre les navigations
+			if (oPanelAggregation.getName().equals(p_oNavigationUsage.getName())) {
+
+				log.debug("relation between panel and screen found. Panel: {}",
+						p_oNavigationUsage.getSupplier().getFullName());
+
+				if (p_oScreen.getPageCount() > 1) {
+					MessageHandler
+							.getInstance()
+							.addError(
+									"Cas non traité : naviagtion à partir de plusieurs pages, que faire ?");
+				} else {
+
+					if (oScreenEnd.getPageCount() == 1) {
+
+						// recopy current item key name to
+						// screen target
+						oScreenEnd
+								.getMasterPage()
+								.getViewModelImpl()
+								.setCurrentItemKeyName(
+										p_oScreen.getMasterPage().getViewModelImpl()
+												.getCurrentItemKeyName());
+
+						// il faut que le detail de la liste
+						// oScreenEnd possède toutes les
+						// cascades de l'affichage de la liste
+						// oScreen
+						log.debug("cascade : {}",
+								p_oScreen.getMasterPage().getViewModelImpl()
+										.getLoadCascades().size());
+						MViewModelImpl oVmImpl = p_oScreen.getMasterPage().getViewModelImpl()
+								.getSubViewModels().get(0);
+						MViewModelImpl oVmImplEnd = oScreenEnd.getMasterPage()
+								.getViewModelImpl();
+						boolean bAdd = false;
+						for (MCascade oCascade : oVmImpl.getLoadCascades()) {
+							log.debug("search cascade {}", oCascade.getName());
+							if (!oVmImplEnd.getLoadCascades().contains(oCascade)) {
+								log.debug("not found !!!");
+								oVmImplEnd.getLoadCascades().add(oCascade);
+								bAdd = true;
+							}
+						}
+						if (bAdd) {
+							for (String sCascade : oVmImpl.getImportCascades()) {
+								if (!oVmImplEnd.getImportCascades().contains(sCascade)) {
+									oVmImplEnd.getImportCascades().add(sCascade);
+								}
+							}
+						}
+
+						MNavigation oNavDetail =
+								oDomain.getXModeleFactory().createNavigation("navigationdetail",
+										MNavigationType.NAVIGATION_DETAIL, p_oScreen, oScreenEnd);
+						oNavDetail.setSourcePage(p_oScreen.getPageByName(oPanelAggregation.getPanel().getName()));
+						oDomain.getDictionnary().registerNavigation(oNavDetail);
+
+						log.debug("  add navigation detail on page: {}", p_oScreen.getMasterPage().getName());
+						p_oScreen.getMasterPage().addNavigation(oNavDetail);
+
+						p_oScreen.getMasterPage().getAssociatedDetails().addAll(oScreenEnd.getPages());
+
+						((MF4WViewModel)p_oScreen.getViewModel()).addNavigation((MF4WNavigation)oNavDetail);
+					} else {
+
+						MessageHandler.getInstance().addError(
+								"Cas non traité : l'écran de destination à plusieurs pages");
+
+					}
+				}
+				break;
 			}
 		}
 	}

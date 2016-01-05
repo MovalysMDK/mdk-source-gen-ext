@@ -151,6 +151,7 @@
             <xsl:text>navigationService.Navigate("</xsl:text><xsl:value-of select="target/name"/><xsl:text>Controller",parameter);&#13;}&#13;&#13;</xsl:text>
         </xsl:for-each>
 
+        <!--
         <xsl:for-each select="pages/page">
             <xsl:for-each select="navigations/navigation">
                 <xsl:if test="@type='NAVIGATION_DETAIL'">
@@ -160,7 +161,7 @@
                     <xsl:text>navigationService.Navigate("</xsl:text><xsl:value-of select="target/name"/><xsl:text>Controller",vm.Id_id);&#13;}&#13;&#13;</xsl:text>
                 </xsl:if>
             </xsl:for-each>
-        </xsl:for-each>
+        </xsl:for-each>-->
 
         <xsl:for-each select="./pages/page">
             <xsl:apply-templates select="." mode="create-pages-methods" />
@@ -349,7 +350,7 @@
     <xsl:template match="page" mode="create-pages-navigated">
 
         <xsl:text>try &#13;{&#13;</xsl:text>
-        <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = (long) parameter;&#13;}&#13;</xsl:text>
+        <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;&#13;}&#13;</xsl:text>
         <xsl:text>catch (InvalidCastException e)&#13;{}&#13;</xsl:text>
         <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
     </xsl:template>

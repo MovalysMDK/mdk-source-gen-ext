@@ -26,7 +26,7 @@
 <xsl:template name="add-list2d-methods">
 	<xsl:text>&#13;#region MFList2D Methods&#13;</xsl:text><xsl:text></xsl:text>
 	<xsl:text disable-output-escaping="yes"><![CDATA[
-	    private delegate void FWKEvent(object sender, SelectionChangedEventArgs e, object elementParent);
+	    /*private delegate void FWKEvent(object sender, SelectionChangedEventArgs e, object elementParent);
         private FWKEvent selectedItem = new FWKEvent(MFMethods.MFSelectedItemClick);
 
         private delegate void FWKRoutedEvent(object sender, RoutedEventArgs e, object elementParent);
@@ -59,7 +59,7 @@
             {
                 _componentDictionary = value;
             }
-        }
+        }*/
 		]]></xsl:text>
 	<xsl:text>&#13;#endregion&#13;</xsl:text>
 </xsl:template>

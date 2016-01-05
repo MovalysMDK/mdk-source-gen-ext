@@ -49,9 +49,9 @@
 		<xsl:text>public partial class </xsl:text><xsl:value-of select="name" /><xsl:text> : </xsl:text>
 		<xsl:call-template name="IsList" />
 		<xsl:text> </xsl:text><xsl:value-of select="./implements/interface/@name" />
-		<xsl:if test="./layout/parameters/parameter[@name = 'vmtype'] = 'LIST_2'">
+		<!--<xsl:if test="./layout/parameters/parameter[@name = 'vmtype'] = 'LIST_2'">
 			<xsl:call-template name="add-interface-imfcomponentdictionary" />
-		</xsl:if>
+		</xsl:if>TODO list2d-->
 		<xsl:text>{</xsl:text>
 
 		<!--==================-->
@@ -64,11 +64,11 @@
 		<xsl:text>if(!IsInDesignMode()){&#13;</xsl:text>
 		<xsl:text>this.InitializeComponent();&#13;</xsl:text>
 		<xsl:if test="./layout/parameters/parameter[@name = 'vmtype'] = 'LIST_2'">
-			<xsl:text>this.ComponentDictionary.Add(this.</xsl:text>
+			<xsl:text>//this.ComponentDictionary.Add(this.</xsl:text>
 			<xsl:value-of select="layout/visualfields/visualfield[component = 'MFList2D']/name" />
 			<xsl:text>.Name , this.</xsl:text>
 			<xsl:value-of select="layout/visualfields/visualfield[component = 'MFList2D']/name" />
-			<xsl:text>);</xsl:text>
+			<xsl:text>);&#13;</xsl:text>
 		</xsl:if>
 		<xsl:text>}&#13;</xsl:text>
 

@@ -34,7 +34,7 @@
 		<xsl:text>" Grid.Column="0"</xsl:text>
 		<xsl:text> mf:Value="{Binding}"</xsl:text>
 		<xsl:text> IsEnabled="True"</xsl:text>
-        <xsl:if test="./parameters/parameter[@name='master']='true'">
+        <xsl:if test="/layout/parameters/parameter[@name='master']='true'">
 			<xsl:if test="../../buttons/button">
 				<xsl:text> AddClick="</xsl:text>
 				<xsl:value-of select="../../buttons/button[@type='NAVIGATION']/navigation/target/name"/><xsl:text>_Click</xsl:text>
@@ -47,6 +47,9 @@
 		<xsl:text> mf:CloseTemplate="{StaticResource </xsl:text>
 		<xsl:value-of select="../../adapter/layouts/layout[@id = 'listitem2']/name" />
 		<xsl:text>}"</xsl:text>
+		<xsl:for-each select="/layout/navigations/navigation[@type='NAVIGATION_DETAIL']">
+				<xsl:text> mf:OnItemClickCommand="{Binding </xsl:text><xsl:value-of select="./sourcePage/name"/><xsl:text>NavigationDetailCommand}"</xsl:text>
+		</xsl:for-each>
 		<xsl:text>&#47;&gt;</xsl:text>
 		
 </xsl:template>

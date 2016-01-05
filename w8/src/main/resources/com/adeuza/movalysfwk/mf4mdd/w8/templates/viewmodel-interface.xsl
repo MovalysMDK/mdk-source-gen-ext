@@ -93,7 +93,7 @@
 
 	<xsl:text>void ExecuteSave</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(Object parameter);&#13;</xsl:text>
 	<xsl:text>void ExecuteDelete</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(Object parameter);&#13;</xsl:text>
-	<xsl:for-each select="./navigations/navigation">
+	<xsl:for-each select="./navigations/navigation[@type='NAVIGATION']">
 		<xsl:text>void Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object parameter);&#13;</xsl:text>
 	</xsl:for-each>
 
