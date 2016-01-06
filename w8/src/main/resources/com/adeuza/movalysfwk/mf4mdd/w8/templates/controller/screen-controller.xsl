@@ -349,9 +349,9 @@
 
     <xsl:template match="page" mode="create-pages-navigated">
 
-        <xsl:text>try &#13;{&#13;</xsl:text>
-        <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;&#13;}&#13;</xsl:text>
-        <xsl:text>catch (InvalidCastException e)&#13;{}&#13;</xsl:text>
+        <xsl:text>if (parameter != null && parameter is IViewModel) &#13;{&#13;</xsl:text>
+        <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
+        <xsl:text>&#13;}&#13;</xsl:text>
         <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
     </xsl:template>
 

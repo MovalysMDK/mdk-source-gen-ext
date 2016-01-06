@@ -21,20 +21,6 @@
 		
 
 <xsl:template match="button" mode="method-click">
-	<xsl:if test="@type='NAVIGATION'">
-		<xsl:text> 	/// &lt;summary&gt;&#13;</xsl:text>
-		<xsl:text>	/// Navigation to </xsl:text><xsl:value-of select="navigation/target/name"/><xsl:text>&#13;</xsl:text>
-		<xsl:text>	/// &lt;/summary&gt;&#13;</xsl:text>
-		<xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
-		<xsl:text>	/// &lt;param name="e">&lt;/param&gt;</xsl:text>
-		
-		<xsl:text>&#13;private void </xsl:text><xsl:value-of select="navigation/target/name"/><xsl:text>_Navigation_Click(object sender, RoutedEventArgs e)</xsl:text>
-		<xsl:text>&#13;</xsl:text>
-		<xsl:text>{&#13;</xsl:text>
-		<xsl:text>((</xsl:text><xsl:value-of select="../../../vm"/><xsl:text>)this.DataContext).Execute</xsl:text><xsl:value-of
-			select="navigation/target/name"/><xsl:text>Navigation(e);&#13;</xsl:text>
-		<xsl:text>}&#13;</xsl:text>
-	</xsl:if>
 	<xsl:if test="@type='DELETE'">
 		<xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
 		<xsl:text>/// </xsl:text><xsl:value-of select="@name"/><xsl:text> click method.&#13;</xsl:text>
