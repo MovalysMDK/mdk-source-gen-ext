@@ -51,16 +51,16 @@
 
 
 		<div class="modal-body" mf-stop-event="touchend">
-			<xsl:text disable-output-escaping="yes"><![CDATA[<form class="form-horizontal" ]]></xsl:text>
+			<xsl:text disable-output-escaping="yes"><![CDATA[<form ]]></xsl:text>
 			<xsl:text>name="</xsl:text><xsl:value-of select="$fixedListName"/><xsl:text>Form"</xsl:text>
 			<xsl:text disable-output-escaping="yes"><![CDATA[ novalidate>]]></xsl:text>
 
-				<xsl:apply-templates 
+				<xsl:apply-templates
 					select="attributes/HTML-attribute[visualfield/parameters/parameter[@name = 'fixedListVmPropertyName'] = $fixedListName]/detail-attributes/HTML-attribute"
 					mode="partial-component-generation">
 					<xsl:with-param name="viewModel">item</xsl:with-param>
-				</xsl:apply-templates>			
-				
+				</xsl:apply-templates>
+
 			<xsl:text disable-output-escaping="yes"><![CDATA[</form>]]></xsl:text>
 
 		</div>

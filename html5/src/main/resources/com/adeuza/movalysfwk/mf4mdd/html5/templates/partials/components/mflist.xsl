@@ -64,9 +64,8 @@
 							<span>
 								<xsl:attribute name="class">mflist-item-chevron</xsl:attribute>
 							</span>
-													
-							<form> 
-								<xsl:attribute name="class">form-horizontal</xsl:attribute>
+
+							<form>
 								<xsl:attribute name="mf-list-item-form">[item.<xsl:value-of select="@list-id"/>]</xsl:attribute>
 								<xsl:attribute name="mf-form-name-prefix"><xsl:value-of select="name"/>Form</xsl:attribute>
 								<xsl:attribute name="novalidate">true</xsl:attribute>
@@ -102,13 +101,12 @@
 					<!-- <accordion-group> -->
 						<!-- <xsl:attribute name="is-open">isopen</xsl:attribute> -->
 						<!-- <accordion-heading> -->
-						
-							<form> 
-								<xsl:attribute name="class">form-horizontal</xsl:attribute>
+
+							<form>
 								<xsl:attribute name="mf-list-item-form">[item.<xsl:value-of select="@list-id"/>]</xsl:attribute>
 								<xsl:attribute name="mf-form-name-prefix"><xsl:value-of select="name"/>Form</xsl:attribute>
 								<xsl:attribute name="novalidate">true</xsl:attribute>
-			
+
 								<xsl:apply-templates select="attributes/HTML-attribute/child-attributes/HTML-attribute" mode="partial-component-generation">
 									<!-- Editable List is not a feature of MDK HTML5, force read only to true -->
 									<xsl:with-param name="readonly-override-value" select="'true'"/>
@@ -117,7 +115,7 @@
 	<!-- 								<xsl:with-param name="overide-text"><xsl:text>item.</xsl:text><xsl:value-of select="field-name"/></xsl:with-param> -->
 								</xsl:apply-templates>
 							</form>
-							
+
 							<xsl:if test="@can-add='true'">
 								<xsl:text>&#10;</xsl:text>
 								<span>
@@ -131,32 +129,32 @@
 							<!-- <li> -->
 <!-- 								<xsl:attribute name="ng-repeat">subitem in item.list</xsl:attribute>
 								<xsl:attribute name="ng-click">navigateDetail([{level:0, id:item.<xsl:value-of select="@list-id"/>},{level:1,id:subitem.<xsl:value-of select="@list-id"/>}])</xsl:attribute>
-								<xsl:attribute name="ng-class">isSelectedItem?'selected':''</xsl:attribute>	 -->			
+								<xsl:attribute name="ng-class">isSelectedItem?'selected':''</xsl:attribute>	 -->
 							<mf-list>
 
 								<xsl:attribute name="mf-sublist">true</xsl:attribute>
 								<xsl:attribute name="mf-field">item.list</xsl:attribute>
 								<xsl:attribute name="mf-item-click">navigateDetail([{level:0, id:item.<xsl:value-of select="@list-id"/>},{level:1,id:subitem.<xsl:value-of select="@list-id"/>}])</xsl:attribute>
-		
-								<form> 
-									<xsl:attribute name="class">form-horizontal mflist-item-body</xsl:attribute>
+
+								<form>
+									<xsl:attribute name="class"> mflist-item-body </xsl:attribute>
 									<xsl:attribute name="mf-list-item-form">[item.<xsl:value-of select="@list-id"/>, subitem.<xsl:value-of select="@list-id"/>]</xsl:attribute>
 									<xsl:attribute name="mf-form-name-prefix"><xsl:value-of select="name"/>Form</xsl:attribute>
 									<xsl:attribute name="novalidate">true</xsl:attribute>
-									
-									
+
+
 									<xsl:apply-templates select="attributes/HTML-attribute/level2-attributes/HTML-attribute" mode="partial-component-generation">
 									<!-- Editable List is not a feature of MDK HTML5, force read only to true -->
 										<xsl:with-param name="readonly-override-value" select="'true'"/>
 										<xsl:with-param name="viewModel" select="'subitem'"/>
 										<xsl:with-param name="overide-text"><xsl:value-of select="field-name"/></xsl:with-param>
 									</xsl:apply-templates>
-									
+
 									<span>
 									<xsl:attribute name="class">mflist-item-chevron</xsl:attribute>
 									</span>
 								</form>
-							</mf-list>	
+							</mf-list>
 							<!-- </li> -->
 						<!-- </ul> -->
 					<!-- </accordion-group> -->
@@ -164,12 +162,12 @@
 			<!-- </accordion> -->
 		<!-- </div>	 -->
 	</xsl:template>
-	
+
 	<xsl:template match="HTML-attribute" mode="partial-component-generation" priority="-900">
 		<xsl:comment>********** WARNING ************
 			[partials.xsl]  The attribute  '<xsl:value-of select="field-name"/>' (type ='<xsl:value-of select="visualfield/component"/>', mode='partial-component-generation') is not well handled by the generator
 		*******************************</xsl:comment>
 	</xsl:template>
-	
+
 
 </xsl:stylesheet>
