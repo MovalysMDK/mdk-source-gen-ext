@@ -34,6 +34,9 @@ extension-element-prefixes="exsl">
 	<xsl:variable name="replaceStep3From">,</xsl:variable>
 	<xsl:variable name="replaceStep3To">',</xsl:variable>
 
+	<xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
+	<xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+
 
 	<!-- ##################################################
 			GESTION DES CASCADES
@@ -143,11 +146,13 @@ extension-element-prefixes="exsl">
 				</xsl:call-template>
 				<xsl:text>'</xsl:text>
 				</xsl:variable>
-				
-				
+
 				<xsl:choose>
 					<xsl:when test="contains($methodParameterReplaceStep3, ',')">
 						<xsl:text>s([</xsl:text><xsl:value-of select="$methodParameterReplaceStep3" /><xsl:text>])</xsl:text>
+					</xsl:when>
+					<xsl:when test="contains(substring($methodParameterReplaceStep3, string-length($methodParameterReplaceStep3) - 2), 'id')">
+						<xsl:text>(</xsl:text><xsl:value-of select="translate($methodParameterReplaceStep3, $uppercase, $smallcase)" /><xsl:text>)</xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>(</xsl:text><xsl:value-of select="$methodParameterReplaceStep3" /><xsl:text>)</xsl:text>

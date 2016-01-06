@@ -166,7 +166,7 @@
 		<xsl:variable name="leftAttr">
 			<xsl:choose>
 				<xsl:when test="$database='SQL'"><xsl:text>'</xsl:text><xsl:value-of select="translate(field/@name, '@', '')"/><xsl:text>'</xsl:text></xsl:when>
-				<xsl:otherwise><xsl:text>'</xsl:text><xsl:value-of select="@name"/><xsl:value-of select="attribute/@name" /><xsl:text>'</xsl:text></xsl:otherwise>
+				<xsl:otherwise><xsl:text>'</xsl:text><xsl:value-of select="translate(@name, $uppercase, $smallcase)"/><xsl:value-of select="translate(attribute/@name, $uppercase, $smallcase)" /><xsl:text>'</xsl:text></xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 		
