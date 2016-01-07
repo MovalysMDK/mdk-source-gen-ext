@@ -21,14 +21,12 @@
 	<xsl:output method="text"/>
 
 	<xsl:template match="navigation-entries">
-        <xsl:apply-templates select="entry" mode="navigation-entry" />
+        <xsl:apply-templates select="imports/import" mode="navigation-import" />
 	</xsl:template>
 
-    <xsl:template match="entry" mode="navigation-entry">
-        <xsl:text>navigationService.RegisterNavigationTarget("</xsl:text>
-        <xsl:value-of select="screen-name" />
-        <xsl:text>Controller", typeof(</xsl:text>
-        <xsl:value-of select="screen-name"/>
-        <xsl:text>));&#13;</xsl:text>
+    <xsl:template match="import" mode="navigation-import">
+        <xsl:text>using </xsl:text>
+        <xsl:value-of select="." />
+        <xsl:text>;&#13;</xsl:text>
     </xsl:template>
 </xsl:stylesheet>

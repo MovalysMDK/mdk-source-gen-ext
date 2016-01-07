@@ -31,6 +31,9 @@ import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  */
@@ -48,11 +51,19 @@ public class MF4WExtendedSplashScreenGenerator extends AbstractInjectionGenerato
 	/**
 	 * Flag defined inside the file where the code will be placed
 	 */
-	private static final String NON_GENERATED_FLAG = "navigation-service";
+	private static final String NAVIGATION_SERVICE_FLAG = "navigation-service";
+	/**
+	 * Flag defined inside the file where the code will be placed
+	 */
+	private static final String NAVIGATION_IMPORTS_FLAG = "navigation-imports";
 	/**
 	 * Xsl file to use during the generation
 	 */
-	private static final String XSL_FILE = "navigation-service.xsl";
+	private static final String NAVIGATION_SERVICE_XSL_FILE = "navigation-service.xsl";
+	/**
+	 * Xsl file to use during the generation
+	 */
+	private static final String NAVIGATION_IMPORTS_XSL_FILE = "navigation-service-imports.xsl";
 
 	@Override
 	public void genere(XProject<MFDomain<MFModelDictionary, MFModelFactory>> p_oMProject, DomainGeneratorContext p_oGeneratorContext) throws Exception {
@@ -63,6 +74,9 @@ public class MF4WExtendedSplashScreenGenerator extends AbstractInjectionGenerato
 		// For each screen, add an entry containing the data used to initialize the navigation service.
 		// This includes : the vm name, the vm interface name, and the screen name
 		Element oNavigationEntries = DocumentHelper.createElement("navigation-entries");
+		Set<String> imports = new HashSet<>();
+		Element oImports = DocumentHelper.createElement("imports");
+
 		for (MScreen oScreen : p_oMProject.getDomain().getDictionnary().getAllScreens()) {
 			Element oEntry = DocumentHelper.createElement("entry");
 
@@ -79,7 +93,16 @@ public class MF4WExtendedSplashScreenGenerator extends AbstractInjectionGenerato
 			oEntry.add(oScreenName);
 
 			oNavigationEntries.add(oEntry);
+
+			imports.add(oScreen.getPackage().getFullName());
 		}
+
+		for (String importName : imports) {
+			Element _import = DocumentHelper.createElement("import");
+			_import.setText(importName);
+			oImports.add(_import);
+		}
+		oNavigationEntries.add(oImports);
 
 		// Compute the file path
 		StringBuilder oTargetFilePathBuilder = new StringBuilder(p_oMProject.getSourceDir());
@@ -88,10 +111,12 @@ public class MF4WExtendedSplashScreenGenerator extends AbstractInjectionGenerato
 		// Convert the Element into a Document
 		Document xDoc = DocumentHelper.createDocument(oNavigationEntries);
 		// Create the generation configuration part
-		FilePartGenerationConfig oFilePartGenerationConfig = new FilePartGenerationConfig(
-				NON_GENERATED_FLAG, XSL_FILE, xDoc);
+		FilePartGenerationConfig oNavigationServiceConfig = new FilePartGenerationConfig(
+				NAVIGATION_SERVICE_FLAG, NAVIGATION_SERVICE_XSL_FILE, xDoc);
+		FilePartGenerationConfig oNavigationImportsConfig = new FilePartGenerationConfig(
+				NAVIGATION_IMPORTS_FLAG, NAVIGATION_IMPORTS_XSL_FILE, xDoc);
 		// Process the generation
-		this.doInjectionTransform(sTargetFilePath, p_oMProject, p_oGeneratorContext, oFilePartGenerationConfig);
+		this.doInjectionTransform(sTargetFilePath, p_oMProject, p_oGeneratorContext, oNavigationServiceConfig, oNavigationImportsConfig);
 
 		if (isDebug()) {
 			GeneratorUtils.writeXmlDebugFile(xDoc, sTargetFilePath, p_oMProject);
