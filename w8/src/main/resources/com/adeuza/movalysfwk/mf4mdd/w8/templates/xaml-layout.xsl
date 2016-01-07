@@ -26,13 +26,13 @@
 <!-- MAIN TEMPLATE -->
 <xsl:template match="layout">
 
-<xsl:call-template name="xaml-file-start" />
-	
-<xsl:call-template name="xaml-resource" />
-	
-	<xsl:apply-templates select="menus" mode="xaml-menu" />
-	
-<xsl:call-template name="xaml-content" />
+	<xsl:call-template name="xaml-file-start" />
+
+	<xsl:call-template name="xaml-resource" />
+
+	<xsl:call-template name="xaml-content" />
+
+	<xsl:apply-templates select="menus/menu" mode="xaml-menu" />
 
 <xsl:call-template name="xaml-file-close" />
 
@@ -105,20 +105,18 @@
 <xsl:template match="menu" mode="xaml-menu">
 	<xsl:choose>
 		<xsl:when test="/layout/is-Store='true'">
-			<xsl:text>&lt;common:MFPage.TopAppBar&gt;</xsl:text>
-			    <xsl:text>&lt;AppBar x:Name="topAppBar" Background="#00b2f0"&gt;</xsl:text>
-			        <xsl:text>&lt;AppBar.Resources&gt;</xsl:text>
-			            <xsl:text>&lt;Style TargetType="Button"&gt;</xsl:text>
-			                <xsl:text>&lt;Setter Property="Width" Value="140"&#47;&gt;</xsl:text>
-			                <xsl:text>&lt;Setter Property="Height" Value="60"&#47;&gt;</xsl:text>
-			                <xsl:text>&lt;Setter Property="Margin" Value="5"&#47;&gt;</xsl:text>
-			            <xsl:text>&lt;&#47;Style&gt;</xsl:text>
-			        <xsl:text>&lt;&#47;AppBar.Resources&gt;</xsl:text>
-			        <xsl:text>&lt;StackPanel Orientation="Horizontal"&gt;</xsl:text>
-			        	<xsl:apply-templates select="." mode="create-item-menu"/>
-			        <xsl:text>&lt;&#47;StackPanel&gt;</xsl:text>
-			    <xsl:text>&lt;&#47;AppBar&gt;</xsl:text>
-			<xsl:text>&lt;&#47;common:MFPage.TopAppBar&gt;</xsl:text>
+			<xsl:text>&lt;common:MFPage.BottomAppBar&gt;</xsl:text>
+				<xsl:text>&lt;CommandBar Background="#00b2f0"&gt;</xsl:text>
+					<xsl:text>&lt;CommandBar.Resources&gt;</xsl:text>
+						<xsl:text>&lt;Style TargetType="Button"&gt;</xsl:text>
+							<xsl:text>&lt;Setter Property="Width" Value="140"&#47;&gt;</xsl:text>
+							<xsl:text>&lt;Setter Property="Height" Value="60"&#47;&gt;</xsl:text>
+							<xsl:text>&lt;Setter Property="Margin" Value="5"&#47;&gt;</xsl:text>
+						<xsl:text>&lt;&#47;Style&gt;</xsl:text>
+					<xsl:text>&lt;&#47;CommandBar.Resources&gt;</xsl:text>
+					<xsl:apply-templates select="." mode="create-item-menu"/>
+				<xsl:text>&lt;&#47;CommandBar&gt;</xsl:text>
+			<xsl:text>&lt;&#47;common:MFPage.BottomAppBar&gt;</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:text>&lt;common:MFPage.BottomAppBar&gt;</xsl:text>
@@ -127,29 +125,16 @@
             <xsl:apply-templates select="." mode="create-item-menu"/>
             <xsl:text>&lt;&#47;CommandBar.SecondaryCommands&gt;</xsl:text>
 			<xsl:text>&lt;&#47;CommandBar&gt;</xsl:text>
-	   		<xsl:text>&lt;&#47;common:MFPage.BottomAppBar&gt;</xsl:text>
+			<xsl:text>&lt;&#47;common:MFPage.BottomAppBar&gt;</xsl:text>
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="menu-item" mode="create-item-menu">
-	
-	<xsl:choose>
-		<xsl:when test="/layout/is-Store='true'">
-			<xsl:text>&lt;Button Content="</xsl:text>
-			<xsl:value-of select="navigation/target/name"/>
-			<xsl:text>" Click="NavButton_Click" Tag="</xsl:text>
-			<xsl:value-of select="navigation/target/full-name"/>
-			<xsl:text>" &#47;&gt;</xsl:text>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:text>&lt;AppBarButton Label="</xsl:text>
-			<xsl:value-of select="navigation/target/name"/>
-			<xsl:text>" Click="NavButton_Click" Tag="</xsl:text>
-			<xsl:value-of select="navigation/target/full-name"/>
-			<xsl:text>" &#47;&gt;</xsl:text>
-		</xsl:otherwise>
-	</xsl:choose>
+	<xsl:text>&lt;AppBarButton Label="</xsl:text>
+	<xsl:value-of select="navigation/target/name"/>
+	<xsl:text>" Command="{ Binding </xsl:text><xsl:value-of select="navigation/target/name"/>
+	<xsl:text>NavigationMenuCommand}" &#47;&gt;</xsl:text>
 </xsl:template>
 	
 </xsl:stylesheet>

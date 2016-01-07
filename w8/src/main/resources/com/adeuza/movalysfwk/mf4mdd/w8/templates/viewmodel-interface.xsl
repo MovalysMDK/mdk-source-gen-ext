@@ -93,8 +93,15 @@
 
 	<xsl:text>void ExecuteSave</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(Object parameter);&#13;</xsl:text>
 	<xsl:text>void ExecuteDelete</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(Object parameter);&#13;</xsl:text>
-	<xsl:for-each select="./navigations/navigation[@type='NAVIGATION']">
-		<xsl:text>void Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object parameter);&#13;</xsl:text>
+	<xsl:for-each select="./navigations/navigation">
+		<xsl:choose>
+			<xsl:when test="@type='NAVIGATION'">
+				<xsl:text>void Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object parameter);&#13;</xsl:text>
+			</xsl:when>
+			<xsl:when test="@type='NAVIGATION_MENU'">
+				<xsl:text>void Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenu(object parameter);&#13;</xsl:text>
+			</xsl:when>
+		</xsl:choose>
 	</xsl:for-each>
 
 	<xsl:apply-templates select="attribute[@derived='true']" mode="generate-calculate-method-header"/>

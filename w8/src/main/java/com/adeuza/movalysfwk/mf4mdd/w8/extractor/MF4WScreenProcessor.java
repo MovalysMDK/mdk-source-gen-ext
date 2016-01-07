@@ -28,7 +28,7 @@ import org.dom4j.Element;
  * Processor used to add specific features to W8 viewmodels :
  * - add lower camel case property name
  */
-public class MF4WViewModelProcessor extends AbstractExtractor<IDomain<IModelDictionary,IModelFactory>> {
+public class MF4WScreenProcessor extends AbstractExtractor<IDomain<IModelDictionary,IModelFactory>> {
 
 	/**
 	 * {@inheritDoc}
@@ -48,11 +48,14 @@ public class MF4WViewModelProcessor extends AbstractExtractor<IDomain<IModelDict
 	@Override
 	public void extract(UmlModel p_oModele) throws Exception {
 
-		for(MViewModelImpl oViewModel : this.getDomain().getDictionnary().getAllViewModels()) {
-			MF4WViewModel oVm = (MF4WViewModel) oViewModel;
-
-			oVm.setPropertyNameLowerCase(
-					this.getDomain().getLanguageConf().getViewModelImplementationNamingPrefix().toLowerCase() + oVm.getUmlName());
+		for (MScreen oScreen : this.getDomain().getDictionnary().getAllScreens()) {
+			for (MMenu menu : oScreen.getMenus()) {
+				for (MMenuItem item : menu.getMenuItems()) {
+					//((MF4WViewModel) oScreen.getViewModel()).addNavigation((MF4WNavigation) item.getNavigation());
+					((MF4WViewModel) this.getDomain().getDictionnary().getViewModel(oScreen.getViewModel().getFullName()))
+							.addNavigation((MF4WNavigation) item.getNavigation());
+				}
+			}
 		}
 	}
 }

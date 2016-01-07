@@ -854,6 +854,7 @@
 				</extractor>
 				<extractor class="com.a2a.adjava.languages.w8.extractors.W8ViewModelProcessor"/>
 				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WViewModelProcessor"/>
+				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WScreenProcessor"/>
 				<extractor class="com.adeuza.movalysfwk.mf4mdd.w8.extractor.MF4WListNDExtractor"/>
 			</extractors>
 			<m-updaters>

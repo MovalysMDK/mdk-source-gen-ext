@@ -15,6 +15,10 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.w8.generators;
 
+import com.a2a.adjava.xmodele.ui.menu.MMenu;
+import com.a2a.adjava.xmodele.ui.menu.MMenuItem;
+import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WNavigation;
+import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WViewModel;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.slf4j.Logger;
@@ -87,7 +91,7 @@ public class ScreenGenerator
 	/**
 	 * Create layout xaml
 	 * 
-	 * @param p_oLayout
+	 * @param p_oScreen
 	 *            layout
 	 * @param p_oMProject
 	 *            project
@@ -105,8 +109,6 @@ public class ScreenGenerator
 			this.setScreenTemplate(p_oMProject);
 			xXamlLayout = this.computeXmlForXamlLayout(p_oScreen, p_oMProject);
 			xXamlLayout.addElement("page-package").setText(p_oScreen.getPages().get(0).getPackage().getFullName());
-			
-			
 		}
 		else
 		{
@@ -119,22 +121,26 @@ public class ScreenGenerator
 			else
 				xXamlLayout.addElement("main-screen").setText("false");
 			xXamlLayout.addElement("package").setText(p_oScreen.getPackage().getFullName());
+
+			// Add menus to the XML description
+			Element xMenuElement = DocumentHelper.createElement("menus");
+			for (MMenu menu : p_oScreen.getMenus()) {
+				xMenuElement.add(menu.toXml());
+            }
+            xXamlLayout.add(xMenuElement);
 		}
 		xXamlLayout.add(AddPlatformAttribute(p_oMProject));
 		log.debug("generation du fichier {}", sXamlLayoutFile);
 		this.doIncrementalTransform(this.getCurrentTemplate(), sXamlLayoutFile,
 				DocumentHelper.createDocument(xXamlLayout), p_oMProject, p_oContext);
 	}
-	
-	/**
-	 * Get filename for xaml layout
-	 * 
-	 * @param p_oLayout
-	 *            layout
-	 * @param p_oMProject
-	 *            project
-	 * @return file name for layout
-	 */
+
+    /**
+     * Get filename for xaml layout
+     * @param p_oElement element
+     * @param p_oMProject project
+     * @return filename for xaml laout
+     */
 	protected String getXamlFileName(SGeneratedElement p_oElement,
 			XProject<MFDomain<MFModelDictionary, MFModelFactory>> p_oMProject) {
 		return FileTypeUtils.computeFilenameForXaml("View/Screens",
@@ -144,8 +150,7 @@ public class ScreenGenerator
 	/**
 	 * Compute xml node of the xaml layout
 	 * 
-	 * @param p_oDataLoader
-	 *            layout
+	 * @param p_oElement
 	 * @return xml
 	 */
 	protected Element computeXmlForXamlLayout(SGeneratedElement p_oElement,

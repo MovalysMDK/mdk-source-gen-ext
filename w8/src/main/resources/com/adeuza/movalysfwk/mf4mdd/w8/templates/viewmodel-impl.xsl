@@ -70,9 +70,17 @@
 
 	<xsl:text>SaveCommand = new MDKDelegateCommand(ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
 	<xsl:text>DeleteCommand = new MDKDelegateCommand(ExecuteDelete</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
-	<xsl:for-each select="./navigations/navigation[@type='NAVIGATION']">
-		<xsl:value-of select="target/name"/><xsl:text>NavigationCommand = new MDKDelegateCommand(Execute</xsl:text>
-		<xsl:value-of select="target/name"/><xsl:text>Navigation);&#13;</xsl:text>
+	<xsl:for-each select="./navigations/navigation">
+		<xsl:choose>
+			<xsl:when test="@type='NAVIGATION'">
+				<xsl:value-of select="target/name"/><xsl:text>NavigationCommand = new MDKDelegateCommand(Execute</xsl:text>
+				<xsl:value-of select="target/name"/><xsl:text>Navigation);&#13;</xsl:text>
+			</xsl:when>
+			<xsl:when test="@type='NAVIGATION_MENU'">
+				<xsl:value-of select="target/name"/><xsl:text>NavigationMenuCommand = new MDKDelegateCommand(Execute</xsl:text>
+				<xsl:value-of select="target/name"/><xsl:text>NavigationMenu);&#13;</xsl:text>
+			</xsl:when>
+		</xsl:choose>
 	</xsl:for-each>
 
 	<xsl:call-template name="non-generated-bloc">
@@ -481,10 +489,19 @@
 	<xsl:text>protected virtual void OnDelete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(Object parameter)&#13;</xsl:text>
 	<xsl:text>{&#13;Delete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(this,parameter);&#13;}&#13;&#13;</xsl:text>
 
-	<xsl:for-each select="./navigations/navigation[@type='NAVIGATION']">
-		<xsl:text>public event NavigationRequestHandler </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest;&#13;</xsl:text>
-		<xsl:text>protected virtual void On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(Object parameter)&#13;</xsl:text>
-		<xsl:text>{&#13;</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(this,parameter);&#13;}&#13;&#13;</xsl:text>
+	<xsl:for-each select="./navigations/navigation">
+		<xsl:choose>
+			<xsl:when test="@type='NAVIGATION'">
+				<xsl:text>public event NavigationRequestHandler </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest;&#13;</xsl:text>
+				<xsl:text>protected virtual void On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(Object parameter)&#13;</xsl:text>
+				<xsl:text>{&#13;</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(this,parameter);&#13;}&#13;&#13;</xsl:text>
+			</xsl:when>
+			<xsl:when test="@type='NAVIGATION_MENU'">
+				<xsl:text>public event NavigationRequestHandler </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuRequest;&#13;</xsl:text>
+				<xsl:text>protected virtual void On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuRequest(Object parameter)&#13;</xsl:text>
+				<xsl:text>{&#13;</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuRequest(this,parameter);&#13;}&#13;&#13;</xsl:text>
+			</xsl:when>
+		</xsl:choose>
 	</xsl:for-each>
 </xsl:template>
 
@@ -501,9 +518,17 @@
 	<xsl:text>public ICommand DeleteCommand&#13;</xsl:text>
 	<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
 
-	<xsl:for-each select="./navigations/navigation[@type='NAVIGATION']">
-		<xsl:text>public ICommand </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationCommand&#13;</xsl:text>
-		<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+	<xsl:for-each select="./navigations/navigation">
+		<xsl:choose>
+			<xsl:when test="@type='NAVIGATION'">
+				<xsl:text>public ICommand </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationCommand&#13;</xsl:text>
+				<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+			</xsl:when>
+			<xsl:when test="@type='NAVIGATION_MENU'">
+				<xsl:text>public ICommand </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuCommand&#13;</xsl:text>
+				<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+			</xsl:when>
+		</xsl:choose>
 	</xsl:for-each>
 </xsl:template>
 
@@ -516,10 +541,19 @@
 	<xsl:text>OnDelete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(parameter);&#13;</xsl:text>
 	<xsl:text>}&#13;</xsl:text>
 
-	<xsl:for-each select="./navigations/navigation[@type='NAVIGATION']">
-		<xsl:text>public void Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object parameter)&#13;{&#13;</xsl:text>
-		<xsl:text>On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(parameter);&#13;</xsl:text>
-		<xsl:text>}&#13;</xsl:text>
+	<xsl:for-each select="./navigations/navigation">
+		<xsl:choose>
+			<xsl:when test="@type='NAVIGATION'">
+				<xsl:text>public void Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object parameter)&#13;{&#13;</xsl:text>
+				<xsl:text>On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(parameter);&#13;</xsl:text>
+				<xsl:text>}&#13;</xsl:text>
+			</xsl:when>
+			<xsl:when test="@type='NAVIGATION_MENU'">
+				<xsl:text>public void Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenu(object parameter)&#13;{&#13;</xsl:text>
+				<xsl:text>On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuRequest(parameter);&#13;</xsl:text>
+				<xsl:text>}&#13;</xsl:text>
+			</xsl:when>
+		</xsl:choose>
 	</xsl:for-each>
 </xsl:template>
 

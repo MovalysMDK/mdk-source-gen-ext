@@ -90,10 +90,19 @@
             <xsl:with-param name="defaultSource"></xsl:with-param>
         </xsl:call-template>
 
-        <xsl:for-each select="viewmodel/navigations/navigation[@type='NAVIGATION']">
-            <xsl:text>((</xsl:text><xsl:value-of select="../../name"/><xsl:text>) ViewModel).</xsl:text>
-            <xsl:value-of select="target/name"/><xsl:text>NavigationRequest += </xsl:text>
-            <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+        <xsl:for-each select="viewmodel/navigations/navigation">
+            <xsl:choose>
+                <xsl:when test="@type='NAVIGATION'">
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../name"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>NavigationRequest += </xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+                </xsl:when>
+                <xsl:when test="@type='NAVIGATION_MENU'">
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../name"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>NavigationMenuRequest += </xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+                </xsl:when>
+            </xsl:choose>
         </xsl:for-each>
 
         <xsl:for-each select="pages/page">
@@ -111,10 +120,19 @@
 
         <!-- destructor -->
         <xsl:text>~</xsl:text><xsl:value-of select="name"/><xsl:text>Controller() {&#13;</xsl:text>
-        <xsl:for-each select="viewmodel/navigations/navigation[@type='NAVIGATION']">
-            <xsl:text>((</xsl:text><xsl:value-of select="../../name"/><xsl:text>) ViewModel).</xsl:text>
-            <xsl:value-of select="target/name"/><xsl:text>NavigationRequest -= </xsl:text>
-            <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+        <xsl:for-each select="viewmodel/navigations/navigation">
+            <xsl:choose>
+                <xsl:when test="@type='NAVIGATION'">
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../name"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>NavigationRequest -= </xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+                </xsl:when>
+                <xsl:when test="@type='NAVIGATION_MENU'">
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../name"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>NavigationMenuRequest -= </xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+                </xsl:when>
+            </xsl:choose>
         </xsl:for-each>
 
         <xsl:for-each select="pages/page">

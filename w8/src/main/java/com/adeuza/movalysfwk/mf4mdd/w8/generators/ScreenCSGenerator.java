@@ -140,13 +140,6 @@ public class ScreenCSGenerator extends AbstractIncrementalGenerator<MFDomain<MFM
 		// Generate a dom4j Document
 		xCSLayout = DocumentHelper.createDocument(r_xFile);
 
-		// Add menus to the XML description
-		Element xMenuElement = DocumentHelper.createElement("menus");
-		for (MMenu menu : p_oScreen.getMenus()) {
-			xMenuElement.add(menu.toXml());
-		}
-		xCSLayout.getRootElement().add(xMenuElement);
-
 		// Apply the xsl template to the xml description
 		log.debug("generation du fichier {}", sCSLayoutFile);
 		this.doIncrementalTransform(CS_SCREEN_XSL_TEMPLATE, sCSLayoutFile,
