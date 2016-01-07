@@ -50,7 +50,7 @@
 		<xsl:variable name="fixedListName"><xsl:value-of select="fixedList"/></xsl:variable>
 
 
-		<div class="modal-body" mf-stop-event="touchend">
+		<div class="modal-body">
 			<xsl:text disable-output-escaping="yes"><![CDATA[<form ]]></xsl:text>
 			<xsl:text>name="</xsl:text><xsl:value-of select="$fixedListName"/><xsl:text>Form"</xsl:text>
 			<xsl:text disable-output-escaping="yes"><![CDATA[ novalidate>]]></xsl:text>
