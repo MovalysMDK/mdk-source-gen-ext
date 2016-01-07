@@ -116,8 +116,7 @@
 					<default-ui-type>Photo</default-ui-type>
 					<get-accessor-prefix>get</get-accessor-prefix>
 					<set-accessor-prefix>set</set-accessor-prefix>
-					<properties>`
-					    <property name="@id" type="long"/>
+					<properties>
 					    <property name="name" type="String" />
 						<property name="uri" type="String" />
 						<property name="date" type="Timestamp" />
