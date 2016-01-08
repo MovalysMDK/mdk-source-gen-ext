@@ -79,7 +79,6 @@
 				select="./screens/screen/pages/page/viewmodel/subvm/viewmodel/subvm/viewmodel/subvm/viewmodel[is-screen-viewmodel='false']"
 				mode="create-vm" />
 
-
 		<xsl:apply-templates select="./screens/screen/pages/page/dialogs/dialog/viewmodel[is-screen-viewmodel='false']"
 		                     mode="create-vm" />
 		<xsl:apply-templates select="./screens/screen/pages/page/dialogs/dialog/viewmodel[is-screen-viewmodel='false']"
@@ -93,5 +92,13 @@
 
 		<xsl:text>}&#13;</xsl:text>
 		<xsl:text>}&#13;</xsl:text>
+	</xsl:template>
+
+	<xsl:template match="viewmodel" mode="create-vm">
+		<xsl:text>&#13;// NO MATCH: template[match="viewmodel" mode="create-vm"] for </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> type: </xsl:text><xsl:value-of select="type/name"/>
+	</xsl:template>
+
+	<xsl:template match="viewmodel" mode="update-vm">
+		<xsl:text>&#13;// NO MATCH: template[match="viewmodel" mode="update-vm"] for </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> type: </xsl:text><xsl:value-of select="type/name"/>
 	</xsl:template>
 </xsl:stylesheet>

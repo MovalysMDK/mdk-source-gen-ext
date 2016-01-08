@@ -95,7 +95,7 @@
 
 
 <xsl:template match="viewmodel[type/name='LISTITEM_1' or type/name='LISTITEM_2' or type/name='LISTITEM_3' or type/name='FIXED_LIST_ITEM']" mode="update-vm">
-		<!-- normal: no update for list item viewmodel -->
+	<!-- normal: no update for list item viewmodel -->
 </xsl:template>
 
 </xsl:stylesheet>

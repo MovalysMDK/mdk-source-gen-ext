@@ -34,6 +34,7 @@ Create method for screen viewmodel : have a parent viewmodel parameter
 Prevent generating vm creator for workspace 
  -->
 <xsl:template match="screen/viewmodel[../workspace='true' or ../multi-panel='true']" mode="create-vm">
+	<xsl:text>//toto2&#13;</xsl:text>
 </xsl:template>
 
 <!-- 
@@ -51,8 +52,8 @@ Create method for page viewmodel (without screen/viewmodel) : have a form parame
 </xsl:template>
 
 <xsl:template match="viewmodel[type/name='LIST_1__ONE_SELECTED']" mode="create-vm">
- 
-<xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
+
+	<xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
 <xsl:text>/// Create an empty </xsl:text><xsl:value-of select="type/item"/><xsl:text> viewmodel.&#13;</xsl:text>
 <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
 <xsl:text>/// &lt;returns&gt;An empty viewmodel.&lt;/returns&gt;&#13;</xsl:text>
