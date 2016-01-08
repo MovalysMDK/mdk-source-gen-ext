@@ -229,6 +229,7 @@
 
 <!-- general case of the pickerlist -->
 <xsl:template match="viewmodel[external-lists/external-list/viewmodel/type/name='LIST_1__ONE_SELECTED']" mode="add-update-to-dataloader">
+	<xsl:text>IViewModelCreator viewModelCreator = ClassLoader.GetInstance().GetBean&lt;IViewModelCreator&gt;();&#13;</xsl:text>
 	<xsl:text>&#13;viewModelCreator.update</xsl:text>
 	<xsl:value-of select="./implements/interface/@name"/>
 	<xsl:apply-templates select="./external-lists/external-list" mode="update-vmcreator-pickerlist-declaration"/>
