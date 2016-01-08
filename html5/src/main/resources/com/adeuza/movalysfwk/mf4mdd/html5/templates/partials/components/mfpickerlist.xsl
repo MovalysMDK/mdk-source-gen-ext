@@ -39,10 +39,13 @@
 <!-- 			<xsl:attribute name="mf-value-attribute"><xsl:value-of select="value-attribute"/></xsl:attribute> -->
 			
 			<xsl:attribute name="mf-displayed-attributes">
-				<xsl:apply-templates select="displayed-attributes-in-selection/HTML-attribute" mode="add-picker-displayed-attributes"/>
+				<!-- HTML5 can't handle yet MFEnumImage in combos -->
+				<xsl:apply-templates select="displayed-attributes-in-selection/HTML-attribute[not(visualfield/component='MFEnumImage')]" mode="add-picker-displayed-attributes"/>
 			</xsl:attribute>			
 		</mf-combo>
 </xsl:template>
+
+
 
 <xsl:template match="HTML-attribute[not(visualfield/component='MFPosition' or visualfield/component='MFPhotoThumbnail')]" mode="add-picker-displayed-attributes">
 		<xsl:value-of select="field-name"/><xsl:if test="position()!=last()"><xsl:text>,</xsl:text></xsl:if>
