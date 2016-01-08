@@ -79,9 +79,12 @@ public class MF4WScreenDependencyProcessor extends ScreenDependencyProcessor {
 		for (UmlClass oScreenUmlClass : p_oScreenContext.getScreenUmlClasses(p_oUmlDict)) {
 			MScreen oScreen = oDictionary.getScreen(oScreenUmlClass.getName());
 			// For each panel, add the panel's viewmodel as a sub VM of the screen
-			for (PanelAggregation oPanelAggregation : p_oScreenContext.getPanelAggregations(oScreenUmlClass)) {
-				oScreen.getViewModel().addSubViewModel(
-						oDictionary.getPanel(oPanelAggregation.getPanel().getName()).getViewModelImpl());
+			if (oScreen.getPageCount() <= 1) {
+				// panels already added
+				for (PanelAggregation oPanelAggregation : p_oScreenContext.getPanelAggregations(oScreenUmlClass)) {
+					oScreen.getViewModel().addSubViewModel(
+							oDictionary.getPanel(oPanelAggregation.getPanel().getName()).getViewModelImpl());
+				}
 			}
 		}
 	}

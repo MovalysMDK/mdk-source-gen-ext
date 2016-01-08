@@ -198,8 +198,9 @@
 	
 <xsl:template match="entity[@mapping-type='vmlist' and setter and ../../type/name!='LISTITEM_2' and ../../type/name!='LISTITEM_3']" mode="generate-method-modify">
 	<xsl:param name="var-parent-entity">_entity</xsl:param>
-	
-	<xsl:variable name="viewModelName" select="@vm-property-name"/>
+
+	<!--vm-property-name prefix is 'vM' instead 'VM'  fix-->
+	<xsl:variable name="viewModelName" select="concat(translate(substring(@vm-property-name,1,1),'v','V'),substring(@vm-property-name,2))"/>
 	<xsl:variable name="viewModelNode" select="../../subvm/viewmodel[property-name = $viewModelName]"/>
 	<xsl:variable name="vmIdentifier" select="$viewModelNode/identifier/attribute/@name"/>
 	<xsl:variable name="entityIdentifier" select="$viewModelNode/mapping/attribute[@vm-attr = $vmIdentifier]/getter/@name"/>
@@ -209,10 +210,8 @@
 			<xsl:with-param name="text" select="getter/@name"/>
 		</xsl:call-template>
 	</xsl:variable>
-						
-	<xsl:text>if (this.Lst</xsl:text>
-	<xsl:value-of select="@vm-type"/>
-	<xsl:text> != null) {</xsl:text>
+
+	<xsl:text>if (this.</xsl:text><xsl:value-of select="$viewModelNode/name"/><xsl:text> != null) {</xsl:text>
 	<xsl:text>Dictionary&lt;String, </xsl:text><xsl:value-of select="@type"/><xsl:text>&gt; dictById = new Dictionary&lt;String, </xsl:text>
 	<xsl:value-of select="@type"/><xsl:text>&gt;();</xsl:text>
 	if ( _entity.<xsl:value-of select="$getter-name"/> != null ) {
@@ -229,9 +228,7 @@
 	<xsl:text>_entity.</xsl:text><xsl:value-of select="$getter-name"/><xsl:text> = new List&lt;</xsl:text>
 	<xsl:value-of select="@type"/><xsl:text>&gt;();</xsl:text>
 	}
-	foreach( <xsl:value-of select="$cellVmType"/><xsl:text> vmCell in this.Lst</xsl:text>
-	<xsl:value-of select="@vm-type"/>
-	<xsl:text>.ListViewModel) {</xsl:text>
+	foreach( <xsl:value-of select="$cellVmType"/><xsl:text> vmCell in this.</xsl:text><xsl:value-of select="$viewModelNode/name"/>.ListViewModel) {
 	<xsl:value-of select="@type"/><xsl:text> entityForList = null;</xsl:text>
 	<xsl:text>if(dictById.ContainsKey(vmCell.</xsl:text>
 	<xsl:variable name="vmIdentifier-upperfirt">

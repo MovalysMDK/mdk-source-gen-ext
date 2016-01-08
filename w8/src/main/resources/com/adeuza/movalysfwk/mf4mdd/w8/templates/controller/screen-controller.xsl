@@ -274,7 +274,7 @@
 
         <!--panel save data-->
         <xsl:if test="actions/action[action-type = 'SAVEDETAIL']">
-            <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'SINGLE' and in-workspace = 'false' and in-multi-panel = 'false' and layout/buttons/button[@type='SAVE']">
+            <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'SINGLE' and in-workspace = 'false' and layout/buttons/button[@type='SAVE']"><!--and in-multi-panel = 'false'-->
                 <xsl:text>public void Save</xsl:text><xsl:value-of select="name"/><xsl:text>(object sender, Object parameter)</xsl:text>
                 <xsl:text>{&#13;</xsl:text>
                 <xsl:if test="not(/dialog)">
@@ -521,6 +521,7 @@
     </xsl:template>
 
     <xsl:template match="visualfield" mode="panel-fixedlist-delete-button-impl">
+        <!--
         <xsl:if test="component='MFFixedList'">
             <xsl:text>&#13;/// </xsl:text>
             <xsl:value-of select="./property-name-c" />
@@ -539,7 +540,7 @@
                 <xsl:with-param name="defaultSource" />
             </xsl:call-template>
             <xsl:text>&#13;}</xsl:text>
-        </xsl:if>
+        </xsl:if>-->
     </xsl:template>
 
     <xsl:template name="SearchClickMethod">
