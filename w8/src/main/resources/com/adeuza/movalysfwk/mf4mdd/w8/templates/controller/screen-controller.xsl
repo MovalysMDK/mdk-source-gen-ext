@@ -193,8 +193,8 @@
     </xsl:template>
 
     <xsl:template match="page" mode="create-pages-constructor">
-        <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = 1;&#13;</xsl:text>
-        <xsl:value-of select="viewmodel/dataloader-impl/name"/><xsl:text> = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="viewmodel/dataloader-impl/dataloader-interface/name"/><xsl:text>&gt;();&#13;</xsl:text>
+        <xsl:text>&#13;_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = 1;&#13;</xsl:text>
+    <xsl:value-of select="name"/><xsl:text>Loader = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="viewmodel/dataloader-impl/dataloader-interface/name"/><xsl:text>&gt;();&#13;</xsl:text>
         <xsl:for-each select="actions/action">
             <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
                 <xsl:text>((</xsl:text><xsl:value-of select="../../../../vm"/><xsl:text>) ViewModel).</xsl:text>
@@ -274,7 +274,7 @@
 
         <!--panel save data-->
         <xsl:if test="actions/action[action-type = 'SAVEDETAIL']">
-            <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'SINGLE' and in-workspace = 'false' and layout/buttons/button[@type='SAVE']"><!--and in-multi-panel = 'false'-->
+            <!--<xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'SINGLE' and in-workspace = 'false' and layout/buttons/button[@type='SAVE']"and in-multi-panel = 'false'>-->
                 <xsl:text>public void Save</xsl:text><xsl:value-of select="name"/><xsl:text>(object sender, Object parameter)</xsl:text>
                 <xsl:text>{&#13;</xsl:text>
                 <xsl:if test="not(/dialog)">
@@ -287,13 +287,14 @@
                     </xsl:if>
                 </xsl:if>
                 <xsl:if test="/dialog">
+                    <xsl:text>&#13;//toto</xsl:text>
                     <!-- 				SavePeopleSearchScreenSearchDialogActionArgs saveActionArgs = new SavePeopleSearchScreenSearchDialogActionArgs(); -->
                     <!-- 		saveActionArgs.viewModel = ViewModel; -->
                     <!--         saveActionArgs.dataLoader = Loader; -->
                     <!-- 		ClassLoader.GetInstance().GetBean<IMFController>().LaunchAction(typeof(SavePeopleSearchScreenSearchDialogActionArgs), this, saveActionArgs); -->
                 </xsl:if>
                 <xsl:text>}&#13;&#13;</xsl:text>
-            </xsl:if>
+            <!--</xsl:if>-->
 
             <xsl:text>public object[] PrepareSave</xsl:text><xsl:value-of select="name"/><xsl:text>()</xsl:text>
             <xsl:text>{</xsl:text>

@@ -21,16 +21,21 @@
 
 <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
 <xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> create</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>() {</xsl:text>
-<xsl:text>	return this.CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:text>null, null</xsl:text></xsl:if><xsl:text>);&#13;</xsl:text>
+<xsl:text>	return this.CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/>
+	<xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:text>null, null</xsl:text></xsl:if><xsl:text>);&#13;</xsl:text>
 <xsl:text>}&#13;</xsl:text>
 
 <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
-<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:value-of select="entity-to-update/name"/> data</xsl:if><xsl:text>){</xsl:text> 
-<xsl:text>	return this.CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:text>data, null</xsl:text></xsl:if><xsl:text>);&#13;</xsl:text>
+<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/>
+	<xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:value-of select="entity-to-update/name"/> data</xsl:if><xsl:text>){</xsl:text>
+<xsl:text>	return this.CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/>
+	<xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:text>data, null</xsl:text></xsl:if>
+	<xsl:text>);&#13;</xsl:text>
 <xsl:text>}&#13;</xsl:text>
 
 <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
-<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:value-of select="entity-to-update/name"/> data, IViewModel masterVm</xsl:if><xsl:text>){</xsl:text> 
+<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/>
+	<xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:value-of select="entity-to-update/name"/> data, IViewModel masterVm</xsl:if><xsl:text>){</xsl:text>
 <xsl:value-of select="implements/interface/@name"/>
 <xsl:text> r_oMasterViewModel = this.CreateVM&lt;</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>&gt;();&#13;</xsl:text>
 <xsl:if test="entity-to-update">
@@ -45,54 +50,26 @@
 
 <xsl:template match="viewmodel[type/name='FIXED_LIST_ITEM']" mode="create-vm">
 
-<xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
-<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> create</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>() {</xsl:text>
-<xsl:text>	return this.CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/>
-<xsl:choose>
-	<xsl:when test="entity-to-update">
-		<xsl:text>(null, null)</xsl:text> 
-	</xsl:when>
-	<xsl:otherwise>
-		<xsl:text>()</xsl:text>
-	</xsl:otherwise>
-</xsl:choose>
-<xsl:text>;&#13;</xsl:text>
-<xsl:text>}&#13;</xsl:text>
+	<xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
+	<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> create</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>() {</xsl:text>
+	<xsl:text>	return this.CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/>
+	<xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:text>null, null</xsl:text></xsl:if>
+	<xsl:text>);&#13;</xsl:text>
+	<xsl:text>}&#13;</xsl:text>
+
+	<xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
+	<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> create</xsl:text><xsl:value-of select="implements/interface/@name"/>
+	<xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:value-of select="entity-to-update/name"/><xsl:text> data</xsl:text></xsl:if>
+	<xsl:text>){&#13;</xsl:text>
+	<xsl:text>	return this.CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/>
+	<xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:text>data, null</xsl:text></xsl:if>
+	<xsl:text>);&#13;}&#13;</xsl:text>
 
 <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
-<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> create</xsl:text><xsl:value-of select="implements/interface/@name"/>
-<xsl:choose>
-	<xsl:when test="entity-to-update">
-		<xsl:text>(</xsl:text><xsl:value-of select="entity-to-update/name"/><xsl:text> data)</xsl:text> 
-	</xsl:when>
-	<xsl:otherwise>
-		<xsl:text>()</xsl:text>
-	</xsl:otherwise>
-</xsl:choose>
-<xsl:text>{&#13;</xsl:text>
-<xsl:text>	return this.CreateOrUpdate</xsl:text><xsl:value-of select="implements/interface/@name"/>
-<xsl:choose>
-	<xsl:when test="entity-to-update">
-		<xsl:text>(data, null)</xsl:text> 
-	</xsl:when>
-	<xsl:otherwise>
-		<xsl:text>()</xsl:text>
-	</xsl:otherwise>
-</xsl:choose>
-<xsl:text>;&#13;</xsl:text>
-<xsl:text>}&#13;</xsl:text>
+<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/> CreateOrUpdate<xsl:value-of select="implements/interface/@name"/>
+	<xsl:text>(</xsl:text><xsl:if test="entity-to-update"><xsl:value-of select="entity-to-update/name"/><xsl:text> data, IViewModel masterVm</xsl:text></xsl:if>
+	<xsl:text>){&#13;</xsl:text>
 
-<xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
-<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/> CreateOrUpdate<xsl:value-of select="implements/interface/@name"/> 
-<xsl:choose>
-	<xsl:when test="entity-to-update">
-		<xsl:text>(</xsl:text><xsl:value-of select="entity-to-update/name"/><xsl:text> data, IViewModel masterVm)</xsl:text> 
-	</xsl:when>
-	<xsl:otherwise>
-		<xsl:text>()</xsl:text>
-	</xsl:otherwise>
-</xsl:choose>
-<xsl:text>{&#13;</xsl:text>
 <xsl:value-of select="implements/interface/@name"/>
 <xsl:text> r_oMasterViewModel = this.CreateVM&lt;</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>&gt;();&#13;</xsl:text>
 <xsl:if test="entity-to-update">

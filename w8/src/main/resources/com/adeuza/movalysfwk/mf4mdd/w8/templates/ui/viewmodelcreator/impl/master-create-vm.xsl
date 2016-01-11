@@ -21,12 +21,14 @@
 Create method for screen viewmodel : have a parent viewmodel parameter
  -->
 <xsl:template match="screen/viewmodel[type/name='MASTER' and not(../workspace='true') and not(../multi-panel='true')]" mode="create-vm">
-<xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
+<xsl:text>&#13;/// &lt;inheritDoc/ &gt;&#13;</xsl:text>
 <xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> create</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>() {</xsl:text>
 	<xsl:value-of select="implements/interface/@name"/><xsl:text> r_oMasterViewModel = this.CreateVM&lt;</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>&gt;();&#13;</xsl:text>
-    
+
+    <xsl:text>&#13;//toto</xsl:text>
     <xsl:for-each select="../pages/page/viewmodel">
-    	<!-- create viewmodel for the panel -->
+        <xsl:text>&#13;//toto1</xsl:text>
+        <!-- create viewmodel for the panel -->
     	<xsl:text>r_oMasterViewModel.</xsl:text><xsl:value-of select="property-name"/>
     	<xsl:text> = this.CreateVM&lt;</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>&gt;();&#13;</xsl:text>
     	<!-- set parent viewmodel on it -->
@@ -40,7 +42,7 @@ Create method for screen viewmodel : have a parent viewmodel parameter
    	<!-- set Master viewmodel on it -->
 	<xsl:text>r_oMasterViewModel.WeakMasterViewModel = new WeakReference&lt;IViewModel&gt;(r_oMasterViewModel);&#13;</xsl:text>	
     <xsl:text>return r_oMasterViewModel;&#13;</xsl:text>
-<xsl:text>}&#13;</xsl:text>
+<xsl:text>}&#13;//TOTO</xsl:text>
 </xsl:template>
 
 <!-- 
@@ -53,18 +55,10 @@ Prevent create method for workspace
 <!-- 
 Create method for page viewmodel (without screen/viewmodel) : have a form parameter
  -->
-<xsl:template match="viewmodel[(not(ancestor::screen[viewmodel]) and type/name='MASTER') or ((ancestor::screen[workspace='true'] or  ancestor::screen[multi-panel='true']) and type/name='MASTER')]" mode="create-vm">
+<xsl:template match="viewmodel[(not(ancestor::screen[viewmodel]) or (ancestor::screen[workspace='true'] or ancestor::screen[multi-panel='true'])) and type/name='MASTER']" mode="create-vm">
 <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
 <xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> create</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>() {</xsl:text>
 	<xsl:value-of select="implements/interface/@name"/><xsl:text> r_oMasterViewModel = this.CreateVM&lt;</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>&gt;();&#13;</xsl:text>
- 
- 	<xsl:if test="ancestor::screen[viewmodel and stereotypes/stereotype[@name = 'Mm_iosSingleController']]">
-	     <xsl:for-each select="../pages/page/viewmodel">
-	    	<!-- create viewmodel for the panel -->
-	    	<xsl:text>r_oMasterViewModel.</xsl:text><xsl:value-of select="property-name"/>
-	    	<xsl:text> = this.CreateVM&lt;</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>&gt;();&#13;</xsl:text>		
-	    </xsl:for-each>
-    </xsl:if>
 
    	<!-- set Master viewmodel on it -->
 	<xsl:text>r_oMasterViewModel.WeakMasterViewModel = new WeakReference&lt;IViewModel&gt;(r_oMasterViewModel);&#13;</xsl:text>	
