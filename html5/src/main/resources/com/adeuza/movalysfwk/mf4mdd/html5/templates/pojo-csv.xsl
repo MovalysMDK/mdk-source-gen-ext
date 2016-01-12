@@ -1090,12 +1090,13 @@ Req#U##</xsl:text>
 	<xsl:template match="field|attribute|property" mode="csvOption">
 		<xsl:choose>
 			<xsl:when test="@type-short-name='boolean'">
-				<xsl:text>yes[1];no[0]#</xsl:text>
+				<xsl:text>yes[1];no[0];#</xsl:text>
 			</xsl:when>
 			<xsl:when test="@type-short-name='ref1'">
 				<xsl:text>string#</xsl:text>
 			</xsl:when>
 			<xsl:when test="@enum='true'">
+				<xsl:if test="@nullable='true'"><xsl:text>FWK_NONE[0];</xsl:text></xsl:if>
 				<xsl:for-each select="enumeration-values/enum-value">
 					<xsl:value-of select="." />
 					<xsl:text>[</xsl:text>
@@ -1176,11 +1177,13 @@ Req#U##</xsl:text>
 			</xsl:when>
 			<xsl:when test="@enum='true'">
 				<xsl:text>champ de type enum ( </xsl:text>
+				<xsl:if test="@nullable='true'"><xsl:text>FWK_NONE </xsl:text></xsl:if>
 				<xsl:for-each select="enumeration-values/enum-value">
 					<xsl:value-of select="." />
 					<xsl:text> </xsl:text>
 				</xsl:for-each>
 				<xsl:text>) ;champ de type enum ( </xsl:text>
+				<xsl:if test="@nullable='true'"><xsl:text>FWK_NONE </xsl:text></xsl:if>
 				<xsl:for-each select="enumeration-values/enum-value">
 					<xsl:value-of select="." />
 					<xsl:text> </xsl:text>
