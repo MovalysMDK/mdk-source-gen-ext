@@ -21,7 +21,7 @@
     <xsl:output method="text" />
 
 
-    <xsl:include href="external-list.xsl" />
+    <xsl:include href="/com/adeuza/movalysfwk/mf4mdd/w8/templates/ui/viewmodelcreator/external-list.xsl" />
 
     <xsl:template match="viewmodel" mode="create-vm">
         <xsl:text>// NO MATCH create-vm is-list:</xsl:text><xsl:value-of select="type/is-list"/>

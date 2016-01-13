@@ -21,7 +21,7 @@
     <xsl:output method="text" />
 
 
-    <xsl:include href="ui/viewmodelcreator/external-list.xsl" />
+    <xsl:include href="/com/adeuza/movalysfwk/mf4mdd/w8/templates/ui/viewmodelcreator/external-list.xsl" />
 
     <xsl:template match="viewmodel[type/is-list='true']" mode="create-vm">
         <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
