@@ -42,15 +42,13 @@ Update method for viewmodel : data parameter
     <!-- For pickerlist in fixedList -->
     <xsl:template match="viewmodel[type/name='FIXED_LIST']" mode="update-vm">
         <xsl:for-each select="external-lists/external-list/viewmodel[type/name='LIST_1__ONE_SELECTED']">
-            <xsl:variable name="pickerlist-vm" select="./external-lists/external-list/viewmodel"/>
-
             <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
             <xsl:text>/// Update a viewmodel </xsl:text><xsl:if test="./external-lists/external-list/viewmodel/type/item"><xsl:text> using a </xsl:text><xsl:value-of select="./external-lists/external-list/viewmodel/type/item"/></xsl:if><xsl:text>.&#13;</xsl:text>
             <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
             <xsl:if test="./external-lists/external-list/viewmodel/type/item"><xsl:text>/// &lt;param name="data"&gt; An instance of </xsl:text><xsl:value-of select="./external-lists/external-list/viewmodel/type/item"/><xsl:text>.&lt;/param&gt;&#13;</xsl:text></xsl:if>
             <xsl:text>/// &lt;returns&gt;The viewmodel representation</xsl:text><xsl:if test="./external-lists/external-list/viewmodel/type/item"><xsl:text> of an </xsl:text><xsl:value-of select="./external-lists/external-list/viewmodel/type/item"/><xsl:text> instance</xsl:text></xsl:if><xsl:text>.&lt;/returns&gt;&#13;</xsl:text>
-            <xsl:value-of select="$pickerlist-vm/type/item"/><xsl:text> update</xsl:text><xsl:value-of select="$pickerlist-vm/type/item"/><xsl:text>(</xsl:text>
-            <xsl:value-of select="$pickerlist-vm/entity-to-update/name"/>
+            <xsl:value-of select="./type/item"/><xsl:text> update</xsl:text><xsl:value-of select="./type/item"/><xsl:text>(</xsl:text>
+            <xsl:value-of select="./entity-to-update/name"/>
             <xsl:text> data);&#13;</xsl:text>
 
             <xsl:apply-templates select="self::node()[dataloader-impl]" mode="update-vm-using-loader"/>
@@ -58,18 +56,20 @@ Update method for viewmodel : data parameter
     </xsl:template>
 
     <xsl:template match="viewmodel[type/name='LIST_1__ONE_SELECTED']" mode="update-vm">
-        <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
-        <xsl:text>/// Update a </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel </xsl:text><xsl:if test="entity-to-update"><xsl:text> using a </xsl:text><xsl:value-of select="entity-to-update/name"/></xsl:if><xsl:text>.&#13;</xsl:text>
-        <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
-        <xsl:if test="entity-to-update"><xsl:text>/// &lt;param name="data"&gt; An instance of </xsl:text><xsl:value-of select="entity-to-update/name"/><xsl:text>.&lt;/param&gt;&#13;</xsl:text></xsl:if>
-        <xsl:text>/// &lt;returns&gt;The viewmodel representation</xsl:text><xsl:if test="entity-to-update"><xsl:text> of an </xsl:text><xsl:value-of select="entity-to-update/name"/><xsl:text> instance</xsl:text></xsl:if><xsl:text>.&lt;/returns&gt;&#13;</xsl:text>
-        <xsl:value-of select="implements/interface/@name"/><xsl:text> </xsl:text>
-        <xsl:apply-templates select="." mode="compute-update-method-name"/>
-        <xsl:text>(</xsl:text>
-        <xsl:apply-templates select="." mode="compute-update-method-parameter-declaration"/>
-        <xsl:text> );&#13;</xsl:text>
+        <xsl:if test="not(parent-viewmodel[@type='FIXED_LIST'])">
+            <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
+            <xsl:text>/// Update a </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel </xsl:text><xsl:if test="entity-to-update"><xsl:text> using a </xsl:text><xsl:value-of select="entity-to-update/name"/></xsl:if><xsl:text>.&#13;</xsl:text>
+            <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
+            <xsl:if test="entity-to-update"><xsl:text>/// &lt;param name="data"&gt; An instance of </xsl:text><xsl:value-of select="entity-to-update/name"/><xsl:text>.&lt;/param&gt;&#13;</xsl:text></xsl:if>
+            <xsl:text>/// &lt;returns&gt;The viewmodel representation</xsl:text><xsl:if test="entity-to-update"><xsl:text> of an </xsl:text><xsl:value-of select="entity-to-update/name"/><xsl:text> instance</xsl:text></xsl:if><xsl:text>.&lt;/returns&gt;&#13;</xsl:text>
+            <xsl:value-of select="implements/interface/@name"/><xsl:text> </xsl:text>
+            <xsl:apply-templates select="." mode="compute-update-method-name"/>
+            <xsl:text>(</xsl:text>
+            <xsl:apply-templates select="." mode="compute-update-method-parameter-declaration"/>
+            <xsl:text> );&#13;</xsl:text>
 
-        <xsl:apply-templates select="self::node()[dataloader-impl]" mode="update-vm-using-loader"/>
+            <xsl:apply-templates select="self::node()[dataloader-impl]" mode="update-vm-using-loader"/>
+        </xsl:if>
     </xsl:template>
 
 

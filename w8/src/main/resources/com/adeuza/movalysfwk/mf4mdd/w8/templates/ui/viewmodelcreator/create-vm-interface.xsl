@@ -29,40 +29,42 @@
         <xsl:text> name:</xsl:text><xsl:value-of select="type/name"/>
     </xsl:template>
 
-    <xsl:template match="viewmodel[type/is-list='true']" mode="create-vm">
-        <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
-        <xsl:text>/// Create an empty </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel for list.&#13;</xsl:text>
-        <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
-        <xsl:text>/// &lt;returns&gt;An empty </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel.&lt;/returns&gt;&#13;</xsl:text>
-        <xsl:value-of select="implements/interface/@name"/><xsl:text> create</xsl:text><xsl:value-of select="implements/interface/@name"/>
-        <xsl:text>()</xsl:text>
-        <xsl:text>;&#13;</xsl:text>
+    <xsl:template match="viewmodel[type/name='LIST_1' or type/name='LIST_2' or type/name='LIST_3' or type/name='FIXED_LIST']" mode="create-vm">
+        <xsl:if test="./subvm/viewmodel">
+            <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
+            <xsl:text>/// Create an empty </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel for list.&#13;</xsl:text>
+            <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
+            <xsl:text>/// &lt;returns&gt;An empty </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel.&lt;/returns&gt;&#13;</xsl:text>
+            <xsl:value-of select="implements/interface/@name"/><xsl:text> create</xsl:text><xsl:value-of select="implements/interface/@name"/>
+            <xsl:text>()</xsl:text>
+            <xsl:text>;&#13;</xsl:text>
 
 
-        <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
-        <xsl:text>/// Create and update a </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel using a collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&#13;</xsl:text>
-        <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
-        <xsl:text>/// &lt;param name="data"&gt; A collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&lt;/param&gt;&#13;</xsl:text>
-        <xsl:text>/// &lt;returns&gt;The viewmodel representation of a collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&lt;/returns&gt;&#13;</xsl:text>
-        <xsl:value-of select="implements/interface/@name"/><xsl:text> CreateOrUpdate</xsl:text><xsl:value-of select="./implements/interface/@name"/>
-        <xsl:text>(List&lt;</xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>&gt; data </xsl:text><xsl:text>)</xsl:text>
-        <xsl:text>;&#13;</xsl:text>
+            <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
+            <xsl:text>/// Create and update a </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel using a collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&#13;</xsl:text>
+            <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
+            <xsl:text>/// &lt;param name="data"&gt; A collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&lt;/param&gt;&#13;</xsl:text>
+            <xsl:text>/// &lt;returns&gt;The viewmodel representation of a collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&lt;/returns&gt;&#13;</xsl:text>
+            <xsl:value-of select="implements/interface/@name"/><xsl:text> CreateOrUpdate</xsl:text><xsl:value-of select="./implements/interface/@name"/>
+            <xsl:text>(List&lt;</xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>&gt; data </xsl:text><xsl:text>)</xsl:text>
+            <xsl:text>;&#13;</xsl:text>
 
-        <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
-        <xsl:text>/// Create and update a </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel using a collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&#13;</xsl:text>
-        <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
-        <xsl:text>/// &lt;param name="data"&gt; A collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&lt;/param&gt;&#13;</xsl:text>
-        <xsl:text>/// &lt;param name="masterVm"&gt; Master viewModel.&lt;/param&gt;&#13;</xsl:text>
-        <xsl:text>/// &lt;returns&gt;The viewmodel representation of a collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&lt;/returns&gt;&#13;</xsl:text>
-        <xsl:value-of select="./implements/interface/@name"/><xsl:text> CreateOrUpdate</xsl:text><xsl:value-of select="./implements/interface/@name"/>
-        <xsl:text>(List&lt;</xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>&gt; data, IViewModel masterVm </xsl:text><xsl:text>)</xsl:text>
-        <xsl:text>;&#13;</xsl:text>
+            <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
+            <xsl:text>/// Create and update a </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel using a collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&#13;</xsl:text>
+            <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
+            <xsl:text>/// &lt;param name="data"&gt; A collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&lt;/param&gt;&#13;</xsl:text>
+            <xsl:text>/// &lt;param name="masterVm"&gt; Master viewModel.&lt;/param&gt;&#13;</xsl:text>
+            <xsl:text>/// &lt;returns&gt;The viewmodel representation of a collection of </xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>.&lt;/returns&gt;&#13;</xsl:text>
+            <xsl:value-of select="./implements/interface/@name"/><xsl:text> CreateOrUpdate</xsl:text><xsl:value-of select="./implements/interface/@name"/>
+            <xsl:text>(List&lt;</xsl:text><xsl:value-of select="./entity-to-update/name"/><xsl:text>&gt; data, IViewModel masterVm </xsl:text><xsl:text>)</xsl:text>
+            <xsl:text>;&#13;</xsl:text>
 
-        <xsl:apply-templates select="self::node()[dataloader-impl]" mode="create-vm-using-loader"/>
+            <xsl:apply-templates select="self::node()[dataloader-impl]" mode="create-vm-using-loader"/>
+        </xsl:if>
 
     </xsl:template>
 
-    <xsl:template match="viewmodel[type/is-list='false' and not(type/list='') ]" mode="create-vm"><!--type/name='LISTITEM_1' or type/name='LISTITEM_2' or type/name='LISTITEM_3' or type/name='FIXED_LIST_ITEM'-->
+    <xsl:template match="viewmodel[type/name='LISTITEM_1' or type/name='LISTITEM_2' or type/name='LISTITEM_3' or type/name='FIXED_LIST_ITEM']" mode="create-vm"><!--type/name='LISTITEM_1' or type/name='LISTITEM_2' or type/name='LISTITEM_3' or type/name='FIXED_LIST_ITEM'-->
         <xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
         <xsl:text>/// Create an empty </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> viewmodel.&#13;</xsl:text>
         <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>

@@ -54,14 +54,13 @@ Update method for viewmodel : data parameter
     <!-- For pickerlist in fixedList -->
     <xsl:template match="viewmodel[type/name='FIXED_LIST']" mode="update-vm">
         <xsl:for-each select="external-lists/external-list/viewmodel[type/name='LIST_1__ONE_SELECTED']">
-            <xsl:variable name="pickerlist-vm" select="./external-lists/external-list/viewmodel"/>
-            <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
-            <xsl:text>public </xsl:text><xsl:value-of select="$pickerlist-vm/type/item"/><xsl:text> update</xsl:text><xsl:value-of select="$pickerlist-vm/type/item"/><xsl:text>(</xsl:text>
-            <xsl:value-of select="$pickerlist-vm/entity-to-update/name"/>
+            <xsl:text>&#13;/// &lt;inheritDoc/ toto&gt;&#13;</xsl:text>
+            <xsl:text>public </xsl:text><xsl:value-of select="./type/item"/><xsl:text> update</xsl:text><xsl:value-of select="./type/item"/><xsl:text>(</xsl:text>
+            <xsl:value-of select="./entity-to-update/name"/>
             <xsl:text> data)&#13;{</xsl:text>
 
-            <xsl:value-of select="$pickerlist-vm/type/item"/>
-            <xsl:text> r_oMasterViewModel = this.CreateVM&lt;</xsl:text><xsl:value-of select="$pickerlist-vm/type/item"/><xsl:text>&gt;();&#13;</xsl:text>
+            <xsl:value-of select="./type/item"/>
+            <xsl:text> r_oMasterViewModel = this.CreateVM&lt;</xsl:text><xsl:value-of select="./type/item"/><xsl:text>&gt;();&#13;</xsl:text>
             <xsl:text>r_oMasterViewModel.UpdateFromIdentifiable(data);&#13;</xsl:text>
             <xsl:text>return r_oMasterViewModel;&#13;}&#13;&#13;</xsl:text>
             <xsl:apply-templates select="self::node()[dataloader-impl]" mode="update-vm-using-loader"/>
@@ -69,26 +68,27 @@ Update method for viewmodel : data parameter
     </xsl:template>
 
     <xsl:template match="viewmodel[type/name='LIST_1__ONE_SELECTED']" mode="update-vm">
-        <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
-        <xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> </xsl:text>
-        <xsl:apply-templates select="." mode="compute-update-method-name"/>
-        <xsl:text>(</xsl:text>
-        <xsl:apply-templates select="." mode="compute-update-method-parameter-declaration"/>
-        <xsl:text> ){ &#13;</xsl:text>
-        <xsl:value-of select="type/item"/>
-        <xsl:text> r_oMasterViewModel = this.CreateVM&lt;</xsl:text><xsl:value-of select="type/item"/><xsl:text>&gt;();&#13;</xsl:text>
+        <xsl:if test="not(parent-viewmodel[@type='FIXED_LIST'])">
+            <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
+            <xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> </xsl:text>
+            <xsl:apply-templates select="." mode="compute-update-method-name"/>
+            <xsl:text>(</xsl:text>
+            <xsl:apply-templates select="." mode="compute-update-method-parameter-declaration"/>
+            <xsl:text> ){ &#13;</xsl:text>
+            <xsl:value-of select="type/item"/>
+            <xsl:text> r_oMasterViewModel = this.CreateVM&lt;</xsl:text><xsl:value-of select="type/item"/><xsl:text>&gt;();&#13;</xsl:text>
 
-        <xsl:apply-templates select="./external-lists/external-list/viewmodel" mode="add-picker-list-to-content-update"/>
+            <xsl:apply-templates select="./external-lists/external-list/viewmodel" mode="add-picker-list-to-content-update"/>
 
-        <xsl:if test="entity-to-update">
-            <xsl:text>r_oMasterViewModel.UpdateFromIdentifiable(data);&#13;</xsl:text>
+            <xsl:if test="entity-to-update">
+                <xsl:text>r_oMasterViewModel.UpdateFromIdentifiable(data);&#13;</xsl:text>
+            </xsl:if>
+
+            <xsl:text>return r_oMasterViewModel;&#13;</xsl:text>
+            <xsl:text>}&#13;</xsl:text>
+
+            <xsl:apply-templates select="self::node()[dataloader-impl]" mode="update-vm-using-loader"/>
         </xsl:if>
-
-        <xsl:text>return r_oMasterViewModel;&#13;</xsl:text>
-        <xsl:text>}&#13;</xsl:text>
-
-        <xsl:apply-templates select="self::node()[dataloader-impl]" mode="update-vm-using-loader"/>
-
     </xsl:template>
 
 
@@ -156,7 +156,7 @@ Update method for viewmodel : data parameter
         <!-- normal: no update for list item viewmodel -->
     </xsl:template>
 
-    <xsl:template match="viewmodel[type/name='LIST_1' or type/name='LIST_2' or type/name='LIST_3' or type/name='FIXED_LIST']" mode="update-vm">
+    <xsl:template match="viewmodel[type/name='LIST_1' or type/name='LIST_2' or type/name='LIST_3']" mode="update-vm">
         <!-- normal: no update for list viewmodel -->
     </xsl:template>
 
