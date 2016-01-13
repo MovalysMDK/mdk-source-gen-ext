@@ -15,6 +15,7 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.w8.generators;
 
+import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WViewModelCreator;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -85,7 +86,7 @@ public class MF4WViewModelCreatorGenerator extends AbstractIncrementalGenerator<
 	 */
 	private void createViewModelCreator(NonGeneratedBlocExtractor p_oNonGeneratedBlocExtractor,
 			XProject<IDomain<IModelDictionary,IModelFactory>> p_oProject, DomainGeneratorContext p_oContext) throws Exception {
-		MViewModelCreator oVmc = p_oProject.getDomain().getDictionnary().getViewModelCreator();
+		MF4WViewModelCreator oVmc = (MF4WViewModelCreator) p_oProject.getDomain().getDictionnary().getViewModelCreator();
 		if (oVmc != null) {			
 			this.createVmcInterface( oVmc, p_oProject, p_oContext);
 			this.createVmcImpl( oVmc, p_oProject, p_oContext);
@@ -96,7 +97,7 @@ public class MF4WViewModelCreatorGenerator extends AbstractIncrementalGenerator<
 	 * Create interface of viewmodel creator
 	 * @param p_oVmc viewmodel creator
 	 */
-	private void createVmcInterface( MViewModelCreator p_oVmc, XProject<IDomain<IModelDictionary,IModelFactory>> p_oProject, DomainGeneratorContext p_oContext ) throws Exception {
+	private void createVmcInterface( MF4WViewModelCreator p_oVmc, XProject<IDomain<IModelDictionary,IModelFactory>> p_oProject, DomainGeneratorContext p_oContext ) throws Exception {
 		
 		Element r_xViewModelFile = DocumentHelper.createElement("master-viewmodelcreator");
 				
@@ -132,7 +133,7 @@ public class MF4WViewModelCreatorGenerator extends AbstractIncrementalGenerator<
 	 * @param p_oContext context
 	 * @throws Exception
 	 */
-	private void createVmcImpl( MViewModelCreator p_oVmc, XProject<IDomain<IModelDictionary,IModelFactory>> p_oProject, DomainGeneratorContext p_oContext ) throws Exception {
+	private void createVmcImpl( MF4WViewModelCreator p_oVmc, XProject<IDomain<IModelDictionary,IModelFactory>> p_oProject, DomainGeneratorContext p_oContext ) throws Exception {
 		
 		Element r_xViewModelFile = DocumentHelper.createElement("master-viewmodelcreator");		
 		r_xViewModelFile.add(p_oVmc.toXml());

@@ -22,6 +22,7 @@ import com.a2a.adjava.xmodele.ui.menu.MMenu;
 import com.a2a.adjava.xmodele.ui.menu.MMenuItem;
 import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WNavigation;
 import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WViewModel;
+import com.adeuza.movalysfwk.mf4mdd.w8.xmodele.MF4WViewModelCreator;
 import org.dom4j.Element;
 
 /**
@@ -48,9 +49,10 @@ public class MF4WViewModelProcessor extends AbstractExtractor<IDomain<IModelDict
 	@Override
 	public void extract(UmlModel p_oModele) throws Exception {
 
+		MF4WViewModelCreator oVmc = (MF4WViewModelCreator) this.getDomain().getDictionnary().getViewModelCreator();
 		for(MViewModelImpl oViewModel : this.getDomain().getDictionnary().getAllViewModels()) {
 			MF4WViewModel oVm = (MF4WViewModel) oViewModel;
-
+			oVmc.addVM(oVm);
 			oVm.setPropertyNameLowerCase(
 					this.getDomain().getLanguageConf().getViewModelImplementationNamingPrefix().toLowerCase() + oVm.getUmlName());
 		}

@@ -23,10 +23,8 @@
 	<xsl:include href="commons/imports.xsl" />
 	<xsl:include href="commons/non-generated.xsl" />
 
-	<xsl:include href="ui/viewmodelcreator/interface/list-createupdate-vm.xsl" />
-	<xsl:include href="ui/viewmodelcreator/interface/listitem-createupdate-vm.xsl" />
-	<xsl:include href="ui/viewmodelcreator/interface/master-create-vm.xsl" />
-	<xsl:include href="ui/viewmodelcreator/interface/master-update-vm.xsl" />
+	<xsl:include href="ui/viewmodelcreator/create-vm-interface.xsl"/>
+	<xsl:include href="ui/viewmodelcreator/update-vm-interface.xsl"/>
 
 	<!--
 	ROOT TEMPLATE
@@ -53,6 +51,7 @@
 		</xsl:call-template>
 
 
+		<!--
 		<xsl:apply-templates select="./screens/screen/viewmodel[is-screen-viewmodel='false']" mode="create-vm" />
 
 		<xsl:apply-templates select="./screens/screen/pages/page/viewmodel[is-screen-viewmodel='false']"
@@ -82,7 +81,7 @@
 		<xsl:apply-templates select="./screens/screen/pages/page/dialogs/dialog/viewmodel[is-screen-viewmodel='false']"
 		                     mode="create-vm" />
 		<xsl:apply-templates select="./screens/screen/pages/page/dialogs/dialog/viewmodel[is-screen-viewmodel='false']"
-		                     mode="update-vm" />
+		                     mode="update-vm" />-->
 
 		<xsl:text>&#13;</xsl:text>
 		<xsl:call-template name="non-generated-bloc">
@@ -90,15 +89,23 @@
 			<xsl:with-param name="defaultSource" />
 		</xsl:call-template>
 
+		<xsl:apply-templates select="./vms/viewmodel[is-screen-viewmodel='false']" mode="create-vm"/>
+		<xsl:apply-templates select="./vms/viewmodel[is-screen-viewmodel='false']" mode="update-vm"/>
+
 		<xsl:text>}&#13;</xsl:text>
 		<xsl:text>}&#13;</xsl:text>
 	</xsl:template>
+
 
 	<xsl:template match="viewmodel" mode="create-vm">
-		<xsl:text>&#13;// NO MATCH: template[match="viewmodel" mode="create-vm"] for </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> type: </xsl:text><xsl:value-of select="type/name"/>
+		<xsl:text>// NO match create-vm is-list:</xsl:text><xsl:value-of select="type/is-list"/>
+		<xsl:text> list:</xsl:text><xsl:value-of select="type/list"/>
+		<xsl:text> name:</xsl:text><xsl:value-of select="type/name"/>
+	</xsl:template>
+	<xsl:template match="viewmodel" mode="update-vm">
+		<xsl:text>// NO Match update-vm is-list:</xsl:text><xsl:value-of select="type/is-list"/>
+		<xsl:text> list:</xsl:text><xsl:value-of select="type/list"/>
+		<xsl:text> name:</xsl:text><xsl:value-of select="type/name"/>
 	</xsl:template>
 
-	<xsl:template match="viewmodel" mode="update-vm">
-		<xsl:text>&#13;// NO MATCH: template[match="viewmodel" mode="update-vm"] for </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> type: </xsl:text><xsl:value-of select="type/name"/>
-	</xsl:template>
 </xsl:stylesheet>

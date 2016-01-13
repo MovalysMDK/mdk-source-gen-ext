@@ -259,20 +259,11 @@
 	<xsl:template match="menu[/screen/is-Store='false']" mode="xaml-menu">
 	</xsl:template>
 	
-	<xsl:template match="menu-item[/screen/is-Store='true']" mode="create-item-menu">
-		<xsl:text>&lt;Button Content="</xsl:text>
-		<xsl:value-of select="navigation/target/name"/>
-		<xsl:text>" Click="Navigation_Click" Tag="</xsl:text>
-		<xsl:value-of select="navigation/target/full-name"/>
-		<xsl:text>" &#47;&gt;</xsl:text>
-	</xsl:template>
-	
-	<xsl:template match="menu-item[/screen/is-Store='false']" mode="create-item-menu">
+	<xsl:template match="menu-item" mode="create-item-menu">
 		<xsl:text>&lt;AppBarButton Label="</xsl:text>
 		<xsl:value-of select="navigation/target/name"/>
-		<xsl:text>" Click="Navigation_Click" Tag="</xsl:text>
-		<xsl:value-of select="navigation/target/full-name"/>
-		<xsl:text>" &#47;&gt;</xsl:text>
+		<xsl:text>" Command="{ Binding </xsl:text><xsl:value-of select="navigation/target/name"/>
+		<xsl:text>NavigationMenuCommand}" &#47;&gt;</xsl:text>
 	</xsl:template>
 	
 	<xsl:template name="xaml-bottom-appbar">
@@ -281,7 +272,7 @@
     		<xsl:text>&lt;CommandBar&gt;</xsl:text>
             <xsl:text>&lt;CommandBar.PrimaryCommands&gt;</xsl:text>
             <xsl:if test="(workspace = 'true' or multi-panel = 'true') and ./pages/page/actions/action/action-type='SAVEDETAIL'">
-            	<xsl:text>&lt;AppBarButton x:Name="btnSave"   Icon="Save" Label="Save" Click="btnSave_Click" &#47;&gt;</xsl:text>
+            	<xsl:text>&lt;AppBarButton x:Name="btnSave"   Icon="Save" Label="Save" Command="{Binding SaveCommand}" &#47;&gt;</xsl:text>
             </xsl:if>
             <xsl:text>&lt;&#47;CommandBar.PrimaryCommands&gt;</xsl:text>
             <xsl:text>&lt;CommandBar.SecondaryCommands&gt;</xsl:text>
@@ -295,7 +286,7 @@
 	            <xsl:text>&lt;TextBlock Style="{StaticResource BaseTextBlockStyle}"&gt;</xsl:text>
 	            <xsl:text>Confirmez-vous la suppression ?</xsl:text>
 	            <xsl:text>&lt;&#47;TextBlock&gt;</xsl:text>
-	            <xsl:text>&lt;Button Click="DeleteConfirmation_Click" Margin="0,5,0,0"&gt;</xsl:text>
+	            <xsl:text>&lt;Button Command="{Binding DeleteCommand}" Margin="0,5,0,0"&gt;</xsl:text>
 	            <xsl:text>Delete confirmation</xsl:text>
 	            <xsl:text>&lt;&#47;Button&gt;</xsl:text>
 	            <xsl:text>&lt;&#47;StackPanel&gt;</xsl:text>

@@ -149,7 +149,9 @@ public class DataLoaderGenerator extends AbstractIncrementalGenerator<MFDomain<M
 		
 		if (p_oDataLoader.getMasterInterface().getCombos() != null && p_oDataLoader.getMasterInterface().getCombos().size() > 0) {
 			for (MDataLoaderCombo combo : p_oDataLoader.getMasterInterface().getCombos()) {
-				oImportDlg.addImport(MF4WImportDelegate.MW8ImportCategory.DAO.name(), combo.getEntityDao().getPackage().getFullName());
+				if (combo.getEntityDao() != null) {
+					oImportDlg.addImport(MF4WImportDelegate.MW8ImportCategory.DAO.name(), combo.getEntityDao().getPackage().getFullName());
+				}
 			}
 		}
 

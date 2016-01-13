@@ -15,23 +15,13 @@
  */
 package com.adeuza.movalysfwk.mf4mdd.w8.xmodele;
 
+import com.a2a.adjava.xmodele.*;
 import com.a2a.adjava.xmodele.ui.navigation.MNavigation;
 import com.a2a.adjava.xmodele.ui.navigation.MNavigationType;
 import org.apache.commons.lang3.StringUtils;
 
 import com.a2a.adjava.languages.w8.xmodele.MW8ModeleFactory;
 import com.a2a.adjava.uml.UmlClass;
-import com.a2a.adjava.xmodele.IDomain;
-import com.a2a.adjava.xmodele.IModelDictionary;
-import com.a2a.adjava.xmodele.IModelFactory;
-import com.a2a.adjava.xmodele.MEntityImpl;
-import com.a2a.adjava.xmodele.MLabel;
-import com.a2a.adjava.xmodele.MPackage;
-import com.a2a.adjava.xmodele.MPage;
-import com.a2a.adjava.xmodele.MScreen;
-import com.a2a.adjava.xmodele.MViewModelImpl;
-import com.a2a.adjava.xmodele.MVisualField;
-import com.a2a.adjava.xmodele.XModele;
 import com.a2a.adjava.xmodele.ui.viewmodel.ViewModelType;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MDataLoader;
 import com.adeuza.movalysfwk.mf4mdd.commons.xmodele.MDataLoaderInterface;
@@ -137,5 +127,14 @@ public class MF4WModelFactory extends MW8ModeleFactory implements MFModelFactory
 	@Override
 	public MNavigation createNavigation(String p_sNavigationName, MNavigationType p_oNavigationType, MScreen p_oScreen, MScreen p_oScreenEnd) {
 		return new MF4WNavigation(p_sNavigationName, p_oNavigationType, p_oScreen, p_oScreenEnd);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see com.a2a.adjava.xmodele.IModelFactory#createViewModelCreator(String, MPackage)
+	 */
+	@Override
+	public MViewModelCreator createViewModelCreator(String p_sName, MPackage p_oPackage) {
+		return new MF4WViewModelCreator(p_sName,p_oPackage);
 	}
 }
