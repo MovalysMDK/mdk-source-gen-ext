@@ -103,7 +103,7 @@
 		<xsl:variable name="leftAttr">
 			<xsl:choose>
 				<xsl:when test="$database='SQL'"><xsl:text>'</xsl:text><xsl:value-of select="@name-uppercase" /><xsl:text>'</xsl:text></xsl:when>
-				<xsl:otherwise><xsl:text>'</xsl:text><xsl:value-of select="@name" /><xsl:text>'</xsl:text></xsl:otherwise>
+				<xsl:otherwise><xsl:text>'</xsl:text><xsl:value-of select="translate(@name, $uppercase, $smallcase)" /><xsl:text>'</xsl:text></xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 		
