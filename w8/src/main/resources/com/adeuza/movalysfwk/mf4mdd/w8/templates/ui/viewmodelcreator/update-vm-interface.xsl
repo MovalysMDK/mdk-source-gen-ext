@@ -49,7 +49,7 @@ Update method for viewmodel : data parameter
             <xsl:text>/// &lt;returns&gt;The viewmodel representation</xsl:text><xsl:if test="./external-lists/external-list/viewmodel/type/item"><xsl:text> of an </xsl:text><xsl:value-of select="./external-lists/external-list/viewmodel/type/item"/><xsl:text> instance</xsl:text></xsl:if><xsl:text>.&lt;/returns&gt;&#13;</xsl:text>
             <xsl:value-of select="./type/item"/><xsl:text> update</xsl:text><xsl:value-of select="./type/item"/><xsl:text>(</xsl:text>
             <xsl:value-of select="./entity-to-update/name"/>
-            <xsl:text> data);//toto&#13;</xsl:text>
+            <xsl:text> data);&#13;</xsl:text>
 
             <xsl:apply-templates select="self::node()[dataloader-impl]" mode="update-vm-using-loader"/>
         </xsl:for-each>
@@ -66,7 +66,7 @@ Update method for viewmodel : data parameter
             <xsl:apply-templates select="." mode="compute-update-method-name"/>
             <xsl:text>(</xsl:text>
             <xsl:apply-templates select="." mode="compute-update-method-parameter-declaration"/>
-            <xsl:text> );//toto1&#13;</xsl:text>
+            <xsl:text> );&#13;</xsl:text>
 
             <xsl:apply-templates select="self::node()[dataloader-impl]" mode="update-vm-using-loader"/>
         </xsl:if>
@@ -124,7 +124,7 @@ Update method for viewmodel : data parameter
         <!-- normal: no update for list item viewmodel -->
     </xsl:template>
 
-    <xsl:template match="viewmodel[type/name='LIST_1' or type/name='LIST_2' or type/name='LIST_3' or type/name='FIXED_LIST']" mode="update-vm">
+    <xsl:template match="viewmodel[type/name='LIST_1' or type/name='LIST_2' or type/name='LIST_3']" mode="update-vm">
         <!-- normal: no update for list viewmodel -->
     </xsl:template>
 

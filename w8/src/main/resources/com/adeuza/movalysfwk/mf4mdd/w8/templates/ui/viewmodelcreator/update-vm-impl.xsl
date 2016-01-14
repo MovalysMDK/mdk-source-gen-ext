@@ -56,7 +56,7 @@ Update method for viewmodel : data parameter
         <xsl:for-each select="external-lists/external-list/viewmodel[type/name='LIST_1__ONE_SELECTED']">
             <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
             <xsl:text>public </xsl:text><xsl:value-of select="./type/item"/><xsl:text> update</xsl:text><xsl:value-of select="./type/item"/><xsl:text>(</xsl:text>
-            <xsl:value-of select="./entity-to-type/name"/>
+            <xsl:value-of select="./entity-to-update/name"/>
             <xsl:text> data)&#13;{</xsl:text>
 
             <xsl:value-of select="./type/item"/>
