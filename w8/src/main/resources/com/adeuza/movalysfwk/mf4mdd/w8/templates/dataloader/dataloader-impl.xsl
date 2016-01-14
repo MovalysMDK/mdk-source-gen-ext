@@ -91,6 +91,7 @@
 			<xsl:apply-templates select="." mode="getDataMethod"/>
 			<xsl:text>&#13;</xsl:text>
 		</xsl:if>
+
 		<xsl:apply-templates select="dataloader-interface/combos/combo" mode="combo-getter" />
         
        	<!-- custom methods -->
@@ -106,7 +107,23 @@
 	<xsl:template match="combo" mode="combo-init">
 		<xsl:text>private List&lt;</xsl:text><xsl:value-of select="entity"/><xsl:text>&gt; </xsl:text><xsl:value-of select="entity-attribute-name"/><xsl:text>Lst;</xsl:text>
 	</xsl:template>
-	<xsl:template match="combo" mode="combo-getter">
+	<xsl:template match="combo[transient='true']" mode="combo-getter">
+		<xsl:text>&#13;</xsl:text>
+		<xsl:text>///&lt;inheritDoc&#47;&gt;</xsl:text>
+		<xsl:text>&#13;</xsl:text>
+		<xsl:text>protected void GetList</xsl:text><xsl:value-of select="entity-getter-name"/><xsl:text>(IMFContext context) {&#13;</xsl:text>
+		<xsl:text>throw new NotImplementedException();&#13;</xsl:text>
+		<xsl:text>}&#13;</xsl:text>
+
+		<xsl:text>&#13;</xsl:text>
+		<xsl:text>///&lt;inheritDoc&#47;&gt;</xsl:text>
+		<xsl:text>&#13;</xsl:text>
+		<xsl:text>public List&lt;</xsl:text><xsl:value-of select="entity"/><xsl:text>&gt; GetList</xsl:text><xsl:value-of select="entity-getter-name"/><xsl:text>() {&#13;</xsl:text>
+		<xsl:text>return this.</xsl:text><xsl:value-of select="entity-attribute-name"/><xsl:text>Lst;&#13;</xsl:text>
+		<xsl:text>}&#13;</xsl:text>
+	</xsl:template>
+
+	<xsl:template match="combo[transient='false']" mode="combo-getter">
 		<xsl:text>&#13;</xsl:text>
 		<xsl:text>///&lt;inheritDoc&#47;&gt;</xsl:text>
 		<xsl:text>&#13;</xsl:text>
@@ -115,7 +132,7 @@
 			<xsl:with-param name="blocId">getList</xsl:with-param>
 			<xsl:with-param name="defaultSource">		
 			<xsl:value-of select="dao-name"/><xsl:text> </xsl:text><xsl:value-of select="dao-attribute-name"/><xsl:text> = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="dao-name"/><xsl:text>&gt;();</xsl:text>
-		    <xsl:text>this.</xsl:text><xsl:value-of select="entity-attribute-name"/><xsl:text>Lst = </xsl:text><xsl:value-of select="dao-attribute-name"/><xsl:text>.Get</xsl:text><xsl:value-of select="dao-impl-name" /><xsl:text>s(context);&#13;</xsl:text>		
+		    <xsl:text>this.</xsl:text><xsl:value-of select="entity-attribute-name"/><xsl:text>Lst = </xsl:text><xsl:value-of select="dao-attribute-name"/><xsl:text>.Get</xsl:text><xsl:value-of select="dao-impl-name" /><xsl:text>s(context);&#13;</xsl:text>
 			</xsl:with-param>
 		</xsl:call-template>
 		<xsl:text>}&#13;</xsl:text>
