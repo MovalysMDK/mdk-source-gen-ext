@@ -49,7 +49,7 @@ Update method for viewmodel : data parameter
             <xsl:text>/// &lt;returns&gt;The viewmodel representation</xsl:text><xsl:if test="./external-lists/external-list/viewmodel/type/item"><xsl:text> of an </xsl:text><xsl:value-of select="./external-lists/external-list/viewmodel/type/item"/><xsl:text> instance</xsl:text></xsl:if><xsl:text>.&lt;/returns&gt;&#13;</xsl:text>
             <xsl:value-of select="./type/item"/><xsl:text> update</xsl:text><xsl:value-of select="./type/item"/><xsl:text>(</xsl:text>
             <xsl:value-of select="./entity-to-update/name"/>
-            <xsl:text> data);&#13;</xsl:text>
+            <xsl:text> data);//toto&#13;</xsl:text>
 
             <xsl:apply-templates select="self::node()[dataloader-impl]" mode="update-vm-using-loader"/>
         </xsl:for-each>
@@ -62,11 +62,11 @@ Update method for viewmodel : data parameter
             <xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
             <xsl:if test="entity-to-update"><xsl:text>/// &lt;param name="data"&gt; An instance of </xsl:text><xsl:value-of select="entity-to-update/name"/><xsl:text>.&lt;/param&gt;&#13;</xsl:text></xsl:if>
             <xsl:text>/// &lt;returns&gt;The viewmodel representation</xsl:text><xsl:if test="entity-to-update"><xsl:text> of an </xsl:text><xsl:value-of select="entity-to-update/name"/><xsl:text> instance</xsl:text></xsl:if><xsl:text>.&lt;/returns&gt;&#13;</xsl:text>
-            <xsl:value-of select="implements/interface/@name"/><xsl:text> </xsl:text>
+            <xsl:value-of select="type/item"/><xsl:text> </xsl:text>
             <xsl:apply-templates select="." mode="compute-update-method-name"/>
             <xsl:text>(</xsl:text>
             <xsl:apply-templates select="." mode="compute-update-method-parameter-declaration"/>
-            <xsl:text> );&#13;</xsl:text>
+            <xsl:text> );//toto1&#13;</xsl:text>
 
             <xsl:apply-templates select="self::node()[dataloader-impl]" mode="update-vm-using-loader"/>
         </xsl:if>

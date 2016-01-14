@@ -463,7 +463,7 @@
 <xsl:template match="viewmodel" mode="generate-deepCopy-external-list">
 	<xsl:choose>
 		<xsl:when test="parameters/parameter[@name = 'baseName']">
-			<xsl:text>_vm.Selected</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>Item</xsl:text>
+			<xsl:text>_vm.Selected</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>Item/*toto*/</xsl:text>
 			<xsl:text> = this.Selected</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>Item;</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>

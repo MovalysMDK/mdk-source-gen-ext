@@ -54,9 +54,9 @@ Update method for viewmodel : data parameter
     <!-- For pickerlist in fixedList -->
     <xsl:template match="viewmodel[type/name='FIXED_LIST']" mode="update-vm">
         <xsl:for-each select="external-lists/external-list/viewmodel[type/name='LIST_1__ONE_SELECTED']">
-            <xsl:text>&#13;/// &lt;inheritDoc/ toto&gt;&#13;</xsl:text>
+            <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
             <xsl:text>public </xsl:text><xsl:value-of select="./type/item"/><xsl:text> update</xsl:text><xsl:value-of select="./type/item"/><xsl:text>(</xsl:text>
-            <xsl:value-of select="./entity-to-update/name"/>
+            <xsl:value-of select="./entity-to-type/name"/>
             <xsl:text> data)&#13;{</xsl:text>
 
             <xsl:value-of select="./type/item"/>
@@ -70,7 +70,7 @@ Update method for viewmodel : data parameter
     <xsl:template match="viewmodel[type/name='LIST_1__ONE_SELECTED']" mode="update-vm">
         <xsl:if test="not(parent-viewmodel[@type='FIXED_LIST'])">
             <xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
-            <xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> </xsl:text>
+            <xsl:text>public </xsl:text><xsl:value-of select="type/item"/><xsl:text> </xsl:text>
             <xsl:apply-templates select="." mode="compute-update-method-name"/>
             <xsl:text>(</xsl:text>
             <xsl:apply-templates select="." mode="compute-update-method-parameter-declaration"/>
@@ -112,8 +112,8 @@ Update method for viewmodel : data parameter
         <xsl:value-of select="uml-name"/>
         <xsl:text>) {&#13;list</xsl:text>
         <xsl:value-of select="uml-name"/>
-        <xsl:text>.ListViewModel.Add(this.update</xsl:text>
-        <xsl:value-of select="type/item"/>
+        <xsl:text>.ListViewModel.Add(this.updateI</xsl:text>
+        <xsl:value-of select="type/conf-name"/>
         <xsl:text>(o</xsl:text>
         <xsl:value-of select="entity-to-update/name"/>
         <xsl:text>));&#13;}&#13;}&#13;r_oMasterViewModel.Lst</xsl:text>
