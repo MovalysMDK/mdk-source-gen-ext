@@ -25,11 +25,6 @@
     <xsl:apply-templates select="./class/descendant::association[not(@transient='true') and (@type='one-to-one' or @type='many-to-one')]" mode="save-association" >
     	<xsl:with-param name="async"><xsl:value-of select="$async" /></xsl:with-param>
     </xsl:apply-templates>
-    
-	<xsl:text>if (</xsl:text>
-	<xsl:value-of select="./class/name-uncapitalized"/>.<xsl:value-of select="class/identifier/descendant::attribute[1]/@name-capitalized"/> == 0) {
-    <xsl:if test="$async='true'">await </xsl:if>SetNewEntityId<xsl:if test="$async='true'">Async</xsl:if>(<xsl:value-of select="./class/name-uncapitalized"/>, p_oContext);
-    <xsl:text>}</xsl:text>
     <xsl:if test="$async='true'">await </xsl:if>this.SaveEntity<xsl:if test="$async='true'">Async</xsl:if>(<xsl:value-of select="./class/name-uncapitalized"/>, typeof(<xsl:value-of select="./interface/name"/>), p_oContext);
     p_oEntitySession.MarkAsSaved(typeof(<xsl:value-of select="./interface/name"/>), <xsl:value-of select="./class/name-uncapitalized"/>
     <xsl:text>);</xsl:text>
