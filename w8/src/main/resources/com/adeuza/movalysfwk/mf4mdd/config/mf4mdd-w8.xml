@@ -162,7 +162,7 @@
 					<get-accessor-prefix></get-accessor-prefix>
 					<set-accessor-prefix></set-accessor-prefix>
 					<data-type>ALPHANUMERIC</data-type>
-					<default-ui-type>EmailTextViewGroup</default-ui-type>
+					<default-ui-type>Email</default-ui-type>
 					<coredata-type>String</coredata-type>
 				</type>
 				<type>
@@ -447,7 +447,7 @@
 						<component-width>260</component-width>
 					</read-only>
 				</ui-type>
-				<ui-type uml-name="EmailTextViewGroup">
+				<ui-type uml-name="Email">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
 						<language-type>MFMail</language-type>
