@@ -27,6 +27,7 @@
 
 	
 	<xsl:template match="view[@isScreen='true' and count(menus/menu/menu-item)>0]" mode="app-config">
+	    <xsl:text disable-output-escaping="yes">&lt;!-- &#10;</xsl:text>
 		<li>
 			<xsl:attribute name="class">list-group-item</xsl:attribute>
 			<button>
@@ -43,10 +44,7 @@
 				<xsl:text>{{'</xsl:text><xsl:value-of select="name-lc"/>__title<xsl:text>' | translate}}</xsl:text>
 			</button>
 		 </li>
-		 
-		 
-		
-
+		<xsl:text disable-output-escaping="yes">&#10;--&gt;&#10;</xsl:text>
 	</xsl:template>
 	
 	

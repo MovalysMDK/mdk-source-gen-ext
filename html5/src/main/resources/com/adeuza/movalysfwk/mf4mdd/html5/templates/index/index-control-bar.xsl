@@ -32,6 +32,7 @@
 			<xsl:attribute name="mf-home-state"><xsl:value-of select="name"/>
 			<xsl:if test="count(nestedSubviews/nestedSubview)>0">.content</xsl:if>
 			</xsl:attribute>
+			<xsl:attribute name="mf-sliding-menu-button">false</xsl:attribute>
 	</xsl:template>
 	
 	
