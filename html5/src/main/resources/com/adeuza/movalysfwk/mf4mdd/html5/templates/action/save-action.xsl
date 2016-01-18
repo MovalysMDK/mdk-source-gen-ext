@@ -114,7 +114,7 @@
 								<xsl:apply-templates select="viewmodel/subvm/viewmodel/savecascades" mode="cascades-workspace"/>
 							</xsl:when>
 							<xsl:otherwise>
-								
+								<xsl:text>[]</xsl:text>
 							</xsl:otherwise>
 						</xsl:choose>
 						<xsl:text>).then( function(modelEntity) {&#10;</xsl:text>
