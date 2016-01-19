@@ -550,7 +550,7 @@
         <xsl:text>&#13;/// &lt;/summary&gt;</xsl:text>
         <xsl:text>&#13;/// &lt;param name="sender"&gt;SearchButton&lt;/param&gt;</xsl:text>
         <xsl:text>&#13;/// &lt;param name="e"&gt;Event&lt;/param&gt;</xsl:text>
-        <xsl:text>&#13;private void </xsl:text><xsl:value-of
+        <!--<xsl:text>&#13;private void </xsl:text><xsl:value-of
             select="./layout/visualfields/visualfield[component = 'MFList1D']/name" /><xsl:text>_SearchClick(object sender, RoutedEventArgs e)</xsl:text>
         <xsl:text>&#13;{</xsl:text>
         <xsl:text>&#13;// Create Save Action</xsl:text>
@@ -563,8 +563,8 @@
             select="./viewmodel/dataloader-impl/dao-interface/dao/class/name" /><xsl:text>ActionArgs.viewModel = this.</xsl:text>
         <xsl:value-of select="./layout/visualfields/visualfield[component = 'MFList1D']/name" /><xsl:text>.SearchValue;</xsl:text>
         <xsl:text>&#13;// Launch Search Action</xsl:text>
-        <xsl:text>&#13;ClassLoader.GetInstance().GetBean<![CDATA[<IMFController>]]>().LaunchAction(typeof(SearchAction), this, search</xsl:text><xsl:value-of
+        <xsl:text>&#13;ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().LaunchAction(typeof(SearchAction), this, search</xsl:text><xsl:value-of
             select="./viewmodel/dataloader-impl/dao-interface/dao/class/name" /><xsl:text>ActionArgs);</xsl:text>
-        <xsl:text>&#13;}</xsl:text>
+        <xsl:text>&#13;}</xsl:text>-->
     </xsl:template>
 </xsl:stylesheet>

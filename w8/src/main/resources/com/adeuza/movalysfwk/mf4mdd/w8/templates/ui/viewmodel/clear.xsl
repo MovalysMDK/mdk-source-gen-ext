@@ -92,7 +92,7 @@
 </xsl:template>
 
 <xsl:template match="entity[@mapping-type='vm_comboitemselected']" mode="generate-call-clear">
-
+ <xsl:text>&#13;//toto</xsl:text>
 </xsl:template>
 
 <xsl:template match="entity[not(@mapping-type)]" mode="generate-method-clear">
@@ -131,7 +131,7 @@
 <xsl:template match="viewmodel" mode="generate-call-clear">
 	<xsl:text>this.</xsl:text>
 	<xsl:value-of select="property-name"/>
-	<xsl:text>.Clear();</xsl:text>
+	<xsl:text>.Clear();// subvm clear</xsl:text>
 </xsl:template>
 
 

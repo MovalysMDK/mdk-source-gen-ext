@@ -104,10 +104,9 @@
 	<xsl:text>&#13;#region Properties&#13;&#13;</xsl:text>
 
 	<xsl:call-template name="generate-events"/>
+	<xsl:call-template name="generate-commands"/>
 
 	<xsl:apply-templates select="attribute" mode="generate-attribute-get-and-set" />
-
-	<xsl:call-template name="generate-commands"/>
 
 	<xsl:text>&#13;</xsl:text>	
 	<xsl:apply-templates select="subvm/viewmodel" mode="generate-subvm-get-and-set" />
@@ -463,8 +462,8 @@
 <xsl:template match="viewmodel" mode="generate-deepCopy-external-list">
 	<xsl:choose>
 		<xsl:when test="parameters/parameter[@name = 'baseName']">
-			<xsl:text>_vm.Selected</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>Item/*toto*/</xsl:text>
-			<xsl:text> = this.Selected</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>Item;</xsl:text>
+			<xsl:text>_vm.Selected</xsl:text><xsl:value-of select="type/item"/><xsl:text></xsl:text>
+			<xsl:text> = this.Selected</xsl:text><xsl:value-of select="type/item"/><xsl:text>;</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:choose>
@@ -601,8 +600,8 @@
 <xsl:template match="viewmodel" mode="generate-updateFromViewModel-external-list">
 	<xsl:choose>
 		<xsl:when test="parameters/parameter[@name = 'baseName']">
-			<xsl:text>this.Selected</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>Item</xsl:text>
-			<xsl:text> = _vm.Selected</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>Item;</xsl:text>
+			<xsl:text>this.Selected</xsl:text><xsl:value-of select="type/item"/><xsl:text></xsl:text>
+			<xsl:text> = _vm.Selected</xsl:text><xsl:value-of select="type/item"/><xsl:text>;</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
 		<xsl:text>this.</xsl:text><xsl:value-of select="property-name"/>

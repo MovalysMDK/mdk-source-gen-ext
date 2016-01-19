@@ -112,9 +112,9 @@ Update method for viewmodel : data parameter
         <xsl:value-of select="uml-name"/>
         <xsl:text>) {&#13;list</xsl:text>
         <xsl:value-of select="uml-name"/>
-        <xsl:text>.ListViewModel.Add(this.updateI</xsl:text>
-        <xsl:value-of select="type/conf-name"/>
-        <xsl:text>Item(o</xsl:text>
+        <xsl:text>.ListViewModel.Add(this.update</xsl:text>
+        <xsl:value-of select="type/item"/>
+        <xsl:text>(o</xsl:text>
         <xsl:value-of select="entity-to-update/name"/>
         <xsl:text>));&#13;}&#13;}&#13;r_oMasterViewModel.Lst</xsl:text>
         <xsl:value-of select="implements/interface/@name"/>
