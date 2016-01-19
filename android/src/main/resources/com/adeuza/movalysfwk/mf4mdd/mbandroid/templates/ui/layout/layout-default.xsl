@@ -48,13 +48,6 @@
 			<xsl:apply-templates select="." mode="layout-default-inner-scroll">
 				<xsl:with-param name="addtitle"><xsl:value-of select="$addtitle"/></xsl:with-param>
 			</xsl:apply-templates>
-			
-			<android.support.design.widget.FloatingActionButton
-				android:id="@+id/fab"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="bottom|end"
-				android:src="@android:drawable/ic_menu_add"/>
 
 		</android.support.design.widget.CoordinatorLayout>
 
@@ -129,12 +122,17 @@
 		<xsl:if test="parameters/parameter[@name='vmtype-itemlayoutforinnerlist']='FIXED_LIST'">
 			<xsl:attribute name="style">?attr/fixedListItemBloc</xsl:attribute>
 		</xsl:if>
-		<xsl:apply-templates select="buttons/button[@type='NAVIGATION']" />
+		<xsl:if test="not (widget-variant='mdkwidget' and (parameters/parameter[@name='vmtype']='LIST_1' or parameters/parameter[@name='vmtype']='LIST_2' or parameters/parameter[@name='vmtype']='LIST_3'))">
+			<xsl:apply-templates select="buttons/button[@type='NAVIGATION']" />
+		</xsl:if>
 		<xsl:apply-templates select="visualfields/visualfield">
 			<xsl:with-param name="titleId">
 				<xsl:value-of select="$addtitle" />
 			</xsl:with-param>
 		</xsl:apply-templates>
+		<xsl:if test="widget-variant='mdkwidget' and (parameters/parameter[@name='vmtype']='LIST_1' or parameters/parameter[@name='vmtype']='LIST_2' or parameters/parameter[@name='vmtype']='LIST_3')">
+			<xsl:apply-templates select="buttons/button[@type='NAVIGATION']" mode="fab"/>
+		</xsl:if>
 		<xsl:apply-templates select="buttons/button[@type!='NAVIGATION']" />
 	</xsl:template>
 	

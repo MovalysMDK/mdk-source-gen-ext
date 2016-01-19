@@ -20,6 +20,20 @@
 
 <xsl:output method="xml" indent="yes"/>
 
+<!-- Floating Action Button -->
+<xsl:template match="button" mode="fab">
+	<xsl:text disable-output-escaping="yes"><![CDATA[
+	<]]>android.support.design.widget.FloatingActionButton</xsl:text>
+	<xsl:text> android:id="@+id/</xsl:text>
+	<xsl:value-of select="./@name"/><xsl:text>"</xsl:text>
+	<xsl:apply-templates select="." mode="dimensions-wrap"/> 
+	<xsl:text> android:src="@android:drawable/ic_input_add"</xsl:text>
+	<xsl:text> android:layout_centerHorizontal="true"</xsl:text>
+	<xsl:text> android:layout_gravity="bottom|end"</xsl:text>
+	<xsl:text> android:layout_margin="16dp"</xsl:text>
+	<xsl:text disable-output-escaping="yes"><![CDATA[/>]]></xsl:text>
+</xsl:template>
+
 <!-- Action button -->
 <xsl:template match="button">
 	<xsl:text disable-output-escaping="yes"><![CDATA[

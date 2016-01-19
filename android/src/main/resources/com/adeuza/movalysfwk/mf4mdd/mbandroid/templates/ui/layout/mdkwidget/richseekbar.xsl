@@ -20,7 +20,7 @@
 
 <xsl:output method="xml" indent="yes"/>
 
-<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/initialSeekBaralue.xsl"/>
+<xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/initialSeekBarValue.xsl"/>
 <xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/seekbarMin.xsl"/>
 <xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/seekbarMax.xsl"/>
 <xsl:include href="/com/adeuza/movalysfwk/mf4mdd/mbandroid/templates/ui/layout/mdkwidget/seekbar/minAllowed.xsl"/>

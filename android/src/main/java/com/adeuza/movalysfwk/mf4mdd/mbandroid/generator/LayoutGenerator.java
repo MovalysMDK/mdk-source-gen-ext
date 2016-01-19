@@ -89,7 +89,7 @@ public class LayoutGenerator extends AbstractAppendGenerator<MF4ADomain<MF4ADict
 				// Ajout du noeud XML associé à l'interface courante
 				Element x = oLayout.toXml();
 				
-				this.suppressInterfaceButton(x);
+//				this.suppressInterfaceButton(x);
 				
 				
 				String sLayoutFileName = oLayout.getName() + ".xml" ;

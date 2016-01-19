@@ -51,7 +51,7 @@
 		<!-- viewmodel/subvm/viewmodel[type/name='LISTITEM_1']/external-lists -->
 		<xsl:if test="/page/widget-variant='mdkwidget'">
 			<xsl:if test="layouts/layout/buttons/button[@type='NAVIGATION']">
-			p_oRoot.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+			p_oRoot.findViewById(R.id.<xsl:value-of select="layouts/layout/buttons/button[@type='NAVIGATION']/@name"/>).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				<xsl:call-template name="non-generated-bloc">

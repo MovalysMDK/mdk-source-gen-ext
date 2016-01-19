@@ -44,7 +44,7 @@
 	<xsl:if test="(create-label = 'false' or /widget-variant='mdkwidget' or $labelFeature) and not($precedingField) and $titleId">
 		android:layout_below="@id/<xsl:value-of select="$titleId"/><xsl:text>" </xsl:text>
 	</xsl:if>
-	<xsl:if test="not($precedingField) and count($navButtons) > 0">
+	<xsl:if test="not($precedingField) and count($navButtons) > 0 and not (../../parameters/parameter[@name='vmtype']='LIST_1' or ../../parameters/parameter[@name='vmtype']='LIST_2' or ../../parameters/parameter[@name='vmtype']='LIST_3')">
 		android:layout_below="@id/<xsl:value-of select="$navButtons[last()]/@name"/><xsl:text>" </xsl:text>
 	</xsl:if>	
 
