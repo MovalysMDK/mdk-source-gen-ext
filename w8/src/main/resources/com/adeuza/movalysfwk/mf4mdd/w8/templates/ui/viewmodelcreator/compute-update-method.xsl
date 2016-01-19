@@ -19,7 +19,17 @@
 
 
     <xsl:template match="viewmodel" mode="compute-update-method-name">
-        <xsl:text>update</xsl:text><xsl:value-of select="implements/interface/@name"/><!--<xsl:value-of select="type/item"/>-->
+        <xsl:text>update</xsl:text><xsl:value-of select="implements/interface/@name"/>
+        <xsl:for-each select="./external-lists/external-list/viewmodel[type/name='LIST_1__ONE_SELECTED']">
+            <xsl:text>WithLst</xsl:text><xsl:value-of select="./entity-to-update/name"/>
+        </xsl:for-each>
+        <xsl:for-each select="./subvm/viewmodel/external-lists/external-list/viewmodel[type/name='LIST_1__ONE_SELECTED']">
+            <xsl:text>WithLst</xsl:text><xsl:value-of select="./entity-to-update/name"/>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template match="viewmodel[type/name='LIST_1__ONE_SELECTED']" mode="compute-update-method-name">
+        <xsl:text>update</xsl:text><xsl:value-of select="type/item"/>
         <xsl:for-each select="./external-lists/external-list/viewmodel[type/name='LIST_1__ONE_SELECTED']">
             <xsl:text>WithLst</xsl:text><xsl:value-of select="./entity-to-update/name"/>
         </xsl:for-each>
