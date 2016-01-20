@@ -191,6 +191,8 @@
 
         <xsl:if test="./pages/page/chained-save='true'">
             <xsl:call-template name="panel-chained-save-action"/>
+        </xsl:if>
+        <xsl:if test="./pages/page/chained-delete='true'">
             <xsl:call-template name="panel-chained-delete-action"/>
         </xsl:if>
 
