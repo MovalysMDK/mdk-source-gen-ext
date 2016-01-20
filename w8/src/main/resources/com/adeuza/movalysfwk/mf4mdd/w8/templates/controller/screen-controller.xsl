@@ -40,6 +40,10 @@
                 <xsl:text>using </xsl:text><xsl:value-of select="./package" /><xsl:text>;&#13;</xsl:text>
             </xsl:for-each>
         </xsl:for-each>
+        <xsl:if test="./pages/page/chained-save='true' or ./pages/page/chained-delete='true'">
+            <xsl:text>using </xsl:text><xsl:value-of select="./package" />.action.chainedactions<xsl:text>;&#13;</xsl:text>
+        </xsl:if>
+
         <xsl:if test="./viewmodel/subvm/viewmodel/dataloader-impl/package">
             <xsl:text>using </xsl:text><xsl:value-of select="./viewmodel/subvm/viewmodel/dataloader-impl/package" /><xsl:text>;&#13;</xsl:text>
         </xsl:if>
@@ -184,6 +188,11 @@
         <xsl:for-each select="./pages/page">
             <xsl:apply-templates select="." mode="create-pages-methods" />
         </xsl:for-each>
+
+        <xsl:if test="./pages/page/chained-save='true'">
+            <xsl:call-template name="panel-chained-save-action"/>
+            <xsl:call-template name="panel-chained-delete-action"/>
+        </xsl:if>
 
         <xsl:text>&#13;#endregion&#13;</xsl:text>
 
@@ -343,10 +352,6 @@
             <xsl:call-template name="SearchClickMethod" />
         </xsl:if>
 
-        <xsl:call-template name="pannel-chained_action">
-            <xsl:with-param name="panelName"><xsl:value-of select="name"/></xsl:with-param>
-        </xsl:call-template>
-
         <xsl:apply-templates select="navigationsV2/navigationV2" mode="create-event" >
             <xsl:with-param name="panelName"><xsl:value-of select="name"/></xsl:with-param>
         </xsl:apply-templates>
@@ -375,94 +380,94 @@
     </xsl:template>
 
 
-    <xsl:template name="pannel-chained_action">
-        <xsl:param name="panelName" />
-        <xsl:if test="in-workspace = 'true' and in-multi-panel = 'true'">
-            <xsl:if test="./chained-save='true'">
-                <xsl:text>&#13;</xsl:text>
-                <xsl:text> 	/// &lt;summary&gt;&#13;</xsl:text>
-                <xsl:text>	/// Listener on Success of SaveChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>&#13;</xsl:text>
-                <xsl:text>	/// &lt;/summary&gt;&#13;</xsl:text>
-                <xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
-                <xsl:text>	/// &lt;param name="e">Out parameter of the save action&lt;/param&gt;</xsl:text>
-                <xsl:text>&#13;[MFOnActionAttribute(typeof(SaveChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>), ActionLauncher.ActionResult.Success)]&#13;</xsl:text>
-                <xsl:text>public void DoOnSaveChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>_Success(Object sender, ChainedActionArgs e)&#13;</xsl:text>
-                <xsl:text>{&#13;</xsl:text>
-                <xsl:if test="viewmodel/type/is-list = 'true'">
-                    <xsl:text>&#13;</xsl:text>
-                    <xsl:text> this.loadListData(</xsl:text><xsl:value-of select="$panelName"/><xsl:text>Loader);&#13;</xsl:text>
-                </xsl:if>
-                <xsl:call-template name="non-generated-bloc">
-                    <xsl:with-param name="blocId">
-                        <xsl:text>SaveChained</xsl:text><xsl:value-of select="viewmodel/first-parent-reference" />-method</xsl:with-param>
-                    <xsl:with-param name="defaultSource"></xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>}&#13;&#13;</xsl:text>
+    <xsl:template name="panel-chained-save-action">
+        <xsl:text>&#13;</xsl:text>
+        <xsl:text> 	/// &lt;summary&gt;&#13;</xsl:text>
+        <xsl:text>	/// Listener on Success of SaveChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>&#13;</xsl:text>
+        <xsl:text>	/// &lt;/summary&gt;&#13;</xsl:text>
+        <xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
+        <xsl:text>	/// &lt;param name="e">Out parameter of the save action&lt;/param&gt;</xsl:text>
+        <xsl:text>&#13;[MFOnActionAttribute(typeof(SaveChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>), ActionLauncher.ActionResult.Success)]&#13;</xsl:text>
+        <xsl:text>public void DoOnSaveChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>_Success(Object sender, ChainedActionArgs e)&#13;</xsl:text>
+        <xsl:text>{&#13;</xsl:text>
 
-                <xsl:text> 	/// &lt;summary&gt;&#13;</xsl:text>
-                <xsl:text>	/// Listener on Failed of SaveChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>&#13;</xsl:text>
-                <xsl:text>	/// &lt;/summary&gt;&#13;</xsl:text>
-                <xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
-                <xsl:text>	/// &lt;param name="e">Out parameter of the save action&lt;/param&gt;</xsl:text>
-                <xsl:text>&#13;[MFOnActionAttribute(typeof(SaveChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>), ActionLauncher.ActionResult.Failed)]&#13;</xsl:text>
-                <xsl:text>public void DoOnSaveChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>_Failed(Object sender, ChainedActionArgs e)&#13;</xsl:text>
-                <xsl:text>{&#13;</xsl:text>
-                <xsl:call-template name="non-generated-bloc">
-                    <xsl:with-param name="blocId">
-                        <xsl:text>SaveChained</xsl:text><xsl:value-of select="viewmodel/first-parent-reference" />-method</xsl:with-param>
-                    <xsl:with-param name="defaultSource"></xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>}&#13;</xsl:text>
-            </xsl:if>
-
-            <xsl:if test="./chained-delete='true'">
+        <xsl:for-each select="./pages/page[in-workspace = 'true' and in-multi-panel = 'true' and chained-save='true']">
+            <xsl:if test="viewmodel/type/is-list = 'true'">
                 <xsl:text>&#13;</xsl:text>
-                <xsl:text> 	/// &lt;summary&gt;&#13;</xsl:text>
-                <xsl:text>	/// Listener on Success of DeleteChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>&#13;</xsl:text>
-                <xsl:text>	/// &lt;/summary&gt;&#13;</xsl:text>
-                <xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
-                <xsl:text>	/// &lt;param name="e">Out parameter of the delete action&lt;/param&gt;</xsl:text>
-                <xsl:text>&#13;[MFOnActionAttribute(typeof(DeleteChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>), ActionLauncher.ActionResult.Success)]&#13;</xsl:text>
-                <xsl:text>public void DoOnDeleteChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>_Success(Object sender, ChainedActionArgs e)&#13;</xsl:text>
-                <xsl:text>{&#13;</xsl:text>
-                <xsl:if test="viewmodel/type/is-list = 'true'">
-                    <xsl:text>&#13;</xsl:text>
-                    <xsl:text> this.loadListData(</xsl:text><xsl:value-of select="$panelName"/><xsl:text>Loader);&#13;</xsl:text>
-                </xsl:if>
-                <xsl:call-template name="non-generated-bloc">
-                    <xsl:with-param name="blocId">
-                        <xsl:text>DeleteChained</xsl:text><xsl:value-of select="viewmodel/first-parent-reference" />-method</xsl:with-param>
-                    <xsl:with-param name="defaultSource"></xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>}&#13;&#13;</xsl:text>
-                <xsl:text> 	/// &lt;summary&gt;&#13;</xsl:text>
-                <xsl:text>	/// Listener on Failed of DeleteChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>&#13;</xsl:text>
-                <xsl:text>	/// &lt;/summary&gt;&#13;</xsl:text>
-                <xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
-                <xsl:text>	/// &lt;param name="e">Out parameter of the delete action&lt;/param&gt;</xsl:text>
-                <xsl:text>&#13;[MFOnActionAttribute(typeof(DeleteChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>), ActionLauncher.ActionResult.Failed)]&#13;</xsl:text>
-                <xsl:text>public void DoOnDeleteChained</xsl:text><xsl:value-of
-                    select="viewmodel/first-parent-reference" /><xsl:text>_Failed(Object sender, ChainedActionArgs e)&#13;</xsl:text>
-                <xsl:text>{&#13;</xsl:text>
-                <xsl:call-template name="non-generated-bloc">
-                    <xsl:with-param name="blocId">
-                        <xsl:text>DeleteChained</xsl:text><xsl:value-of select="viewmodel/first-parent-reference" />-method</xsl:with-param>
-                    <xsl:with-param name="defaultSource"></xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>}&#13;</xsl:text>
+                <xsl:text> this.loadListData(</xsl:text><xsl:value-of select="./name"/><xsl:text>Loader);&#13;</xsl:text>
             </xsl:if>
-        </xsl:if>
+        </xsl:for-each>
+        <xsl:call-template name="non-generated-bloc">
+            <xsl:with-param name="blocId">
+                <xsl:text>SaveChained</xsl:text><xsl:value-of select="name" />-method</xsl:with-param>
+            <xsl:with-param name="defaultSource"></xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>}&#13;&#13;</xsl:text>
+
+        <xsl:text> 	/// &lt;summary&gt;&#13;</xsl:text>
+        <xsl:text>	/// Listener on Failed of SaveChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>&#13;</xsl:text>
+        <xsl:text>	/// &lt;/summary&gt;&#13;</xsl:text>
+        <xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
+        <xsl:text>	/// &lt;param name="e">Out parameter of the save action&lt;/param&gt;</xsl:text>
+        <xsl:text>&#13;[MFOnActionAttribute(typeof(SaveChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>), ActionLauncher.ActionResult.Failed)]&#13;</xsl:text>
+        <xsl:text>public void DoOnSaveChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>_Failed(Object sender, ChainedActionArgs e)&#13;</xsl:text>
+        <xsl:text>{&#13;</xsl:text>
+        <xsl:call-template name="non-generated-bloc">
+            <xsl:with-param name="blocId">
+                <xsl:text>SaveChained</xsl:text><xsl:value-of select="name" />-method</xsl:with-param>
+            <xsl:with-param name="defaultSource"></xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>}&#13;</xsl:text>
+    </xsl:template>
+
+    <xsl:template name="panel-chained-delete-action">
+        <xsl:text> 	/// &lt;summary&gt;&#13;</xsl:text>
+        <xsl:text>	/// Listener on Success of DeleteChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>&#13;</xsl:text>
+        <xsl:text>	/// &lt;/summary&gt;&#13;</xsl:text>
+        <xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
+        <xsl:text>	/// &lt;param name="e">Out parameter of the delete action&lt;/param&gt;</xsl:text>
+        <xsl:text>&#13;[MFOnActionAttribute(typeof(DeleteChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>), ActionLauncher.ActionResult.Success)]&#13;</xsl:text>
+        <xsl:text>public void DoOnDeleteChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>_Success(Object sender, ChainedActionArgs e)&#13;</xsl:text>
+        <xsl:text>{&#13;</xsl:text>
+
+        <xsl:for-each select="./pages/page[in-workspace = 'true' and in-multi-panel = 'true' and chained-delete='true']">
+            <xsl:if test="viewmodel/type/is-list = 'true'">
+                <xsl:text>this.loadListData(</xsl:text><xsl:value-of select="./name"/><xsl:text>Loader);&#13;</xsl:text>
+            </xsl:if>
+        </xsl:for-each>
+
+        <xsl:call-template name="non-generated-bloc">
+            <xsl:with-param name="blocId">
+                <xsl:text>DeleteChained</xsl:text><xsl:value-of select="name" />-method</xsl:with-param>
+            <xsl:with-param name="defaultSource"></xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>}&#13;&#13;</xsl:text>
+        <xsl:text> 	/// &lt;summary&gt;&#13;</xsl:text>
+        <xsl:text>	/// Listener on Failed of DeleteChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>&#13;</xsl:text>
+        <xsl:text>	/// &lt;/summary&gt;&#13;</xsl:text>
+        <xsl:text>	/// &lt;param name="sender">&lt;/param&gt;&#13;</xsl:text>
+        <xsl:text>	/// &lt;param name="e">Out parameter of the delete action&lt;/param&gt;</xsl:text>
+        <xsl:text>&#13;[MFOnActionAttribute(typeof(DeleteChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>), ActionLauncher.ActionResult.Failed)]&#13;</xsl:text>
+        <xsl:text>public void DoOnDeleteChained</xsl:text><xsl:value-of
+            select="name" /><xsl:text>_Failed(Object sender, ChainedActionArgs e)&#13;</xsl:text>
+        <xsl:text>{&#13;</xsl:text>
+        <xsl:call-template name="non-generated-bloc">
+            <xsl:with-param name="blocId">
+                <xsl:text>DeleteChained</xsl:text><xsl:value-of select="name" />-method</xsl:with-param>
+            <xsl:with-param name="defaultSource"></xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>}&#13;</xsl:text>
     </xsl:template>
 
     <xsl:template match="reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']" mode="create-event">

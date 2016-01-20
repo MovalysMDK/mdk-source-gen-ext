@@ -219,11 +219,11 @@
 				<xsl:text>&#13;{</xsl:text>
 				<xsl:text>&#13;    // Dismiss the Flyout after the action is confirmed.</xsl:text>
 				<xsl:text>&#13;this.btnDelete.Flyout.Hide();&#13;</xsl:text>
-				<xsl:text>&#13;this.DeleteMultiSection();</xsl:text>
-				<xsl:text>&#13;base.HidePanels();</xsl:text>
+				<xsl:text>&#13;this.DeleteMultiSection();&#13;</xsl:text>
+				<xsl:text>&#13;base.HidePanels();&#13;//</xsl:text>
 				<xsl:value-of select="viewmodel/name" /><xsl:text>_DeleteItemEvent myevent = new </xsl:text><xsl:value-of
 					select="viewmodel/name" /><xsl:text>_DeleteItemEvent();</xsl:text>
-				<xsl:text>&#13;ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().RaiseEventMethods(this, myevent);</xsl:text>
+				<xsl:text>&#13;//ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().RaiseEventMethods(this, myevent);</xsl:text>
 				<xsl:text>&#13;}</xsl:text>
 
 				<xsl:text>&#13;public override void DeleteMultiSection()</xsl:text>

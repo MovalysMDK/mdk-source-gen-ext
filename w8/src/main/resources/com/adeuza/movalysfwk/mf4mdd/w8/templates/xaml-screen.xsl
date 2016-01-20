@@ -191,7 +191,7 @@
 			<xsl:text>1</xsl:text>
 		  </xsl:when>
 		  <xsl:otherwise>
-		<xsl:value-of select="number(parameters/parameter[@name = 'grid-column-parameter']) + 1"/>
+			<xsl:value-of select="number(parameters/parameter[@name = 'grid-column-parameter']) + 1"/>
 		  </xsl:otherwise>
 		</xsl:choose>
 		<xsl:text>,</xsl:text>
