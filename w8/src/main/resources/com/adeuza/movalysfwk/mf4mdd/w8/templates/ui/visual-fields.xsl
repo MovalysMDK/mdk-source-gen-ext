@@ -52,7 +52,10 @@
 	<xsl:apply-templates select="." mode="create-component" />
 </xsl:template>
 
-	
+<xsl:template match="visualfield" mode="display-visualfields-combo" >
+	<xsl:apply-templates select="." mode="create-component" />
+</xsl:template>
+
 <xsl:template match="visualfield[create-label = 'true']" mode="create-label" >
 	<xsl:text>&lt;TextBlock x:Name="</xsl:text>
 	<xsl:value-of select="label"/>

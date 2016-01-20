@@ -61,9 +61,14 @@
 	<xsl:choose>
 		<xsl:when test="/layout/parameters/parameter[@name='vmtype-itemlayoutforinnerlist']='LIST_1__ONE_SELECTED'">
 			<xsl:for-each select="visualfields/visualfield">
-				<xsl:if test="parameters/parameter[@name='inCombo']='true'">
-					<xsl:apply-templates select="."  mode="display-visualfields" />
-				</xsl:if>
+				<xsl:choose>
+					<xsl:when test="parameters/parameter[@name='inCombo']='true'">
+						<xsl:apply-templates select="."  mode="display-visualfields-combo" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="."  mode="display-visualfields" />
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:for-each>
 		</xsl:when>
 		<xsl:otherwise>

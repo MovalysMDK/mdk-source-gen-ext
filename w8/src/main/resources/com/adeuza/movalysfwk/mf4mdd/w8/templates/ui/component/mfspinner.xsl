@@ -32,7 +32,7 @@
 		<xsl:text>" Grid.Row="</xsl:text>
 		<xsl:value-of select="component-position"/>
 		<xsl:text>" Grid.Column="0"</xsl:text>
-		<xsl:text> mf:Value="{Binding MasterViewModel.Lst</xsl:text>
+		<xsl:text> mf:Value="{Binding Lst</xsl:text>
 		<xsl:value-of select="property-name-c" />
 		<xsl:text>, Mode=TwoWay}"</xsl:text>
 		<xsl:text> IsEnabled="True"</xsl:text>
