@@ -57,7 +57,6 @@
         	</xsl:choose>
 	        
 	        <xsl:text>, null);&#10;</xsl:text>
-	        
 	        <xsl:text>};&#10;</xsl:text>
         </xsl:if>
 	</xsl:template>
