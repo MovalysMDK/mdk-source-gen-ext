@@ -26,9 +26,6 @@
 	<xsl:param name="ignoreFormAttribute">false</xsl:param>
 	<xsl:param name="viewModel"/>
 	
-	<xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
-	<xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
-
 			<xsl:attribute name="mf-field">
 				<xsl:choose>
 					<xsl:when test="$viewModel and $viewModel != ''">
