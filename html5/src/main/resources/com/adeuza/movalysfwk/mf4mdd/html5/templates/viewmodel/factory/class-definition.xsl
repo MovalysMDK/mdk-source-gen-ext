@@ -70,7 +70,6 @@
 		<objc-import import="MFMappingHelper" import-in-function="MFMappingHelper" scope="local"/>
 		<objc-import import="MFUtils" import-in-function="MFUtils" scope="local"/>
 		<objc-import import="MFAbstractViewModelFactory" import-in-function="MFAbstractViewModelFactory" scope="local"/>
-		<objc-import import="$filter" import-in-function="$filter" scope="local"/>
 	</xsl:template>
 	
 </xsl:stylesheet>

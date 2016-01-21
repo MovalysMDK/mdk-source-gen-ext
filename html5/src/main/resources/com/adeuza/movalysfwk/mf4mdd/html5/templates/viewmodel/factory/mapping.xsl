@@ -94,21 +94,15 @@
 		    		<xsl:when test="@vm-attr=../../attribute[@enum='true']/@name">
 		    			<xsl:variable name="vm-attr" select="@vm-attr"/>
 		    			<xsl:variable name="matchingAttribute" select="../../attribute[@name=$vm-attr]"/>		
-						<xsl:variable name="right-enum-factory">
-							<xsl:choose>
-								<xsl:when test="contains($matchingAttribute/@type-name,'enumimage')" >MFValueImageVMFactory</xsl:when>
-								<xsl:otherwise>MFRadioVMFactory</xsl:otherwise>
-							</xsl:choose>
-						</xsl:variable>
-						
-		    			<xsl:text>rightAttr:['</xsl:text><xsl:value-of select="@vm-attr"/><xsl:text>','selectedItem'],&#10;</xsl:text>
-		    			<xsl:text>rightFactory:'</xsl:text><xsl:value-of select="$right-enum-factory"/><xsl:text>'</xsl:text>
-		    			<xsl:if test="not(contains($matchingAttribute/@type-name,'enumimage'))" >
-		    				<xsl:text>,&#10;</xsl:text>
-		    				<xsl:text>right2leftConverter: ['</xsl:text><xsl:value-of select="$matchingAttribute/@type-short-name"/><xsl:text>Converter', 'enumFromDisplayed'],&#10;</xsl:text>
-		    				<xsl:text>left2rightConverter: ['</xsl:text><xsl:value-of select="$matchingAttribute/@type-short-name"/><xsl:text>Converter', 'displayedFromEnum']&#10;</xsl:text>
-						</xsl:if>
+
+						<xsl:text>rightAttr:['</xsl:text><xsl:value-of select="@vm-attr"/><xsl:text>','selectedItem'],&#10;</xsl:text>
+		    			<xsl:text>rightFactory:'MFRadioVMFactory'</xsl:text>
+
+						<xsl:text>,&#10;</xsl:text>
+						<xsl:text>right2leftConverter: ['</xsl:text><xsl:value-of select="$matchingAttribute/@type-short-name"/><xsl:text>Converter', 'enumFromDisplayed'],&#10;</xsl:text>
+						<xsl:text>left2rightConverter: ['</xsl:text><xsl:value-of select="$matchingAttribute/@type-short-name"/><xsl:text>Converter', 'displayedFromEnum']&#10;</xsl:text>
 						<xsl:text>&#10;</xsl:text>
+
 		    		</xsl:when>
 		    		<xsl:otherwise>
 		    			<xsl:text>rightAttr:'</xsl:text><xsl:value-of select="@vm-attr"/><xsl:text>'</xsl:text>

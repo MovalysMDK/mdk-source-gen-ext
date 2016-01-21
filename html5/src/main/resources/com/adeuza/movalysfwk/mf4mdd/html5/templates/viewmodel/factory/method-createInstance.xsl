@@ -85,10 +85,7 @@
 					<xsl:otherwise>
 						<!--  if enum -->
 						<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text> = </xsl:text>
-						<xsl:choose>
-							<xsl:when test="contains(@type-name,'enumimage')"><xsl:text>MFValueImageVMFactory.createInstance('key',MFPictureTypeEnum.png,'assets/pictures');&#10;</xsl:text></xsl:when>
-							<xsl:otherwise><xsl:text>MFRadioVMFactory.createInstance('value');&#10;</xsl:text></xsl:otherwise>
-						</xsl:choose>
+						<xsl:text>MFRadioVMFactory.createInstance('value');&#10;</xsl:text>
 						<xsl:choose>
 						<xsl:when test ="contains(@init, '_NONE')">
 							<xsl:value-of select="$result"/><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>.selectedItem = null ;&#10;</xsl:text>
