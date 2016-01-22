@@ -1089,7 +1089,7 @@ Req#U##</xsl:text>
 
 	<xsl:template match="field|attribute|property" mode="csvOption">
 		<xsl:choose>
-			<xsl:when test="@type-short-name='boolean'">
+			<xsl:when test="@type-short-name='boolean' or @type-short-name='Boolean'">
 				<xsl:text>yes[1];no[0];#</xsl:text>
 			</xsl:when>
 			<xsl:when test="@type-short-name='ref1'">
