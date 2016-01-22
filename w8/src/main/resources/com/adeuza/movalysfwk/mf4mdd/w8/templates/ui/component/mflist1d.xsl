@@ -61,7 +61,7 @@
 		</xsl:if>
 	</xsl:for-each>
 
-
+	<xsl:text> mf:OnAddButtonClickCommand="{Binding </xsl:text><xsl:value-of select="../../shortname"/><xsl:text>AddCommand}"</xsl:text>
 	
 	<xsl:if test="(/layout/parameters/parameter[@name='vmtype']='LIST_1' and /layout/in-workspace = 'false') or not(/layout/buttons/button[@type = 'NAVIGATION'])">
 	<xsl:text> ButtonAddVisibility="Collapsed"</xsl:text>

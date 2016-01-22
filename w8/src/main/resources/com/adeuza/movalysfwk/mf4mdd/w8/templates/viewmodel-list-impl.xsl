@@ -62,10 +62,13 @@
 
 <xsl:text>&#13;#region Constructor&#13;&#13;</xsl:text>
 <xsl:text>private IViewModelCreator viewModelCreator = ClassLoader.GetInstance().GetBean&lt;IViewModelCreator&gt;();</xsl:text>
-<xsl:text>public </xsl:text><xsl:value-of select="./name" /><xsl:text>()</xsl:text><xsl:text>{&#13;</xsl:text> <!--TODO 1D/2D command name-->
+<xsl:text>public </xsl:text><xsl:value-of select="./name" /><xsl:text>()</xsl:text><xsl:text>{&#13;</xsl:text>
 	<xsl:if test="parent-viewmodel[@type = 'MASTER']">
 		<xsl:value-of select="uml-name"/><xsl:text>NavigationDetailCommand = new MDKDelegateCommand(Execute</xsl:text>
 		<xsl:value-of select="uml-name"/><xsl:text>NavigationDetail);&#13;</xsl:text>
+
+		<xsl:value-of select="uml-name"/><xsl:text>AddCommand = new MDKDelegateCommand(Execute</xsl:text>
+		<xsl:value-of select="uml-name"/><xsl:text>Add);&#13;</xsl:text>
 	</xsl:if>
 	<xsl:text>}&#13;</xsl:text>
 <xsl:text>&#13;</xsl:text>
@@ -86,6 +89,12 @@
 		<xsl:text>/// Command that navigate to the list detail&#13;</xsl:text>
 		<xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
 		<xsl:text>public ICommand </xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetailCommand&#13;</xsl:text>
+		<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+
+		<xsl:text>/// &lt;summary&gt;&#13;</xsl:text>
+		<xsl:text>/// Command that add an empty element and navigate to it&#13;</xsl:text>
+		<xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
+		<xsl:text>public ICommand </xsl:text><xsl:value-of select="uml-name"/><xsl:text>AddCommand&#13;</xsl:text>
 		<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
 	</xsl:if>
 
@@ -119,15 +128,19 @@
 </xsl:if>
 
 <xsl:if test="not(type/name='LIST_1__ONE_SELECTED')">
-<xsl:apply-templates select="." mode="generate-createEmptyItem" />
-<xsl:apply-templates select="." mode="generate-DeleteItem" />
+	<xsl:apply-templates select="." mode="generate-createEmptyItem" />
+	<xsl:apply-templates select="." mode="generate-DeleteItem" />
 </xsl:if>
 
-	<xsl:if test="parent-viewmodel[@type = 'MASTER']">
-		<xsl:text>public void Execute</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetail(object parameter)&#13;{&#13;</xsl:text>
-		<xsl:text>On</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetailRequest(parameter);&#13;</xsl:text>
-		<xsl:text>}&#13;</xsl:text>
-	</xsl:if>
+<xsl:if test="parent-viewmodel[@type = 'MASTER']">
+	<xsl:text>public void Execute</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetail(object parameter)&#13;{&#13;</xsl:text>
+	<xsl:text>On</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetailRequest(parameter);&#13;</xsl:text>
+	<xsl:text>}&#13;</xsl:text>
+
+	<xsl:text>public void Execute</xsl:text><xsl:value-of select="uml-name"/><xsl:text>Add(object parameter)&#13;{&#13;</xsl:text>
+	<xsl:text>Execute</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetail(CreateEmptyItem());&#13;</xsl:text>
+	<xsl:text>}&#13;</xsl:text>
+</xsl:if>
 
 <xsl:text>&#13;</xsl:text>
 <xsl:call-template name="non-generated-bloc">
