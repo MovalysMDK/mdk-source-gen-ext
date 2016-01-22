@@ -137,27 +137,6 @@
 	
 	<xsl:template match="*" mode="attribute-specific-converter">
 	</xsl:template>
-
-	
-	<!-- Association  Mapping Many to many-->
-	<!--<xsl:template match="association[@type='many-to-many']" mode="map-attribute">
-		<xsl:param name="database"/>
-		
-		<xsl:variable name="leftAttr">
-			<xsl:choose>
-				<xsl:when test="$database='SQL'"><xsl:text>'</xsl:text><xsl:value-of select="join-table/crit-fields/field/@name"/><xsl:text>'</xsl:text></xsl:when>
-				<xsl:otherwise><xsl:text>'</xsl:text><xsl:value-of select="@name"/><xsl:value-of select="translate(substring-after(join-table/crit-fields/field/@attr-name, join-table/crit-fields/@asso-name), $uppercase, $smallcase)" /><xsl:text>'</xsl:text></xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		
-		<xsl:text>{leftAttr: </xsl:text><xsl:value-of select="$leftAttr"/><xsl:text>, </xsl:text>
-		<xsl:text>rightAttr: ['</xsl:text><xsl:value-of select="@name"/><xsl:text>', '</xsl:text><xsl:value-of select="translate(substring-after(join-table/crit-fields/field/@attr-name, join-table/crit-fields/@asso-name), $uppercase, $smallcase)"/><xsl:text>'], </xsl:text>
-		<xsl:text>rightFactory: '</xsl:text><xsl:value-of select="@contained-type-short-name"/><xsl:text>Factory', </xsl:text>
-		<xsl:text>childIdentifier: true, </xsl:text>
-		<xsl:text>multiple: true</xsl:text>
-		<xsl:text>}</xsl:text><xsl:if test="((position() != last()) and (count(following-sibling::association[(not(@type='one-to-many') and @relation-owner='true')])>0))">,</xsl:if><xsl:text>&#10;</xsl:text>
-	</xsl:template>-->
-	
 	
 	<!-- Basic Association  Mapping -->
 	<xsl:template match="association[@relation-owner='true' and not(@type='one-to-many' or @type='many-to-many')]" mode="map-attribute">
@@ -173,8 +152,7 @@
 		<xsl:text>{leftAttr: </xsl:text><xsl:value-of select="$leftAttr"/><xsl:text>, </xsl:text>
 		<xsl:text>rightAttr: ['</xsl:text><xsl:value-of select="@name"/><xsl:text>', '</xsl:text><xsl:value-of select="attribute/@name"/><xsl:text>'], </xsl:text>
 		<xsl:text>rightFactory: '</xsl:text><xsl:value-of select="@type-short-name"/><xsl:text>Factory', </xsl:text>
-		<xsl:text>childIdentifier: true, </xsl:text>
-		<xsl:text>multiple: false</xsl:text>
+		<xsl:text>childIdentifier: true</xsl:text>
 		<xsl:text>}</xsl:text><xsl:if test="((position() != last()) and (count(following-sibling::association[(not(@type='one-to-many' or @type='many-to-many') and @relation-owner='true')])>0))">,</xsl:if><xsl:text>&#10;</xsl:text>
 	</xsl:template>
 	
