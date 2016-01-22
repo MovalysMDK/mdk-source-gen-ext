@@ -1147,6 +1147,9 @@ Req#U##</xsl:text>
 		<xsl:variable name="smallTypeShortName"
 			select="translate(@type-short-name,$majuscules,$minuscules)" />
 		<xsl:choose>
+			<xsl:when test="$smallTypeShortName='mfsignature'">
+				<xsl:text>champ de type string;champ de type string#</xsl:text>
+			</xsl:when>
 			<xsl:when test="$smallTypeShortName='string'">
 				<xsl:text>champ de type string;champ de type string#</xsl:text>
 			</xsl:when>
@@ -1201,7 +1204,12 @@ Req#U##</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="field|attribute|property" mode="csvSize">
+		<xsl:variable name="smallTypeShortName"
+			select="translate(@type-short-name,$majuscules,$minuscules)" />
 		<xsl:choose>
+			<xsl:when test="$smallTypeShortName='mfsignature'">
+				<xsl:text>255#</xsl:text>
+			</xsl:when>
 			<xsl:when test="@length and number(@length) > 0">
 				<xsl:value-of select="@length" />
 				<xsl:text>#</xsl:text>
@@ -1240,6 +1248,9 @@ Req#U##</xsl:text>
 		<xsl:variable name="smallTypeShortName"
 			select="translate(@type-short-name,$majuscules,$minuscules)" />
 		<xsl:choose>
+			<xsl:when test="$smallTypeShortName='mfsignature'">
+				<xsl:text>string#</xsl:text>
+			</xsl:when>
 			<xsl:when test="$smallTypeShortName='string'">
 				<xsl:text>string#</xsl:text>
 			</xsl:when>
