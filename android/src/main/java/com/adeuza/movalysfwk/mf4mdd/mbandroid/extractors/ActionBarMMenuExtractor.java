@@ -120,27 +120,7 @@ public class ActionBarMMenuExtractor extends AbstractExtractor<MF4ADomain<MF4ADi
 			MAction oActionDelete = mPage.getActionOfType(MActionType.DELETEDETAIL);
 			if (oActionDelete!=null) {
 				addActionToMenu( "actionmenu_"+p_oScreen.getName().toLowerCase()+"_delete", oActionDelete, p_oScreen, oMapActionItem);
-			}
-			
-			// generation de l'action d'ajout (dans les navigation de l'adapter du layout de la page)
-			if (mPage.getAdapter() != null) {
-				for ( MLayout oLayout : mPage.getAdapter().getLayouts() ) {
-					for (MAbstractButton oBtn : oLayout.getButtons()) {
-						if (oBtn instanceof MNavigationButton) {
-							
-							MNavigationButton oNavBtn = (MNavigationButton) oBtn;
-							// si la navigation est de type DETAIL ou WKS_SWITCHPANEL
-							if (((MNavigationButton) oBtn).getNavigation().getNavigationType().equals(MNavigationType.NAVIGATION_DETAIL) || ((MNavigationButton) oBtn).getNavigation().getNavigationType().equals(MNavigationType.NAVIGATION_WKS_SWITCHPANEL) ) {
-								MMenuActionItem oMMenuActionItem = this.getDomain().getXModeleFactory().createMenuActionItem(
-										"actionmenu_"+p_oScreen.getName().toLowerCase()+"_"+oNavBtn.getName().toLowerCase());
-								oMMenuActionItem.addMenuAction(oNavBtn);
-								oMapActionItem.put(oMMenuActionItem.getId(), oMMenuActionItem);
-							}
-							
-						}
-					}
-				}
-			}
+			}			
 			
 		}
 		
