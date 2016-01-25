@@ -46,8 +46,6 @@
 		 </li>
 		<xsl:text disable-output-escaping="yes">&#10;--&gt;&#10;</xsl:text>
 	</xsl:template>
-	
-	
 	<xsl:template match="view" mode="app-config">
 	</xsl:template>
 

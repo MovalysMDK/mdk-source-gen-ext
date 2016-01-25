@@ -231,7 +231,6 @@
 			<xsl:text>groupDetailState: '',&#10;</xsl:text>
 		</xsl:if>
 		<xsl:text>searchable: false,&#10;</xsl:text>
-		<xsl:text>canAdd: '</xsl:text><xsl:value-of select="@can-add='true' and not(@type='LIST_2')"/><xsl:text>',&#10;&#10;</xsl:text>
 	</xsl:template>
 	
 	
