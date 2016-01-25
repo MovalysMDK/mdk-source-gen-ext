@@ -24,9 +24,6 @@
 		  <xsl:when test="in-workspace = 'true'">
 			<xsl:text>MFWorkspace</xsl:text>
 		  </xsl:when>
-		  <xsl:when test="in-multi-panel = 'true'">
-			<xsl:text>MFMultiPanels</xsl:text>
-		  </xsl:when>
 		  <xsl:otherwise>
 			<xsl:text>mdk_common.Common.MFPage</xsl:text>
 		  </xsl:otherwise>
@@ -42,9 +39,6 @@
 		<xsl:choose>
 		  <xsl:when test="workspace = 'true'">
 			<xsl:text>MFWorkspace</xsl:text>
-		  </xsl:when>
-		  <xsl:when test="multi-panel = 'true'">
-			<xsl:text>MFMultiPanels</xsl:text>
 		  </xsl:when>
 		  <xsl:otherwise>
 			<xsl:text>mdk_common.Common.MFPage</xsl:text>

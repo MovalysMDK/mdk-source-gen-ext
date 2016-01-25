@@ -45,9 +45,6 @@
 		  <xsl:when test="workspace = 'true'">
 			<xsl:text>&lt;mf:MFWorkspace </xsl:text>
 		  </xsl:when>
-		  <xsl:when test="multi-panel = 'true'">
-			<xsl:text>&lt;mf:MFMultiPanels </xsl:text>
-		  </xsl:when>
   		  <xsl:when test="search-screen = 'true'">
 			<xsl:text>&lt;common:MFPage </xsl:text>
 		  </xsl:when>
@@ -79,10 +76,6 @@
 			<xsl:text>&lt;x:String x:Key="MF_RootHeight"&gt;140</xsl:text>
 			<xsl:text>&lt;&#47;x:String&gt;</xsl:text>
 		  </xsl:when>
-		  <xsl:when test="multi-panel = 'true'">
-			<xsl:text>&lt;mf:MFMultiPanels.Resources&gt;</xsl:text>
-			<xsl:apply-templates select="pages/page"  mode="declare-section"/>
-		  </xsl:when>
   		  <xsl:when test="search-screen = 'true'">
 			<xsl:text>&lt;common:MFPage.Resources&gt;</xsl:text>
 		  </xsl:when>
@@ -99,9 +92,6 @@
 		<xsl:choose>
 		  <xsl:when test="workspace = 'true'">
 			<xsl:text>&lt;&#47;mf:MFWorkspace.Resources&gt;</xsl:text>
-		  </xsl:when>
-		  <xsl:when test="multi-panel = 'true'">
-			<xsl:text>&lt;&#47;mf:MFMultiPanels.Resources&gt;</xsl:text>
 		  </xsl:when>
   		  <xsl:when test="search-screen = 'true'">
 			<xsl:text>&lt;&#47;common:MFPage.Resources&gt;</xsl:text>
@@ -165,9 +155,6 @@
 		  <xsl:when test="workspace = 'true'">
 			<xsl:text>&lt;&#47;mf:MFWorkspace&gt;</xsl:text>
 		  </xsl:when>
-		  <xsl:when test="multi-panel = 'true'">
-			<xsl:text>&lt;&#47;mf:MFMultiPanels&gt;</xsl:text>
-		  </xsl:when>
   		  <xsl:when test="search-screen = 'true'">
 			<xsl:text>&lt;&#47;common:MFPage&gt;</xsl:text>
 		  </xsl:when>
@@ -209,17 +196,6 @@
 		<xsl:text>,</xsl:text>
 		<xsl:value-of select="number(parameters/parameter[@name = 'grid-section-parameter'])"/>
 		<xsl:text>&lt;&#47;x:String&gt;</xsl:text>
-	</xsl:template>
-			
-	<xsl:template match="page[/screen/multi-panel = 'true']" mode="declare-user-control" >
-		<xsl:text>&lt;UserControl x:Name="MFP_</xsl:text>
-		<xsl:value-of select="name"/>
-		<xsl:text>" Content="{Binding MFPanels[MFP_</xsl:text>
-		<xsl:value-of select="name"/>
-		<xsl:text>]}" Grid.Row="</xsl:text>
-		<xsl:value-of select="position()"/>
-		<xsl:text>" Grid.ColumnSpan="2"</xsl:text>
-		<xsl:text> &#47;&gt;</xsl:text>
 	</xsl:template>
 				
 	<xsl:template match="page" mode="declare-user-control" >

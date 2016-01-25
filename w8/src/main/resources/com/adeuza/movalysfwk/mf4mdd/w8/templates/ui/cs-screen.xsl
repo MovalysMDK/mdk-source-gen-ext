@@ -170,43 +170,8 @@
 				<xsl:text>&#13;/// &lt;param name="e"&gt;&lt;/param&gt;</xsl:text>
 				<xsl:text>&#13;private void btnSave_Click(object sender, RoutedEventArgs e)</xsl:text>
 				<xsl:text>&#13;{</xsl:text>
-				<xsl:text>this.SaveMultiSection();</xsl:text>
+				<xsl:text>&#13;//this.SaveMultiSection();</xsl:text>
 				<xsl:text>&#13;    }&#13;</xsl:text>
-
-				<xsl:text>&#13;public override void SaveMultiSection()</xsl:text>
-				<xsl:text>&#13;{</xsl:text>
-				<xsl:text>&#13;    //create chained Action</xsl:text>
-				<xsl:text>    &#13;ChainedActionArgs saveChainActionArgs = new ChainedActionArgs();</xsl:text>
-
-				<xsl:text>&#13;    //Fill chained action</xsl:text>
-				<xsl:text>&#13;    foreach (MFFWKUserControl userControl in MFPanels.Values)</xsl:text>
-				<xsl:text>    {</xsl:text>
-				<xsl:text>var control = userControl as MFUserControl;</xsl:text>
-				<xsl:text>if (control != null)</xsl:text>
-				<xsl:text>{</xsl:text>
-				<xsl:text>Object[] tab = control.PrepareSavePanel();</xsl:text>
-				<xsl:text>  if (tab != null){</xsl:text>
-				<xsl:text>saveChainActionArgs.listActionArgs.Add(tab);</xsl:text>
-				<xsl:text>}</xsl:text>
-				<xsl:text>}</xsl:text>
-				<xsl:text>    }</xsl:text>
-				<xsl:text>&#13;</xsl:text>
-				<xsl:call-template name="non-generated-bloc">
-					<xsl:with-param name="blocId">before-btnSave_Click-method</xsl:with-param>
-					<xsl:with-param name="defaultSource"></xsl:with-param>
-				</xsl:call-template>
-
-				<xsl:text>&#13;		//Launch chained action</xsl:text>
-				<xsl:text>&#13;		ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().LaunchAction(typeof(SaveChained</xsl:text>
-				<xsl:value-of select="name" />
-				<xsl:text>), this, saveChainActionArgs);</xsl:text>
-
-				<xsl:text>&#13;</xsl:text>
-				<xsl:call-template name="non-generated-bloc">
-					<xsl:with-param name="blocId">after-btnSave_Click-method</xsl:with-param>
-					<xsl:with-param name="defaultSource"></xsl:with-param>
-				</xsl:call-template>
-				<xsl:text>&#13;}&#13;</xsl:text>
 			</xsl:if>
 
 			<xsl:if test="./pages/page/chained-delete='true'">
@@ -219,35 +184,12 @@
 				<xsl:text>&#13;{</xsl:text>
 				<xsl:text>&#13;    // Dismiss the Flyout after the action is confirmed.</xsl:text>
 				<xsl:text>&#13;this.btnDelete.Flyout.Hide();&#13;</xsl:text>
-				<xsl:text>&#13;this.DeleteMultiSection();&#13;</xsl:text>
+				<xsl:text>&#13;//this.DeleteMultiSection();&#13;</xsl:text>
 				<xsl:text>&#13;base.HidePanels();&#13;//</xsl:text>
 				<xsl:value-of select="viewmodel/name" /><xsl:text>_DeleteItemEvent myevent = new </xsl:text><xsl:value-of
 					select="viewmodel/name" /><xsl:text>_DeleteItemEvent();</xsl:text>
 				<xsl:text>&#13;//ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().RaiseEventMethods(this, myevent);</xsl:text>
 				<xsl:text>&#13;}</xsl:text>
-
-				<xsl:text>&#13;public override void DeleteMultiSection()</xsl:text>
-				<xsl:text>&#13;{</xsl:text>
-				<xsl:text>&#13;    //create chained Action</xsl:text>
-				<xsl:text>&#13;ChainedActionArgs deleteChainActionArgs = new ChainedActionArgs();</xsl:text>
-				<xsl:text>&#13;    //Fill chained action</xsl:text>
-				<xsl:text>&#13;foreach (MFFWKUserControl userControl in MFPanels.Values)</xsl:text>
-				<xsl:text>{</xsl:text>
-				<xsl:text>var control = userControl as MFUserControl;</xsl:text>
-				<xsl:text>if (control != null)</xsl:text>
-				<xsl:text>{</xsl:text>
-				<xsl:text>Object[] tab = control.PrepareDeletePanel();</xsl:text>
-				<xsl:text>if (tab != null)</xsl:text>
-				<xsl:text>{</xsl:text>
-				<xsl:text>deleteChainActionArgs.listActionArgs.Add(tab);</xsl:text>
-				<xsl:text>}</xsl:text>
-				<xsl:text>}</xsl:text>
-				<xsl:text>}</xsl:text>
-				<xsl:text>&#13;</xsl:text>
-				<xsl:call-template name="non-generated-bloc">
-					<xsl:with-param name="blocId">before-btnDelete_Click-method</xsl:with-param>
-					<xsl:with-param name="defaultSource"></xsl:with-param>
-				</xsl:call-template>
 
 				<xsl:text>&#13;    //Launch chained action</xsl:text>
 				<xsl:text>&#13;		ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().LaunchAction(typeof(DeleteChained</xsl:text>
