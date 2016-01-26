@@ -53,6 +53,7 @@
             <!-- 					<xsl:attribute name="mf-limit-display">10</xsl:attribute> -->
             <!-- 					<xsl:attribute name="mf-view-model">viewModel</xsl:attribute> -->
             <xsl:attribute name="mf-field">viewModel.list</xsl:attribute>
+            <xsl:attribute name="class">mdk-list-container</xsl:attribute>
             <xsl:attribute name="mf-items-display-step">3</xsl:attribute>
             <xsl:attribute name="mf-row-height">45</xsl:attribute>
             <xsl:attribute name="ng-class">isSelectedItem?'selected':''</xsl:attribute>
@@ -104,6 +105,7 @@
             <!-- 					<xsl:attribute name="mf-limit-display">10</xsl:attribute> -->
             <!-- 					<xsl:attribute name="mf-view-model">viewModel</xsl:attribute> -->
             <xsl:attribute name="mf-field">viewModel.list</xsl:attribute>
+            <xsl:attribute name="class">mdk-list-container</xsl:attribute>
             <xsl:attribute name="mf-items-display-step">3</xsl:attribute>
             <xsl:attribute name="mf-row-height">45</xsl:attribute>
             <!-- <accordion-group> -->
