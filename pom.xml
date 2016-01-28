@@ -20,7 +20,7 @@
 
 	<groupId>com.adeuza.movalysfwk.mf4mdd</groupId>
 	<artifactId>mf4mdd</artifactId>
-	<version>6.0.1-SNAPSHOT</version>
+	<version>6.1.0</version>
 	<packaging>pom</packaging>
 	<name>mf4mdd</name>
 
@@ -44,7 +44,7 @@
 	<scm>
 		<connection>scm:git:ssh://gitmovalys@git.ptx.fr.sopra/mdk-source-gen-ext.git</connection>
 		<developerConnection>scm:git:ssh://gitmovalys@git.ptx.fr.sopra/mdk-source-gen-ext.git</developerConnection>
-	  <tag>HEAD</tag>
+	  <tag>6.1.0</tag>
   </scm>
 
 	<modules>
