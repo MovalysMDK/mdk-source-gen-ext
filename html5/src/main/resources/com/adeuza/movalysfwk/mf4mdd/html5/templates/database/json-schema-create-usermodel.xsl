@@ -37,10 +37,10 @@
 		<xsl:text>{&#34;keyPath&#34;:&#34;</xsl:text><xsl:value-of select="./identifier/attribute/parameter-name"/><xsl:text>&#34;,&#10;</xsl:text>
 		<xsl:text>&#34;createIndex&#34;:[</xsl:text>
 		<xsl:for-each select="./association[(@type='many-to-one' or (@type='one-to-one' and @relation-owner='true' and @transient='false')) and @opposite-navigable='true']">
-				<xsl:variable name="nameValue" select="@name"/>
+				<xsl:variable name="nameValue" select="./field/@name"/>
 				<xsl:variable name="nameLower" select="translate($nameValue, $uppercase, $smallcase)"/>
 
-				<xsl:text>&#10;{&#34;name&#34;:&#34;</xsl:text><xsl:value-of select="$nameLower"/><xsl:text>id&#34;, &#34;keyPath&#34;:&#34;</xsl:text><xsl:value-of select="$nameLower"/><xsl:text>id&#34;,</xsl:text>
+				<xsl:text>&#10;{&#34;name&#34;:&#34;</xsl:text><xsl:value-of select="$nameLower"/><xsl:text>&#34;, &#34;keyPath&#34;:&#34;</xsl:text><xsl:value-of select="$nameLower"/><xsl:text>&#34;,</xsl:text>
 				<xsl:text>&#34;unique&#34;:false }&#10;</xsl:text>
 				<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
 		</xsl:for-each>

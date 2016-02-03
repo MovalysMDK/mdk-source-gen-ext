@@ -29,7 +29,7 @@
 		<xsl:text>//@non-generated-end&#10;&#10;</xsl:text>
 		
 		<xsl:apply-templates select="." mode="class-prototype"/>
-			<xsl:apply-templates select="." mode="class-body"/>
+		<xsl:apply-templates select="." mode="class-body"/>
 		<xsl:text>}]);&#10;</xsl:text>
 	</xsl:template>
 
