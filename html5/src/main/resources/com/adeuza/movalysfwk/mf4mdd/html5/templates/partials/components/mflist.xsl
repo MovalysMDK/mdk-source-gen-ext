@@ -144,9 +144,9 @@
                             <xsl:value-of select="field-name"/>
                         </xsl:with-param>
                     </xsl:apply-templates>
-
                     <span>
-                        <xsl:attribute name="class">mflist-item-chevron</xsl:attribute>
+                        <xsl:attribute name="class">mdk-mflist-item-chevron glyphicon glyphicon-chevron-right
+                        </xsl:attribute>
                     </span>
                 </form>
             </mf-list>
