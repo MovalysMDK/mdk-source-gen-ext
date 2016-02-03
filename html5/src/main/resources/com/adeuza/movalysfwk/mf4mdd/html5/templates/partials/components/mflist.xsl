@@ -57,7 +57,7 @@
                     <xsl:attribute name="class">mdk-floating-button mdk-valign-parent</xsl:attribute>
                     <xsl:attribute name="ng-click">rootActions.navigateNew()
                     </xsl:attribute>
-                    <span>+</span>
+                    <span class="glyphicon glyphicon-plus"></span>
                 </span>
             </xsl:if>
             <div>
@@ -118,7 +118,7 @@
                     <xsl:attribute name="class">mdk-floating-button mdk-valign-parent</xsl:attribute>
                     <xsl:attribute name="ng-click">addSubItem([{level:1,id:'new'}],$event)
                     </xsl:attribute>
-                    <span>+</span>
+                    <span class="glyphicon glyphicon-plus"></span>
                 </span>
             </xsl:if>
             <mf-list>
