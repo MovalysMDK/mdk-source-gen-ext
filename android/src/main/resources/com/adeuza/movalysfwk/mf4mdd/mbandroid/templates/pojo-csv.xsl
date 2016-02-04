@@ -899,6 +899,8 @@ Req#U##</xsl:text><xsl:value-of select="$nameTable"/><xsl:text>#</xsl:text>
 		<xsl:when test="$smallTypeShortName='email'"><xsl:text>champ de type email;champ de type email#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='phone'"><xsl:text>champ de type phone;champ de type phone#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='url'"><xsl:text>champ de type url;champ de type url#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='byte'"><xsl:text>champ de type byte;champ de type byte#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='short'"><xsl:text>champ de type short;champ de type short#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='boolean'"><xsl:text>champ de type boolean ( yes , no );champ de type boolean ( yes , no )#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='float' or $smallTypeShortName='double'"><xsl:text>champ de type float;champ de type float#</xsl:text></xsl:when>
 		<xsl:when test="@enum='true'">

@@ -1171,6 +1171,12 @@ Req#U##</xsl:text>
 			<xsl:when test="$smallTypeShortName='url'">
 				<xsl:text>champ de type url;champ de type url#</xsl:text>
 			</xsl:when>
+			<xsl:when test="$smallTypeShortName='byte'">
+				<xsl:text>champ de type byte;champ de type byte#</xsl:text>
+			</xsl:when>
+			<xsl:when test="$smallTypeShortName='short'">
+				<xsl:text>champ de type short;champ de type short#</xsl:text>
+			</xsl:when>
 			<xsl:when test="$smallTypeShortName='boolean'">
 				<xsl:text>champ de type boolean ( yes , no );champ de type boolean ( yes , no )#</xsl:text>
 			</xsl:when>

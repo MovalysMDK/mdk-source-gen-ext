@@ -379,7 +379,7 @@ Option#</xsl:text>
 
 <!-- *** Option2 : NON GERE *** -->
 <xsl:text>
-Option2#</xsl:text>
+Option2##</xsl:text>
 <xsl:for-each select="/diagram/classes/class[table-name=$nameTable]/association/field">
 	<xsl:if test="../@type='many-to-one' or (../@type='one-to-one' and ../@relation-owner='true'  and ../@transient='false')">
 		<xsl:variable name="nameClass" select="../class/name"/>
@@ -823,9 +823,14 @@ Req#U##</xsl:text><xsl:value-of select="$nameTable"/><xsl:text>#</xsl:text>
 </xsl:template>
 
 <xsl:template match="field|attribute|property" mode="csvOption">
+	<xsl:variable name="smallTypeShortName" select="translate(@type-short-name,$majuscules,$minuscules)"/>
 	<xsl:choose>
-		<xsl:when test="@type-short-name='boolean'"><xsl:text>yes[1];no[0]#</xsl:text></xsl:when>
-		<xsl:when test="@type-short-name='ref1'"><xsl:text>string#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='boolean' or $smallTypeShortName='bool'">
+			<xsl:text>yes[1];no[0];#</xsl:text>
+		</xsl:when>
+		<xsl:when test="@smallTypeShortName='ref1'">
+			<xsl:text>string#</xsl:text>
+		</xsl:when>
 		<xsl:when test="@enum='true'">
 			<xsl:if test="@nullable='true'"><xsl:text>FWK_NONE[0];</xsl:text></xsl:if>
 			<xsl:for-each select="enumeration-values/enum-value">
@@ -842,7 +847,7 @@ Req#U##</xsl:text><xsl:value-of select="$nameTable"/><xsl:text>#</xsl:text>
 <xsl:template match="field|attribute|property" mode="csvOption2">
 	<xsl:variable name="smallTypeShortName" select="translate(@type-short-name,$majuscules,$minuscules)"/>
 	<xsl:choose>
-		<xsl:when test="$smallTypeShortName='boolean'">
+		<xsl:when test="$smallTypeShortName='boolean' or $smallTypeShortName='bool'">
 			<xsl:variable name="boolean-init" select="substring-before(substring-after(@init, '('), ')')"/>
 			<xsl:if test="$boolean-init='true'"><xsl:text>yes#</xsl:text></xsl:if>
 			<xsl:if test="$boolean-init='false'"><xsl:text>no#</xsl:text></xsl:if>
@@ -892,13 +897,15 @@ Req#U##</xsl:text><xsl:value-of select="$nameTable"/><xsl:text>#</xsl:text>
 	<xsl:variable name="smallTypeShortName" select="translate(@type-short-name,$majuscules,$minuscules)"/>
 	<xsl:choose>
 		<xsl:when test="$smallTypeShortName='string'"><xsl:text>champ de type string;champ de type string#</xsl:text></xsl:when>
-		<xsl:when test="$smallTypeShortName='long'"><xsl:text>champ de type number;champ de type number#</xsl:text></xsl:when>
-		<xsl:when test="$smallTypeShortName='timestamp'"><xsl:text>champ de type datetime;champ de type datetime#</xsl:text></xsl:when>
-		<xsl:when test="$smallTypeShortName='int' or $smallTypeShortName='integer'"><xsl:text>champ de type number;champ de type number#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='long' or $smallTypeShortName='int64'"><xsl:text>champ de type number;champ de type number#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='datetime'"><xsl:text>champ de type datetime;champ de type datetime#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='int' or $smallTypeShortName='int32'"><xsl:text>champ de type number;champ de type number#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='email'"><xsl:text>champ de type email;champ de type email#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='phone'"><xsl:text>champ de type phone;champ de type phone#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='url'"><xsl:text>champ de type url;champ de type url#</xsl:text></xsl:when>
-		<xsl:when test="$smallTypeShortName='boolean'"><xsl:text>champ de type boolean ( yes , no );champ de type boolean ( yes , no )#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='sbyte'"><xsl:text>champ de type byte;champ de type byte#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='short'"><xsl:text>champ de type short;champ de type short#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='boolean' or $smallTypeShortName='bool'"><xsl:text>champ de type boolean ( yes , no );champ de type boolean ( yes , no )#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='float' or $smallTypeShortName='double'"><xsl:text>champ de type float;champ de type float#</xsl:text></xsl:when>
 		<xsl:when test="@enum='true'">
 			<xsl:text>champ de type enum ( </xsl:text>
@@ -931,7 +938,7 @@ Req#U##</xsl:text><xsl:value-of select="$nameTable"/><xsl:text>#</xsl:text>
 	<xsl:choose>
 		<xsl:when test="$smallTypeShortName='string' and @length = '255'"><xsl:text>30#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='string' and @length != 255"><xsl:text>40#</xsl:text></xsl:when>
-		<xsl:when test="$smallTypeShortName='long' or $smallTypeShortName='int' or $smallTypeShortName='integer' or $smallTypeShortName='boolean' or $smallTypeShortName='float' or $smallTypeShortName='double'"><xsl:text>15#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='long' or $smallTypeShortName='int64' or $smallTypeShortName='int' or $smallTypeShortName='int32' or $smallTypeShortName='boolean' or $smallTypeShortName='bool' or $smallTypeShortName='float' or $smallTypeShortName='double'"><xsl:text>15#</xsl:text></xsl:when>
 		<xsl:otherwise><xsl:text>30#</xsl:text></xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
@@ -940,13 +947,14 @@ Req#U##</xsl:text><xsl:value-of select="$nameTable"/><xsl:text>#</xsl:text>
 	<xsl:variable name="smallTypeShortName" select="translate(@type-short-name,$majuscules,$minuscules)"/>
 	<xsl:choose>
 		<xsl:when test="$smallTypeShortName='string'"><xsl:text>string#</xsl:text></xsl:when>
-		<xsl:when test="$smallTypeShortName='long'"><xsl:text>number#</xsl:text></xsl:when>
-		<xsl:when test="$smallTypeShortName='timestamp'"><xsl:text>datetime#</xsl:text></xsl:when>
-		<xsl:when test="$smallTypeShortName='int' or $smallTypeShortName='integer'"><xsl:text>number#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='long' or $smallTypeShortName='int64'"><xsl:text>number#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='datetime'"><xsl:text>datetime#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='int' or $smallTypeShortName='int32'"><xsl:text>number#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='email'"><xsl:text>email#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='phone'"><xsl:text>phone#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='url'"><xsl:text>url#</xsl:text></xsl:when>
-		<xsl:when test="$smallTypeShortName='boolean'"><xsl:text>value#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='sbyte'"><xsl:text>byte#</xsl:text></xsl:when>
+		<xsl:when test="$smallTypeShortName='boolean' or $smallTypeShortName='bool'"><xsl:text>value#</xsl:text></xsl:when>
 		<xsl:when test="$smallTypeShortName='float' or $smallTypeShortName='double'"><xsl:text>float#</xsl:text></xsl:when>
 		<xsl:when test="@enum='true'"><xsl:text>value#</xsl:text></xsl:when>
 		<xsl:when test="@type-short-name"><xsl:value-of select="@type-short-name"/><xsl:text>#</xsl:text></xsl:when>
