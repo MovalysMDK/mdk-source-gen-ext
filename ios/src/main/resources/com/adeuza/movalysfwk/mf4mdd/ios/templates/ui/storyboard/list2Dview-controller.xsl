@@ -113,7 +113,7 @@
 	<xsl:param name="subViews"/>
 	<xsl:param name="viewId"/>
 		
-		<tableView autoresizesSubviews="NO" clipsSubviews="YES" opaque="NO" translatesAutoresizingMaskIntoConstraints="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" 
+		<tableView autoresizesSubviews="NO" clipsSubviews="YES" opaque="NO" translatesAutoresizingMaskIntoConstraints="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes"
 			style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10">
 			<xsl:attribute name="id"><xsl:value-of select="$viewId"/>-TV</xsl:attribute>
 			<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
