@@ -23,7 +23,7 @@
 <xsl:template match="storyboard" mode="gen-resources">
 
 <!--
-<xsl:if test="count(//subView[customClass='MFButton']) > 0">
+<xsl:if test="count(//subView[customClass='MDKUIButton']) > 0">
     <image name="steel-button.png" width="41" height="44"/>
 </xsl:if>
 -->

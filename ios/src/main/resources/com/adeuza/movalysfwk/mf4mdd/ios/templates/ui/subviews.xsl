@@ -301,7 +301,7 @@
  	<xsl:variable name="outletProperty">
 	    <xsl:choose>
 	        <xsl:when test="propertyName"><xsl:value-of select="propertyName" /></xsl:when>
-			<xsl:when test="customClass='MFButton'">button</xsl:when>		
+			<xsl:when test="customClass='MDKUIButton'">button</xsl:when>
 			<xsl:otherwise>
 			 	<xsl:comment>*********************
 			 	ERREUR DANS subviews.xsl > match="subView|component[customClass][@id]" mode="outlets-generation"

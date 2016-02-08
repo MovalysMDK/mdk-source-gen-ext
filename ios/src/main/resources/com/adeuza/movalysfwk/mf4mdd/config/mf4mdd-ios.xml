@@ -367,13 +367,13 @@
 				<ui-type uml-name="Button">
 					<read-write>
 						<view-model-type>Object</view-model-type>
-						<language-type>MFButton</language-type>
+						<language-type>MDKUIButton</language-type>
 						<component-height>25</component-height>
 						<component-width>150</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>Object</view-model-type>
-						<language-type>MFButton</language-type>
+						<language-type>MDKUIButton</language-type>
 						<component-height>25</component-height>
 						<component-width>150</component-width>
 					</read-only>
@@ -381,13 +381,13 @@
 				<ui-type uml-name="FilterButton">
 					<read-write>
 						<view-model-type>Object</view-model-type>
-						<language-type>MFButton</language-type>
+						<language-type>MDKUIButton</language-type>
 						<component-height>44</component-height>
 						<component-width>150</component-width>
 					</read-write>
 					<read-only>
 						<view-model-type>Object</view-model-type>
-						<language-type>MFButton</language-type>
+						<language-type>MDKUIButton</language-type>
 						<component-height>44</component-height>
 						<component-width>150</component-width>
 					</read-only>

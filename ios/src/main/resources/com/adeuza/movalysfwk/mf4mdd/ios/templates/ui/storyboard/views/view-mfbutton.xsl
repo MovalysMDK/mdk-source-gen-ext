@@ -28,22 +28,22 @@
 *****  
 ****************************************************** -->
 
-<xsl:template match="subView[customClass='MFButton']|component[customClass='MFButton']" mode="subview-runtimeAttributes-generation" priority="1000">
-	<xsl:comment>subView|component[customClass='MFButton']" mode="subview-runtimeAttributes-generation"</xsl:comment>
+<xsl:template match="subView[customClass='MDKUIButton']|component[customClass='MDKUIButton']" mode="subview-runtimeAttributes-generation" priority="1000">
+	<xsl:comment>subView|component[customClass='MDKUIButton']" mode="subview-runtimeAttributes-generation"</xsl:comment>
 	<xsl:comment>targetStoryBoard=<xsl:value-of select="targetStoryBoard"/></xsl:comment>
 	<xsl:if test="targetStoryBoard" >
-		<userDefinedRuntimeAttribute type="string" keyPath="mf.storyboardTargetName">
+		<userDefinedRuntimeAttribute type="string" keyPath="keyPath.storyboardTargetName">
 			<xsl:attribute name="value"><xsl:value-of select="targetStoryBoard"/></xsl:attribute>
-		</userDefinedRuntimeAttribute>		
-        <userDefinedRuntimeAttribute type="string" keyPath="mf.title">
+		</userDefinedRuntimeAttribute>
+        <userDefinedRuntimeAttribute type="string" keyPath="keyPath.title">
 			<xsl:attribute name="value"><xsl:value-of select="targetStoryBoard"/></xsl:attribute>
-		</userDefinedRuntimeAttribute>	
+		</userDefinedRuntimeAttribute>
 	</xsl:if>
 </xsl:template>
 
 
-<xsl:template match="subView[customClass='MFButton']|component[customClass='MFButton']" mode="subview-outlets-generation"  priority="1000">
-	<xsl:comment>subView|component[customClass='MFButton']" mode="subview-outlets-generation"</xsl:comment>
+<xsl:template match="subView[customClass='MDKUIButton']|component[customClass='MDKUIButton']" mode="subview-outlets-generation"  priority="1000">
+	<xsl:comment>subView|component[customClass='MDKUIButton']" mode="subview-outlets-generation"</xsl:comment>
 		<!--  xsl:if test="$controllerId!=''">
 			<outlet property="delegate">
 				<xsl:attribute name="id"><xsl:value-of select="@id"/>-<xsl:value-of select="customClass"/>-SOD</xsl:attribute>
