@@ -71,7 +71,7 @@
 		</xsl:if>
 
 		<xsl:if test="parameters/parameter[@name='vmtype']='LISTITEM_2'">
-			<xsl:attribute name="android:paddingLeft">0dip</xsl:attribute>
+			<xsl:attribute name="android:paddingLeft">20dip</xsl:attribute>
 			<xsl:attribute name="android:paddingRight">5dip</xsl:attribute>
 		</xsl:if>
 		<xsl:if test="parameters/parameter[@name='vmtype']='LISTITEM_1' and parameters/parameter[@name='parentvmtype']='LISTITEM_2'">
