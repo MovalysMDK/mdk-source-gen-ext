@@ -110,7 +110,7 @@
 		<xsl:text>{leftAttr: </xsl:text><xsl:value-of select="$leftAttr"/><xsl:text>, </xsl:text>
 		<xsl:text>rightAttr: '</xsl:text><xsl:value-of select="@name"/><xsl:text>'</xsl:text>
 		<xsl:apply-templates select="." mode="attribute-specific-converter"/>
-		<xsl:text>}</xsl:text><xsl:if test="(position() != last()) or count(../association[(not(@type='one-to-many' or @type='many-to-many') and @relation-owner='true')])>0">,</xsl:if><xsl:text>&#10;</xsl:text>
+		<xsl:text>}</xsl:text><xsl:if test="(position() != last()) or count(../association[(not(@type='one-to-many' or @type='many-to-many') and @relation-owner='true' and @transient='false')])>0">,</xsl:if><xsl:text>&#10;</xsl:text>
 	</xsl:template>
 	
 	
@@ -139,7 +139,7 @@
 	</xsl:template>
 	
 	<!-- Basic Association  Mapping -->
-	<xsl:template match="association[@relation-owner='true' and not(@type='one-to-many' or @type='many-to-many')]" mode="map-attribute">
+	<xsl:template match="association[@relation-owner='true' and not(@type='one-to-many' or @type='many-to-many') and @transient='false']" mode="map-attribute">
 		<xsl:param name="database"/>
 		
 		<xsl:variable name="leftAttr">
