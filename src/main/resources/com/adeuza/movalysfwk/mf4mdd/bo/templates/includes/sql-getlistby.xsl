@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+<xsl:template match="method-signature[@type='getListEntite']">
+	<xsl:param name="interface" select="../interface"/>
+
+<xsl:param name="tableName"/>
+<xsl:variable name="classe" select="../class"/>
+
+<xsl:text>sql.</xsl:text><xsl:value-of select="@name"/><xsl:text> = SELECT </xsl:text> 
+<xsl:for-each select="../class/identifier/attribute/field | ../class/identifier/association/field | ../class/attribute/field | ../class/association/field">
+<xsl:text>{0}.</xsl:text>
+<xsl:value-of select="@name"/>
+<xsl:if test="position() != last()">
+<xsl:text>, </xsl:text>
+</xsl:if>
+</xsl:for-each>
+<xsl:text> FROM </xsl:text><xsl:value-of select="$tableName"/><xsl:text>_{1}{2} {0}</xsl:text>
+<xsl:call-template name="innerjoin">
+	<xsl:with-param name="classe" select="$classe"/>
+</xsl:call-template>
+<xsl:text> WHERE </xsl:text>
+<xsl:call-template name="criteria"/>
+<xsl:text>
+</xsl:text>
+</xsl:template>
+
+</xsl:stylesheet>
