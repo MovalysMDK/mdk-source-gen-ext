@@ -30,8 +30,6 @@
 	<xsl:text> android:src="@android:drawable/ic_input_add"</xsl:text>
 	<xsl:text> android:layout_centerHorizontal="true"</xsl:text>
 	<xsl:text> android:layout_gravity="bottom|end"</xsl:text>
-	<xsl:text> android:layout_width="wrap_content"</xsl:text>
-    <xsl:text> android:layout_height="wrap_content"</xsl:text>
 	<xsl:text> android:layout_margin="16dp"</xsl:text>
 	<xsl:text disable-output-escaping="yes"><![CDATA[/>]]></xsl:text>
 </xsl:template>
