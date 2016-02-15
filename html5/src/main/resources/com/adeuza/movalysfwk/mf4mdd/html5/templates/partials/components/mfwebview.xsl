@@ -19,10 +19,55 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  extension-element-prefixes="xsi">
 
 
-<xsl:template match="HTML-attribute[visualfield/component='MFWebView']" mode="partial-component-generation"  priority="1000">
-	<xsl:param name="readonly-override-value"/>
+    <xsl:template match="HTML-attribute[visualfield/component='MFWebView']" mode="partial-component-generation"  priority="1000">
+        <xsl:param name="viewModel"/>
+        <xsl:param name="overide-text"/>
+        <xsl:param name="ignoreFormAttribute">false</xsl:param>
 
-		<xsl:comment>MFWebView</xsl:comment>
-</xsl:template>
+
+
+        <xsl:comment> Optional : mf-hide-label</xsl:comment>
+
+        <xsl:text disable-output-escaping="yes"> &lt;div mf-webview mf-field="</xsl:text>
+
+        <xsl:choose>
+            <xsl:when test="$viewModel and $viewModel != ''">
+                <xsl:value-of select="$viewModel"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>viewModel</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>.</xsl:text>
+        <xsl:choose>
+            <xsl:when test="not($overide-text='')">
+                <xsl:value-of select="$overide-text"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="field-name"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>"</xsl:text>
+
+        <xsl:choose>
+            <xsl:when test="visualfield/create-label = 'false'">
+                <xsl:text>mf-hide-label="true"</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>mf-label="</xsl:text><xsl:value-of select="visualfield/label"/><xsl:text>"</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+
+        <xsl:if test="$ignoreFormAttribute = 'false'">
+            <xsl:text>mf-form="</xsl:text><xsl:value-of select="../../viewName"/>Form<xsl:text>"</xsl:text>
+        </xsl:if>
+
+        <xsl:text disable-output-escaping="yes">&gt;</xsl:text>
+
+        <xsl:text disable-output-escaping="yes"> &lt;/div&gt;</xsl:text>
+
+
+
+    </xsl:template>
 
 </xsl:stylesheet>
