@@ -54,7 +54,7 @@
 					<uml-type>AddressLocation</uml-type>
 					<language-type>mdk_common.Model.MFAddressLocation</language-type>
 					<expandAs>EMBEDDED</expandAs>
-					<init-format>null</init-format>
+					<init-format>new MFPositionViewModel()</init-format>
 					<variable-prefix></variable-prefix>
 					<parameter-prefix></parameter-prefix>
 					<return-prefix></return-prefix>
@@ -83,7 +83,7 @@
 				<type>
 					<uml-type>AddressLocationVO</uml-type>
 					<language-type>MFPositionViewModel</language-type>
-					<init-format>null</init-format>
+					<init-format>new MFPositionViewModel()</init-format>
 					<default-value></default-value>
 					<variable-prefix></variable-prefix>
 					<parameter-prefix></parameter-prefix>
@@ -125,7 +125,7 @@
 				<type>
 					<uml-type>PhotoVO</uml-type>
 					<language-type>IMFPhotoViewModel</language-type>
-					<init-format>null</init-format>
+					<init-format>new MFPhotoViewModel()</init-format>
 					<default-value></default-value>
 					<variable-prefix></variable-prefix>
 					<parameter-prefix></parameter-prefix>
