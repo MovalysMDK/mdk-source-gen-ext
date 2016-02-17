@@ -37,7 +37,7 @@
 	</licenses>
 
 	<properties>
-		<adjava_version>6.8.0-RC3</adjava_version>
+		<adjava_version>6.8.0-SNAPSHOT</adjava_version>
 		<sonar.projectName>mdk-source-gen-ext</sonar.projectName>
 	</properties>
 
