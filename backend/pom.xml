@@ -31,7 +31,7 @@
 	<parent>
 		<groupId>com.adeuza.movalysfwk.mf4mdd</groupId>
 		<artifactId>mf4mdd</artifactId>
-		<version>6.2.0-SNAPSHOT</version>
+		<version>6.2.0-RC3</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
