@@ -3,11 +3,18 @@
 
 ## What is mdk-source-gen-ext?
 
-The mdk-source-gen-ext is part of the Movalys MDK Framework.
+Mdk-source-gen-ext is the extension of mdk-source-gen used by Movalys MDK to generate source code in MDK projects.
 
-It reads the mdk-source-gen outputs and provides classes which handle the application's native code generation according the platform:
-* Produce project's source files from templates for manifest, views, comments, factorys, dao, dataloaders, viewmodels...
-* Apply rules in order to generate navigations, data access, cascades, actions... in accorance with the model
+It provides classes and XSL templates which handle the application's code generation according to the platform:
+* Views
+* Viewmodels
+* Navigation
+* Actions
+* Dataloaders 
+* Dao
+* Model
+* Factories
+* ...
 
 ## Documentation
 
