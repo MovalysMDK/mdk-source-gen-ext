@@ -67,7 +67,8 @@ extension-element-prefixes="exsl">
 				<xsl:attribute name="opposite-navigable">		<xsl:value-of select="@opposite-navigable"/>									</xsl:attribute>
 				<xsl:attribute name="relation-owner">			<xsl:value-of select="@relation-owner"/>									</xsl:attribute>
 				<xsl:attribute name="type">						<xsl:value-of select="@type"/>												</xsl:attribute>
-				
+				<xsl:attribute name="opposite-aggregate-type">	<xsl:value-of select="@opposite-aggregate-type"/>                           </xsl:attribute>
+
 				<xsl:attribute name="leftForeignKey">			
 					<xsl:call-template name="string-lowercase">
 						<xsl:with-param name="text" select="field/@name" />
