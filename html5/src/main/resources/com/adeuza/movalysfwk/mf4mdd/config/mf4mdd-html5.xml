@@ -675,7 +675,9 @@
 						<generator class="com.a2a.adjava.languages.html5.generators.EntityGenerator"/>
 						<generator class="com.a2a.adjava.languages.html5.generators.EnumConverterGenerator"/>	
 						<generator class="com.a2a.adjava.languages.html5.generators.EnumGenerator"/>	
-						<generator class="com.a2a.adjava.languages.html5.generators.FactoryGenerator"/>												
+						<generator class="com.a2a.adjava.languages.html5.generators.FactoryGenerator"/>	
+					     <generator class="com.adeuza.movalysfwk.mf4mdd.html5.generators.PojoCascadeGenerator"/>												
+																	
 						
 						<!-- 						Main App.js 							  -->
 						<generator class="com.adeuza.movalysfwk.mf4mdd.html5.generators.MainAppGenerator"/>
