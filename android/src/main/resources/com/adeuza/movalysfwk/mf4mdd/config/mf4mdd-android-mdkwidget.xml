@@ -23,6 +23,16 @@
 	        </type-viewmodels>
 		    
 		    <ui-types>
+				<ui-type uml-name="SimpleText">
+					<read-write>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>android.widget.EditText</language-type>
+					</read-write>
+					<read-only>
+						<view-model-type>SameAsEntity|String</view-model-type>
+						<language-type>android.widget.TextView</language-type>
+					</read-only>
+				</ui-type>
 				<ui-type uml-name="Text">
 					<read-write>
 						<view-model-type>SameAsEntity|String</view-model-type>
