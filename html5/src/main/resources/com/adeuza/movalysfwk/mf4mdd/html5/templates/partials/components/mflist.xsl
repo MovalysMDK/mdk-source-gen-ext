@@ -55,27 +55,21 @@
                 <xsl:text>&#10;</xsl:text>
                 <span>
                     <xsl:attribute name="class">mdk-floating-button mdk-valign-parent</xsl:attribute>
-                    <xsl:attribute name="ng-click">rootActions.navigateNew()
-                    </xsl:attribute>
+                    <xsl:attribute name="ng-click">rootActions.navigateNew()</xsl:attribute>
                     <span class="glyphicon glyphicon-plus"></span>
                 </span>
             </xsl:if>
             <div>
-                <xsl:attribute name="ng-click">navigateDetail(item.<xsl:value-of select="@list-id"/>)
-                </xsl:attribute>
+                <xsl:attribute name="ng-click">navigateDetail(item.<xsl:value-of select="@list-id"/>)</xsl:attribute>
                 <xsl:attribute name="class">mdk-mflist-item-header</xsl:attribute>
                 <span>
-                    <xsl:attribute name="class">mdk-mflist-item-chevron glyphicon glyphicon-chevron-right
-                    </xsl:attribute>
+                    <xsl:attribute name="class">mdk-mflist-item-chevron glyphicon glyphicon-chevron-right</xsl:attribute>
                 </span>
                 <form>
-                    <xsl:attribute name="mf-list-item-form">[item.<xsl:value-of select="@list-id"/>]
-                    </xsl:attribute>
-                    <xsl:attribute name="mf-form-name-prefix"><xsl:value-of select="name"/>Form
-                    </xsl:attribute>
+                    <xsl:attribute name="mf-list-item-form">[item.<xsl:value-of select="@list-id"/>]</xsl:attribute>
+                    <xsl:attribute name="mf-form-name-prefix"><xsl:value-of select="name"/>Form</xsl:attribute>
                     <xsl:attribute name="novalidate">true</xsl:attribute>
-                    <xsl:apply-templates select="attributes/HTML-attribute/child-attributes/HTML-attribute"
-                                         mode="partial-component-generation">
+                    <xsl:apply-templates select="attributes/HTML-attribute/child-attributes/HTML-attribute" mode="partial-component-generation">
                         <!-- Editable List is not a feature of MDK HTML5, force read only to true -->
                         <xsl:with-param name="readonly-override-value" select="'true'"/>
                         <xsl:with-param name="viewModel" select="'item'"/>
@@ -96,14 +90,11 @@
             <xsl:attribute name="mf-items-display-step">3</xsl:attribute>
             <xsl:attribute name="mf-row-height">45</xsl:attribute>
             <form>
-                <xsl:attribute name="mf-list-item-form">[item.<xsl:value-of select="@list-id"/>]
-                </xsl:attribute>
-                <xsl:attribute name="mf-form-name-prefix"><xsl:value-of select="name"/>Form
-                </xsl:attribute>
+                <xsl:attribute name="mf-list-item-form">[item.<xsl:value-of select="@list-id"/>]</xsl:attribute>
+                <xsl:attribute name="mf-form-name-prefix"><xsl:value-of select="name"/>Form</xsl:attribute>
                 <xsl:attribute name="novalidate">true</xsl:attribute>
 
-                <xsl:apply-templates select="attributes/HTML-attribute/child-attributes/HTML-attribute"
-                                     mode="partial-component-generation">
+                <xsl:apply-templates select="attributes/HTML-attribute/child-attributes/HTML-attribute" mode="partial-component-generation">
                     <!-- Editable List is not a feature of MDK HTML5, force read only to true -->
                     <xsl:with-param name="readonly-override-value" select="'true'"/>
                     <xsl:with-param name="viewModel" select="'item'"/>
@@ -116,37 +107,27 @@
                 <xsl:text>&#10;</xsl:text>
                 <span>
                     <xsl:attribute name="class">mdk-floating-button mdk-valign-parent</xsl:attribute>
-                    <xsl:attribute name="ng-click">addSubItem([{level:1,id:'new'}],$event)
-                    </xsl:attribute>
+                    <xsl:attribute name="ng-click">addSubItem([{level:1,id:'new'}],$event)</xsl:attribute>
                     <span class="glyphicon glyphicon-plus"></span>
                 </span>
             </xsl:if>
             <mf-list>
                 <xsl:attribute name="mf-sublist">true</xsl:attribute>
                 <xsl:attribute name="mf-field">item.list</xsl:attribute>
-                <xsl:attribute name="mf-item-click">navigateDetail([{level:0, id:item.<xsl:value-of select="@list-id"/>},{level:1,id:subitem.<xsl:value-of
-                        select="@list-id"/>}])
-                </xsl:attribute>
+                <xsl:attribute name="mf-item-click">navigateDetail([{level:0, id:item.<xsl:value-of select="@list-id"/>},{level:1,id:subitem.<xsl:value-of select="@list-id"/>}])</xsl:attribute>
                 <form>
                     <xsl:attribute name="class">mflist-item-body</xsl:attribute>
-                    <xsl:attribute name="mf-list-item-form">[item.<xsl:value-of select="@list-id"/>,
-                        subitem.<xsl:value-of select="@list-id"/>]
-                    </xsl:attribute>
-                    <xsl:attribute name="mf-form-name-prefix"><xsl:value-of select="name"/>Form
-                    </xsl:attribute>
+                    <xsl:attribute name="mf-list-item-form">[item.<xsl:value-of select="@list-id"/>,subitem.<xsl:value-of select="@list-id"/>]</xsl:attribute>
+                    <xsl:attribute name="mf-form-name-prefix"><xsl:value-of select="name"/>Form</xsl:attribute>
                     <xsl:attribute name="novalidate">true</xsl:attribute>
-                    <xsl:apply-templates select="attributes/HTML-attribute/level2-attributes/HTML-attribute"
-                                         mode="partial-component-generation">
+                    <xsl:apply-templates select="attributes/HTML-attribute/level2-attributes/HTML-attribute" mode="partial-component-generation">
                         <!-- Editable List is not a feature of MDK HTML5, force read only to true -->
                         <xsl:with-param name="readonly-override-value" select="'true'"/>
                         <xsl:with-param name="viewModel" select="'subitem'"/>
-                        <xsl:with-param name="overide-text">
-                            <xsl:value-of select="field-name"/>
-                        </xsl:with-param>
+                        <xsl:with-param name="overide-text"><xsl:value-of select="field-name"/></xsl:with-param>
                     </xsl:apply-templates>
                     <span>
-                        <xsl:attribute name="class">mdk-mflist-item-chevron glyphicon glyphicon-chevron-right
-                        </xsl:attribute>
+                        <xsl:attribute name="class">mdk-mflist-item-chevron glyphicon glyphicon-chevron-right</xsl:attribute>
                     </span>
                 </form>
             </mf-list>
