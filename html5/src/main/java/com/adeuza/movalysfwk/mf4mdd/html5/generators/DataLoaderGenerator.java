@@ -138,6 +138,7 @@ public class DataLoaderGenerator extends AbstractIncrementalGenerator<MH5Domain<
 		if(p_oMDataLoader.getLoadDao() != null)
 		{
 			p_oMH5ImportDelegate.addImport(p_oMDataLoader.getLoadDao().getName()+"Proxy");
+			p_oMH5ImportDelegate.addImport(p_oMDataLoader.getLoadDao().getMEntityImpl().getName()+"Cascade");
 		}
 		
 		for (MAssociation oAssociation : p_oMDataLoader.getMasterInterface().getEntity().getAssociations()) {
@@ -151,7 +152,6 @@ public class DataLoaderGenerator extends AbstractIncrementalGenerator<MH5Domain<
 		for(MDataLoaderCombo combo : p_oMDataLoader.getMasterInterface().getCombos()){
 			if(combo.getEntityDao()!=null){
 				p_oMH5ImportDelegate.addImport(combo.getEntityDao().getName()+"Proxy" );
-
 			}
 		}
 		

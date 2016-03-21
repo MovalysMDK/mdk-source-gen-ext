@@ -240,7 +240,8 @@
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:for-each select="dao-interface/dao/class/association">
-			<xsl:text>'</xsl:text><xsl:value-of select="@name"/><xsl:text>'</xsl:text>
+			<xsl:value-of select="../name"/><xsl:text>Cascade.</xsl:text>
+			<xsl:value-of select="@cascade-name"/>
 			<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
 		</xsl:for-each>
 		<xsl:text>]</xsl:text>
