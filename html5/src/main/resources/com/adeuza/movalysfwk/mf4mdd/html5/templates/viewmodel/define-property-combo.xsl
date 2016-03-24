@@ -17,10 +17,11 @@
 
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	
+
 	<xsl:output method="text"/>
 	
-	<xsl:template match="entity[@mapping-type='vm_comboitemselected']" mode="definePropertyForCombo">
+	<xsl:template match="*" mode="definePropertyForCombo">
+
 			<xsl:text>&#10;'</xsl:text><xsl:value-of select="@vm-attr"/><xsl:text>': {&#10;</xsl:text>
 	                 
 			<xsl:apply-templates select="." mode="define-getter-method">
@@ -46,7 +47,6 @@
 	</xsl:template>
 	
 	
-	<xsl:template match="*" mode="definePropertyForCombo">
-	</xsl:template>
+
 	
 </xsl:stylesheet>

@@ -47,7 +47,7 @@
 		</xsl:if>
 		
 		<!-- attribut de  COMBOBOX  -->
-		<xsl:apply-templates select="mapping/entity" mode="definePropertyForCombo"/>
+		<xsl:apply-templates select="mapping/entity[@mapping-type='vm_comboitemselected']" mode="definePropertyForCombo"/>
 
 		<xsl:text>&#10;});&#10;</xsl:text>
 	</xsl:template>
