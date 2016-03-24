@@ -33,9 +33,7 @@
 	<xsl:template match="savecascades" mode="cascades">
 		<xsl:text>[</xsl:text>
 		<xsl:for-each select="cascade">
-			<xsl:text>'</xsl:text>
-			<xsl:value-of select="@assoName"/>
-			<xsl:text>'</xsl:text>
+			<xsl:value-of select="."/>
 			<xsl:if test="position() != last()">
 				<xsl:text>, </xsl:text>
 			</xsl:if>
@@ -50,9 +48,7 @@
 		<xsl:if test="../entity-to-update/name = ../../../../class/name">
 			
 			<xsl:for-each select="cascade">
-				<xsl:text>'</xsl:text>
-				<xsl:value-of select="@assoName"/>
-				<xsl:text>'</xsl:text>
+				<xsl:value-of select="."/>
 				<xsl:if test="position() != last()">
 					<xsl:text>, </xsl:text>
 				</xsl:if>

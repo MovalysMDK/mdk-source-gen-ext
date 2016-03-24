@@ -93,6 +93,7 @@ public class MF4HActionGenerator extends ActionGenerator {
 		}
 		if(p_oAction.getDao() !=null){
 			oImportDlg.addImport(p_oAction.getDao().getName()+"Proxy");
+			oImportDlg.addImport(p_oAction.getDao().getMEntityImpl().getName()+"Cascade");
 		}
 		
 		if (p_oAction.getVm().isScreenWorkspace()) {
