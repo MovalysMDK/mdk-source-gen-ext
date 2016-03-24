@@ -30,7 +30,7 @@
 		<xsl:text>//@non-generated-start[jshint-override]&#10;</xsl:text>
 		<xsl:value-of select="/*/non-generated/bloc[@id='jshint-override']"/>
 		<xsl:text>//@non-generated-end&#10;</xsl:text>
-		<xsl:text>&#10;angular.module('</xsl:text><xsl:value-of select="viewName"/><xsl:text>').factory('</xsl:text><xsl:value-of select="name"/><xsl:text>', [&#10;</xsl:text>
+		<xsl:text>&#10;angular.module('</xsl:text><xsl:value-of select="viewName"/><xsl:text>').factory('</xsl:text><xsl:value-of select="name"/><xsl:text>', [</xsl:text>
 			
 		<xsl:apply-templates select="." mode="declare-protocol-imports"/>
 

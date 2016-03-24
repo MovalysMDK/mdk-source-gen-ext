@@ -37,37 +37,30 @@
 			</objc-imports>
 		</xsl:variable>
 
+		<xsl:text>&#10;//@non-generated-start[dependencies-names]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='dependencies-names']"/>
+		<xsl:text>//@non-generated-end&#10;</xsl:text>
 
 		<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']) > 0">
 			<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']" mode="write-import">
 				<xsl:sort/>
 			</xsl:apply-templates>
 		</xsl:if>
+		
 		<xsl:text>&#10;</xsl:text>
-		<xsl:call-template name="non-generated-bloc">
-			<xsl:with-param name="blocId">dependencies-names</xsl:with-param>
-			<xsl:with-param name="defaultSource"></xsl:with-param>
-		</xsl:call-template>
-
-		<xsl:text>&#10;</xsl:text>
-
-		<xsl:call-template name="non-generated-bloc">
-			<xsl:with-param name="blocId">dependencies-classes</xsl:with-param>
-			<xsl:with-param name="defaultSource">
-			<xsl:text>function(</xsl:text>
-
-			<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']) > 0">
+		<xsl:text>function(</xsl:text>
+		<xsl:text>&#10;//@non-generated-start[dependencies-classes]&#10;</xsl:text>
+		<xsl:value-of select="/*/non-generated/bloc[@id='dependencies-classes']"/>
+		<xsl:text>//@non-generated-end&#10;</xsl:text>
+		<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']) > 0">
 				<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']" mode="write-import-in-function">
 					<xsl:sort/>
 				</xsl:apply-templates>
 			</xsl:if>
 			<xsl:text>&#10;</xsl:text>
-		</xsl:with-param>
-		</xsl:call-template>
-		<xsl:text>)&#10;</xsl:text>
+		<xsl:text>)</xsl:text>
 	</xsl:template>
-
-
+	
 	<xsl:template match="objc-import" mode="write-import">
 		<xsl:variable name="currentImport" select="text()"/>
 		<xsl:if test="count(preceding-sibling::objc-import[text()=$currentImport]) = 0">

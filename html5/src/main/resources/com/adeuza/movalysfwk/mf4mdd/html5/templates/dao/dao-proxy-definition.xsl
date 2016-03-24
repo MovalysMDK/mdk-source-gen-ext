@@ -23,7 +23,7 @@
 
 	<xsl:template match="node()" mode="class-prototype">
 		<xsl:text>angular.module('data').factory('</xsl:text><xsl:value-of select="name"/><xsl:text>',&#10;</xsl:text>
-		<xsl:text>	[&#10;</xsl:text>
+		<xsl:text>	[</xsl:text>
 		<xsl:apply-templates select="." mode="declare-protocol-imports"/>
 	</xsl:template>
 	

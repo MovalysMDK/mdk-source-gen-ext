@@ -44,7 +44,7 @@
 		</xsl:choose></xsl:variable>	
 	
 		<xsl:text>'use strict';&#10;&#10;</xsl:text>
-		<xsl:text>&#10;angular.module('</xsl:text><xsl:value-of select="viewName"/><xsl:text>').controller('</xsl:text><xsl:value-of select="name"/><xsl:text>Ctrl', [&#10;</xsl:text>
+		<xsl:text>&#10;angular.module('</xsl:text><xsl:value-of select="viewName"/><xsl:text>').controller('</xsl:text><xsl:value-of select="name"/><xsl:text>Ctrl', [</xsl:text>
 		
 		<xsl:apply-templates select="." mode="declare-protocol-imports"/>
 		
