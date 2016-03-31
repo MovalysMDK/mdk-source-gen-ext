@@ -12,7 +12,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
     GNU Lesser General Public License for more details.
     You should have received a copy of the GNU Lesser General Public License
-    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses />.
 
 -->
 <!-- Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com) 
@@ -31,7 +31,7 @@
 	<parent>
 		<groupId>com.adeuza.movalysfwk.mf4mdd</groupId>
 		<artifactId>mf4mdd</artifactId>
-		<version>6.3.0</version>
+		<version>6.4.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
