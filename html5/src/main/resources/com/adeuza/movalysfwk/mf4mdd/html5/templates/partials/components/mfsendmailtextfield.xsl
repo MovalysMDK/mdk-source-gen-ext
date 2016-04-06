@@ -26,8 +26,6 @@
 	<xsl:param name="ignoreFormAttribute"/>
 	<xsl:param name="viewModel"/>
 		
-		<xsl:comment> Optionnal : the constrain mf-onchange can be added to this component</xsl:comment>
-
 		<mf-emailfield>
 			<xsl:apply-templates select="." mode="call-common-component-attributes">
 				<xsl:with-param name="placeholder-text">{{'field.mfsendmailtextfield.placeholder' | translate}}</xsl:with-param>

@@ -26,7 +26,7 @@
 	<xsl:param name="ignoreFormAttribute"/>
 	<xsl:param name="viewModel"/>
 
-		<xsl:comment> Optionnal : the constrains mf-show-value, mf-min, mf-max and mf-step can be added to this component</xsl:comment>
+		<xsl:comment> Optionnal : the constrains mf-show-value, mf-min and mf-max can be added to this component</xsl:comment>
 		<mf-slider>
 			<xsl:apply-templates select="." mode="call-common-component-attributes">
 				<xsl:with-param name="readonly-override-value" select="$readonly-override-value"/>

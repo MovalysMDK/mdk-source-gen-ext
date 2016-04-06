@@ -25,7 +25,6 @@
 	<xsl:param name="ignoreFormAttribute"/>
 	<xsl:param name="viewModel"/>
 		
-		<xsl:comment> Optionnal : the constrain mf-onchange can be added to this component</xsl:comment>
 		<mf-radiogroup>
 			<xsl:apply-templates select="." mode="call-common-component-attributes">
 				<xsl:with-param name="placeholder-text">no</xsl:with-param>
