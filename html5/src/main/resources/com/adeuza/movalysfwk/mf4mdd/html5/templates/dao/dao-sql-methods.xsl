@@ -323,6 +323,8 @@ extension-element-prefixes="exsl">
                                 <xsl:text>		//		1.2  check that the ID attribute of the children model entities is updated (update foreign key of the parent pointing the child just saved)&#10;</xsl:text>
                             </xsl:if>
 							<xsl:if test="position() = 1">
+								<xsl:text>/*jshint loopfunc: true */</xsl:text>
+								<xsl:text>/* jshint shadow:true */</xsl:text>
 								<xsl:text>for (var i = 0 , cascadeSetLength = p_cascadeSet.length ; i &lt; cascadeSetLength ; i += 1) {&#10;</xsl:text>
 							</xsl:if>
 							<xsl:if test="position() = 1">
@@ -372,6 +374,8 @@ extension-element-prefixes="exsl">
                                 <xsl:text>&#10;</xsl:text>
                             </xsl:if>
 							<xsl:if test="position() = 1">
+								<xsl:text>/*jshint loopfunc: true */</xsl:text>
+								<xsl:text>/* jshint shadow:true */</xsl:text>
 								<xsl:text>for (var i = 0 , cascadeSetLength = p_cascadeSet.length ; i &lt; cascadeSetLength ; i += 1) {&#10;</xsl:text>
 							</xsl:if>
 							<xsl:if test="position() = 1">
@@ -478,6 +482,8 @@ extension-element-prefixes="exsl">
 							<xsl:text>		// for composition relationships one_to_xxx&#10;</xsl:text>
 							</xsl:if>
 							<xsl:if test="position() = 1">
+								<xsl:text>/*jshint loopfunc: true */</xsl:text>
+								<xsl:text>/* jshint shadow:true */</xsl:text>
 								<xsl:text>for (var i = 0 , cascadeSetLength = p_cascadeSet.length ; i &lt; cascadeSetLength ; i += 1) {&#10;</xsl:text>
 							</xsl:if>
 							<xsl:if test="position() = 1">
@@ -494,7 +500,14 @@ extension-element-prefixes="exsl">
 							<xsl:text>				self.getChildrenIdsToRemove(p_context, p_entity, '</xsl:text><xsl:value-of select="@name" /><xsl:text>').then(&#10;</xsl:text>
 							<xsl:text>					function(idsToRemove) {&#10;</xsl:text>
 							<xsl:text>						console.log('children to remove found', idsToRemove);&#10;</xsl:text>
-							<xsl:text>						return </xsl:text><xsl:value-of select="dao/name" /><xsl:text>Proxy.deleteList</xsl:text><xsl:value-of select="class/name"/><xsl:text>ByIds(idsToRemove, p_context, p_cascadeSet, p_toSync, p_cascadeSetForDelete);&#10;</xsl:text>
+							<xsl:choose>
+								<xsl:when test="(@type='one-to-one') or (@type='many-to-one')">
+									<xsl:text>						return </xsl:text><xsl:value-of select="dao/name" /><xsl:text>Proxy.delete</xsl:text><xsl:value-of select="class/name"/><xsl:text>ById(idsToRemove, p_context, p_cascadeSet, p_toSync, p_cascadeSetForDelete);&#10;</xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text>						return </xsl:text><xsl:value-of select="dao/name" /><xsl:text>Proxy.deleteList</xsl:text><xsl:value-of select="class/name"/><xsl:text>ByIds(idsToRemove, p_context, p_cascadeSet, p_toSync, p_cascadeSetForDelete);&#10;</xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
 							<xsl:text>					},&#10;</xsl:text>
 							<xsl:text>					function(error) {&#10;</xsl:text>
 							<xsl:text>						deferred.reject(error);&#10;</xsl:text>
@@ -535,6 +548,8 @@ extension-element-prefixes="exsl">
 								<xsl:text>		// 2. save or update all the other children (no matter the type of relationship), if asked by p_cascadeset&#10;</xsl:text>
 							</xsl:if>
 							<xsl:if test="position() = 1">
+								<xsl:text>/*jshint loopfunc: true */</xsl:text>
+								<xsl:text>/* jshint shadow:true */</xsl:text>
 								<xsl:text>for (var i = 0 , cascadeSetLength = p_cascadeSet.length ; i &lt; cascadeSetLength ; i += 1) {&#10;</xsl:text>
 							</xsl:if>
 							<xsl:if test="position() = 1">
@@ -691,8 +706,15 @@ extension-element-prefixes="exsl">
 
 							<xsl:text>				// 2. for composition relationships one_to_xxx : ALWAYS delete children "nested" in the parent : &#10;</xsl:text>
 							<xsl:text>				pointersDeletes.push( </xsl:text><xsl:value-of select="dao/name"/><xsl:text>Proxy</xsl:text>
-												<xsl:text>.deleteList</xsl:text><xsl:value-of select="class/name"></xsl:value-of>
-												<xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken" /><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>, p_context, p_cascadeSet, p_toSync) );&#10;</xsl:text>
+							<xsl:choose>
+								<xsl:when test="(@type='one-to-one') or (@type='many-to-one')">
+									<xsl:text>.delete</xsl:text><xsl:value-of select="class/name"></xsl:value-of>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text>.deleteList</xsl:text><xsl:value-of select="class/name"></xsl:value-of>
+								</xsl:otherwise>
+							</xsl:choose>
+							<xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken" /><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>, p_context, p_cascadeSet, p_toSync) );&#10;</xsl:text>
 							<xsl:text>&#10;</xsl:text>
 						</xsl:for-each>
 						<xsl:text>&#10;</xsl:text>
@@ -710,6 +732,8 @@ extension-element-prefixes="exsl">
 								<xsl:text>&#10;</xsl:text>
 							</xsl:if>
 							<xsl:if test="position() = 1">
+								<xsl:text>/*jshint loopfunc: true */</xsl:text>
+								<xsl:text>/* jshint shadow:true */</xsl:text>
 								<xsl:text>for (var i = 0 , cascadeSetLength = p_cascadeSet.length ; i &lt; cascadeSetLength ; i += 1) {&#10;</xsl:text>
 							</xsl:if>
 							<xsl:if test="position() = 1">
@@ -717,7 +741,14 @@ extension-element-prefixes="exsl">
 							</xsl:if>
 							<xsl:text>if( p_cascadeSet[i].key === '</xsl:text><xsl:value-of
 								select="@cascade-name"/><xsl:text>') {&#10;</xsl:text>
-							<xsl:text>					pointersDeletes.push( </xsl:text><xsl:value-of select="dao/name"/><xsl:text>Proxy.deleteList</xsl:text><xsl:value-of select="class/name"/>
+							<xsl:choose>
+								<xsl:when test="(@type='one-to-one') or (@type='many-to-one')">
+									<xsl:text>					pointersDeletes.push( </xsl:text><xsl:value-of select="dao/name"/><xsl:text>Proxy.delete</xsl:text><xsl:value-of select="class/name"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text>					pointersDeletes.push( </xsl:text><xsl:value-of select="dao/name"/><xsl:text>Proxy.deleteList</xsl:text><xsl:value-of select="class/name"/>
+								</xsl:otherwise>
+							</xsl:choose>
 													<xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken" /><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>, p_context, p_cascadeSet, p_toSync) );&#10;</xsl:text>
 							<xsl:text>				//  3.2  otherwise, just clear FKs pointing the parent</xsl:text>
 							<xsl:text>				} else {&#10;</xsl:text>
@@ -761,6 +792,8 @@ extension-element-prefixes="exsl">
 								<xsl:text>&#10;</xsl:text>
 							</xsl:if>
 							<xsl:if test="position() = 1">
+								<xsl:text>/*jshint loopfunc: true */</xsl:text>
+								<xsl:text>/* jshint shadow:true */</xsl:text>
 								<xsl:text>for (var i = 0 , cascadeSetLength = p_cascadeSet.length ; i &lt; cascadeSetLength ; i += 1) {&#10;</xsl:text>
 							</xsl:if>
 							<xsl:if test="position() = 1">
@@ -768,8 +801,15 @@ extension-element-prefixes="exsl">
 							</xsl:if>
 							<xsl:text>if( p_cascadeSet[i].key === '</xsl:text><xsl:value-of
 								select="@cascade-name"/><xsl:text>') {&#10;</xsl:text>
-							<xsl:text>									pointersDeletes.push( </xsl:text><xsl:value-of select="dao/name"/><xsl:text>Proxy.deleteList</xsl:text><xsl:value-of select="class/name"/>
-																			<xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken" /><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>, p_context, p_cascadeSet, p_toSync) );&#10;</xsl:text>
+							<xsl:choose>
+								<xsl:when test="(@type='one-to-one') or (@type='many-to-one')">
+									<xsl:text>									pointersDeletes.push( </xsl:text><xsl:value-of select="dao/name"/><xsl:text>Proxy.delete</xsl:text><xsl:value-of select="class/name"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text>									pointersDeletes.push( </xsl:text><xsl:value-of select="dao/name"/><xsl:text>Proxy.deleteList</xsl:text><xsl:value-of select="class/name"/>
+								</xsl:otherwise>
+							</xsl:choose>
+																										<xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken" /><xsl:text>.</xsl:text><xsl:value-of select="@name"/><xsl:text>, p_context, p_cascadeSet, p_toSync) );&#10;</xsl:text>
 							<xsl:if test="last() != 1">
 								<xsl:text>continue ;</xsl:text>
 							</xsl:if>
