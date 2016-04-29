@@ -171,7 +171,6 @@ extension-element-prefixes="exsl">
 					<!--  if association uses column(s) from a join table -->
 					<xsl:when test="starts-with($methodParameterToken, 'p_foreignKeys')">
 						<xsl:text>		var o_sqlQuery = 'select * from </xsl:text><xsl:value-of select="//table-name"/>
-
 						<xsl:if test="count(exsl:node-set($methodInnerJoinToken)/join) > 0">
 							<xsl:for-each select="exsl:node-set($methodInnerJoinToken)/join">
 								<xsl:text> inner join </xsl:text><xsl:value-of select="@joinTableName" />
@@ -500,14 +499,7 @@ extension-element-prefixes="exsl">
 							<xsl:text>				self.getChildrenIdsToRemove(p_context, p_entity, '</xsl:text><xsl:value-of select="@name" /><xsl:text>').then(&#10;</xsl:text>
 							<xsl:text>					function(idsToRemove) {&#10;</xsl:text>
 							<xsl:text>						console.log('children to remove found', idsToRemove);&#10;</xsl:text>
-							<xsl:choose>
-								<xsl:when test="(@type='one-to-one') or (@type='many-to-one')">
-									<xsl:text>						return </xsl:text><xsl:value-of select="dao/name" /><xsl:text>Proxy.delete</xsl:text><xsl:value-of select="class/name"/><xsl:text>ById(idsToRemove, p_context, p_cascadeSet, p_toSync, p_cascadeSetForDelete);&#10;</xsl:text>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:text>						return </xsl:text><xsl:value-of select="dao/name" /><xsl:text>Proxy.deleteList</xsl:text><xsl:value-of select="class/name"/><xsl:text>ByIds(idsToRemove, p_context, p_cascadeSet, p_toSync, p_cascadeSetForDelete);&#10;</xsl:text>
-								</xsl:otherwise>
-							</xsl:choose>
+                            <xsl:text>						return </xsl:text><xsl:value-of select="dao/name" /><xsl:text>Proxy.deleteList</xsl:text><xsl:value-of select="class/name"/><xsl:text>ByIds(idsToRemove, p_context, p_cascadeSet, p_toSync, p_cascadeSetForDelete);&#10;</xsl:text>
 							<xsl:text>					},&#10;</xsl:text>
 							<xsl:text>					function(error) {&#10;</xsl:text>
 							<xsl:text>						deferred.reject(error);&#10;</xsl:text>
@@ -649,11 +641,9 @@ extension-element-prefixes="exsl">
 
 							<xsl:text>				// 1. delete association records : for relationships many_to_many&#10;</xsl:text>
 							<xsl:text>				var o_sqlQuery = 'delete from </xsl:text><xsl:value-of select="join-table/name" /><xsl:text>' + &#10;</xsl:text>
-							<xsl:text>								'inner join </xsl:text><xsl:value-of select="join-table/name" /><xsl:text> on ' + &#10;</xsl:text>
-							<xsl:text>								'		</xsl:text><xsl:value-of select="../table-name" /><xsl:text>.</xsl:text><xsl:value-of select="../identifier/attribute/field/@name" />
-																			<xsl:text> = </xsl:text><xsl:value-of select="join-table/name" /><xsl:text>.</xsl:text><xsl:value-of select="join-table/key-fields/field/@name" /><xsl:text>' + &#10;</xsl:text>
-							<xsl:text>								'	where ' + &#10;</xsl:text>
-
+							<xsl:text>								' inner join </xsl:text><xsl:value-of select="join-table/name" /><xsl:text> on ' + &#10;</xsl:text>
+							<xsl:text>								' </xsl:text><xsl:value-of select="../table-name" /><xsl:text>.</xsl:text><xsl:value-of select="../identifier/attribute/field/@name" /> <xsl:text> = </xsl:text><xsl:value-of select="join-table/name" /><xsl:text>.</xsl:text><xsl:value-of select="join-table/key-fields/field/@name" /><xsl:text>' + &#10;</xsl:text>
+							<xsl:text>								' where ' + &#10;</xsl:text>
 							<xsl:choose>
 								<xsl:when test="count(exsl:node-set($methodCriteriaToken)/criteria) > 0">
 									<xsl:for-each select="(exsl:node-set($methodCriteriaToken)/criteria)">
