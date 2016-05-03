@@ -217,7 +217,6 @@
 				<xsl:text>&#13;[MFOnEventAttribute(typeof(MultiPanel_NavigateSelectedEvent))]</xsl:text>
 				<xsl:text>&#13;public void DoOnMasterItemSelected(object sender, MultiPanel_NavigateSelectedEvent e)</xsl:text>
 				<xsl:text>&#13;{</xsl:text>
-				<xsl:text>&#13;DisplayPanel(e.UC);</xsl:text>
 				<xsl:text>&#13;</xsl:text>
 				<xsl:call-template name="non-generated-bloc">
 					<xsl:with-param name="blocId">after-DoOnMasterItemSelected-method</xsl:with-param>
@@ -232,7 +231,6 @@
 				<xsl:text>&#13;[MFOnEventAttribute(typeof(MultiPanel_NavigateAddEvent))]</xsl:text>
 				<xsl:text>&#13;public void DoOnMasterItemAdd(object sender, MultiPanel_NavigateAddEvent e)</xsl:text>
 				<xsl:text>&#13;{</xsl:text>
-				<xsl:text>&#13;DisplayPanel(e.UC);</xsl:text>
 				<xsl:text>&#13;</xsl:text>
 				<xsl:call-template name="non-generated-bloc">
 					<xsl:with-param name="blocId">after-DoOnMasterItemAdd-method</xsl:with-param>

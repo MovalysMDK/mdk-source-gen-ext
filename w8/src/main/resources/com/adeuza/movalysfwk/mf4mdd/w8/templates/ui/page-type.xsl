@@ -20,14 +20,7 @@
 		xmlns:exsl="http://exslt.org/common" extension-element-prefixes="exsl">
 		
 <xsl:template name="layout-type">
-		<xsl:choose>
-		  <xsl:when test="in-workspace = 'true'">
-			<xsl:text>MFWorkspace</xsl:text>
-		  </xsl:when>
-		  <xsl:otherwise>
-			<xsl:text>mdk_common.Common.MFPage</xsl:text>
-		  </xsl:otherwise>
-		</xsl:choose>
+		<xsl:text>mdk_common.Common.MFPage</xsl:text>
 		<xsl:if test="main = 'true'">
 			<xsl:if test="is-store = 'false'">
 				<xsl:text>, IFileOpenPickerContinuable</xsl:text>
@@ -36,14 +29,7 @@
 </xsl:template>
 
 <xsl:template name="screen-type">
-		<xsl:choose>
-		  <xsl:when test="workspace = 'true'">
-			<xsl:text>MFWorkspace</xsl:text>
-		  </xsl:when>
-		  <xsl:otherwise>
-			<xsl:text>mdk_common.Common.MFPage</xsl:text>
-		  </xsl:otherwise>
-		</xsl:choose>
+		<xsl:text>mdk_common.Common.MFPage</xsl:text>
 		<xsl:if test="main = 'true'">
 			<xsl:if test="is-store = 'false'">
 				<xsl:text>, IFileOpenPickerContinuable</xsl:text>
