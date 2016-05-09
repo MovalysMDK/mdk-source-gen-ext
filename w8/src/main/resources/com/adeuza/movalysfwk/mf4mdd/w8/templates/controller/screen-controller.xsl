@@ -109,17 +109,17 @@
             </xsl:choose>
         </xsl:for-each>
 
-        <xsl:for-each select="pages/page">
-            <xsl:for-each select="navigations/navigation">
-                <xsl:if test="@type='NAVIGATION_DETAIL'">
-                    <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>)</xsl:text>
-                        <xsl:text>((</xsl:text><xsl:value-of select="../../../../vm"/><xsl:text>) ViewModel).</xsl:text>
-                    <xsl:value-of select="../../viewmodel/name"/><xsl:text>).</xsl:text>
-                    <xsl:value-of select="sourcePage/name"/><xsl:text>NavigationDetailRequest += </xsl:text>
-                    <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+        <xsl:if test="./workspace='true' and ./workspace-type='MASTERDETAIL'">
+            <xsl:for-each select="./pages/page">
+                <xsl:if test="in-workspace='true' and mastercomponenttype='MFList1D'">
+                    <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="viewmodel/name"/><xsl:text>).</xsl:text>
+                    <xsl:value-of select="name"/><xsl:text>NavigationDetailRequest += </xsl:text>
+                    <xsl:value-of select="pages-details/page/@name"/><xsl:text>Navigation;&#13;</xsl:text>
                 </xsl:if>
             </xsl:for-each>
-        </xsl:for-each>
+        </xsl:if>
         <xsl:text>}&#13;&#13;</xsl:text>
 
         <!-- destructor -->
@@ -150,6 +150,18 @@
                 </xsl:if>
             </xsl:for-each>
         </xsl:for-each>
+
+        <xsl:if test="./workspace='true' and ./workspace-type='MASTERDETAIL'">
+            <xsl:for-each select="./pages/page">
+                <xsl:if test="in-workspace='true' and mastercomponenttype='MFList1D'">
+                    <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="viewmodel/name"/><xsl:text>).</xsl:text>
+                    <xsl:value-of select="name"/><xsl:text>NavigationDetailRequest -= </xsl:text>
+                    <xsl:value-of select="pages-details/page/@name"/><xsl:text>Navigation;&#13;</xsl:text>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:if>
         <xsl:text>}&#13;&#13;</xsl:text>
 
         <xsl:text>&#13;#endregion&#13;</xsl:text>
@@ -158,6 +170,20 @@
         <!--Region Methods-->
         <!--==============-->
         <xsl:text>&#13;#region Methods&#13;</xsl:text>
+
+        <xsl:if test="workspace='true' and workspace-type='MASTERDETAIL'">
+            <xsl:for-each select="./pages/page">
+                <xsl:if test="parameters/parameter[@name='workspace-panel-type']='detail'">
+                    <xsl:text>public void </xsl:text>
+                    <xsl:value-of select="name"/><xsl:text>Navigation(object sender, object parameter)&#13;{&#13;</xsl:text>
+                    <xsl:text>if (parameter != null &amp;&amp; parameter is IViewModel) &#13;{&#13;</xsl:text>
+                    <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
+                    <xsl:text>&#13;}&#13;</xsl:text>
+                    <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
+                    <xsl:text>}&#13;</xsl:text>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:if>
 
         <xsl:text>&#13;public override void onNavigatedTo(object parameter)&#13;{&#13;</xsl:text>
 

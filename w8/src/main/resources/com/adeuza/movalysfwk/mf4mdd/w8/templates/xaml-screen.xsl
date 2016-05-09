@@ -69,7 +69,7 @@
 
 
 
-	<xsl:template match="screen[workspace='true']" mode="xaml-content">
+	<xsl:template match="screen[workspace='true' and is-Store='false' ]" mode="xaml-content">
 		<xsl:text>&lt;ScrollViewer&gt;</xsl:text>
 		<xsl:text>&lt;Grid x:Name="rootLayout" Background="Black"&gt;</xsl:text>
 		<xsl:text>&lt;Grid.RowDefinitions&gt;</xsl:text>
@@ -83,6 +83,38 @@
 		<xsl:text>&lt;Pivot Grid.Row="1" Grid.ColumnSpan="2"&gt;</xsl:text>
 			<xsl:apply-templates select="pages/page" mode="declare-user-control-pivot-item" />
 		<xsl:text>&lt;&#47;Pivot&gt;</xsl:text>
+		<xsl:if test="main = 'false'">
+			<xsl:text>&lt;Button x:Name="backButton" Click="GoBack" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"&#47;&gt;</xsl:text>
+		</xsl:if>
+		<xsl:text>&lt;TextBlock x:Uid="</xsl:text><xsl:value-of select="name"/><xsl:text>" x:Name="pageTitle" Grid.Row="0" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"&#47;&gt;</xsl:text>
+		<xsl:text>&lt;&#47;Grid&gt;</xsl:text>
+		<xsl:text>&lt;&#47;ScrollViewer&gt;</xsl:text>
+	</xsl:template>
+
+	<xsl:template match="screen[workspace='true' and is-Store='true' ]" mode="xaml-content">
+		<xsl:text>&lt;ScrollViewer&gt;</xsl:text>
+		<xsl:text>&lt;Grid x:Name="rootLayout" Background="Black"&gt;</xsl:text>
+		<xsl:text>&lt;Grid.RowDefinitions&gt;</xsl:text>
+		<xsl:text>&lt;RowDefinition Height="140"&#47;&gt;</xsl:text>
+		<xsl:text>&lt;RowDefinition Height="*"&#47;&gt;</xsl:text>
+		<xsl:text>&lt;&#47;Grid.RowDefinitions&gt;</xsl:text>
+		<xsl:text>&lt;Grid.ColumnDefinitions&gt;</xsl:text>
+		<xsl:text>&lt;ColumnDefinition Width="Auto"&#47;&gt;</xsl:text>
+		<xsl:text>&lt;ColumnDefinition Width="*"&#47;&gt;</xsl:text>
+		<xsl:text>&lt;&#47;Grid.ColumnDefinitions&gt;</xsl:text>
+
+		<xsl:text>&lt;Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" x:Name="workspaceLayout" Background="Black"&gt;</xsl:text>
+		<xsl:text>&lt;Grid.RowDefinitions&gt;</xsl:text>
+		<xsl:text>&lt;RowDefinition Height="*"&#47;&gt;</xsl:text>
+		<xsl:text>&lt;&#47;Grid.RowDefinitions&gt;</xsl:text>
+
+		<xsl:text>&lt;Grid.ColumnDefinitions&gt;</xsl:text>
+		<xsl:apply-templates select="pages/page" mode="declare-grid-column" />
+		<xsl:text>&lt;&#47;Grid.ColumnDefinitions&gt;</xsl:text>
+
+		<xsl:apply-templates select="pages/page" mode="declare-user-control-workspace" />
+		<xsl:text>&lt;&#47;Grid&gt;</xsl:text>
+
 		<xsl:if test="main = 'false'">
 			<xsl:text>&lt;Button x:Name="backButton" Click="GoBack" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"&#47;&gt;</xsl:text>
 		</xsl:if>
@@ -133,6 +165,18 @@
 		<xsl:text>}" &#47;&gt;</xsl:text>
 	</xsl:template>
 
+	<xsl:template match="page" mode="declare-user-control-workspace" >
+		<xsl:text>&lt;uc:</xsl:text>
+		<xsl:value-of select="name"/>
+		<xsl:text> x:Name="</xsl:text>
+		<xsl:value-of select="name"/>
+		<xsl:text>" Grid.Row="0" Grid.Column="</xsl:text>
+		<xsl:value-of select="position()-1"/>
+		<xsl:text>" DataContext="{Binding </xsl:text>
+		<xsl:value-of select="viewmodel/name"/>
+		<xsl:text>}" &#47;&gt;</xsl:text>
+	</xsl:template>
+
 	<xsl:template match="page" mode="declare-user-control-pivot-item" >
 		<xsl:text>&lt;PivotItem Header="</xsl:text>
 		<xsl:value-of select="name"/>
@@ -150,7 +194,11 @@
 	<xsl:template match="page" mode="declare-grid-row" >
 		<xsl:text>&lt;RowDefinition Height="*"&#47;&gt;</xsl:text>
 	</xsl:template>
-	
+
+	<xsl:template match="page" mode="declare-grid-column" >
+		<xsl:text>&lt;ColumnDefinition Width="*"&#47;&gt;</xsl:text>
+	</xsl:template>
+
 	<xsl:template match="menu[/screen/is-Store='true']" mode="xaml-menu">
 		<xsl:text>&lt;common:MFPage.TopAppBar&gt;</xsl:text>
 		    <xsl:text>&lt;AppBar x:Name="topAppBar" Background="#00b2f0"&gt;</xsl:text>
