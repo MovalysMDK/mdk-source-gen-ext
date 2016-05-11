@@ -138,7 +138,9 @@ public class DataLoaderGenerator extends AbstractIncrementalGenerator<MH5Domain<
 		if(p_oMDataLoader.getLoadDao() != null)
 		{
 			p_oMH5ImportDelegate.addImport(p_oMDataLoader.getLoadDao().getName()+"Proxy");
-			p_oMH5ImportDelegate.addImport(p_oMDataLoader.getLoadDao().getMEntityImpl().getName()+"Cascade");
+			if(p_oMDataLoader.getLoadCascade().size() != 0 || p_oMDataLoader.getLoadDao().getMEntityImpl().getAssociations().size() !=  0) {
+				p_oMH5ImportDelegate.addImport(p_oMDataLoader.getLoadDao().getMEntityImpl().getName() + "Cascade");
+			}
 		}
 		
 		for (MAssociation oAssociation : p_oMDataLoader.getMasterInterface().getEntity().getAssociations()) {
