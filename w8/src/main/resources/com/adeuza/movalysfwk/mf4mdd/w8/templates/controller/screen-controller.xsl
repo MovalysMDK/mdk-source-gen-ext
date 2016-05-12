@@ -109,6 +109,18 @@
             </xsl:choose>
         </xsl:for-each>
 
+        <xsl:for-each select="pages/page">
+            <xsl:for-each select="navigations/navigation">
+                <xsl:if test="@type='NAVIGATION_DETAIL'">
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>)</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="../../viewmodel/name"/><xsl:text>).</xsl:text>
+                    <xsl:value-of select="sourcePage/name"/><xsl:text>NavigationDetailRequest += </xsl:text>
+                    <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:for-each>
+
         <xsl:if test="./workspace='true' and ./workspace-type='MASTERDETAIL'">
             <xsl:for-each select="./pages/page">
                 <xsl:if test="in-workspace='true' and parameters/parameter[@name='workspace-panel-type']='master'">

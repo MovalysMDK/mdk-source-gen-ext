@@ -61,7 +61,7 @@
 		</xsl:if>
 	</xsl:for-each>
 
-	<xsl:if test="/layout/in-multi-panel='true' or /layout/in-workspace and /layout/parameters/parameter[@name='vmtype']='LIST_1'">
+	<xsl:if test="/layout/in-multi-panel='true' or /layout/in-workspace='true' and /layout/parameters/parameter[@name='vmtype']='LIST_1'">
 		<xsl:text> mf:OnItemClickCommand="{Binding </xsl:text><xsl:value-of select="/layout/prefix"/><xsl:text>NavigationDetailCommand}"</xsl:text>
 	</xsl:if>
 
