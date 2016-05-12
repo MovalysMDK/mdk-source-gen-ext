@@ -111,7 +111,7 @@
 
         <xsl:if test="./workspace='true' and ./workspace-type='MASTERDETAIL'">
             <xsl:for-each select="./pages/page">
-                <xsl:if test="in-workspace='true' and mastercomponenttype='MFList1D'">
+                <xsl:if test="in-workspace='true' and parameters/parameter[@name='workspace-panel-type']='master'">
                     <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
                     <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>) ViewModel).</xsl:text>
                     <xsl:value-of select="viewmodel/name"/><xsl:text>).</xsl:text>
@@ -153,7 +153,7 @@
 
         <xsl:if test="./workspace='true' and ./workspace-type='MASTERDETAIL'">
             <xsl:for-each select="./pages/page">
-                <xsl:if test="in-workspace='true' and mastercomponenttype='MFList1D'">
+                <xsl:if test="in-workspace='true' and parameters/parameter[@name='workspace-panel-type']='master'">
                     <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
                     <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>) ViewModel).</xsl:text>
                     <xsl:value-of select="viewmodel/name"/><xsl:text>).</xsl:text>
@@ -174,12 +174,48 @@
         <xsl:if test="workspace='true' and workspace-type='MASTERDETAIL'">
             <xsl:for-each select="./pages/page">
                 <xsl:if test="parameters/parameter[@name='workspace-panel-type']='detail'">
-                    <xsl:text>public void </xsl:text>
+                    <xsl:text>public async void </xsl:text>
                     <xsl:value-of select="name"/><xsl:text>Navigation(object sender, object parameter)&#13;{&#13;</xsl:text>
                     <xsl:text>if (parameter != null &amp;&amp; parameter is IViewModel) &#13;{&#13;</xsl:text>
-                    <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
+
+                    <xsl:text>if (((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="viewmodel/name"/><xsl:text>).IsDirty)&#13;{&#13;</xsl:text>
+
+                    <xsl:text>IMFResourcesHelper resourceLoader = ClassLoader.GetInstance().GetBean&lt;IMFResourcesHelper&gt;();&#13;</xsl:text>
+                    <xsl:text>var messageDialog = new MessageDialog(resourceLoader.getResource("IsDirtyQuestion", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
+                    <xsl:text>UICommand okCmd = new UICommand(resourceLoader.getResource("Yes", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
+                    <xsl:text>UICommand noCmd = new UICommand(resourceLoader.getResource("No", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
+                    <xsl:text>UICommand cancelCmd = new UICommand("Cancel");&#13;</xsl:text>
+                    <xsl:text>messageDialog.Commands.Add(okCmd);&#13;</xsl:text>
+                    <xsl:text>messageDialog.Commands.Add(noCmd);&#13;</xsl:text>
+                    <xsl:text>messageDialog.Commands.Add(cancelCmd);&#13;</xsl:text>
+                    <xsl:text>IUICommand command = await messageDialog.ShowAsync();&#13;</xsl:text>
+                    <xsl:text>if (command.Equals(okCmd))&#13;{&#13;</xsl:text>
+                    <xsl:text>Save</xsl:text><xsl:value-of select="name"/><xsl:text>(this, ((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:value-of select="viewmodel/name"/><xsl:text>));&#13;</xsl:text>
+                    <xsl:for-each select="../../pages/page">
+                        <xsl:if test="in-workspace='true' and parameters/parameter[@name='workspace-panel-type']='master'">
+                            <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
+                        </xsl:if>
+                    </xsl:for-each>
+                    <xsl:text>}&#13;</xsl:text>
+                    <xsl:text>else if (command.Equals(cancelCmd))&#13;{&#13;</xsl:text>
+                    <xsl:text>return;&#13;}&#13;</xsl:text>
                     <xsl:text>&#13;}&#13;</xsl:text>
+
+                    <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
                     <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
+
+                    <xsl:text>#if WINDOWS_PHONE&#13;</xsl:text>
+                    <xsl:value-of select="../../name"/>
+                    <xsl:text>Pivot.SelectedItem = </xsl:text>
+                    <xsl:value-of select="name"/>
+                    <xsl:text>;&#13;</xsl:text>
+                    <xsl:text>#endif&#13;</xsl:text>
+
+                    <xsl:text>&#13;}&#13;</xsl:text>
                     <xsl:text>}&#13;</xsl:text>
                 </xsl:if>
             </xsl:for-each>
@@ -188,7 +224,10 @@
         <xsl:text>&#13;public override void onNavigatedTo(object parameter)&#13;{&#13;</xsl:text>
 
         <xsl:for-each select="./pages/page">
-            <xsl:apply-templates select="." mode="create-pages-navigated" />
+            <xsl:text>if (parameter != null &amp;&amp; parameter is IViewModel) &#13;{&#13;</xsl:text>
+            <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
+            <xsl:text>&#13;}&#13;</xsl:text>
+            <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
         </xsl:for-each>
 
         <xsl:text>}&#13;&#13;</xsl:text>
@@ -397,14 +436,6 @@
         -->
 
         <xsl:text>&#13;#endregion&#13;</xsl:text>
-    </xsl:template>
-
-    <xsl:template match="page" mode="create-pages-navigated">
-
-        <xsl:text>if (parameter != null &amp;&amp; parameter is IViewModel) &#13;{&#13;</xsl:text>
-        <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
-        <xsl:text>&#13;}&#13;</xsl:text>
-        <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
     </xsl:template>
 
 

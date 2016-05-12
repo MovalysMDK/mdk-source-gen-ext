@@ -185,14 +185,13 @@
 				<xsl:text>&#13;    // Dismiss the Flyout after the action is confirmed.</xsl:text>
 				<xsl:text>&#13;this.btnDelete.Flyout.Hide();&#13;</xsl:text>
 				<xsl:text>&#13;//this.DeleteMultiSection();&#13;</xsl:text>
-				<xsl:text>&#13;base.HidePanels();&#13;//</xsl:text>
+				<xsl:text>&#13;//base.HidePanels();&#13;//</xsl:text>
 				<xsl:value-of select="viewmodel/name" /><xsl:text>_DeleteItemEvent myevent = new </xsl:text><xsl:value-of
 					select="viewmodel/name" /><xsl:text>_DeleteItemEvent();</xsl:text>
 				<xsl:text>&#13;//ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().RaiseEventMethods(this, myevent);</xsl:text>
-				<xsl:text>&#13;}</xsl:text>
 
 				<xsl:text>&#13;    //Launch chained action</xsl:text>
-				<xsl:text>&#13;		ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().LaunchAction(typeof(DeleteChained</xsl:text>
+				<xsl:text>&#13;		//ClassLoader.GetInstance().GetBean&lt;IMFController&gt;().LaunchAction(typeof(DeleteChained</xsl:text>
 				<xsl:value-of select="name" />
 				<xsl:text>), this, deleteChainActionArgs);&#13;</xsl:text>
 				<xsl:call-template name="non-generated-bloc">

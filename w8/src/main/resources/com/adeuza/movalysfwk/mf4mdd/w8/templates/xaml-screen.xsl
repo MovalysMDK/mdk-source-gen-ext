@@ -80,7 +80,7 @@
 		<xsl:text>&lt;ColumnDefinition Width="Auto"&#47;&gt;</xsl:text>
 		<xsl:text>&lt;ColumnDefinition Width="*"&#47;&gt;</xsl:text>
 		<xsl:text>&lt;&#47;Grid.ColumnDefinitions&gt;</xsl:text>
-		<xsl:text>&lt;Pivot Grid.Row="1" Grid.ColumnSpan="2"&gt;</xsl:text>
+		<xsl:text>&lt;Pivot Grid.Row="1" Grid.ColumnSpan="2" x:Name="</xsl:text><xsl:value-of select="name"/><xsl:text>Pivot"&gt;</xsl:text>
 			<xsl:apply-templates select="pages/page" mode="declare-user-control-pivot-item" />
 		<xsl:text>&lt;&#47;Pivot&gt;</xsl:text>
 		<xsl:if test="main = 'false'">
