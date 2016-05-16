@@ -84,7 +84,7 @@
 			<xsl:apply-templates select="pages/page" mode="declare-user-control-pivot-item" />
 		<xsl:text>&lt;&#47;Pivot&gt;</xsl:text>
 		<xsl:if test="main = 'false'">
-			<xsl:text>&lt;Button x:Name="backButton" Click="GoBack" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"&#47;&gt;</xsl:text>
+			<xsl:text>&lt;Button x:Name="backButton" Command="{ Binding GoBackCommand}" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"&#47;&gt;</xsl:text>
 		</xsl:if>
 		<xsl:text>&lt;TextBlock x:Uid="</xsl:text><xsl:value-of select="name"/><xsl:text>" x:Name="pageTitle" Grid.Row="0" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"&#47;&gt;</xsl:text>
 		<xsl:text>&lt;&#47;Grid&gt;</xsl:text>
@@ -116,7 +116,7 @@
 		<xsl:text>&lt;&#47;Grid&gt;</xsl:text>
 
 		<xsl:if test="main = 'false'">
-			<xsl:text>&lt;Button x:Name="backButton" Click="GoBack" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"&#47;&gt;</xsl:text>
+			<xsl:text>&lt;Button x:Name="backButton" Command="{ Binding GoBackCommand}" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"&#47;&gt;</xsl:text>
 		</xsl:if>
 		<xsl:text>&lt;TextBlock x:Uid="</xsl:text><xsl:value-of select="name"/><xsl:text>" x:Name="pageTitle" Grid.Row="0" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"&#47;&gt;</xsl:text>
 		<xsl:text>&lt;&#47;Grid&gt;</xsl:text>
@@ -138,7 +138,7 @@
         <xsl:text>&lt;&#47;Grid.ColumnDefinitions&gt;</xsl:text>
 		<xsl:apply-templates select="pages/page" mode="declare-user-control" />
 		<xsl:if test="main = 'false'">
-			<xsl:text>&lt;Button x:Name="backButton" Click="GoBack" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"&#47;&gt;</xsl:text>
+			<xsl:text>&lt;Button x:Name="backButton" Command="{ Binding GoBackCommand}" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"&#47;&gt;</xsl:text>
 		</xsl:if>
 		<xsl:text>&lt;TextBlock x:Uid="</xsl:text><xsl:value-of select="name"/><xsl:text>" x:Name="pageTitle" Grid.Row="0" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"&#47;&gt;</xsl:text>
 	  	<xsl:text>&lt;&#47;Grid&gt;</xsl:text>

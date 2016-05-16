@@ -87,25 +87,6 @@
 
 		<xsl:text>&#13;#region Methods&#13;</xsl:text>
 
-		<xsl:if test="menus">
-			<xsl:text disable-output-escaping="yes"><![CDATA[
-		    /// <summary>
-		    /// Gestion de la navigation avec le menu de la TopAppBar
-		    /// </summary>
-		    /// <param name="sender">Menu item</param>
-		    /// <param name="e">RoutedEventArgs</param>
-			]]></xsl:text>
-			<xsl:text>private void Navigation_Click(object sender, RoutedEventArgs e)</xsl:text>
-			<xsl:text>{</xsl:text>
-			<xsl:text>Button b = sender as Button;</xsl:text>
-			<xsl:text>if (b != null &#38;&#38; b.Tag != null)</xsl:text>
-			<xsl:text>{</xsl:text>
-			<xsl:text>Type pageType = Type.GetType(b.Tag.ToString());</xsl:text>
-			<xsl:text>this.Frame.Navigate(pageType);</xsl:text>
-			<xsl:text>}</xsl:text>
-			<xsl:text>}</xsl:text>
-		</xsl:if>
-
 		<xsl:if test="main = 'true'">
 			<xsl:if test="is-store = 'false'">
 				<xsl:text>/// &lt;summary&gt;&#13;</xsl:text>
@@ -151,8 +132,6 @@
 			<xsl:call-template name="ActionErrorMethod" />
 		</xsl:if>
 
-		<xsl:apply-templates select="." mode="GoBack-Dirty"/>
-
 		<xsl:text>&#13;#endregion&#13;</xsl:text>
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">other-methods</xsl:with-param>
@@ -161,39 +140,6 @@
 		<xsl:text>}&#13;</xsl:text>
 		<xsl:text>}&#13;</xsl:text>
 
-	</xsl:template>
-
-	<xsl:template match="screen" mode="GoBack-Dirty">
-		<xsl:text>protected async override void GoBack(object sender, RoutedEventArgs e)&#13;</xsl:text>
-		<xsl:text>{&#13;</xsl:text>
-		<xsl:for-each select="pages/page[actions/action/action-type='SAVEDETAIL']">
-			<xsl:text>if (((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
-			<xsl:value-of select="name"/><xsl:text>.DataContext).IsDirty)&#13;</xsl:text>
-			<xsl:text>{&#13;</xsl:text>
-			<xsl:text>IMFResourcesHelper resourceLoader = ClassLoader.GetInstance().GetBean&lt;IMFResourcesHelper&gt;();&#13;</xsl:text>
-			<xsl:text>var messageDialog = new MessageDialog(resourceLoader.getResource("IsDirtyQuestion", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
-			<xsl:text>UICommand okCmd = new UICommand(resourceLoader.getResource("Yes", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
-			<xsl:text>UICommand noCmd = new UICommand(resourceLoader.getResource("No", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
-			<xsl:text>UICommand cancelCmd = new UICommand("Cancel");&#13;</xsl:text>
-			<xsl:text>messageDialog.Commands.Add(okCmd);&#13;</xsl:text>
-			<xsl:text>messageDialog.Commands.Add(noCmd);&#13;</xsl:text>
-			<xsl:text>messageDialog.Commands.Add(cancelCmd);&#13;</xsl:text>
-			<xsl:text>IUICommand command = await messageDialog.ShowAsync();&#13;</xsl:text>
-			<xsl:text>if (command.Equals(okCmd))&#13;</xsl:text>
-			<xsl:text>{&#13;</xsl:text>
-			<xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text><xsl:value-of select="name"/>
-			<xsl:text>.DataContext).ExecuteSave</xsl:text><xsl:value-of select="viewmodel-interface/name"/><xsl:text>(</xsl:text>
-			<xsl:value-of select="name"/><xsl:text>.DataContext);&#13;</xsl:text>
-			<xsl:text>}&#13;</xsl:text>
-			<xsl:text>else if (command.Equals(cancelCmd))&#13;</xsl:text>
-			<xsl:text>{&#13;</xsl:text>
-			<xsl:text>return;&#13;</xsl:text>
-			<xsl:text>}&#13;</xsl:text>
-			<xsl:text>}&#13;</xsl:text>
-		</xsl:for-each>
-
-		<xsl:text>base.GoBack(sender, e);&#13;</xsl:text>
-		<xsl:text>}&#13;</xsl:text>
 	</xsl:template>
 
 	<xsl:template name="save-delete-multipanel">

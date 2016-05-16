@@ -91,8 +91,15 @@
 		</xsl:text>
 	</xsl:if>
 
-	<xsl:text>void ExecuteSave</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(Object parameter);&#13;</xsl:text>
-	<xsl:text>void ExecuteDelete</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(Object parameter);&#13;</xsl:text>
+	<xsl:if test="entity-to-update/name">
+		<xsl:text>void ExecuteSave</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(object parameter);&#13;</xsl:text>
+		<xsl:text>void ExecuteDelete</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(object parameter);&#13;</xsl:text>
+	</xsl:if>
+
+	<xsl:if test="is-screen-viewmodel='true'">
+		<xsl:text>void ExecuteGoBack(object parameter);&#13;</xsl:text>
+	</xsl:if>
+
 	<xsl:for-each select="./navigations/navigation">
 		<xsl:choose>
 			<xsl:when test="@type='NAVIGATION'">

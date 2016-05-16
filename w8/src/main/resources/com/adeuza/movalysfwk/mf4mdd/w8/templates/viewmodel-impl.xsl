@@ -68,17 +68,22 @@
 	<xsl:text>PopulateValidation();&#13;</xsl:text>
 	<xsl:text>&#13;</xsl:text>
 
-	<xsl:text>SaveCommand = new MDKDelegateCommand(ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
-	<xsl:text>DeleteCommand = new MDKDelegateCommand(ExecuteDelete</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
+	<xsl:if test="entity-to-update/name">
+		<xsl:text>SaveCommand = new MDKDelegateCommand(ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
+		<xsl:text>DeleteCommand = new MDKDelegateCommand(ExecuteDelete</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
+	</xsl:if>
+
+	<xsl:if test="is-screen-viewmodel='true'">
+		<xsl:text>GoBackCommand = new MDKDelegateCommand(ExecuteGoBack);&#13;</xsl:text>
+	</xsl:if>
+
 	<xsl:for-each select="./navigations/navigation">
 		<xsl:choose>
 			<xsl:when test="@type='NAVIGATION'">
-				<xsl:value-of select="target/name"/><xsl:text>NavigationCommand = new MDKDelegateCommand(Execute</xsl:text>
-				<xsl:value-of select="target/name"/><xsl:text>Navigation);&#13;</xsl:text>
+				<xsl:value-of select="target/name"/><xsl:text>NavigationCommand = new MDKDelegateCommand(Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation);&#13;</xsl:text>
 			</xsl:when>
 			<xsl:when test="@type='NAVIGATION_MENU'">
-				<xsl:value-of select="target/name"/><xsl:text>NavigationMenuCommand = new MDKDelegateCommand(Execute</xsl:text>
-				<xsl:value-of select="target/name"/><xsl:text>NavigationMenu);&#13;</xsl:text>
+				<xsl:value-of select="target/name"/><xsl:text>NavigationMenuCommand = new MDKDelegateCommand(Execute</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenu);&#13;</xsl:text>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:for-each>
@@ -481,24 +486,32 @@
 </xsl:template>
 
 <xsl:template name="generate-events">
-	<xsl:text>public event SaveRequestHandler Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request;&#13;</xsl:text>
-	<xsl:text>protected virtual void OnSave</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(Object parameter)&#13;</xsl:text>
-	<xsl:text>{&#13;Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(this,parameter);&#13;}&#13;&#13;</xsl:text>
+	<xsl:if test="entity-to-update/name">
+		<xsl:text>public event SaveRequestHandler Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request;&#13;</xsl:text>
+		<xsl:text>protected virtual void OnSave</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(object parameter)&#13;</xsl:text>
+		<xsl:text>{&#13;Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(this,parameter);&#13;}&#13;&#13;</xsl:text>
 
-	<xsl:text>public event DeleteRequestHandler Delete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request;&#13;</xsl:text>
-	<xsl:text>protected virtual void OnDelete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(Object parameter)&#13;</xsl:text>
-	<xsl:text>{&#13;Delete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(this,parameter);&#13;}&#13;&#13;</xsl:text>
+		<xsl:text>public event DeleteRequestHandler Delete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request;&#13;</xsl:text>
+		<xsl:text>protected virtual void OnDelete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(object parameter)&#13;</xsl:text>
+		<xsl:text>{&#13;Delete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(this,parameter);&#13;}&#13;&#13;</xsl:text>
+	</xsl:if>
+
+	<xsl:if test="is-screen-viewmodel='true'">
+		<xsl:text>public event NavigationRequestHandler GoBackRequest;&#13;</xsl:text>
+		<xsl:text>protected virtual void OnGoBackRequest(object parameter)&#13;</xsl:text>
+		<xsl:text>{&#13;GoBackRequest(this,parameter);&#13;}&#13;&#13;</xsl:text>
+	</xsl:if>
 
 	<xsl:for-each select="./navigations/navigation">
 		<xsl:choose>
 			<xsl:when test="@type='NAVIGATION'">
 				<xsl:text>public event NavigationRequestHandler </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest;&#13;</xsl:text>
-				<xsl:text>protected virtual void On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(Object parameter)&#13;</xsl:text>
+				<xsl:text>protected virtual void On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(object parameter)&#13;</xsl:text>
 				<xsl:text>{&#13;</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationRequest(this,parameter);&#13;}&#13;&#13;</xsl:text>
 			</xsl:when>
 			<xsl:when test="@type='NAVIGATION_MENU'">
 				<xsl:text>public event NavigationRequestHandler </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuRequest;&#13;</xsl:text>
-				<xsl:text>protected virtual void On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuRequest(Object parameter)&#13;</xsl:text>
+				<xsl:text>protected virtual void On</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuRequest(object parameter)&#13;</xsl:text>
 				<xsl:text>{&#13;</xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuRequest(this,parameter);&#13;}&#13;&#13;</xsl:text>
 			</xsl:when>
 		</xsl:choose>
@@ -506,40 +519,43 @@
 </xsl:template>
 
 <xsl:template name="generate-commands">
-	<xsl:text>/// &lt;summary&gt;&#13;</xsl:text>
-	<xsl:text>/// Command that save the view model&#13;</xsl:text>
-	<xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
-	<xsl:text>public ICommand SaveCommand&#13;</xsl:text>
-	<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+	<xsl:if test="entity-to-update/name">
+		<xsl:text>public ICommand SaveCommand { get; set; }&#13;</xsl:text>
+		<xsl:text>public ICommand DeleteCommand { get; set; }&#13;</xsl:text>
+	</xsl:if>
 
-	<xsl:text>/// &lt;summary&gt;&#13;</xsl:text>
-	<xsl:text>/// Command that delete the view model&#13;</xsl:text>
-	<xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
-	<xsl:text>public ICommand DeleteCommand&#13;</xsl:text>
-	<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+	<xsl:if test="is-screen-viewmodel='true'">
+		<xsl:text>public ICommand GoBackCommand { get; set; }&#13;</xsl:text>
+	</xsl:if>
 
 	<xsl:for-each select="./navigations/navigation">
 		<xsl:choose>
 			<xsl:when test="@type='NAVIGATION'">
-				<xsl:text>public ICommand </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationCommand&#13;</xsl:text>
-				<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+				<xsl:text>public ICommand </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationCommand {get; set; }&#13;</xsl:text>
 			</xsl:when>
 			<xsl:when test="@type='NAVIGATION_MENU'">
-				<xsl:text>public ICommand </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuCommand&#13;</xsl:text>
-				<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
+				<xsl:text>public ICommand </xsl:text><xsl:value-of select="target/name"/><xsl:text>NavigationMenuCommand {get; set; }&#13;</xsl:text>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:for-each>
 </xsl:template>
 
 <xsl:template name="generate-execute-methods">
-	<xsl:text>public void ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(Object parameter)&#13;{&#13;</xsl:text>
-	<xsl:text>OnSave</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(parameter);&#13;</xsl:text>
-	<xsl:text>}&#13;</xsl:text>
+	<xsl:if test="entity-to-update/name">
+		<xsl:text>public void ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(object parameter)&#13;{&#13;</xsl:text>
+		<xsl:text>OnSave</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(parameter);&#13;</xsl:text>
+		<xsl:text>}&#13;</xsl:text>
 
-	<xsl:text>public void ExecuteDelete</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(Object parameter)&#13;{&#13;</xsl:text>
-	<xsl:text>OnDelete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(parameter);&#13;</xsl:text>
-	<xsl:text>}&#13;</xsl:text>
+		<xsl:text>public void ExecuteDelete</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(object parameter)&#13;{&#13;</xsl:text>
+		<xsl:text>OnDelete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(parameter);&#13;</xsl:text>
+		<xsl:text>}&#13;</xsl:text>
+	</xsl:if>
+
+	<xsl:if test="is-screen-viewmodel='true'">
+		<xsl:text>public void ExecuteGoBack(object parameter)&#13;{&#13;</xsl:text>
+		<xsl:text>OnGoBackRequest(parameter);&#13;</xsl:text>
+		<xsl:text>}&#13;</xsl:text>
+	</xsl:if>
 
 	<xsl:for-each select="./navigations/navigation">
 		<xsl:choose>

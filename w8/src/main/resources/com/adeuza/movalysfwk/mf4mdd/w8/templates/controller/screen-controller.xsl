@@ -94,6 +94,8 @@
             <xsl:with-param name="defaultSource"></xsl:with-param>
         </xsl:call-template>
 
+        <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>) ViewModel).GoBackRequest += GoBack;&#13;</xsl:text>
+
         <xsl:for-each select="viewmodel/navigations/navigation">
             <xsl:choose>
                 <xsl:when test="@type='NAVIGATION'">
@@ -113,7 +115,7 @@
             <xsl:for-each select="navigations/navigation">
                 <xsl:if test="@type='NAVIGATION_DETAIL'">
                     <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>)</xsl:text>
-                    <xsl:text>((</xsl:text><xsl:value-of select="../../../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
                     <xsl:value-of select="../../viewmodel/name"/><xsl:text>).</xsl:text>
                     <xsl:value-of select="sourcePage/name"/><xsl:text>NavigationDetailRequest += </xsl:text>
                     <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
@@ -125,7 +127,7 @@
             <xsl:for-each select="./pages/page">
                 <xsl:if test="in-workspace='true' and parameters/parameter[@name='workspace-panel-type']='master'">
                     <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
-                    <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
                     <xsl:value-of select="viewmodel/name"/><xsl:text>).</xsl:text>
                     <xsl:value-of select="name"/><xsl:text>NavigationDetailRequest += </xsl:text>
                     <xsl:value-of select="pages-details/page/@name"/><xsl:text>Navigation;&#13;</xsl:text>
@@ -136,6 +138,10 @@
 
         <!-- destructor -->
         <xsl:text>~</xsl:text><xsl:value-of select="name"/><xsl:text>Controller() {&#13;</xsl:text>
+
+
+        <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>) ViewModel).GoBackRequest -= GoBack;&#13;</xsl:text>
+
         <xsl:for-each select="viewmodel/navigations/navigation">
             <xsl:choose>
                 <xsl:when test="@type='NAVIGATION'">
@@ -155,7 +161,7 @@
             <xsl:for-each select="navigations/navigation">
                 <xsl:if test="@type='NAVIGATION_DETAIL'">
                     <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>)</xsl:text>
-                    <xsl:text>((</xsl:text><xsl:value-of select="../../../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
                     <xsl:value-of select="../../viewmodel/name"/><xsl:text>).</xsl:text>
                     <xsl:value-of select="sourcePage/name"/><xsl:text>NavigationDetailRequest -= </xsl:text>
                     <xsl:value-of select="target/name"/><xsl:text>Navigation;&#13;</xsl:text>
@@ -167,7 +173,7 @@
             <xsl:for-each select="./pages/page">
                 <xsl:if test="in-workspace='true' and parameters/parameter[@name='workspace-panel-type']='master'">
                     <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
-                    <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
                     <xsl:value-of select="viewmodel/name"/><xsl:text>).</xsl:text>
                     <xsl:value-of select="name"/><xsl:text>NavigationDetailRequest -= </xsl:text>
                     <xsl:value-of select="pages-details/page/@name"/><xsl:text>Navigation;&#13;</xsl:text>
@@ -183,6 +189,40 @@
         <!--==============-->
         <xsl:text>&#13;#region Methods&#13;</xsl:text>
 
+        <xsl:text>public </xsl:text>
+            <xsl:if test="pages/page[actions/action/action-type='SAVEDETAIL']"><xsl:text>async </xsl:text></xsl:if>
+        <xsl:text>void GoBack(object sender, object parameter)&#13;</xsl:text>
+        <xsl:text>{&#13;</xsl:text>
+        <xsl:for-each select="pages/page[actions/action/action-type='SAVEDETAIL']">
+            <xsl:text>if (((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
+            <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
+            <xsl:value-of select="viewmodel/name"/><xsl:text>).IsDirty)&#13;{&#13;</xsl:text>
+
+            <xsl:text>IMFResourcesHelper resourceLoader = ClassLoader.GetInstance().GetBean&lt;IMFResourcesHelper&gt;();&#13;</xsl:text>
+            <xsl:text>var messageDialog = new MessageDialog(resourceLoader.getResource("IsDirtyQuestion", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
+            <xsl:text>UICommand okCmd = new UICommand(resourceLoader.getResource("Yes", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
+            <xsl:text>UICommand noCmd = new UICommand(resourceLoader.getResource("No", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
+            <xsl:text>UICommand cancelCmd = new UICommand("Cancel");&#13;</xsl:text>
+            <xsl:text>messageDialog.Commands.Add(okCmd);&#13;</xsl:text>
+            <xsl:text>messageDialog.Commands.Add(noCmd);&#13;</xsl:text>
+            <xsl:text>messageDialog.Commands.Add(cancelCmd);&#13;</xsl:text>
+            <xsl:text>IUICommand command = await messageDialog.ShowAsync();&#13;</xsl:text>
+            <xsl:text>if (command.Equals(okCmd))&#13;</xsl:text>
+            <xsl:text>{&#13;</xsl:text>
+            <xsl:text>Save</xsl:text><xsl:value-of select="name"/><xsl:text>(this, ((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
+            <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
+            <xsl:value-of select="viewmodel/name"/><xsl:text>));&#13;</xsl:text>
+            <xsl:text>}&#13;</xsl:text>
+            <xsl:text>else if (command.Equals(cancelCmd))&#13;</xsl:text>
+            <xsl:text>{&#13;</xsl:text>
+            <xsl:text>return;&#13;</xsl:text>
+            <xsl:text>}&#13;</xsl:text>
+            <xsl:text>}&#13;</xsl:text>
+        </xsl:for-each>
+
+        <xsl:text>base.GoBack(sender, null);&#13;</xsl:text>
+        <xsl:text>}&#13;</xsl:text>
+
         <xsl:if test="workspace='true' and workspace-type='MASTERDETAIL'">
             <xsl:for-each select="./pages/page">
                 <xsl:if test="parameters/parameter[@name='workspace-panel-type']='detail'">
@@ -191,7 +231,7 @@
                     <xsl:text>if (parameter != null &amp;&amp; parameter is IViewModel) &#13;{&#13;</xsl:text>
 
                     <xsl:text>if (((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
-                    <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
                     <xsl:value-of select="viewmodel/name"/><xsl:text>).IsDirty)&#13;{&#13;</xsl:text>
 
                     <xsl:text>IMFResourcesHelper resourceLoader = ClassLoader.GetInstance().GetBean&lt;IMFResourcesHelper&gt;();&#13;</xsl:text>
@@ -205,7 +245,7 @@
                     <xsl:text>IUICommand command = await messageDialog.ShowAsync();&#13;</xsl:text>
                     <xsl:text>if (command.Equals(okCmd))&#13;{&#13;</xsl:text>
                     <xsl:text>Save</xsl:text><xsl:value-of select="name"/><xsl:text>(this, ((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
-                    <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                    <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
                     <xsl:value-of select="viewmodel/name"/><xsl:text>));&#13;</xsl:text>
                     <xsl:for-each select="../../pages/page">
                         <xsl:if test="in-workspace='true' and parameters/parameter[@name='workspace-panel-type']='master'">
@@ -245,7 +285,7 @@
         <xsl:text>}&#13;&#13;</xsl:text>
 
         <xsl:for-each select="viewmodel/navigations/navigation">
-            <xsl:text>public void </xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object sender, Object parameter)&#13;{&#13;</xsl:text>
+            <xsl:text>public void </xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object sender, object parameter)&#13;{&#13;</xsl:text>
             <xsl:text>IMDKNavigationService navigationService = ClassLoader.GetInstance().GetBean&lt;IMDKNavigationService&gt;();&#13;</xsl:text>
             <xsl:text>navigationService.Navigate("</xsl:text><xsl:value-of select="target/name"/><xsl:text>Controller",parameter);&#13;}&#13;&#13;</xsl:text>
         </xsl:for-each>
@@ -285,7 +325,7 @@
     <xsl:value-of select="name"/><xsl:text>Loader = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="viewmodel/dataloader-impl/dataloader-interface/name"/><xsl:text>&gt;();&#13;</xsl:text>
         <xsl:for-each select="actions/action">
             <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
-                <xsl:text>((</xsl:text><xsl:value-of select="../../../../vm"/><xsl:text>) ViewModel).</xsl:text>
+                <xsl:text>((</xsl:text><xsl:value-of select="../../../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
             <xsl:value-of select="viewmodel/name"/><xsl:text>).</xsl:text>
             <xsl:choose>
                 <xsl:when test="action-type = 'SAVEDETAIL'">
@@ -330,7 +370,7 @@
                 <xsl:text>{</xsl:text>
                 <xsl:if test="not (viewmodel/dataloader-impl/dataloader-interface/name)">/*</xsl:if>
                 <xsl:text>_context.Post(delegate{&#13;</xsl:text>
-                <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>)ViewModel).</xsl:text><xsl:value-of select="viewmodel/name"/>
+                <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>)ViewModel).</xsl:text><xsl:value-of select="viewmodel/name"/>
                 <xsl:text>.UpdateFromDataLoader(</xsl:text><xsl:value-of select="name"/><xsl:text>Loader);</xsl:text>
                 <xsl:text>&#13;}, null);&#13;</xsl:text>
                 <xsl:if test="not (viewmodel/dataloader-impl/dataloader-interface/name)">*/</xsl:if>
@@ -356,14 +396,14 @@
 			<xsl:text>	&#13;public CUDActionArgs Get</xsl:text><xsl:value-of select="name"/><xsl:text>CUDActionArgs()</xsl:text>
 			<xsl:text>	{</xsl:text>
 			<xsl:text>	return this.GetCUDActionArgs(</xsl:text><xsl:value-of select="name"/><xsl:text>Loader, </xsl:text>
-            <xsl:text>((</xsl:text><xsl:value-of select="../../vm"/><xsl:text>)ViewModel).</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>);&#13;</xsl:text>
+            <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>)ViewModel).</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>);&#13;</xsl:text>
 			<xsl:text>	}&#13;</xsl:text>
 		</xsl:if>
 
         <!--panel save data-->
         <xsl:if test="actions/action[action-type = 'SAVEDETAIL']">
             <!--<xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'SINGLE' and in-workspace = 'false' and layout/buttons/button[@type='SAVE']"and in-multi-panel = 'false'>-->
-                <xsl:text>public void Save</xsl:text><xsl:value-of select="name"/><xsl:text>(object sender, Object parameter)</xsl:text>
+                <xsl:text>public void Save</xsl:text><xsl:value-of select="name"/><xsl:text>(object sender, object parameter)</xsl:text>
                 <xsl:text>{&#13;</xsl:text>
                 <xsl:if test="not(/dialog)">
                     <xsl:text>&#13;</xsl:text>
@@ -396,7 +436,7 @@
 
         <!--panel delete-->
         <xsl:if test="actions/action[action-type = 'DELETEDETAIL']">
-            <xsl:text>public void Delete</xsl:text><xsl:value-of select="name"/><xsl:text>(object sender, Object parameter)</xsl:text>
+            <xsl:text>public void Delete</xsl:text><xsl:value-of select="name"/><xsl:text>(object sender, object parameter)</xsl:text>
             <xsl:text>{&#13;</xsl:text>
             <xsl:if test="not(/dialog)">
                 <xsl:text>&#13;</xsl:text>
