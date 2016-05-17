@@ -257,7 +257,9 @@
                     <xsl:text>return;&#13;}&#13;</xsl:text>
                     <xsl:text>&#13;}&#13;</xsl:text>
 
-                    <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
+                    <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'LIST'">
+                        <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
+                    </xsl:if>
                     <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
 
                     <xsl:text>#if WINDOWS_PHONE&#13;</xsl:text>
@@ -276,9 +278,11 @@
         <xsl:text>&#13;public override void onNavigatedTo(object parameter)&#13;{&#13;</xsl:text>
 
         <xsl:for-each select="./pages/page">
-            <xsl:text>if (parameter != null &amp;&amp; parameter is IViewModel) &#13;{&#13;</xsl:text>
-            <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
-            <xsl:text>&#13;}&#13;</xsl:text>
+            <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'LIST'">
+                <xsl:text>if (parameter != null &amp;&amp; parameter is IViewModel) &#13;{&#13;</xsl:text>
+                <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
+                <xsl:text>&#13;}&#13;</xsl:text>
+            </xsl:if>
             <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
         </xsl:for-each>
 
@@ -321,7 +325,9 @@
     </xsl:template>
 
     <xsl:template match="page" mode="create-pages-constructor">
+    <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'LIST'">
         <xsl:text>&#13;_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = 1;&#13;</xsl:text>
+    </xsl:if>
     <xsl:value-of select="name"/><xsl:text>Loader = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="viewmodel/dataloader-impl/dataloader-interface/name"/><xsl:text>&gt;();&#13;</xsl:text>
         <xsl:for-each select="actions/action">
             <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
@@ -341,7 +347,9 @@
     </xsl:template>
 
     <xsl:template match="page" mode="create-pages-properties">
-        <xsl:text>&#13;private long _</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId;&#13;</xsl:text>
+        <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'LIST'">
+            <xsl:text>&#13;private long _</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId;&#13;</xsl:text>
+        </xsl:if>
         <xsl:text>public </xsl:text>
         <xsl:choose>
             <xsl:when test="viewmodel/dataloader-impl/dataloader-interface/name">

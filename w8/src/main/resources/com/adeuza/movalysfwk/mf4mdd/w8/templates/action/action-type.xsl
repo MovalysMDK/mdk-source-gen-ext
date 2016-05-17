@@ -474,7 +474,7 @@
 
 
 <xsl:template match="cascade" mode="delete-cascade-set">
-	<xsl:value-of select="/action/class/uml-name"/><xsl:text>Cascade.</xsl:text><xsl:value-of select="@name"/>
+	<xsl:value-of select="./entity-name"/><xsl:text>Cascade.</xsl:text><xsl:value-of select="@name"/>
 	<xsl:if test="position() != count(../cascade)">
 		<xsl:text>, </xsl:text>
 	</xsl:if>
