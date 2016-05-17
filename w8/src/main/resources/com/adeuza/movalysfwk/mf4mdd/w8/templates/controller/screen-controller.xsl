@@ -51,6 +51,11 @@
             <xsl:text>using </xsl:text><xsl:value-of select="./viewmodel/package"/><xsl:text>;&#13;</xsl:text>
         </xsl:if>
 
+        <xsl:if test="not(./viewmodel/dataloader-impl)">
+            <xsl:text>using mdk_common.DataLoader;&#13;</xsl:text>
+            <xsl:text>using mdk_common.Model;&#13;</xsl:text>
+        </xsl:if>
+
         <xsl:text>&#13;&#13;</xsl:text>
 
         <xsl:text>namespace </xsl:text><xsl:value-of select="./package" /><xsl:text>{</xsl:text>
@@ -257,7 +262,7 @@
                     <xsl:text>return;&#13;}&#13;</xsl:text>
                     <xsl:text>&#13;}&#13;</xsl:text>
 
-                    <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'LIST'">
+                    <xsl:if test="./viewmodel/dataloader-impl">
                         <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
                     </xsl:if>
                     <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
@@ -278,7 +283,7 @@
         <xsl:text>&#13;public override void onNavigatedTo(object parameter)&#13;{&#13;</xsl:text>
 
         <xsl:for-each select="./pages/page">
-            <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'LIST'">
+            <xsl:if test="./viewmodel/dataloader-impl">
                 <xsl:text>if (parameter != null &amp;&amp; parameter is IViewModel) &#13;{&#13;</xsl:text>
                 <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
                 <xsl:text>&#13;}&#13;</xsl:text>
@@ -325,10 +330,10 @@
     </xsl:template>
 
     <xsl:template match="page" mode="create-pages-constructor">
-    <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'LIST'">
+    <xsl:if test="./viewmodel/dataloader-impl">
         <xsl:text>&#13;_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = 1;&#13;</xsl:text>
+        <xsl:value-of select="name"/><xsl:text>Loader = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="viewmodel/dataloader-impl/dataloader-interface/name"/><xsl:text>&gt;();&#13;</xsl:text>
     </xsl:if>
-    <xsl:value-of select="name"/><xsl:text>Loader = ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="viewmodel/dataloader-impl/dataloader-interface/name"/><xsl:text>&gt;();&#13;</xsl:text>
         <xsl:for-each select="actions/action">
             <xsl:text>((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
                 <xsl:text>((</xsl:text><xsl:value-of select="../../../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
@@ -347,7 +352,7 @@
     </xsl:template>
 
     <xsl:template match="page" mode="create-pages-properties">
-        <xsl:if test="viewmodel/dataloader-impl/dataloader-interface/type = 'LIST'">
+        <xsl:if test="./viewmodel/dataloader-impl">
             <xsl:text>&#13;private long _</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId;&#13;</xsl:text>
         </xsl:if>
         <xsl:text>public </xsl:text>
@@ -389,14 +394,16 @@
         <!--Reload panel data-->
         <xsl:text>&#13;public void reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data()</xsl:text>
 		<xsl:text>&#13;{</xsl:text>
-		<xsl:choose>
-			<xsl:when test="viewmodel/dataloader-impl/dataloader-interface/type = 'LIST'">
-				this.loadListData(<xsl:value-of select="name"/>Loader);
-			</xsl:when>
-			<xsl:otherwise>
-				this.loadData(<xsl:value-of select="name"/>Loader, _<xsl:value-of select="name"/>selectedId);
-			</xsl:otherwise>
-		</xsl:choose>
+        <xsl:if test="./viewmodel/dataloader-impl">
+            <xsl:choose>
+                <xsl:when test="viewmodel/dataloader-impl/dataloader-interface/type = 'LIST'">
+                    this.loadListData(<xsl:value-of select="name"/>Loader);
+                </xsl:when>
+                <xsl:otherwise>
+                    this.loadData(<xsl:value-of select="name"/>Loader, _<xsl:value-of select="name"/>selectedId);
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
 		<xsl:text>&#13;}&#13;</xsl:text>
 
         <!--panel CUDActionArgs-->
