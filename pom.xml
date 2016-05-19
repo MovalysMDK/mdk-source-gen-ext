@@ -20,7 +20,7 @@
 
 	<groupId>com.adeuza.movalysfwk.mf4mdd</groupId>
 	<artifactId>mf4mdd</artifactId>
-	<version>6.4.2-SNAPSHOT</version>
+	<version>6.4.2</version>
 	<packaging>pom</packaging>
 	<name>mf4mdd</name>
 
