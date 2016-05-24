@@ -34,10 +34,7 @@
 		<xsl:value-of select="component-position"/>
 		<xsl:text>" Grid.Column="0"</xsl:text>
 		<xsl:text> mf:Value="{Binding Path=</xsl:text>
-		<xsl:variable name="property-name-upperfirt"><xsl:call-template name="string-uppercase-firstchar">
-		<xsl:with-param name="text" select="property-name-c"/>
-		</xsl:call-template></xsl:variable>
-		<xsl:value-of select="$property-name-upperfirt"/>
+		<xsl:value-of select="viewmodel-interface-name"/>
 		<xsl:text>, Mode=TwoWay}"</xsl:text>
 		<xsl:apply-templates select="../../ExternalAdapters/adapter" mode="external-adapter">
 			<xsl:with-param name="listName"><xsl:value-of select="parameters/parameter[@name = 'fixedListVm']" /></xsl:with-param>

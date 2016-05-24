@@ -33,10 +33,18 @@
 		<xsl:text> Visibility="{Binding Path=</xsl:text>
 		<xsl:value-of select="property-name-c" />
 		<xsl:text>.Visibility, Mode=TwoWay, Converter={StaticResource BoolToVisibility}}"</xsl:text>
-		<xsl:text> IsEnabled="{Binding Path=</xsl:text>
-		<xsl:value-of select="property-name-c" />
-		<xsl:text>.Enabled, Mode=TwoWay}"</xsl:text>
-		<xsl:text> mf:mapCredential="INPUT_YOUR_CREDENTIAL"</xsl:text>
+		<xsl:text> mf:Mandatory="</xsl:text>
+		<xsl:value-of select="mandatory" />
+		<xsl:text>" IsEnabled="</xsl:text>
+		<xsl:choose>
+			<xsl:when test="readonly='true'">
+				<xsl:text>false</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>True</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text>" mf:mapCredential="INPUT_YOUR_CREDENTIAL"</xsl:text>
 		<xsl:text>&#47;&gt;</xsl:text>
 </xsl:template>
 

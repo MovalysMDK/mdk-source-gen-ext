@@ -47,9 +47,7 @@
 		<xsl:text> mf:CloseTemplate="{StaticResource </xsl:text>
 		<xsl:value-of select="../../adapter/layouts/layout[@id = 'listitem2']/name" />
 		<xsl:text>}"</xsl:text>
-		<xsl:for-each select="/layout/navigations/navigation[@type='NAVIGATION_DETAIL']">
-				<xsl:text> mf:OnItemClickCommand="{Binding </xsl:text><xsl:value-of select="./sourcePage/name"/><xsl:text>NavigationDetailCommand}"</xsl:text>
-		</xsl:for-each>
+		<xsl:text> mf:OnItemClickCommand="{Binding </xsl:text><xsl:value-of select="../../adapter/name"/><xsl:text>NavigationDetailCommand}"</xsl:text>
 		<xsl:text>&#47;&gt;</xsl:text>
 		
 </xsl:template>

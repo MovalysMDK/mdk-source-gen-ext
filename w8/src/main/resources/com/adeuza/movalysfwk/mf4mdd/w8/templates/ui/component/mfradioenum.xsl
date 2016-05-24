@@ -36,13 +36,18 @@
 		<xsl:text> Visibility="{Binding Path=</xsl:text>
 		<xsl:value-of select="property-name-c" />
 		<xsl:text>.Visibility, Mode=TwoWay, Converter={StaticResource BoolToVisibility}}"</xsl:text>
-		<xsl:text> mf:Mandatory="{Binding Path=</xsl:text>
-		<xsl:value-of select="property-name-c" />
-		<xsl:text>.Mandatory, Mode=TwoWay}"</xsl:text>
-		<xsl:text> IsEnabled="{Binding Path=</xsl:text>
-		<xsl:value-of select="property-name-c" />
-		<xsl:text>.Enabled, Mode=TwoWay}"</xsl:text>
-		<xsl:text> mf:RadioEnumTemplate="{StaticResource </xsl:text>
+		<xsl:text> mf:Mandatory="</xsl:text>
+		<xsl:value-of select="mandatory" />
+		<xsl:text>" IsEnabled="</xsl:text>
+		<xsl:choose>
+			<xsl:when test="readonly='true'">
+				<xsl:text>false</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>True</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text>" mf:RadioEnumTemplate="{StaticResource </xsl:text>
 		<xsl:value-of select="parameters/parameter[@name='enum']" />
 		<xsl:text>_radioenum_datatemplate}"</xsl:text>
 		<xsl:text>&#47;&gt;</xsl:text>
