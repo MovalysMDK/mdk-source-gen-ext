@@ -58,7 +58,7 @@
 		<xsl:apply-templates select="adapter/layouts/layout" mode="data-template" />
 		<xsl:apply-templates select="ExternalAdapters/adapter/layouts/layout" mode="data-template" />
 	</xsl:if>
-	<xsl:apply-templates select="visualfields/visualfield/parameters"/>
+	<xsl:apply-templates select="visualfields/visualfield/parameters/parameter[@name='enum']"/>
 	<xsl:text>&lt;&#47;ResourceDictionary.MergedDictionaries&gt;</xsl:text>
 	<xsl:text>&lt;conv:BoolToVisibility x:Key="BoolToVisibility"&#47;&gt;</xsl:text>
     <xsl:text>&lt;conv:StringFormatConverter x:Key="StringFormatConverter" &#47;&gt;</xsl:text>
@@ -68,12 +68,10 @@
 	<xsl:text>&lt;&#47;</xsl:text><xsl:call-template name="IsList" /><xsl:text>.Resources&gt;</xsl:text>
 </xsl:template>
 	
-<xsl:template match="parameters">
-	<xsl:if test="parameter/@name = 'enum'">
-		<xsl:text>&lt;ResourceDictionary Source="../DataTemplates/</xsl:text>
-		<xsl:value-of select="parameter"/>
-		<xsl:text>_radioenum_datatemplate.xaml"/&gt;</xsl:text>
-	</xsl:if>
+<xsl:template match="parameter">
+	<xsl:text>&lt;ResourceDictionary Source="../DataTemplates/</xsl:text>
+	<xsl:value-of select="."/>
+	<xsl:text>_radioenum_datatemplate.xaml"/&gt;</xsl:text>
 </xsl:template>
 
 <xsl:template name="xaml-content">
