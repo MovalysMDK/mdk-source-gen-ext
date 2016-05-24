@@ -39,9 +39,9 @@
 		<xsl:apply-templates select="../../ExternalAdapters/adapter" mode="external-adapter">
 			<xsl:with-param name="listName"><xsl:value-of select="parameters/parameter[@name = 'fixedListVm']" /></xsl:with-param>
 		</xsl:apply-templates>
-		<xsl:text> mf:ViewModelName="VMName"</xsl:text>
-		<xsl:text> mf:ListName="ListName({0})"</xsl:text>
-		<xsl:text> mf:MaxVisibleItems="5"</xsl:text>
+		<xsl:if test="../../buttons/button[@type='SAVE']">
+			<xsl:text> mf:OnValidationCommand="{Binding SaveCommand}"</xsl:text>
+		</xsl:if>
 		<xsl:text>&#47;&gt;</xsl:text>
 </xsl:template>
 
