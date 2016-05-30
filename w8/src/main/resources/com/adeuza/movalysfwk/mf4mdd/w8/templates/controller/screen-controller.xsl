@@ -205,10 +205,12 @@
 
             <xsl:text>IMFResourcesHelper resourceLoader = ClassLoader.GetInstance().GetBean&lt;IMFResourcesHelper&gt;();&#13;</xsl:text>
             <xsl:text>var messageDialog = new MessageDialog(resourceLoader.getResource("IsDirtyQuestion", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
-            <xsl:text>UICommand okCmd = new UICommand(resourceLoader.getResource("Yes", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
             <xsl:text>UICommand noCmd = new UICommand(resourceLoader.getResource("No", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
+            <xsl:text>UICommand okCmd = new UICommand(resourceLoader.getResource("Yes", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
             <xsl:text>UICommand cancelCmd = new UICommand("Cancel");&#13;</xsl:text>
+            <xsl:text>#if !WINDOWS_PHONE&#13;</xsl:text>
             <xsl:text>messageDialog.Commands.Add(okCmd);&#13;</xsl:text>
+            <xsl:text>#endif&#13;</xsl:text>
             <xsl:text>messageDialog.Commands.Add(noCmd);&#13;</xsl:text>
             <xsl:text>messageDialog.Commands.Add(cancelCmd);&#13;</xsl:text>
             <xsl:text>IUICommand command = await messageDialog.ShowAsync();&#13;</xsl:text>
@@ -244,7 +246,9 @@
                     <xsl:text>UICommand okCmd = new UICommand(resourceLoader.getResource("Yes", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
                     <xsl:text>UICommand noCmd = new UICommand(resourceLoader.getResource("No", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
                     <xsl:text>UICommand cancelCmd = new UICommand("Cancel");&#13;</xsl:text>
+                    <xsl:text>#if !WINDOWS_PHONE&#13;</xsl:text>
                     <xsl:text>messageDialog.Commands.Add(okCmd);&#13;</xsl:text>
+                    <xsl:text>#endif&#13;</xsl:text>
                     <xsl:text>messageDialog.Commands.Add(noCmd);&#13;</xsl:text>
                     <xsl:text>messageDialog.Commands.Add(cancelCmd);&#13;</xsl:text>
                     <xsl:text>IUICommand command = await messageDialog.ShowAsync();&#13;</xsl:text>
