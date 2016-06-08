@@ -63,7 +63,7 @@
 </xsl:template>
 
 <xsl:template name="xaml-content">
-	<xsl:text>&lt;ScrollViewer&gt;</xsl:text>
+	<xsl:text>&lt;ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled"&gt;</xsl:text>
 	<xsl:text>&lt;Grid x:Name="rootLayout"&gt;</xsl:text>
 	<xsl:text>&lt;Grid.RowDefinitions&gt;</xsl:text>
            <xsl:text>&lt;RowDefinition Height="140"&#47;&gt;</xsl:text>

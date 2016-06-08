@@ -69,11 +69,12 @@
 	<xsl:text>&#13;</xsl:text>
 
 	<xsl:if test="entity-to-update/name">
-		<xsl:text>SaveCommand = new MDKDelegateCommand(ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
+		<!--xsl:text>SaveCommand = new MDKDelegateCommand(ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text-->
 		<xsl:text>DeleteCommand = new MDKDelegateCommand(ExecuteDelete</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
 	</xsl:if>
 
 	<xsl:if test="is-screen-viewmodel='true'">
+		<!--xsl:text>SaveCommand = new MDKDelegateCommand(ExecuteSave);&#13;</xsl:text-->
 		<xsl:text>GoBackCommand = new MDKDelegateCommand(ExecuteGoBack);&#13;</xsl:text>
 	</xsl:if>
 
@@ -487,9 +488,9 @@
 
 <xsl:template name="generate-events">
 	<xsl:if test="entity-to-update/name">
-		<xsl:text>public event SaveRequestHandler Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request;&#13;</xsl:text>
+		<!--xsl:text>public event SaveRequestHandler Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request;&#13;</xsl:text>
 		<xsl:text>protected virtual void OnSave</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(object parameter)&#13;</xsl:text>
-		<xsl:text>{&#13;Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(this,parameter);&#13;}&#13;&#13;</xsl:text>
+		<xsl:text>{&#13;Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(this,parameter);&#13;}&#13;&#13;</xsl:text-->
 
 		<xsl:text>public event DeleteRequestHandler Delete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request;&#13;</xsl:text>
 		<xsl:text>protected virtual void OnDelete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(object parameter)&#13;</xsl:text>
@@ -497,6 +498,10 @@
 	</xsl:if>
 
 	<xsl:if test="is-screen-viewmodel='true'">
+		<!--xsl:text>public event SaveRequestHandler SaveRequest;&#13;</xsl:text>
+		<xsl:text>protected virtual void OnSaveRequest(object parameter)&#13;</xsl:text>
+		<xsl:text>{&#13;SaveRequest(this,parameter);&#13;}&#13;&#13;</xsl:text-->
+
 		<xsl:text>public event NavigationRequestHandler GoBackRequest;&#13;</xsl:text>
 		<xsl:text>protected virtual void OnGoBackRequest(object parameter)&#13;</xsl:text>
 		<xsl:text>{&#13;GoBackRequest(this,parameter);&#13;}&#13;&#13;</xsl:text>
@@ -519,8 +524,9 @@
 </xsl:template>
 
 <xsl:template name="generate-commands">
+	<!--xsl:text>public ICommand SaveCommand { get; set; }&#13;</xsl:text-->
+
 	<xsl:if test="entity-to-update/name">
-		<xsl:text>public ICommand SaveCommand { get; set; }&#13;</xsl:text>
 		<xsl:text>public ICommand DeleteCommand { get; set; }&#13;</xsl:text>
 	</xsl:if>
 
@@ -542,9 +548,9 @@
 
 <xsl:template name="generate-execute-methods">
 	<xsl:if test="entity-to-update/name">
-		<xsl:text>public void ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(object parameter)&#13;{&#13;</xsl:text>
+		<!--xsl:text>public void ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(object parameter)&#13;{&#13;</xsl:text>
 		<xsl:text>OnSave</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(parameter);&#13;</xsl:text>
-		<xsl:text>}&#13;</xsl:text>
+		<xsl:text>}&#13;</xsl:text-->
 
 		<xsl:text>public void ExecuteDelete</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(object parameter)&#13;{&#13;</xsl:text>
 		<xsl:text>OnDelete</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(parameter);&#13;</xsl:text>
@@ -555,6 +561,12 @@
 		<xsl:text>public void ExecuteGoBack(object parameter)&#13;{&#13;</xsl:text>
 		<xsl:text>OnGoBackRequest(parameter);&#13;</xsl:text>
 		<xsl:text>}&#13;</xsl:text>
+
+		<!--xsl:text>public void ExecuteSave(object parameter)&#13;{&#13;</xsl:text>
+		<xsl:for-each select="subvm/viewmodel">
+			<xsl:text>this.</xsl:text><xsl:value-of select="name"/><xsl:text>.SaveCommand.Execute(parameter);&#13;</xsl:text>
+		</xsl:for-each>
+		<xsl:text>}&#13;</xsl:text-->
 	</xsl:if>
 
 	<xsl:for-each select="./navigations/navigation">

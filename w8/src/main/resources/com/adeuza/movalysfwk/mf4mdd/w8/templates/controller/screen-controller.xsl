@@ -344,7 +344,7 @@
             <xsl:value-of select="viewmodel/name"/><xsl:text>).</xsl:text>
             <xsl:choose>
                 <xsl:when test="action-type = 'SAVEDETAIL'">
-                    <xsl:text>Save</xsl:text><xsl:value-of select="../../name"/><xsl:text>Request += Save</xsl:text>
+                    <xsl:text>SaveRequest += Save</xsl:text>
                     <xsl:value-of select="../../name"/><xsl:text>;&#13;</xsl:text>
                 </xsl:when>
                 <xsl:when test="action-type = 'DELETEDETAIL'">
@@ -466,11 +466,8 @@
                             select="../../../reverse-navigationsV2/navigationV2[@type = 'MASTER_DETAIL']/source/component-name-capitalized" /><xsl:text>_ReloadEvent();</xsl:text>
                 </xsl:if>
             </xsl:if>
-            <xsl:if test="/dialog">
-                <!-- 				SavePeopleSearchScreenSearchDialogActionArgs saveActionArgs = new SavePeopleSearchScreenSearchDialogActionArgs(); -->
-                <!-- 		saveActionArgs.viewModel = ViewModel; -->
-                <!--         saveActionArgs.dataLoader = Loader; -->
-                <!-- 		ClassLoader.GetInstance().GetBean<IMFController>().LaunchAction(typeof(SavePeopleSearchScreenSearchDialogActionArgs), this, saveActionArgs); -->
+            <xsl:if test="in-workspace = 'false'">
+                <xsl:text>GoBack(this,null);&#13;</xsl:text>
             </xsl:if>
             <xsl:text>}&#13;&#13;</xsl:text>
 

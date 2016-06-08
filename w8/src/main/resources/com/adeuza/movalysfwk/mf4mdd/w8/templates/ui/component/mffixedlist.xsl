@@ -30,7 +30,7 @@
 			<xsl:with-param name="replace" select="'.'"/>
 			<xsl:with-param name="by" select="'_'"/>
 		</xsl:call-template>
-		<xsl:text>" Grid.Row="</xsl:text>
+		<xsl:text>" MaxHeight="800" Grid.Row="</xsl:text>
 		<xsl:value-of select="component-position"/>
 		<xsl:text>" Grid.Column="0"</xsl:text>
 		<xsl:text> mf:Value="{Binding Path=</xsl:text>

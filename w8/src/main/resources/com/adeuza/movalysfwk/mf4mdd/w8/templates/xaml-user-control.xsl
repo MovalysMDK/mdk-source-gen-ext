@@ -76,7 +76,7 @@
 
 <xsl:template name="xaml-content">
 	<xsl:if test="/layout/in-workspace = 'true'">
-		<xsl:text>&lt;ScrollViewer&gt;</xsl:text>
+		<xsl:text>&lt;ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"&gt;</xsl:text>
 	</xsl:if>
 	<xsl:text>&lt;Grid x:Name="rootLayout" Width="300" HorizontalAlignment="Center"&gt;</xsl:text>
 		<xsl:text>&lt;Grid.RowDefinitions&gt;</xsl:text>

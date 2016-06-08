@@ -43,6 +43,7 @@
 	<xsl:text>/// &lt;/summary&gt;&#13;</xsl:text>
 	<xsl:text>[ScopePolicyAttribute(ScopePolicy.</xsl:text>
 	<xsl:choose>
+		<!--xsl:when test="is-screen-viewmodel='true'"-->
 		<xsl:when test="type/name='MASTER'">
 			<xsl:text>Singleton</xsl:text>
 		</xsl:when>
@@ -92,12 +93,23 @@
 	</xsl:if>
 
 	<xsl:if test="entity-to-update/name">
-		<xsl:text>void ExecuteSave</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(object parameter);&#13;</xsl:text>
+		<!--xsl:text>void ExecuteSave</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(object parameter);&#13;</xsl:text-->
 		<xsl:text>void ExecuteDelete</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>(object parameter);&#13;</xsl:text>
 	</xsl:if>
 
 	<xsl:if test="is-screen-viewmodel='true'">
 		<xsl:text>void ExecuteGoBack(object parameter);&#13;</xsl:text>
+		<!--xsl:text>void ExecuteSave(object parameter);&#13;</xsl:text-->
+	</xsl:if>
+
+	<!--xsl:text>ICommand SaveCommand { get; set; }&#13;</xsl:text-->
+
+	<xsl:if test="entity-to-update/name">
+		<xsl:text>ICommand DeleteCommand { get; set; }&#13;</xsl:text>
+	</xsl:if>
+
+	<xsl:if test="is-screen-viewmodel='true'">
+		<xsl:text>ICommand GoBackCommand { get; set; }&#13;</xsl:text>
 	</xsl:if>
 
 	<xsl:for-each select="./navigations/navigation">

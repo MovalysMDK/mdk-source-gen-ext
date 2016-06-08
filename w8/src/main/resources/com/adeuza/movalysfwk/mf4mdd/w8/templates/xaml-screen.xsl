@@ -70,7 +70,7 @@
 
 
 	<xsl:template match="screen[workspace='true' and is-Store='false' ]" mode="xaml-content">
-		<xsl:text>&lt;ScrollViewer&gt;</xsl:text>
+		<xsl:text>&lt;ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled"&gt;</xsl:text>
 		<xsl:text>&lt;Grid x:Name="rootLayout" Background="Black"&gt;</xsl:text>
 		<xsl:text>&lt;Grid.RowDefinitions&gt;</xsl:text>
 		<xsl:text>&lt;RowDefinition Height="140"&#47;&gt;</xsl:text>
@@ -92,7 +92,7 @@
 	</xsl:template>
 
 	<xsl:template match="screen[workspace='true' and is-Store='true' ]" mode="xaml-content">
-		<xsl:text>&lt;ScrollViewer&gt;</xsl:text>
+		<xsl:text>&lt;ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled"&gt;</xsl:text>
 		<xsl:text>&lt;Grid x:Name="rootLayout" Background="Black"&gt;</xsl:text>
 		<xsl:text>&lt;Grid.RowDefinitions&gt;</xsl:text>
 		<xsl:text>&lt;RowDefinition Height="140"&#47;&gt;</xsl:text>
@@ -126,7 +126,7 @@
 
 	<xsl:template match="screen" mode="xaml-content">
 
-		<xsl:text>&lt;ScrollViewer&gt;</xsl:text>
+		<xsl:text>&lt;ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled"&gt;</xsl:text>
 		<xsl:text>&lt;Grid x:Name="rootLayout" Background="Black"&gt;</xsl:text>
 		<xsl:text>&lt;Grid.RowDefinitions&gt;</xsl:text>
 		<xsl:text>&lt;RowDefinition Height="140"&#47;&gt;</xsl:text>
@@ -227,7 +227,7 @@
 	</xsl:template>
 	
 	<xsl:template name="xaml-bottom-appbar">
-		<xsl:if test="workspace = 'true' or multi-panel = 'true' or is-Store='false'">
+		<xsl:if test="is-Store='false'">
     		<xsl:text>&lt;common:MFPage.BottomAppBar&gt;</xsl:text>
     		<xsl:text>&lt;CommandBar&gt;</xsl:text>
             <xsl:text>&lt;CommandBar.PrimaryCommands&gt;</xsl:text>

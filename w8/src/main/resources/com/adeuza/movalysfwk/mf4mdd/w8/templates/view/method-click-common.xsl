@@ -28,7 +28,7 @@
 </xsl:template>
 
 <xsl:template match="button[@type='SAVE']" mode="method-click-impl">
-	<xsl:if test="/page/in-workspace='false' and /page/in-multi-panel='false'">
+	<!--xsl:if test="/page/in-workspace='false' and /page/in-multi-panel='false'">
 		<xsl:text>&#13;/// &lt;inheritDoc/&gt;&#13;</xsl:text>
 		<xsl:text>public void </xsl:text><xsl:value-of select="@name"/><xsl:text>_Click(object sender, RoutedEventArgs e)</xsl:text>
 		<xsl:text>&#13;{&#13;</xsl:text>
@@ -40,7 +40,7 @@
 					<xsl:with-param name="defaultSource"></xsl:with-param>
 				</xsl:call-template>
 		<xsl:text>}&#13;</xsl:text>
-	</xsl:if>
+	</xsl:if-->
 </xsl:template>
 
 <xsl:template match="button[@type='DELETE']" mode="method-click-impl">

@@ -70,6 +70,11 @@
 		<xsl:value-of select="uml-name"/><xsl:text>AddCommand = new MDKDelegateCommand(Execute</xsl:text>
 		<xsl:value-of select="uml-name"/><xsl:text>Add);&#13;</xsl:text>
 	</xsl:if>
+
+	<!--xsl:if test="subvm/viewmodel/entity-to-update/name">
+		<xsl:text>SaveCommand = new MDKDelegateCommand(ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>);&#13;</xsl:text>
+	</xsl:if-->
+
 	<xsl:text>}&#13;</xsl:text>
 <xsl:text>&#13;</xsl:text>
  <xsl:call-template name="non-generated-bloc">
@@ -97,6 +102,12 @@
 		<xsl:text>public ICommand </xsl:text><xsl:value-of select="uml-name"/><xsl:text>AddCommand&#13;</xsl:text>
 		<xsl:text>&#13;{&#13;get;&#13;set;&#13;}&#13;&#13;</xsl:text>
 	</xsl:if>
+
+	<!--xsl:text>public event SaveRequestHandler Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request;&#13;</xsl:text>
+	<xsl:text>protected virtual void OnSave</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(object parameter)&#13;</xsl:text>
+	<xsl:text>{&#13;Save</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(this,parameter);&#13;}&#13;&#13;</xsl:text>
+
+	<xsl:text>public ICommand SaveCommand { get; set; }&#13;</xsl:text-->
 
 	<xsl:text>&#13;</xsl:text>
  <xsl:call-template name="non-generated-bloc">
@@ -141,6 +152,12 @@
 	<xsl:text>Execute</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetail(CreateEmptyItem());&#13;</xsl:text>
 	<xsl:text>}&#13;</xsl:text>
 </xsl:if>
+
+<!--xsl:if test="subvm/viewmodel/entity-to-update/name">
+	<xsl:text>public void ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(object parameter)&#13;{&#13;</xsl:text>
+	<xsl:text>OnSave</xsl:text><xsl:value-of select="./uml-name"/><xsl:text>Request(parameter);&#13;</xsl:text>
+	<xsl:text>}&#13;</xsl:text>
+</xsl:if-->
 
 <xsl:text>&#13;</xsl:text>
 <xsl:call-template name="non-generated-bloc">
