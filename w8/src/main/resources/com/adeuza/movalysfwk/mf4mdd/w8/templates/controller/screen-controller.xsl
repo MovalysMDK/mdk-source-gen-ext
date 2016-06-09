@@ -195,38 +195,9 @@
         <xsl:text>&#13;#region Methods&#13;</xsl:text>
 
         <xsl:text>public </xsl:text>
-            <xsl:if test="pages/page[actions/action/action-type='SAVEDETAIL']"><xsl:text>async </xsl:text></xsl:if>
         <xsl:text>void GoBack(object sender, object parameter)&#13;</xsl:text>
         <xsl:text>{&#13;</xsl:text>
-        <xsl:for-each select="pages/page[actions/action/action-type='SAVEDETAIL']">
-            <xsl:text>if (((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
-            <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
-            <xsl:value-of select="viewmodel/name"/><xsl:text>).IsDirty)&#13;{&#13;</xsl:text>
-
-            <xsl:text>IMFResourcesHelper resourceLoader = ClassLoader.GetInstance().GetBean&lt;IMFResourcesHelper&gt;();&#13;</xsl:text>
-            <xsl:text>var messageDialog = new MessageDialog(resourceLoader.getResource("IsDirtyQuestion", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
-            <xsl:text>UICommand noCmd = new UICommand(resourceLoader.getResource("No", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
-            <xsl:text>UICommand okCmd = new UICommand(resourceLoader.getResource("Yes", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
-            <xsl:text>UICommand cancelCmd = new UICommand("Cancel");&#13;</xsl:text>
-            <xsl:text>#if !WINDOWS_PHONE&#13;</xsl:text>
-            <xsl:text>messageDialog.Commands.Add(okCmd);&#13;</xsl:text>
-            <xsl:text>#endif&#13;</xsl:text>
-            <xsl:text>messageDialog.Commands.Add(noCmd);&#13;</xsl:text>
-            <xsl:text>messageDialog.Commands.Add(cancelCmd);&#13;</xsl:text>
-            <xsl:text>IUICommand command = await messageDialog.ShowAsync();&#13;</xsl:text>
-            <xsl:text>if (command.Equals(okCmd))&#13;</xsl:text>
-            <xsl:text>{&#13;</xsl:text>
-            <xsl:text>Save</xsl:text><xsl:value-of select="name"/><xsl:text>(this, ((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
-            <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
-            <xsl:value-of select="viewmodel/name"/><xsl:text>));&#13;</xsl:text>
-            <xsl:text>}&#13;</xsl:text>
-            <xsl:text>else if (command.Equals(cancelCmd))&#13;</xsl:text>
-            <xsl:text>{&#13;</xsl:text>
-            <xsl:text>return;&#13;</xsl:text>
-            <xsl:text>}&#13;</xsl:text>
-            <xsl:text>}&#13;</xsl:text>
-        </xsl:for-each>
-
+        <xsl:text>//if Viewmodel.Isdirty Ask for save, discard or cancel (save only for desktop)&#13;</xsl:text>
         <xsl:text>base.GoBack(sender, null);&#13;</xsl:text>
         <xsl:text>}&#13;</xsl:text>
 
@@ -236,35 +207,6 @@
                     <xsl:text>public async void </xsl:text>
                     <xsl:value-of select="name"/><xsl:text>Navigation(object sender, object parameter)&#13;{&#13;</xsl:text>
                     <xsl:text>if (parameter != null &amp;&amp; parameter is IViewModel) &#13;{&#13;</xsl:text>
-
-                    <xsl:text>if (((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
-                    <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
-                    <xsl:value-of select="viewmodel/name"/><xsl:text>).IsDirty)&#13;{&#13;</xsl:text>
-
-                    <xsl:text>IMFResourcesHelper resourceLoader = ClassLoader.GetInstance().GetBean&lt;IMFResourcesHelper&gt;();&#13;</xsl:text>
-                    <xsl:text>var messageDialog = new MessageDialog(resourceLoader.getResource("IsDirtyQuestion", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
-                    <xsl:text>UICommand okCmd = new UICommand(resourceLoader.getResource("Yes", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
-                    <xsl:text>UICommand noCmd = new UICommand(resourceLoader.getResource("No", ResourceFileEnum.FrameWorkFile));&#13;</xsl:text>
-                    <xsl:text>UICommand cancelCmd = new UICommand("Cancel");&#13;</xsl:text>
-                    <xsl:text>#if !WINDOWS_PHONE&#13;</xsl:text>
-                    <xsl:text>messageDialog.Commands.Add(okCmd);&#13;</xsl:text>
-                    <xsl:text>#endif&#13;</xsl:text>
-                    <xsl:text>messageDialog.Commands.Add(noCmd);&#13;</xsl:text>
-                    <xsl:text>messageDialog.Commands.Add(cancelCmd);&#13;</xsl:text>
-                    <xsl:text>IUICommand command = await messageDialog.ShowAsync();&#13;</xsl:text>
-                    <xsl:text>if (command.Equals(okCmd))&#13;{&#13;</xsl:text>
-                    <xsl:text>Save</xsl:text><xsl:value-of select="name"/><xsl:text>(this, ((</xsl:text><xsl:value-of select="viewmodel/name"/><xsl:text>)</xsl:text>
-                    <xsl:text>((</xsl:text><xsl:value-of select="../../viewmodel/name"/><xsl:text>) ViewModel).</xsl:text>
-                    <xsl:value-of select="viewmodel/name"/><xsl:text>));&#13;</xsl:text>
-                    <xsl:for-each select="../../pages/page">
-                        <xsl:if test="in-workspace='true' and parameters/parameter[@name='workspace-panel-type']='master'">
-                            <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
-                        </xsl:if>
-                    </xsl:for-each>
-                    <xsl:text>}&#13;</xsl:text>
-                    <xsl:text>else if (command.Equals(cancelCmd))&#13;{&#13;</xsl:text>
-                    <xsl:text>return;&#13;}&#13;</xsl:text>
-                    <xsl:text>&#13;}&#13;</xsl:text>
 
                     <xsl:if test="./viewmodel/dataloader-impl">
                         <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
@@ -284,15 +226,15 @@
             </xsl:for-each>
         </xsl:if>
 
-        <xsl:text>&#13;public override void onNavigatedTo(object parameter)&#13;{&#13;</xsl:text>
+        <xsl:text>&#13;public override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)&#13;{&#13;</xsl:text>
 
         <xsl:for-each select="./pages/page">
             <xsl:if test="./viewmodel/dataloader-impl">
-                <xsl:text>if (parameter != null &amp;&amp; parameter is IViewModel) &#13;{&#13;</xsl:text>
-                <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) parameter).Id_id;</xsl:text>
+                <xsl:text>if (e.Parameter != null &amp;&amp; e.Parameter is IViewModel) &#13;{&#13;</xsl:text>
+                <xsl:text>_</xsl:text><xsl:value-of select="name"/><xsl:text>selectedId = ((IViewModel) e.Parameter).Id_id;</xsl:text>
                 <xsl:text>&#13;}&#13;</xsl:text>
             </xsl:if>
-            <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
+            <xsl:text>base.OnNavigatedTo(e); //reloadScreen&#13;</xsl:text>
         </xsl:for-each>
 
         <xsl:text>}&#13;&#13;</xsl:text>
@@ -303,21 +245,27 @@
             <xsl:text>navigationService.Navigate("</xsl:text><xsl:value-of select="target/name"/><xsl:text>Controller",parameter);&#13;}&#13;&#13;</xsl:text>
         </xsl:for-each>
 
-        <!--
-        <xsl:for-each select="pages/page">
-            <xsl:for-each select="navigations/navigation">
-                <xsl:if test="@type='NAVIGATION_DETAIL'">
-                    <xsl:text>public void </xsl:text><xsl:value-of select="target/name"/><xsl:text>Navigation(object sender, Object parameter)&#13;{&#13;</xsl:text>
-                    <xsl:text>IMDKNavigationService navigationService = ClassLoader.GetInstance().GetBean&lt;IMDKNavigationService&gt;();&#13;</xsl:text>
-                    <xsl:text>IViewModel vm = parameter as IViewModel;&#13;</xsl:text>
-                    <xsl:text>navigationService.Navigate("</xsl:text><xsl:value-of select="target/name"/><xsl:text>Controller",vm.Id_id);&#13;}&#13;&#13;</xsl:text>
-                </xsl:if>
-            </xsl:for-each>
-        </xsl:for-each>-->
-
         <xsl:for-each select="./pages/page">
             <xsl:apply-templates select="." mode="create-pages-methods" />
         </xsl:for-each>
+
+        <xsl:text>&#13;public override void SaveScreen()&#13;{&#13;</xsl:text>
+        <xsl:for-each select="./pages/page">
+            <xsl:for-each select="actions/action">
+                <xsl:choose>
+                <xsl:when test="action-type = 'SAVEDETAIL'">
+                    <xsl:text>Save</xsl:text><xsl:value-of select="../../name"/><xsl:text>(null,null);&#13;</xsl:text>
+                </xsl:when>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:for-each>
+        <xsl:text>}&#13;</xsl:text>
+
+        <xsl:text>&#13;public override void ReloadScreen()&#13;{&#13;</xsl:text>
+        <xsl:for-each select="./pages/page">
+            <xsl:text>reload</xsl:text><xsl:value-of select="name"/><xsl:text>Data();&#13;</xsl:text>
+        </xsl:for-each>
+        <xsl:text>}&#13;&#13;</xsl:text>
 
         <xsl:if test="./pages/page/chained-save='true'">
             <xsl:call-template name="panel-chained-save-action"/>
@@ -434,7 +382,6 @@
                     </xsl:if>
                 </xsl:if>
                 <xsl:if test="/dialog">
-                    <xsl:text>&#13;//toto</xsl:text>
                     <!-- 				SavePeopleSearchScreenSearchDialogActionArgs saveActionArgs = new SavePeopleSearchScreenSearchDialogActionArgs(); -->
                     <!-- 		saveActionArgs.viewModel = ViewModel; -->
                     <!--         saveActionArgs.dataLoader = Loader; -->

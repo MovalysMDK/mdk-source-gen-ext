@@ -148,8 +148,18 @@
 	            _idParent = value;
 	            OnPropertyChanged("IdParent");
 	        }
-	    }</xsl:text>
+	    }&#13;</xsl:text>
 	</xsl:if>
+
+	<xsl:text>&#13;public override Boolean IsDirty
+	{
+	get
+	{
+	return base.IsDirty</xsl:text>
+	<xsl:for-each select="subvm/viewmodel">
+		<xsl:text> || this.</xsl:text><xsl:value-of select="name"/><xsl:text>.IsDirty</xsl:text>
+	</xsl:for-each>
+	<xsl:text>;&#13;}&#13;}&#13;</xsl:text>
 	<xsl:text>&#13;</xsl:text>
 	<xsl:call-template name="non-generated-bloc">
 	<xsl:with-param name="blocId">custom-properties</xsl:with-param>
