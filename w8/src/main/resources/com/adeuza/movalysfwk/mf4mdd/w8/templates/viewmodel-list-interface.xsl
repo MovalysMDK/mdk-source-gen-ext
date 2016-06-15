@@ -84,6 +84,17 @@
 		<xsl:text>void Execute</xsl:text><xsl:value-of select="uml-name"/><xsl:text>NavigationDetail(object parameter);&#13;</xsl:text>
 	</xsl:if>
 
+	<!--xsl:if test="subvm/viewmodel/entity-to-update/name">
+		<xsl:text>void ExecuteSave</xsl:text><xsl:value-of select="./implements/interface/@name"/><xsl:text>(object parameter);&#13;</xsl:text>
+	</xsl:if-->
+
+
+	<!--xsl:text>ICommand SaveCommand { get; set; }&#13;</xsl:text-->
+
+	<xsl:if test="is-screen-viewmodel='true'">
+		<xsl:text>ICommand GoBackCommand { get; set; }&#13;</xsl:text>
+	</xsl:if>
+
 	<xsl:if test="dataloader-impl">
 	<xsl:text>&#13;/// &lt;summary&gt;&#13;</xsl:text>
 	<xsl:text>/// Update the view model with the given data loader.&#13;</xsl:text>

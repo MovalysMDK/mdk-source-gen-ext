@@ -30,21 +30,18 @@
 			<xsl:with-param name="replace" select="'.'"/>
 			<xsl:with-param name="by" select="'_'"/>
 		</xsl:call-template>
-		<xsl:text>" Grid.Row="</xsl:text>
+		<xsl:text>" MaxHeight="800" Grid.Row="</xsl:text>
 		<xsl:value-of select="component-position"/>
 		<xsl:text>" Grid.Column="0"</xsl:text>
 		<xsl:text> mf:Value="{Binding Path=</xsl:text>
-		<xsl:variable name="property-name-upperfirt"><xsl:call-template name="string-uppercase-firstchar">
-		<xsl:with-param name="text" select="property-name-c"/>
-		</xsl:call-template></xsl:variable>
-		<xsl:value-of select="$property-name-upperfirt"/>
+		<xsl:value-of select="viewmodel-interface-name"/>
 		<xsl:text>, Mode=TwoWay}"</xsl:text>
 		<xsl:apply-templates select="../../ExternalAdapters/adapter" mode="external-adapter">
 			<xsl:with-param name="listName"><xsl:value-of select="parameters/parameter[@name = 'fixedListVm']" /></xsl:with-param>
 		</xsl:apply-templates>
-		<xsl:text> mf:ViewModelName="VMName"</xsl:text>
-		<xsl:text> mf:ListName="ListName({0})"</xsl:text>
-		<xsl:text> mf:MaxVisibleItems="5"</xsl:text>
+		<xsl:if test="../../buttons/button[@type='SAVE']">
+			<xsl:text> mf:OnValidationCommand="{Binding SaveCommand}"</xsl:text>
+		</xsl:if>
 		<xsl:text>&#47;&gt;</xsl:text>
 </xsl:template>
 

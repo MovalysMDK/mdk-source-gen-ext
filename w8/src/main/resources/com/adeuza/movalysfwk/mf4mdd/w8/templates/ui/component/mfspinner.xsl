@@ -35,8 +35,18 @@
 		<xsl:text> mf:Value="{Binding Lst</xsl:text>
 		<xsl:value-of select="property-name-c" />
 		<xsl:text>, Mode=TwoWay}"</xsl:text>
-		<xsl:text> IsEnabled="True"</xsl:text>
-		<xsl:text> mf:ItemTemplate="{StaticResource </xsl:text>
+		<xsl:text> mf:Mandatory="</xsl:text>
+		<xsl:value-of select="mandatory" />
+		<xsl:text>" IsEnabled="</xsl:text>
+		<xsl:choose>
+			<xsl:when test="readonly='true'">
+				<xsl:text>false</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>True</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text>" mf:ItemTemplate="{StaticResource </xsl:text>
 		<xsl:value-of select="/layout/ExternalAdapters/adapter/layouts/layout[@id='listitem']/name" />
 		<xsl:text>}"</xsl:text>
 		<xsl:text> mf:ItemSelected="{Binding Selected</xsl:text>

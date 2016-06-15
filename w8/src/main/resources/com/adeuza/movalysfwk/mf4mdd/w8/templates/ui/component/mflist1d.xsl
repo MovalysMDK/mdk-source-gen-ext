@@ -65,8 +65,7 @@
 		<xsl:text> mf:OnItemClickCommand="{Binding </xsl:text><xsl:value-of select="/layout/prefix"/><xsl:text>NavigationDetailCommand}"</xsl:text>
 	</xsl:if>
 
-	<xsl:text> mf:OnAddButtonClickCommand="{Binding </xsl:text><xsl:value-of select="../../shortname"/><xsl:text>AddCommand}"</xsl:text>
-	
+
 	<xsl:if test="(/layout/parameters/parameter[@name='vmtype']='LIST_1' and /layout/in-workspace = 'false') or not(/layout/buttons/button[@type = 'NAVIGATION'])">
 	<xsl:text> ButtonAddVisibility="Collapsed"</xsl:text>
 	</xsl:if>
@@ -82,16 +81,15 @@
 	
 	<xsl:choose>
 		<xsl:when test="/layout/parameters/parameter[@name = 'vmtype'] = 'LISTITEM_2'">
-			<xsl:text> mf:ElementParentName="</xsl:text>
+			<xsl:text> mf:OnAddButtonClickCommand="{Binding ElementName=</xsl:text>
 			<xsl:value-of select="../../adapter/layouts/layout[@id ='list']/visualfields/visualfield[component = 'MFList2D']/name"/>
-			<xsl:text>"</xsl:text>
-			<xsl:text>&gt;</xsl:text>
-           <xsl:text>&lt;&#47;mf:MFList1D&gt;</xsl:text>			
+			<xsl:text>, Path=OnSubItemAddButtonClickCommand}"</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:text>&#47;&gt;</xsl:text>
+			<xsl:text> mf:OnAddButtonClickCommand="{Binding </xsl:text><xsl:value-of select="../../shortname"/><xsl:text>AddCommand}"</xsl:text>
 		</xsl:otherwise>
 	</xsl:choose>
+	<xsl:text>&#47;&gt;</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>

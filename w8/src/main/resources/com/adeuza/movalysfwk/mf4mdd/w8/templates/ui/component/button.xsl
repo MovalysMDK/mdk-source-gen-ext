@@ -24,8 +24,8 @@
 		<xsl:if test="./@type!='NAVIGATION' and ./@type!='DELETE' and ./@type!='SAVE'">
 			<xsl:text>&lt;Button x:Uid="</xsl:text>
 			<xsl:value-of select="@name"/>
-			<xsl:text>" HorizontalAlignment="Stretch" Click="</xsl:text>
-			<xsl:value-of select="./navigation/target/name"/><xsl:text>_Navigation_Click</xsl:text>
+			<xsl:text>" HorizontalAlignment="Stretch" Command="{Binding </xsl:text>
+			<xsl:value-of select="./navigation/target/name"/><xsl:text>NavigationCommand}</xsl:text>
 			<xsl:text>" &#47;&gt;</xsl:text>
 		</xsl:if>
 	</xsl:template>
@@ -34,18 +34,16 @@
 		<xsl:if test="/layout/in-workspace = 'false' and /layout/in-multipanel = 'false'">
 			<xsl:text>&lt;Button x:Uid="</xsl:text>
 			<xsl:value-of select="@name"/>
-			<xsl:text>" HorizontalAlignment="Stretch" Click="</xsl:text>
-			<xsl:value-of select="@name"/><xsl:text>_Click</xsl:text>
+			<xsl:text>" HorizontalAlignment="Stretch" Command="{Binding SaveCommand}</xsl:text>
 			<xsl:text>" &#47;&gt;</xsl:text>
 		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="button[@type = 'DELETE']" mode="create-button">
-		<xsl:if test="/layout/in-workspace = 'false' and /layout/in-multipanel = 'false'">
+		<xsl:if test="/layout/in-workspace = 'false'">
 			<xsl:text>&lt;Button x:Uid="</xsl:text>
 			<xsl:value-of select="@name"/>
-			<xsl:text>" HorizontalAlignment="Stretch" Click="</xsl:text>
-			<xsl:value-of select="@name"/><xsl:text>_Click</xsl:text>
+			<xsl:text>" HorizontalAlignment="Stretch" Command="{Binding DeleteCommand}</xsl:text>
 			<xsl:text>" &#47;&gt;</xsl:text>
 		</xsl:if>
 	</xsl:template>
