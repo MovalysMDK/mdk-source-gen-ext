@@ -55,7 +55,6 @@
 	<xsl:template match="entity[count(attribute)>0 or count(entity)>0]" mode="define-mapping-attributes">
 		<xsl:param name="left-factory"/>
 		<xsl:param name="left-attr-path"/>
-
 		<xsl:apply-templates select="./attribute|./entity" mode="define-mapping-attributes">
 			<xsl:with-param name="left-factory">
 				<xsl:if test="$left-factory"><xsl:value-of select="$left-factory"/>, </xsl:if>		
@@ -65,6 +64,7 @@
 				<xsl:value-of select="$left-attr-path"/><xsl:text>'</xsl:text><xsl:value-of select="getter/@name"/><xsl:text>', </xsl:text>
 			</xsl:with-param>
 		</xsl:apply-templates>
+		<xsl:if test="position() != last()"><xsl:text>,&#10;</xsl:text></xsl:if>
 
 	</xsl:template>
 	
