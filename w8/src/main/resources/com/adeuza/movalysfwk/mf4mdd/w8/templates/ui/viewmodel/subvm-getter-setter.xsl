@@ -31,14 +31,19 @@
 
 <xsl:template match="viewmodel" mode="generate-combo-attribute">
 
+	<xsl:text>#region combo&#13;</xsl:text>
 	<xsl:apply-templates select="external-lists/external-list/viewmodel|.//subvm/viewmodel" mode="generate-combo-selected-attribute"/>
 	<xsl:apply-templates select=".//subvm/viewmodel" mode="generate-combo-lst-attribute-for-fixed-list"/>
 	<xsl:apply-templates select="external-lists/external-list/viewmodel" mode="generate-combo-lst-attribute"/>
-	
+	<xsl:text>#endregion&#13;</xsl:text>
+
 </xsl:template>
 
 <xsl:template match="viewmodel[type/name='FIXED_LIST_ITEM']" mode="generate-combo-attribute">
-	<xsl:apply-templates select="external-lists/external-list/viewmodel|.//subvm/viewmodel" mode="generate-combo-selected-attribute-for-picker-in-fixedList"/>
+	<xsl:text>#region combo&#13;</xsl:text>
+	<xsl:apply-templates select="external-lists/external-list/viewmodel" mode="generate-combo-lst-attribute-for-picker-in-fixedList"/>
+	<xsl:apply-templates select="external-lists/external-list/viewmodel" mode="generate-combo-selected-attribute-for-picker-in-fixedList"/><!--|.//subvm/viewmodel-->
+	<xsl:text>#endregion&#13;</xsl:text>
 </xsl:template>
 
 <xsl:template match="viewmodel[type/name='LIST_1__ONE_SELECTED']" mode="generate-combo-selected-attribute-for-picker-in-fixedList">
@@ -82,6 +87,18 @@
 	<xsl:text>get { return _lst</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>; }&#13;</xsl:text>
 	<xsl:text>set{_lst</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> = value;</xsl:text>
 	<xsl:text>OnPropertyChanged("Lst</xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text>");</xsl:text>
+	<xsl:text>}&#13;</xsl:text>
+	<xsl:text>}&#13;</xsl:text>
+</xsl:template>
+
+<xsl:template match="viewmodel[type/name='LIST_1__ONE_SELECTED']" mode="generate-combo-lst-attribute-for-picker-in-fixedList">
+	<xsl:variable name="LstName"><xsl:text>Lst</xsl:text><xsl:value-of select="implements/interface/@name"/></xsl:variable>
+	<xsl:text>public </xsl:text><xsl:value-of select="implements/interface/@name"/><xsl:text> </xsl:text><xsl:value-of select="$LstName"/><xsl:text>&#13;</xsl:text>
+	<xsl:text>{</xsl:text>
+	<xsl:text>get { return ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="parent-viewmodel/parent-viewmodel/master-interface/@name"/>
+        <xsl:text>&gt;().</xsl:text><xsl:value-of select="$LstName"/><xsl:text>; }&#13;</xsl:text>
+	<xsl:text>set{ ClassLoader.GetInstance().GetBean&lt;</xsl:text><xsl:value-of select="parent-viewmodel/parent-viewmodel/master-interface/@name"/>
+	<xsl:text>&gt;().</xsl:text><xsl:value-of select="$LstName"/><xsl:text> = value;</xsl:text>
 	<xsl:text>}&#13;</xsl:text>
 	<xsl:text>}&#13;</xsl:text>
 </xsl:template>

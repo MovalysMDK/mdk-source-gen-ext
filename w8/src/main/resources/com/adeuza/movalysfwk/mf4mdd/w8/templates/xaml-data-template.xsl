@@ -37,7 +37,7 @@
 	<xsl:text>&lt;DataTemplate x:Key="</xsl:text>
 	<xsl:value-of select="name" />
 	<xsl:text>"&gt;</xsl:text>
-	<xsl:text>&lt;Grid x:Name="rootLayout"&gt;</xsl:text>
+	<xsl:text>&lt;Grid x:Name="template"&gt;</xsl:text>
 		<xsl:text>&lt;Grid.RowDefinitions&gt;</xsl:text>
 			<xsl:apply-templates select="visualfields/visualfield"  mode="create-row-definition" />
 			<xsl:if test="count(buttons) > 0">
