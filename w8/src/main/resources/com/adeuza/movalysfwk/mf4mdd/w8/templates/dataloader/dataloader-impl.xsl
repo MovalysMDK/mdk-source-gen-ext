@@ -216,7 +216,9 @@
 		        	<xsl:text> = </xsl:text><xsl:value-of select="dao-interface/bean-name" /><xsl:text>.Get</xsl:text>
 		            <xsl:value-of select="dao-interface/dao/class/name" />
 		        	<xsl:text>s(LOAD_CASCADE, context);</xsl:text>
+
 					<xsl:apply-templates select="dataloader-interface/combos/combo" mode="call-combo" />
+
 					<xsl:text>fullList = </xsl:text><xsl:value-of select="dao-interface/dao/class/name-uncapitalized" /><xsl:text>;</xsl:text>
 		            <xsl:text>return </xsl:text><xsl:value-of select="dao-interface/dao/class/name-uncapitalized" /><xsl:text>;</xsl:text>
 		            <xsl:text>&#13;</xsl:text>

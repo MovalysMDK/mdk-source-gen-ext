@@ -20,17 +20,18 @@
 		xmlns:exsl="http://exslt.org/common" extension-element-prefixes="exsl">
 				
 <xsl:template match="visualfield[component = 'MFPhotoFixedList']" mode="create-component">	
-		<xsl:text>&lt;mf:MFPhotoFixedList x:Name="</xsl:text>
-		<xsl:call-template name="string-replace-all">
-			<xsl:with-param name="text" select="property-name-c"/>
-			<xsl:with-param name="replace" select="'.'"/>
-			<xsl:with-param name="by" select="'_'"/>
-		</xsl:call-template>
-		<xsl:text>"  Grid.Row="</xsl:text>
-		<xsl:value-of select="component-position"/>
-		<xsl:text>" Grid.Column="0"</xsl:text>
-		<xsl:text> Value="{Binding </xsl:text><xsl:value-of select="property-name-c" /><xsl:text>, Mode=TwoWay}"</xsl:text>
-		<xsl:text>&#47;&gt;</xsl:text>
+	<xsl:text>&lt;mf:MFPhotoFixedList x:Name="</xsl:text>
+	<xsl:call-template name="string-replace-all">
+		<xsl:with-param name="text" select="property-name-c"/>
+		<xsl:with-param name="replace" select="'.'"/>
+		<xsl:with-param name="by" select="'_'"/>
+	</xsl:call-template>
+	<xsl:text>"  Grid.Row="</xsl:text>
+	<xsl:value-of select="component-position"/>
+	<xsl:text>" Grid.Column="0"</xsl:text>
+	<xsl:text> mf:OnValidationCommand="{Binding SaveCommand}"</xsl:text>
+	<xsl:text> Value="{Binding </xsl:text><xsl:value-of select="viewmodel-interface-name" /><xsl:text>, Mode=TwoWay}"</xsl:text>
+	<xsl:text>&#47;&gt;</xsl:text>
 </xsl:template>
 		
 </xsl:stylesheet>

@@ -65,7 +65,7 @@
 	<xsl:text> VerticalAlignment="Center"</xsl:text>
 	<xsl:text> HorizontalAlignment="Center"</xsl:text>
 	<xsl:text> Text="{Binding Path=</xsl:text>
-	<xsl:value-of select="property-name-c"/>
+	<xsl:value-of select="viewmodel-interface-name"/>
 	<xsl:text>.Label}" &#47;&gt;</xsl:text>
 </xsl:template>		
 
