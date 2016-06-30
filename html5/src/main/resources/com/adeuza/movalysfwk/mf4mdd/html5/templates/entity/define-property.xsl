@@ -95,7 +95,7 @@
             <xsl:with-param name="defaultSource">
                 <xsl:choose>
                     <xsl:when test="@derived='true'">
-                        <xsl:text>throw 'You cannot set value on derived property';&#10;</xsl:text>
+                        <xsl:text>//throw 'You cannot set value on derived property';&#10;</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:apply-templates select="../attribute"
