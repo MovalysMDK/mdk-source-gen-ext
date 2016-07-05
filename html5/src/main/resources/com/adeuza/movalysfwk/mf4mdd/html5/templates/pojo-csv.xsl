@@ -1302,20 +1302,11 @@ Req#U##</xsl:text>
 	<!-- *** Template ReferenceFrom - Entity.Name *** -->
 	<!-- ******************************************** -->
 	<xsl:template match="class" mode="csvReferenceFrom">
-
-		<xsl:choose>
-			<xsl:when test="count(attribute[@name-uppercase='CODE']) = 1">
-				<xsl:value-of select="uml-name" />
-				<xsl:text>.CODE</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:if test="count(identifier/attribute)=1">
-					<xsl:value-of select="uml-name" />
-					<xsl:text>.</xsl:text>
-					<xsl:value-of select="identifier/attribute/@name-uppercase" />
-				</xsl:if>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:if test="count(identifier/attribute)=1">
+			<xsl:value-of select="uml-name" />
+			<xsl:text>.</xsl:text>
+			<xsl:value-of select="identifier/attribute/@name-uppercase" />
+		</xsl:if>
 	</xsl:template>
 
 	<!-- ****************************************** -->
