@@ -151,8 +151,9 @@
 			<xsl:text>forceInEditionMode: true,&#10;</xsl:text>
 		</xsl:if>
 		<xsl:apply-templates select="." mode="controller-viewConfig-control-bar"/>
+		<xsl:apply-templates select="." mode="controller-viewConfig-save-callbacks"/>
 		
-		<xsl:text>}&#10;</xsl:text>
+		<xsl:text>&#10;}&#10;</xsl:text>
 	</xsl:template>
 	
 	
@@ -194,7 +195,19 @@
 	
 	<xsl:template match="view" mode="controller-viewConfig-control-bar">
 			<xsl:text>&#10;controlBarTitle: '</xsl:text><xsl:value-of select="name-lc"/><xsl:text>__title',&#10;</xsl:text>
-			<xsl:text>hideControlBar: false&#10;</xsl:text>
+			<xsl:text>hideControlBar: false</xsl:text>
+	</xsl:template>
+	
+	<xsl:template match="view" mode="controller-viewConfig-save-callbacks">
+		<xsl:if test="@hasSaveAction='true'">
+			<xsl:text>,&#10;</xsl:text>
+			<xsl:text>saveSuccessCallback: function() {&#10;</xsl:text>
+				<xsl:text>// save success&#10;</xsl:text>
+            <xsl:text>},&#10;</xsl:text>
+            <xsl:text>saveFailureCallback: function() {&#10;</xsl:text>
+                <xsl:text>// save failure&#10;</xsl:text>
+            <xsl:text>}</xsl:text>
+		</xsl:if>
 	</xsl:template>
 	
 	<!-- 	viewconfig content specific to a list -->
