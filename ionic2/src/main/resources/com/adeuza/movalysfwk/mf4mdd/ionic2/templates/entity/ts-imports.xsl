@@ -21,7 +21,7 @@
 	<xsl:template match="node()" mode="declare-specific-imports">
 		<xsl:call-template name="ts-import">
 			<xsl:with-param name="class">MDKAbstractEntity</xsl:with-param>
-			<xsl:with-param name="from">mdk-ionic2-lib-core/dist/src</xsl:with-param>
+			<xsl:with-param name="from">mdk-ionic2-lib-core</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 	

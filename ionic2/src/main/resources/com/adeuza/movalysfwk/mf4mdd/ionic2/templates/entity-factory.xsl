@@ -56,7 +56,7 @@
 		/**
 		 * <xsl:text>Function d'initialisation de l'objet. </xsl:text>
 		 * 
-		 * <xsl:text>@param p_o</xsl:text><xsl:value-of select="pojo-factory/class/name"/><xsl:text> Entité </xsl:text>xsl:value-of select="pojo-factory/class/name"/>
+		 * <xsl:text>@param p_o</xsl:text><xsl:value-of select="pojo-factory/class/name"/><xsl:text> Entité </xsl:text><xsl:value-of select="pojo-factory/class/name"/>
 		 */
 		 <xsl:text>init(p_o</xsl:text><xsl:value-of select="pojo-factory/class/name"/><xsl:text>: </xsl:text><xsl:value-of select="pojo-factory/class/name"/><xsl:text>): void { &#10;</xsl:text>
 		 <xsl:text>&#10;//@non-generated-start[init]&#10;</xsl:text>
