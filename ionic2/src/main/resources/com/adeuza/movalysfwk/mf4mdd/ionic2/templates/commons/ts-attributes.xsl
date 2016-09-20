@@ -21,7 +21,7 @@
 <xsl:output method="text"/>	
 
 <xsl:template match="class" mode="attributes">
-		<xsl:for-each select="//*[((name() = 'attribute' and @derived = 'false' and @name!='id') or name()= 'association') and not(ancestor::association)]">
+		<xsl:for-each select="//*[((name() = 'attribute' and @derived = 'false') or name()= 'association') and not(ancestor::association)]">
 		/**
 		 * <xsl:value-of select="documentation/doc-attribute"/>
 		 * <xsl:if test="name()= 'attribute'"><xsl:variable name="name" select="field/@name"/>

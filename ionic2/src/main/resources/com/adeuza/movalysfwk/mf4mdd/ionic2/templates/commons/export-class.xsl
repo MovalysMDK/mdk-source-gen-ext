@@ -35,7 +35,7 @@
 		<!-- class XXXX implements ... -->
         <xsl:if test="$interface != 'false'">
     		<xsl:apply-templates select="." mode="class-implements"/> 
-	    	<xsl:text>&lt;</xsl:text><xsl:value-of select="$interface"/><xsl:text>&gt;</xsl:text>
+	    	<xsl:text>&lt;</xsl:text><xsl:value-of select="$interface"/><xsl:text>&gt; </xsl:text>
 		</xsl:if>
 
 	</xsl:template>
