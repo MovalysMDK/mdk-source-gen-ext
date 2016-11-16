@@ -52,15 +52,20 @@
 		<xsl:param name="daoProxy"/>
 		<xsl:param name="entity"/>
 		<xsl:param name="dataloader"/>
-		
+
+		<xsl:text>(function() {&#10;</xsl:text>
 		<xsl:text>'use strict';&#10;</xsl:text>
 		<xsl:text>&#10;//@non-generated-start[jshint-override]&#10;</xsl:text>
 		<xsl:value-of select="/*/non-generated/bloc[@id='jshint-override']"/>
 		<xsl:text>//@non-generated-end&#10;&#10;</xsl:text>
-		
-		<xsl:text>angular.module('view_</xsl:text><xsl:value-of select="viewmodel/uml-name"/><xsl:text>').factory('</xsl:text><xsl:value-of select="name"/><xsl:text>', [</xsl:text>
-		
-		<xsl:apply-templates select="." mode="declare-protocol-imports"/>
+
+		<xsl:text>angular&#10;</xsl:text>
+		<xsl:text>.module('view_</xsl:text><xsl:value-of select="viewmodel/uml-name"/><xsl:text>')&#10;</xsl:text>
+		<xsl:text>.factory('</xsl:text><xsl:value-of select="name"/>
+		<xsl:text>',</xsl:text><xsl:value-of select="name"/><xsl:text>); &#10;</xsl:text>
+		<xsl:apply-templates select="." mode="declare-protocol-imports">
+			<xsl:with-param name="functionName" select="name"/>
+		</xsl:apply-templates>
 		
 		<xsl:text>{&#10;</xsl:text>
 		<xsl:text>return {&#10;</xsl:text>
@@ -160,8 +165,7 @@
 		<xsl:text>};&#10;&#10;</xsl:text>
 		
 		<xsl:text>}&#10;</xsl:text>
-		<xsl:text>]);&#10;</xsl:text>
-		
+		<xsl:text>})();&#10;</xsl:text>
 	</xsl:template>
 	
 	<xsl:template match="action[action-type='SAVEDETAIL']" mode="declare-extra-imports">

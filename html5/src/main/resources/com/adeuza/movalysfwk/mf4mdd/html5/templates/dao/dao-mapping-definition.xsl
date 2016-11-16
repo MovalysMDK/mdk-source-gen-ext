@@ -22,13 +22,12 @@
 	<xsl:output method="text"/>
 
 	<xsl:template match="node()" mode="class-prototype">
-		<xsl:text>angular.module('data').factory('</xsl:text><xsl:value-of select="name"/><xsl:text>',&#10;</xsl:text>
-		<xsl:text>[&#10;</xsl:text>
-		<xsl:text>//@non-generated-start[dependencies-names]&#10;</xsl:text>
-		<xsl:value-of select="/*/non-generated/bloc[@id='dependencies-names']"/>
-		<xsl:text>//@non-generated-end&#10;</xsl:text>
-		
-		<xsl:text>function(</xsl:text>
+		<xsl:text>angular&#10;</xsl:text>
+		<xsl:text>.module('data')&#10;</xsl:text>
+		<xsl:text>.factory('</xsl:text><xsl:value-of select="name"/><xsl:text>',</xsl:text>
+		<xsl:value-of select="name"/><xsl:text>);&#10;</xsl:text>
+		<xsl:text>&#10;/* @ngInject */&#10;</xsl:text>
+		<xsl:text>function </xsl:text><xsl:value-of select="name"/><xsl:text> (</xsl:text>
 		<xsl:text>&#10;//@non-generated-start[dependencies-classes]&#10;</xsl:text>
 		<xsl:value-of select="/*/non-generated/bloc[@id='dependencies-classes']"/>
 		<xsl:text>//@non-generated-end&#10;</xsl:text>

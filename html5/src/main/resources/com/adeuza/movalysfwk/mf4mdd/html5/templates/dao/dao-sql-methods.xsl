@@ -158,7 +158,7 @@ extension-element-prefixes="exsl">
 
 
 		<!-- function body: var deferred, var self -->
-		<xsl:text>		var deferred = $qSync.defer();&#10;</xsl:text>
+		<xsl:text>		var deferred = MFSyncPromiseProvider.defer();&#10;</xsl:text>
 		<xsl:text>		var self = this;&#10;</xsl:text>
 		<xsl:text>&#10;</xsl:text>
 
@@ -294,9 +294,9 @@ extension-element-prefixes="exsl">
 							<xsl:text>		for(var i = 0; i &#60; p_entities.length; i++) {&#10;</xsl:text>
 							<xsl:text>			o_arrayPromisesSaveOrUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.push( self.saveOrUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(p_entities[i], p_context, angular.copy(p_cascadeSet), p_toSync, angular.copy(p_cascadeSetForDelete)) );&#10;</xsl:text>
 							<xsl:text>		}&#10;</xsl:text>
-							<xsl:text>		// $qSync.all() returns an array of the results of o_arrayPromisesSaveOrUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
-							<xsl:text>		// If the value returned by $qSync.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
-							<xsl:text>		deferred.resolve( $qSync.all(o_arrayPromisesSaveOrUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>) );&#10;</xsl:text>
+							<xsl:text>		// MFSyncPromiseProvider.all() returns an array of the results of o_arrayPromisesSaveOrUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
+							<xsl:text>		// If the value returned by MFSyncPromiseProvider.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
+							<xsl:text>		deferred.resolve( MFSyncPromiseProvider.all(o_arrayPromisesSaveOrUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>) );&#10;</xsl:text>
 					</xsl:when>
 					<xsl:otherwise />
 				</xsl:choose>
@@ -348,7 +348,7 @@ extension-element-prefixes="exsl">
                         <xsl:text>&#10;</xsl:text>
 
 
-						<xsl:text>		$qSync.all(savePointedChildren).then(&#10;</xsl:text>
+						<xsl:text>		MFSyncPromiseProvider.all(savePointedChildren).then(&#10;</xsl:text>
 	   					<xsl:text>			function(success) { /* SUCCESS */&#10;</xsl:text>
 	   					<xsl:text>				// --------------------------&#10;</xsl:text>
 	   					<xsl:text>				// 2. save the main entity&#10;</xsl:text>
@@ -430,7 +430,7 @@ extension-element-prefixes="exsl">
 						<xsl:text>&#10;</xsl:text>
 
 
-						<xsl:text>						$qSync.all(saveOtherChildren).then(&#10;</xsl:text>
+						<xsl:text>						MFSyncPromiseProvider.all(saveOtherChildren).then(&#10;</xsl:text>
 						<xsl:text>							function(success) {&#10;</xsl:text>
 						<xsl:text>								deferred.resolve(success_result);&#10;</xsl:text>
 						<xsl:text>							},&#10;</xsl:text>
@@ -458,9 +458,9 @@ extension-element-prefixes="exsl">
 						<xsl:text>		for( var i = 0; i &lt; </xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>.length; i++ ) {&#10;</xsl:text>
 						<xsl:text>			o_arrayPromisesSave</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.push( self.save</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>[i], p_context, angular.copy(p_cascadeSet), p_toSync) );&#10;</xsl:text>
 						<xsl:text>		}&#10;</xsl:text>
-						<xsl:text>		// $qSync.all() returns an array of the results of o_arrayPromisesSave</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
-						<xsl:text>		// If the value returned by $qSync.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
-						<xsl:text>		deferred.resolve( $qSync.all(o_arrayPromisesSave</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>) );&#10;</xsl:text>
+						<xsl:text>		// MFSyncPromiseProvider.all() returns an array of the results of o_arrayPromisesSave</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
+						<xsl:text>		// If the value returned by MFSyncPromiseProvider.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
+						<xsl:text>		deferred.resolve( MFSyncPromiseProvider.all(o_arrayPromisesSave</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>) );&#10;</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
@@ -574,7 +574,7 @@ extension-element-prefixes="exsl">
 						<xsl:text>&#10;&#10;</xsl:text>
 
 
-						<xsl:text>		$qSync.all(childrenPromises).then(&#10;</xsl:text>
+						<xsl:text>		MFSyncPromiseProvider.all(childrenPromises).then(&#10;</xsl:text>
 	   					<xsl:text>			function(success){&#10;</xsl:text>
 	   					<xsl:text>				console.log('children updated', success);&#10;</xsl:text>
 	   					<xsl:text>&#10;</xsl:text>
@@ -602,9 +602,9 @@ extension-element-prefixes="exsl">
 						<xsl:text>		for( var i = 0; i &lt; </xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>.length; i++ ) {&#10;</xsl:text>
 						<xsl:text>			o_arrayPromisesUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.push( self.update</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>[i], p_context, angular.copy(p_cascadeSet), p_toSync, angular.copy(p_cascadeSetForDelete)) );&#10;</xsl:text>
 						<xsl:text>		}&#10;</xsl:text>
-						<xsl:text>		// $qSync.all() returns an array of the results of o_arrayPromisesUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
-						<xsl:text>		// If the value returned by $qSync.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
-						<xsl:text>		deferred.resolve( $qSync.all(o_arrayPromisesUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>) );&#10;</xsl:text>
+						<xsl:text>		// MFSyncPromiseProvider.all() returns an array of the results of o_arrayPromisesUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
+						<xsl:text>		// If the value returned by MFSyncPromiseProvider.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
+						<xsl:text>		deferred.resolve( MFSyncPromiseProvider.all(o_arrayPromisesUpdate</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>) );&#10;</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
@@ -760,7 +760,7 @@ extension-element-prefixes="exsl">
 						<xsl:text>&#10;</xsl:text>
 
 
-						<xsl:text>				$qSync.all(pointersDeletes).then(&#10;</xsl:text>
+						<xsl:text>				MFSyncPromiseProvider.all(pointersDeletes).then(&#10;</xsl:text>
 	   					<xsl:text>					function(returnedSuccess_pointers){ /* SUCCESS */&#10;</xsl:text>
 	   					<xsl:text>&#10;</xsl:text>
 
@@ -813,7 +813,7 @@ extension-element-prefixes="exsl">
 							<xsl:text>&#10;</xsl:text>
 						</xsl:for-each>
 
-						<xsl:text>								$qSync.all(pointersDeletes).then(&#10;</xsl:text>
+						<xsl:text>								MFSyncPromiseProvider.all(pointersDeletes).then(&#10;</xsl:text>
 	   					<xsl:text>									function(returnedSuccess_executeQuery2ToDelete) { /* SUCCESS */&#10;</xsl:text>
 	   					<xsl:text>										deferred.resolve(returnedSuccess_executeQuery2ToDelete);&#10;</xsl:text>
 						<xsl:text>									},&#10;</xsl:text>
@@ -866,9 +866,9 @@ extension-element-prefixes="exsl">
 								<xsl:text>		for( var i = 0; i &lt; </xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>.length; i++ ) {&#10;</xsl:text>
 								<xsl:text>			o_arrayPromisesDelete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.push( self.delete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>ById(</xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>[i], p_context, angular.copy(p_cascadeSet), p_toSync) );&#10;</xsl:text>
 								<xsl:text>		}&#10;</xsl:text>
-								<xsl:text>		// $qSync.all() returns an array of the results of o_arrayPromisesDelete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
-								<xsl:text>		// If the value returned by $qSync.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
-								<xsl:text>		deferred.resolve( $qSync.all(o_arrayPromisesDelete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>) );&#10;</xsl:text>
+								<xsl:text>		// MFSyncPromiseProvider.all() returns an array of the results of o_arrayPromisesDelete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
+								<xsl:text>		// If the value returned by MFSyncPromiseProvider.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
+								<xsl:text>		deferred.resolve( MFSyncPromiseProvider.all(o_arrayPromisesDelete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>) );&#10;</xsl:text>
 							</xsl:when>
 
 							<xsl:when test="($methodParameterToken='p_entities')">
@@ -877,9 +877,9 @@ extension-element-prefixes="exsl">
 								<xsl:text>		for( var i = 0; i &lt; </xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>.length; i++ ) {&#10;</xsl:text>
 								<xsl:text>			o_arrayPromisesDelete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.push( self.delete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>(</xsl:text><xsl:value-of select="$methodParameterToken"/><xsl:text>[i], p_context, angular.copy(p_cascadeSet), p_toSync) );&#10;</xsl:text>
 								<xsl:text>		}&#10;</xsl:text>
-								<xsl:text>		// $qSync.all() returns an array of the results of o_arrayPromisesDelete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
-								<xsl:text>		// If the value returned by $qSync.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
-								<xsl:text>		deferred.resolve( $qSync.all(o_arrayPromisesDelete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>) );&#10;</xsl:text>
+								<xsl:text>		// MFSyncPromiseProvider.all() returns an array of the results of o_arrayPromisesDelete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>.&#10;</xsl:text>
+								<xsl:text>		// If the value returned by MFSyncPromiseProvider.all() is a rejection, the promise will be rejected instead.&#10;</xsl:text>
+								<xsl:text>		deferred.resolve( MFSyncPromiseProvider.all(o_arrayPromisesDelete</xsl:text><xsl:value-of select="//uml-name"/><xsl:text>) );&#10;</xsl:text>
 							</xsl:when>
 						</xsl:choose>
 

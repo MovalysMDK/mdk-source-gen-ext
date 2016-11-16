@@ -23,6 +23,7 @@
 	<xsl:output method="text" indent="yes" omit-xml-declaration="no"/>
 
 	<xsl:template match="pojo-factory">
+		<xsl:text>(function() {&#10;</xsl:text>
 		<xsl:text>'use strict';&#10;</xsl:text>
 		<xsl:apply-templates select="." mode="factory-documentation"/>
 		
@@ -33,8 +34,10 @@
 		<xsl:apply-templates select="." mode="factory-prototype"/>
 		<xsl:text>{&#10;</xsl:text>
 			<xsl:apply-templates select="class" mode="factory-body"/>
-		<xsl:text>}]);&#10;</xsl:text>
-		
+		<xsl:text>}&#10;</xsl:text>
+		<xsl:text>})();&#10;</xsl:text>
+
+
 	</xsl:template>
 
 
@@ -46,8 +49,13 @@
 	
 
 	<xsl:template match="pojo-factory" mode="factory-prototype">
-		<xsl:text>angular.module('data').factory('</xsl:text><xsl:value-of select="name"/><xsl:text>', [</xsl:text>
-			<xsl:apply-templates select="." mode="declare-protocol-imports"/>
+		<xsl:text>angular&#10;</xsl:text>
+		<xsl:text>.module('data')&#10;</xsl:text>
+		<xsl:text>.factory('</xsl:text><xsl:value-of select="name"/>
+		<xsl:text>',</xsl:text><xsl:value-of select="name"/><xsl:text>); &#10;</xsl:text>
+		<xsl:apply-templates select="." mode="declare-protocol-imports">
+			<xsl:with-param name="functionName" select="name"/>
+		</xsl:apply-templates>
 		
 	</xsl:template>
 	

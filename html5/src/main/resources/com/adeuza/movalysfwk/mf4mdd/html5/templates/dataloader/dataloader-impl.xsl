@@ -25,14 +25,19 @@
 	<xsl:key name="comboEntity" match="/dataloader-impl/dataloader-interface/combos/combo/entity/text()" use="." />
 
 	<xsl:template match="dataloader-impl">
-		
+		<xsl:text>(function() {&#10;</xsl:text>
 		<xsl:text>'use strict';&#10;&#10;</xsl:text>
 		<xsl:text>//@non-generated-start[jshint-override]&#10;</xsl:text>
 		<xsl:value-of select="/*/non-generated/bloc[@id='jshint-override']"/>
 		<xsl:text>//@non-generated-end&#10;</xsl:text>
-		<xsl:text>&#10;angular.module('</xsl:text><xsl:value-of select="viewName"/><xsl:text>').factory('</xsl:text><xsl:value-of select="name"/><xsl:text>', [</xsl:text>
-			
-		<xsl:apply-templates select="." mode="declare-protocol-imports"/>
+		<xsl:text>&#10;angular&#10;</xsl:text>
+		<xsl:text>.module('</xsl:text><xsl:value-of select="viewName"/><xsl:text>')&#10;</xsl:text>
+		<xsl:text>.factory('</xsl:text><xsl:value-of select="name"/><xsl:text>',</xsl:text>
+		<xsl:value-of select="name"/><xsl:text>); &#10;</xsl:text>
+
+		<xsl:apply-templates select="." mode="declare-protocol-imports">
+			<xsl:with-param name="functionName" select="name"/>
+		</xsl:apply-templates>
 
     	<xsl:text> {&#10;</xsl:text>
 
@@ -49,8 +54,10 @@
 		<xsl:text>//@non-generated-end&#10;</xsl:text>
 		
 		<xsl:text>&#10;return new </xsl:text><xsl:value-of select="name"/><xsl:text>();&#10;</xsl:text>
-		<xsl:text>}]);&#10;</xsl:text>
-		
+		<xsl:text>}&#10;</xsl:text>
+		<xsl:text>})();&#10;</xsl:text>
+
+
 	</xsl:template>
 
 
@@ -126,7 +133,7 @@
 			
 			
 		<!--       FOR ALL-->
-		<xsl:text>$qSync.all(combosDaoCalls).then(function success(comboValues) {&#10;</xsl:text>
+		<xsl:text>MFSyncPromiseProvider.all(combosDaoCalls).then(function success(comboValues) {&#10;</xsl:text>
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">reload-dataloader</xsl:with-param>
 			<xsl:with-param name="defaultSource">
@@ -163,13 +170,13 @@
 	</xsl:template>
 
 	<xsl:template match="*" mode="dataloader-reload-attributes">
-		<xsl:text>var deferred = $qSync.defer();&#10;</xsl:text>
+		<xsl:text>var deferred = MFSyncPromiseProvider.defer();&#10;</xsl:text>
 		<xsl:text>var self = this;&#10;&#10;</xsl:text>
 		<xsl:text>var combosDaoCalls = [] ;&#10;</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="*[dataloader-interface/entity-type/transient='true']" mode="dataloader-reload-attributes">
-	    <xsl:text>var deferred = $qSync.defer();&#10;</xsl:text>
+	    <xsl:text>var deferred = MFSyncPromiseProvider.defer();&#10;</xsl:text>
    		<xsl:text>var self = this;&#10;&#10;</xsl:text>
 	    
     
@@ -361,7 +368,7 @@
 	
 	<xsl:template match="dataloader-impl" mode="declare-extra-imports">
 	
-		<objc-import import="MFSyncPromiseProvider" import-in-function="$qSync" scope="local"/>
+		<objc-import import="MFSyncPromiseProvider" import-in-function="MFSyncPromiseProvider" scope="local"/>
 		<objc-import import="MFUtils" import-in-function="MFUtils" scope="local"/>
 		<objc-import import="MFAbstractDataLoader" import-in-function="MFAbstractDataLoader" scope="local"/>
 		<objc-import import="MFMappingHelper" import-in-function="MFMappingHelper" scope="local"/>

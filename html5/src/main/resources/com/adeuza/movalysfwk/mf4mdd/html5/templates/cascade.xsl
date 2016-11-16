@@ -44,6 +44,7 @@
 	<xsl:output method="text" indent="yes" omit-xml-declaration="no" />
 
 	<xsl:template match="pojo">
+		<xsl:text>(function() {&#10;</xsl:text>
 		<xsl:text>'use strict';&#10;</xsl:text>
 		<xsl:apply-templates select="." mode="pojo-documentation" />
 
@@ -54,7 +55,8 @@
 		<xsl:apply-templates select="." mode="pojo-prototype" />
 		<xsl:text>{&#10;</xsl:text>
 		<xsl:apply-templates select="." mode="pojo-body" />
-		<xsl:text>}]);&#10;</xsl:text>
+		<xsl:text>}&#10;</xsl:text>
+		<xsl:text>})();&#10;</xsl:text>
 
 
 	</xsl:template>
@@ -68,9 +70,14 @@
 	</xsl:template>
 
 	<xsl:template match="pojo/class" mode="pojo-prototype">
-		<xsl:text>angular.module('data').factory('</xsl:text>
+		<xsl:text>angular&#10;</xsl:text>
+		<xsl:text>.module('data')&#10;</xsl:text>
+		<xsl:text>.factory('</xsl:text>
 		<xsl:value-of select="name" />
-		<xsl:text>Cascade', ['MFAbstractEnum', function (MFAbstractEnum)&#10;</xsl:text>
+		<xsl:text>Cascade',</xsl:text><xsl:value-of select="name" /><xsl:text>Cascade);&#10;</xsl:text>
+		<xsl:text>&#10;/* @ngInject */&#10;</xsl:text>
+		<xsl:text>function </xsl:text><xsl:value-of select="name" /><xsl:text>Cascade </xsl:text>
+		<xsl:text>(MFAbstractEnum)&#10;</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="pojo/class" mode="pojo-body">

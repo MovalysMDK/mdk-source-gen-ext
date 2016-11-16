@@ -46,7 +46,7 @@
 
     <xsl:template match="view[@type='LIST_1']" mode="partial-List-generation">
         <mf-list>
-            <xsl:attribute name="mf-field">viewModel.list</xsl:attribute>
+            <xsl:attribute name="mf-field">vm.viewModel.list</xsl:attribute>
             <xsl:attribute name="class">mdk-list-container</xsl:attribute>
             <xsl:attribute name="mf-items-display-step">3</xsl:attribute>
             <xsl:attribute name="mf-row-height">45</xsl:attribute>
@@ -85,7 +85,7 @@
 
     <xsl:template match="view[@type='LIST_2']" mode="partial-List-generation">
         <mf-list>
-            <xsl:attribute name="mf-field">viewModel.list</xsl:attribute>
+            <xsl:attribute name="mf-field">vm.viewModel.list</xsl:attribute>
             <xsl:attribute name="class">mdk-list-container</xsl:attribute>
             <xsl:attribute name="mf-items-display-step">3</xsl:attribute>
             <xsl:attribute name="mf-row-height">45</xsl:attribute>

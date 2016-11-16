@@ -26,17 +26,21 @@
 		<xsl:variable name="daoMappingName">
 		    <xsl:value-of select="dao-interface/name"/><xsl:text>Mapping</xsl:text>
 		</xsl:variable>
-		
-		<xsl:text>angular.module('data').factory('</xsl:text><xsl:value-of select="name"/><xsl:text>',&#10;</xsl:text>
-		<xsl:text>	[</xsl:text>
-		
-		<xsl:apply-templates select="." mode="declare-protocol-imports"/>
-		
+
+		<xsl:text>angular&#10;</xsl:text>
+		<xsl:text>.module('data')&#10;</xsl:text>
+		<xsl:text>.factory('</xsl:text><xsl:value-of select="name"/><xsl:text>',</xsl:text>
+		<xsl:value-of select="name"/><xsl:text>);&#10;</xsl:text>
+
+		<xsl:apply-templates select="." mode="declare-protocol-imports">
+			<xsl:with-param name="functionName" select="name"/>
+		</xsl:apply-templates>
+
 	</xsl:template>
 	
 	<xsl:template match="node()" mode="declare-extra-imports">
 	
-		<objc-import import="MFSyncPromiseProvider" import-in-function="$qSync" scope="local"/>
+		<objc-import import="MFSyncPromiseProvider" import-in-function="MFSyncPromiseProvider" scope="local"/>
 		<objc-import import="MFDaoSqlAbstract" import-in-function="MFDaoSqlAbstract" scope="local"/>
 		<objc-import import="MFUtils" import-in-function="MFUtils" scope="local"/>
 		<objc-import import="MFMappingHelper" import-in-function="MFMappingHelper" scope="local"/>

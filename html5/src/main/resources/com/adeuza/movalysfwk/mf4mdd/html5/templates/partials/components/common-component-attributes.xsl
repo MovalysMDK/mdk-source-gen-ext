@@ -32,7 +32,7 @@
 						<xsl:value-of select="$viewModel"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:text>viewModel</xsl:text>
+						<xsl:text>vm.viewModel</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 			<xsl:text>.</xsl:text>

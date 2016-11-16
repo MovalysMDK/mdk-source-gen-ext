@@ -45,8 +45,9 @@
 			<xsl:text>.state('</xsl:text><xsl:value-of select="name"/><xsl:text>', {&#10;</xsl:text>
 			<xsl:text>url: '/</xsl:text><xsl:value-of select="name"/><xsl:text>',&#10;</xsl:text>
     		<xsl:text>templateUrl: 'views/</xsl:text><xsl:value-of select="name"/><xsl:text>/</xsl:text><xsl:value-of select="name"/><xsl:text>.html',&#10;</xsl:text>
-			<xsl:text>controller: '</xsl:text><xsl:value-of select="name"/><xsl:text>Ctrl'&#10;</xsl:text>
-			<xsl:text>})&#10;</xsl:text>
+			<xsl:text>controller: '</xsl:text><xsl:value-of select="name"/><xsl:text>Ctrl',&#10;</xsl:text>
+			<xsl:text>controllerAs: 'vm'</xsl:text>
+		<xsl:text>})&#10;</xsl:text>
 	</xsl:template>
 	
 	
@@ -57,7 +58,8 @@
 			<xsl:text>url: '/</xsl:text><xsl:value-of select="name"/><xsl:text>',&#10;</xsl:text>
 		</xsl:if>
 	    <xsl:text>templateUrl: 'views/</xsl:text><xsl:value-of select="name"/><xsl:text>/</xsl:text><xsl:value-of select="name"/><xsl:text>.html',&#10;</xsl:text>
-	    <xsl:text>controller: '</xsl:text><xsl:value-of select="name"/><xsl:text>Ctrl'&#10;</xsl:text>
+	    <xsl:text>controller: '</xsl:text><xsl:value-of select="name"/><xsl:text>Ctrl',&#10;</xsl:text>
+		<xsl:text>controllerAs: 'vm'</xsl:text>
 	    <xsl:text>})&#10;</xsl:text>
 	    <!-- State Content -->
 	    <xsl:text>.state('</xsl:text><xsl:value-of select="name"/><xsl:text>.content', {&#10;</xsl:text>
@@ -129,7 +131,8 @@
 		</xsl:if>
 		<xsl:text>' : {&#10;</xsl:text>
         <xsl:text>templateUrl: 'views/</xsl:text><xsl:value-of select="."/><xsl:text>/</xsl:text><xsl:value-of select="."/><xsl:text>.html',&#10;</xsl:text>
-        <xsl:text>controller: '</xsl:text><xsl:value-of select="."/><xsl:text>Ctrl'&#10;</xsl:text>
+        <xsl:text>controller: '</xsl:text><xsl:value-of select="."/><xsl:text>Ctrl',&#10;</xsl:text>
+		<xsl:text>controllerAs: 'vm'</xsl:text>
         <xsl:text>}</xsl:text>
         <xsl:choose>
         	<xsl:when test="position() != last()"><xsl:text>,</xsl:text></xsl:when>

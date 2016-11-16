@@ -25,9 +25,14 @@
 	
 		<xsl:apply-templates select="." mode="class-detail-comment"/>
 	
-		<xsl:text>angular.module('</xsl:text><xsl:value-of select="viewName"/><xsl:text>').factory('</xsl:text><xsl:value-of select="nameFactory"/>
-		
-		<xsl:apply-templates select="." mode="define-class-module"/>	
+		<xsl:text>angular&#10;</xsl:text>
+		<xsl:text>.module('</xsl:text><xsl:value-of select="viewName"/><xsl:text>')&#10;</xsl:text>
+		<xsl:text>.factory('</xsl:text><xsl:value-of select="nameFactory"/>
+		<xsl:text>',</xsl:text><xsl:value-of select="nameFactory"/><xsl:text>); &#10;</xsl:text>
+
+		<xsl:apply-templates select="." mode="declare-protocol-imports">
+			<xsl:with-param name="functionName" select="nameFactory"/>
+		</xsl:apply-templates>
 		<!-- L'héritage d'autres classes se fait en fin de  classe -->
 		<!-- 		TODO : FIXEDLIST -->
 	</xsl:template>

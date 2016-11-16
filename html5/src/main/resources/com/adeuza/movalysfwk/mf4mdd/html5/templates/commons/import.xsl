@@ -24,6 +24,8 @@
 
 	<xsl:template match="node()" mode="declare-protocol-imports">
 		<xsl:param name="useClass">false</xsl:param>
+		<xsl:param name="functionName"/>
+
 		<xsl:variable name="currentId" select="generate-id(.)"/>
 		<xsl:variable name="ancestorId" select="generate-id(/node())"/>
 
@@ -37,18 +39,22 @@
 			</objc-imports>
 		</xsl:variable>
 
-		<xsl:text>&#10;//@non-generated-start[dependencies-names]&#10;</xsl:text>
-		<xsl:value-of select="/*/non-generated/bloc[@id='dependencies-names']"/>
-		<xsl:text>//@non-generated-end&#10;</xsl:text>
+		<!--<xsl:text>&#10;//@non-generated-start[dependencies-names]&#10;</xsl:text>-->
+		<!--<xsl:value-of select="/*/non-generated/bloc[@id='dependencies-names']"/>-->
+		<!--<xsl:text>//@non-generated-end&#10;</xsl:text>-->
 
-		<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']) > 0">
-			<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']" mode="write-import">
-				<xsl:sort/>
-			</xsl:apply-templates>
-		</xsl:if>
-		
+		<!--<xsl:if test="count(exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']) > 0">-->
+			<!--<xsl:apply-templates select="exsl:node-set($imports)/objc-imports/objc-import[not(@self) or @self != '$useClass']" mode="write-import">-->
+				<!--<xsl:sort/>-->
+			<!--</xsl:apply-templates>-->
+		<!--</xsl:if>-->
+
+		<xsl:text>&#10; /* @ngInject */</xsl:text>
+
+
 		<xsl:text>&#10;</xsl:text>
-		<xsl:text>function(</xsl:text>
+		<xsl:text>function </xsl:text><xsl:value-of select="$functionName"/>
+		<xsl:text>( </xsl:text>
 		<xsl:text>&#10;//@non-generated-start[dependencies-classes]&#10;</xsl:text>
 		<xsl:value-of select="/*/non-generated/bloc[@id='dependencies-classes']"/>
 		<xsl:text>//@non-generated-end&#10;</xsl:text>
@@ -57,7 +63,7 @@
 					<xsl:sort/>
 				</xsl:apply-templates>
 			</xsl:if>
-			<xsl:text>&#10;</xsl:text>
+			<!--<xsl:text>&#10;</xsl:text>-->
 		<xsl:text>)</xsl:text>
 	</xsl:template>
 	

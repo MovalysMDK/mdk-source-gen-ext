@@ -20,6 +20,7 @@
 	<xsl:output method="text"/>
 	
 	<xsl:template match="enum">
+		<xsl:text>(function() {&#10;</xsl:text>
 		<xsl:text>'use strict';&#10;</xsl:text>
 		<xsl:apply-templates select="." mode="enum-documentation"/>
 		
@@ -30,8 +31,8 @@
 		<xsl:apply-templates select="." mode="enum-prototype"/>
 		<xsl:text>{&#10;</xsl:text>
 			<xsl:apply-templates select="." mode="enum-body"/>
-		<xsl:text>}]);&#10;</xsl:text>
-		
+		<xsl:text>}&#10;</xsl:text>
+		<xsl:text>})();&#10;</xsl:text>
 	</xsl:template>
 
 
@@ -44,7 +45,13 @@
 	
 
 	<xsl:template match="enum" mode="enum-prototype">
-		<xsl:text>angular.module('data').factory('</xsl:text><xsl:value-of select="name"/><xsl:text>Converter', ['</xsl:text><xsl:value-of select="name"/><xsl:text>', function (</xsl:text><xsl:value-of select="name"/><xsl:text>)&#10;</xsl:text>
+		<xsl:text>angular&#10;</xsl:text>
+		<xsl:text>.module('data')&#10;</xsl:text>
+		<xsl:text>.factory('</xsl:text><xsl:value-of select="name"/><xsl:text>Converter',</xsl:text>
+		<xsl:value-of select="name"/><xsl:text>);&#10;</xsl:text>
+		<xsl:text>&#10;/* @ngInject */&#10;</xsl:text>
+		<xsl:text>function </xsl:text><xsl:value-of select="name"/>
+		<xsl:text> (</xsl:text><xsl:value-of select="name"/><xsl:text>)&#10;</xsl:text>
 	</xsl:template>
 
 

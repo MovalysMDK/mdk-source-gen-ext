@@ -41,15 +41,21 @@
 			<xsl:when test="$scopebuilder='MFWorkspaceDetailScopeBuilder'"><xsl:value-of select="name"/><xsl:text>VM</xsl:text></xsl:when>
 			<xsl:when test="$scopebuilder='MFWorkspaceMasterScopeBuilder'"><xsl:value-of select="panel-list-name"/></xsl:when>
 			<xsl:otherwise></xsl:otherwise>
-		</xsl:choose></xsl:variable>	
-	
+		</xsl:choose></xsl:variable>
+
+		<xsl:text>(function() {&#10;</xsl:text>
 		<xsl:text>'use strict';&#10;&#10;</xsl:text>
-		<xsl:text>&#10;angular.module('</xsl:text><xsl:value-of select="viewName"/><xsl:text>').controller('</xsl:text><xsl:value-of select="name"/><xsl:text>Ctrl', [</xsl:text>
+		<xsl:text>angular&#10;</xsl:text>
+		<xsl:text>.module('</xsl:text><xsl:value-of select="viewName"/><xsl:text>')&#10;</xsl:text>
+		<xsl:text>.controller('</xsl:text><xsl:value-of select="name"/><xsl:text>Ctrl', </xsl:text><xsl:value-of select="name"/><xsl:text>Ctrl); &#10;</xsl:text>
 		
-		<xsl:apply-templates select="." mode="declare-protocol-imports"/>
-		
+		<xsl:apply-templates select="." mode="declare-protocol-imports">
+			<xsl:with-param name="functionName"><xsl:value-of select="name"/><xsl:text>Ctrl</xsl:text></xsl:with-param>
+		</xsl:apply-templates>
 		<xsl:text> {&#10;</xsl:text>
-		
+
+		<xsl:text> var vm = this;</xsl:text>
+
 		<!-- 		viewconfig of the controler -->
 		<xsl:apply-templates select="." mode="controller-viewConfig">
 			<xsl:with-param name="scopebuilder" select="$scopebuilder"/>
@@ -63,8 +69,11 @@
 		<xsl:apply-templates select="." mode="non-generated-functions">
 		</xsl:apply-templates>
 		
-		<xsl:text>}]);&#10;</xsl:text>
-		
+		<xsl:text>}&#10;</xsl:text>
+
+		<xsl:text>})();&#10;</xsl:text>
+
+
 	</xsl:template>
 
 	<!-- 	Viewconfig general structure for all view -->
@@ -72,7 +81,7 @@
 		<xsl:param name="scopebuilder"/>
 		<xsl:param name="corresponding-item-name"/>
 	
-	    <xsl:text>&#10;&#10;$scope.viewConfig = {&#10;</xsl:text>
+	    <xsl:text>&#10;&#10;vm.viewConfig = {&#10;</xsl:text>
 	    
 	    <xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">view-config</xsl:with-param>
@@ -133,7 +142,7 @@
 		</xsl:if>
 		<xsl:text>screenConfig: {&#10;</xsl:text>
 		<xsl:apply-templates select="." mode="controller-viewConfig-exit-state">
-			<xsl:with-param name="scopebuilder"><xsl:value-of select="$scopebuilder"/></xsl:with-param>
+			<xsl:with-param name="scopebuilder"></xsl:with-param>
 		</xsl:apply-templates>
 		<!-- 		if the screen has panels -->
 		<xsl:if test="count(nestedSubviews/nestedSubview)>0">
@@ -265,11 +274,11 @@
 	<!-- 	scopeBuilder constructor -->
 	<xsl:template match="view" mode="controller-init">
 		<xsl:param name="scopebuilder"/>
-		<xsl:text>&#10;&#10;</xsl:text><xsl:value-of select="$scopebuilder"/><xsl:text>.init($scope).then(function(){&#10;</xsl:text>
+		<xsl:text>&#10;&#10;</xsl:text><xsl:value-of select="$scopebuilder"/><xsl:text>.init(vm).then(function(){&#10;</xsl:text>
 		<xsl:call-template name="non-generated-bloc">
 			<xsl:with-param name="blocId">init-controller-success</xsl:with-param>
 			<xsl:with-param name="defaultSource">
-				<xsl:text>// $scope.rootActions.goInEditionMode()&#10;</xsl:text>
+				<xsl:text>// vm.rootActions.goInEditionMode()&#10;</xsl:text>
 				<xsl:text>console.log('</xsl:text><xsl:value-of select="name"/><xsl:text>Ctrl loaded');&#10;</xsl:text>
 			</xsl:with-param>
 		</xsl:call-template>
@@ -283,6 +292,8 @@
 			</xsl:with-param>
 		</xsl:call-template>
 		<xsl:text>});&#10;</xsl:text>
+
+
 	</xsl:template>
 	
 	<xsl:template match="view" mode="non-generated-functions">
@@ -290,14 +301,8 @@
 		<xsl:value-of select="/*/non-generated/bloc[@id='functions']"/>
 		<xsl:text>//@non-generated-end&#10;&#10;</xsl:text>
 	</xsl:template>
-	
-	
-	
-	<xsl:template match="view" mode="declare-extra-imports">
-	
-		<objc-import import="$scope" import-in-function="$scope" scope="local"/>
-		
-	</xsl:template>
+
+
 
 
 </xsl:stylesheet>

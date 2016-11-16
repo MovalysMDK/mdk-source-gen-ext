@@ -21,6 +21,7 @@
 
 	<!-- THIS STARTS THE CLASS -->
 	<xsl:template match="node()[package and name]" mode="declare-class">
+		<xsl:text>(function() {&#10;</xsl:text>
 		<xsl:text>'use strict'	;&#10;</xsl:text>
 		<xsl:apply-templates select="." mode="documentation"/>
 		<xsl:text>&#10;//@non-generated-start[jshint-override]&#10;</xsl:text>
@@ -30,7 +31,9 @@
 		<xsl:apply-templates select="." mode="class-prototype"/>
 		<xsl:text>{&#10;</xsl:text>
 			<xsl:apply-templates select="." mode="class-body"/>
-		<xsl:text>}]);&#10;</xsl:text>
+		<xsl:text>}&#10;</xsl:text>
+		<xsl:text>})();&#10;</xsl:text>
+
 	</xsl:template>
 
 

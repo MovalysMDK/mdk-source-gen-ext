@@ -86,7 +86,7 @@
             mode="partial-hmtl">
         <form>
             <xsl:attribute name="class">mdk-well</xsl:attribute>
-            <xsl:attribute name="name"><xsl:value-of select="viewName"/>Form
+            <xsl:attribute name="name"><xsl:text>vm.</xsl:text><xsl:value-of select="viewName"/>Form
             </xsl:attribute>
             <xsl:attribute name="novalidate">true</xsl:attribute>
             <xsl:apply-templates select="." mode="partial-body"/>
