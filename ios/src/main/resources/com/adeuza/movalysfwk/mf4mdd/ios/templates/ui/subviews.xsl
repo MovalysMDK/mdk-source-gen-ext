@@ -55,12 +55,18 @@
 	<xsl:comment> [subviews.xsl] subView|component[customClass='<xsl:value-of select="customClass"/>']"  </xsl:comment>
 
 	<xsl:if test="@visibleLabel='true'">
-		<view hidden="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" 
-			translatesAutoresizingMaskIntoConstraints="NO" contentVerticalAlignment="center" misplaced="YES" >
+		<label>
+			<xsl:attribute name="hidden">NO</xsl:attribute>
+			<xsl:attribute name="opaque">NO</xsl:attribute>
+			<xsl:attribute name="contentMode">scaleToFill</xsl:attribute>
+			<xsl:attribute name="contentHorizontalAlignment">center</xsl:attribute>
+			<xsl:attribute name="translatesAutoresizingMaskIntoConstraints">NO</xsl:attribute>
+			<xsl:attribute name="contentVerticalAlignment">center</xsl:attribute>
+			<xsl:attribute name="misplaced">YES</xsl:attribute>
 			<xsl:attribute name="id"><xsl:value-of select="@labelView"/></xsl:attribute>
-			<xsl:attribute name ="tag"><xsl:value-of select="position()"/></xsl:attribute>
-			<xsl:attribute name ="customClass">MDKLabel</xsl:attribute>
-			<xsl:attribute name ="userLabel"><xsl:value-of select="binding"/>-label (MDKLabel)</xsl:attribute>
+			<xsl:attribute name="tag"><xsl:value-of select="position()"/></xsl:attribute>
+			<xsl:attribute name="customClass">MDKLabel</xsl:attribute>
+			<xsl:attribute name="userLabel"><xsl:value-of select="binding"/>-label (MDKLabel)</xsl:attribute>
 	 		<constraints>
 	        	<constraint firstAttribute="height" >
 	            	<xsl:attribute name="id"><xsl:value-of select="@id"/>-label-height</xsl:attribute>
@@ -68,12 +74,18 @@
 	     		    <xsl:attribute name="multiplier">1</xsl:attribute>            	
 	            </constraint> 
 	       </constraints>
-		</view>
+		</label>
 	</xsl:if>
 	
 
-	<view hidden="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" 
-		translatesAutoresizingMaskIntoConstraints="NO" contentVerticalAlignment="center" misplaced="YES" >
+		<xsl:element name="{@storyboardType}">
+			<xsl:attribute name="hidden">NO</xsl:attribute>
+			<xsl:attribute name="opaque">NO</xsl:attribute>
+			<xsl:attribute name="contentMode">scaleToFill</xsl:attribute>
+			<xsl:attribute name="contentHorizontalAlignment">center</xsl:attribute>
+			<xsl:attribute name="translatesAutoresizingMaskIntoConstraints">NO</xsl:attribute>
+			<xsl:attribute name="contentVerticalAlignment">center</xsl:attribute>
+			<xsl:attribute name="misplaced">YES</xsl:attribute>
 		<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
 		<xsl:attribute name ="tag"><xsl:value-of select="position()"/></xsl:attribute>
 		<xsl:attribute name ="customClass"><xsl:value-of select="customClass"/></xsl:attribute>
@@ -99,7 +111,7 @@
 			</xsl:apply-templates>
 		</connections>
 	
-	</view>
+	</xsl:element>
 	
 	
 	
