@@ -171,8 +171,6 @@
 				<xsl:text>MMRecyclableList </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:value-of select="$component-name"/>
-		<xsl:text> = null;&#13;</xsl:text>
 
 		<xsl:value-of select="$component-name"/>
 		<xsl:text> = (</xsl:text>
