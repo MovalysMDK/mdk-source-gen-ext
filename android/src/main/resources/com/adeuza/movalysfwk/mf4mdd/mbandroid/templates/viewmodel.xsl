@@ -421,12 +421,11 @@
 		<xsl:value-of select="./implements/interface/@name"/>
 		<xsl:text>) {&#13;</xsl:text>
 		
-		
 		<xsl:text>if (this.lst</xsl:text>
 		<xsl:value-of select="./implements/interface/@name"/>
-		<xsl:text> != p_lst</xsl:text>
+		<xsl:text> .equals(p_lst</xsl:text>
 		<xsl:value-of select="./implements/interface/@name"/>
-		<xsl:text>) {&#13;Object sOldVal = this.lst</xsl:text>
+		<xsl:text>)) {&#13;Object sOldVal = this.lst</xsl:text>
 		<xsl:value-of select="./implements/interface/@name"/>
 		<xsl:text>;&#13;this.lst</xsl:text>
 		<xsl:value-of select="./implements/interface/@name"/>
@@ -752,7 +751,7 @@
 		<xsl:text>.class);&#13;</xsl:text>
 
 		<xsl:value-of select="@type"/>
-		<xsl:text> oSubEntity = null;&#13;</xsl:text>
+		<xsl:text> oSubEntity;&#13;</xsl:text>
 
 		<xsl:text>for (int iIndex = 0 ; iIndex &lt; this.</xsl:text>
 		<xsl:value-of select="@vm-attr"/>
