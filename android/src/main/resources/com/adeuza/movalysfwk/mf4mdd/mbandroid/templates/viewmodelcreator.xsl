@@ -216,7 +216,7 @@
 		<xsl:text>) {&#13;</xsl:text>
 
 		<xsl:value-of select="implements/interface/@name"/>
-		<xsl:text> r_oMasterViewModel = null;&#13;</xsl:text>
+		<xsl:text> r_oMasterViewModel;&#13;</xsl:text>
 		<xsl:text>if (p_bModified) {&#13;</xsl:text>
 		<xsl:text>r_oMasterViewModel = this.createVM(</xsl:text>
 		<xsl:if test="multiInstance='true'">
