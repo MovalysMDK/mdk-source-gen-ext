@@ -111,7 +111,7 @@
 		 */
 		public static <xsl:value-of select="name"/> valueOf(int p_i<xsl:value-of select="name"/>) {
 			<xsl:variable name="returnObject">r_o<xsl:value-of select="name"/></xsl:variable>
-			<xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="$returnObject"/> = null;
+			<xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="$returnObject"/>;
 			switch (p_i<xsl:value-of select="name"/>) {
 			case VALUE_0 :
 				<xsl:value-of select="$returnObject"/> = FWK_NONE;
