@@ -110,7 +110,7 @@
 				
 			<xsl:value-of select="$classinterfacename"/>
 			<xsl:text> </xsl:text>
-			<xsl:value-of select="$varResult"/> = null ; 
+			<xsl:value-of select="$varResult"/>; 
 			
 			<xsl:call-template name="non-generated-bloc">
 				<xsl:with-param name="blocId">method-presave-data</xsl:with-param>
@@ -165,10 +165,10 @@
 						<xsl:with-param name="panel-name-suffix">Main</xsl:with-param>
 					</xsl:apply-templates>
 				
-					<xsl:if test="class/transient = 'false' and class/scope != 'APPLICATION'">
+					<xsl:if test="class/transient = 'true' and class/scope != 'APPLICATION'">
+					<xsl:if test="events[event/@type='onadd']">
 					long lVmId = oVMLinkedPanelMain.getId_<xsl:value-of select="class/identifier/attribute/@name"/>();
 					long lEntityId = p_o<xsl:value-of select="$classinterfacename"/>.<xsl:value-of select="class/identifier/attribute/get-accessor"/>();
-					<xsl:if test="events[event/@type='onadd']">
 					boolean bCreation = !(lVmId == lEntityId);
 					</xsl:if>
 					</xsl:if>
