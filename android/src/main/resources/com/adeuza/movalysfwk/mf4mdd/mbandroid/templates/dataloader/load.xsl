@@ -44,7 +44,7 @@ Load method generation
 				<xsl:value-of select="dataloader-interface/entity-type/name"/>
 				<xsl:text> r_o</xsl:text>
 				<xsl:value-of select="dataloader-interface/entity-type/name"/>
-				<xsl:text> = null;&#13;&#13;</xsl:text>
+				<xsl:text>;&#13;&#13;</xsl:text>
 				
 				<xsl:apply-templates select="." mode="generate-inner-load-for-single"/>
 			
