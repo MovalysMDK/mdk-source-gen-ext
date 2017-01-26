@@ -52,11 +52,13 @@
 	<!-- CLASS PROTOTYPE ............................................................................................ -->
 
 	<xsl:template match="dataloader-impl" mode="class-prototype">
-		public class <xsl:value-of select="name"/>
-				<xsl:apply-templates select="." mode="extends"/>
-				<xsl:text>&#13;//@non-generated-start[class-signature]&#13;</xsl:text>
-				<xsl:apply-templates select="." mode="implements"/>
-				<xsl:text>&#13;//@non-generated-end&#13;</xsl:text>
+		<xsl:text>public class </xsl:text><xsl:value-of select="name"/>
+		<xsl:apply-templates select="." mode="extends"/>
+		<xsl:apply-templates select="." mode="implements"/>
+		<xsl:text>&#13;//@non-generated-start[class-signature]&#13;</xsl:text>
+		<xsl:value-of select="non-generated/bloc[@id='class-signature']"/>
+		<xsl:value-of select="non-generated/bloc[@id='implements']"/>
+		<xsl:text>//@non-generated-end&#13;</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="dataloader-impl" mode="extends">
