@@ -54,7 +54,12 @@
 		 */
 		 @Override
 		public final int getMultiSectionId() {
-			return R.id.main__<xsl:value-of select="translate(name, $uppercase, $smallcase)"/>__visualpanel;
+			<xsl:call-template name="non-generated-bloc">
+				<xsl:with-param name="blocId">getMultiSection</xsl:with-param>
+				<xsl:with-param name="defaultSource">
+					return R.id.main__<xsl:value-of select="translate(name, $uppercase, $smallcase)"/>__visualpanel;
+				</xsl:with-param>
+			</xsl:call-template>
 		}
 	</xsl:template>
 	

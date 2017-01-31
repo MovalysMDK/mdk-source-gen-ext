@@ -116,7 +116,12 @@
 	 */
 	@Override
 	public int getViewId() {
-		return R.layout.<xsl:value-of select="dialogname"/>;
+		<xsl:call-template name="non-generated-bloc">
+			<xsl:with-param name="blocId">getView</xsl:with-param>
+			<xsl:with-param name="defaultSource">
+				return R.layout.<xsl:value-of select="dialogname"/>;
+			</xsl:with-param>
+		</xsl:call-template>
 	}
 	
 	/**
