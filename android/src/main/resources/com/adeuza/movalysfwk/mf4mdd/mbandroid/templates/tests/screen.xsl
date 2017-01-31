@@ -61,20 +61,19 @@ public class <xsl:value-of select="name"/>Test {
     @Rule
     public ActivityTestRule&lt;<xsl:value-of select="name"/>&gt; mActivityRule = new ActivityTestRule&lt;&gt;(<xsl:value-of select="name"/>.class);
 
-    @Test
-    public void test() {
-   		<xsl:call-template name="non-generated-bloc">
-		<xsl:with-param name="blocId">test</xsl:with-param>
+	<xsl:call-template name="non-generated-bloc">
+		<xsl:with-param name="blocId">methods</xsl:with-param>
 		<xsl:with-param name="defaultSource">
-			assertThat(mActivityRule.getActivity(), is(notNullValue()));
-			SpoonScreenshotAction.perform("<xsl:value-of select="name"/>");
-			<!-- 
-			<xsl:apply-templates select="layout/buttons/button[@type='NAVIGATION']"/>
-			 -->
+
+	@Test
+	public void test() {
+		   		
+		assertThat(mActivityRule.getActivity(), is(notNullValue()));
+		SpoonScreenshotAction.perform("<xsl:value-of select="name"/>");
+	}
+
 		</xsl:with-param>
-		</xsl:call-template>
-        
-    }
+	</xsl:call-template>
 }
 </xsl:template>
 
