@@ -93,9 +93,7 @@
 
 		<xsl:apply-templates select="." mode="doAfterSetContentView-method"/>
 
- 		<xsl:apply-templates select="." mode="doOnReload-method"/>
-
-		<xsl:apply-templates select="$panel" mode="createViewModel-method"/>
+ 		<xsl:apply-templates select="$panel" mode="createViewModel-method"/>
 
 		<xsl:apply-templates select="." mode="getViewId-method"/>
 		
