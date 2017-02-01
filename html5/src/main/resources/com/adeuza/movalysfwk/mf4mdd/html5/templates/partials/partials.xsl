@@ -39,9 +39,10 @@
     <xsl:include href="components/mfslider.xsl"/>
     <xsl:include href="components/mfswitch.xsl"/>
     <xsl:include href="components/mftextfield.xsl"/>
-    <xsl:include href="components/mftextview.xsl"/>
     <xsl:include href="components/mfmultilinetext.xsl"/>
+    <xsl:include href="components/mftextview.xsl"/>
     <xsl:include href="components/mfwebview.xsl"/>
+    <xsl:include href="custom-partials.xsl"/>
     <!-- list components -->
     <xsl:include href="components/mflist.xsl"/>
 
@@ -71,7 +72,7 @@
             </mf-subcontrolbar>
             <!-- 			</xsl:if> -->
             <form>
-                <xsl:attribute name="class">mdk-well panel-body</xsl:attribute>
+                <xsl:attribute name="class">panel-body</xsl:attribute>
                 <xsl:attribute name="name"><xsl:value-of select="viewName"/>Form
                 </xsl:attribute>
                 <xsl:attribute name="novalidate">true</xsl:attribute>
@@ -85,7 +86,6 @@
             match="view[@isScreen='false' and (not(@is-list='true' or @isPanelOfMultiSection='true') or @isPanelOfWorkspace='true')]"
             mode="partial-hmtl">
         <form>
-            <xsl:attribute name="class">mdk-well</xsl:attribute>
             <xsl:attribute name="name"><xsl:text>vm.</xsl:text><xsl:value-of select="viewName"/>Form
             </xsl:attribute>
             <xsl:attribute name="novalidate">true</xsl:attribute>
