@@ -61,6 +61,14 @@
 		</xsl:apply-templates>
 	</xsl:template>
 
+
+	<!-- INNER CLASSES .................................................................................................... -->
+	<xsl:template match="viewmodelcreator" mode="inner-classes">
+		<xsl:apply-templates select="//viewmodel[generate-id() = generate-id(key('viewmodel-name', ./implements/interface/@name)[1]) and type/name='MASTER']" mode="create-vm-data-state-class">
+			<xsl:sort select="implements/interface/@name"/>
+		</xsl:apply-templates>
+	</xsl:template>
+
 	<!--
 		===================================================================================
 			Templates de génération des méthodes
@@ -143,8 +151,6 @@
 	</xsl:template>
 
 	<xsl:template match="viewmodel[type/name='MASTER']" mode="create-vm">
-	
-	<xsl:apply-templates select="." mode="create-vm-data-state-class"/>
 		
 		<xsl:text>/**&#13;</xsl:text>
 		<xsl:text> * Create an empty viewmodel.&#13;</xsl:text>

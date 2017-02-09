@@ -155,11 +155,12 @@
 	</xsl:template>
 	
 	<!-- ATTRIBUTES ................................................................................................. -->
-
-	<xsl:template match="viewmodel" mode="attributes">
+	<xsl:template match="viewmodel" mode="static-attributes">
 		<!-- Génération des constants du ViewModel -->
 		<xsl:apply-templates select="." mode="generate-constant-declaration"/>
-	
+	</xsl:template>
+
+	<xsl:template match="viewmodel" mode="attributes">	
 		<!-- Génération des attributs du viewmodel -->
 <!-- 		<xsl:apply-templates select="." mode="generate-specific-attribute"/> -->
 	
@@ -423,9 +424,9 @@
 		
 		<xsl:text>if (this.lst</xsl:text>
 		<xsl:value-of select="./implements/interface/@name"/>
-		<xsl:text> .equals(p_lst</xsl:text>
+		<xsl:text> != p_lst</xsl:text>
 		<xsl:value-of select="./implements/interface/@name"/>
-		<xsl:text>)) {&#13;Object sOldVal = this.lst</xsl:text>
+		<xsl:text>) {&#13;Object sOldVal = this.lst</xsl:text>
 		<xsl:value-of select="./implements/interface/@name"/>
 		<xsl:text>;&#13;this.lst</xsl:text>
 		<xsl:value-of select="./implements/interface/@name"/>

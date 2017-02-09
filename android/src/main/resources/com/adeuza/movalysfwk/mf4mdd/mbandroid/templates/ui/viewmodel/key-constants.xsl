@@ -20,10 +20,6 @@
 
 	<xsl:template match="viewmodel" mode="generate-constant-declaration">
 		<xsl:apply-templates select="./mapping/attribute|./mapping//entity|./mapping/entity//attribute|attribute[@derived='true']" mode="generate-constant-declaration"/>
-	
-		<xsl:text>&#13;&#13;//@non-generated-start[static-variables]&#13;</xsl:text>
-		<xsl:value-of select="non-generated/bloc[@id='static-variables']"/>
-		<xsl:text>//@non-generated-end&#13;</xsl:text>	
 	</xsl:template>
 
 	<!-- derived attribute of viewmodel -->

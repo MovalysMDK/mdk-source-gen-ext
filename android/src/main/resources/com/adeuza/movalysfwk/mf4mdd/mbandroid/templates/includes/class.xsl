@@ -46,6 +46,15 @@
 	</xsl:template>
 
 	<xsl:template match="node()" mode="class-body">
+		<xsl:apply-templates select="." mode="static-attributes"/>
+
+		<xsl:variable name="projectStaticAttributes" select="/*/non-generated/bloc[@id='static-attributes']" />
+
+		<xsl:if test="string-length($projectStaticAttributes) &gt; 0">
+			<xsl:text>&#13;//@non-generated-start[static-attributes]&#13;</xsl:text>
+			<xsl:value-of select="$projectStaticAttributes"/>
+			<xsl:text>//@non-generated-end&#13;&#13;</xsl:text>
+		</xsl:if>
 		<xsl:apply-templates select="." mode="attributes"/>
 
 		<xsl:text>//@non-generated-start[attributes]&#13;</xsl:text>
@@ -116,6 +125,8 @@
 		################################################### -->
 
 	<xsl:template match="node()" mode="class-annotations"/>
+
+	<xsl:template match="node()" mode="static-attributes"/>
 
 	<xsl:template match="node()" mode="attributes"/>
 

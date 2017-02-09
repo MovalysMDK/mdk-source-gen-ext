@@ -68,7 +68,7 @@
 			</xsl:when>
 
 			<xsl:otherwise>
-				<xsl:text>,</xsl:text>
+				<xsl:text>,&#13;</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:text>&#13;</xsl:text>
@@ -79,6 +79,10 @@
 	</xsl:template>
 
 	<xsl:template match="enum" mode="attributes">
+	    <xsl:text>&#13;//@non-generated-start[static-attributes]&#13;</xsl:text>
+            <xsl:value-of select="non-generated/bloc[@id='static-attributes']"/>
+        <xsl:text>//@non-generated-end&#13;</xsl:text>
+	
 		/**
 		 * La valeur en base
 		 */
@@ -96,7 +100,7 @@
 		 * 
 		 * @param p_iBaseId la valeur en base
 		 */
-		private <xsl:value-of select="name"/>(int p_iBaseId) {
+		<xsl:value-of select="name"/>(int p_iBaseId) {
 			this.baseId = p_iBaseId;
 		}
 	</xsl:template>
@@ -127,6 +131,10 @@
 			return <xsl:value-of select="$returnObject"/>;
 		}
 
+        <xsl:text>&#13;//@non-generated-start[static-methods]&#13;</xsl:text>
+            <xsl:value-of select="/*/non-generated/bloc[@id='static-methods']"/>
+        <xsl:text>//@non-generated-end&#13;</xsl:text>
+
 		/**
 		 * Retourne l'objet baseId
 		 * @return Objet baseId
@@ -141,6 +149,7 @@
 		}
 		
 		<xsl:text>&#13;//@non-generated-start[methodes]&#13;</xsl:text>
+			<xsl:value-of select="non-generated/bloc[@id='methods']"/>
 			<xsl:value-of select="non-generated/bloc[@id='methodes']"/>
 		<xsl:text>//@non-generated-end&#13;</xsl:text>	
 	</xsl:template>

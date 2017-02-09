@@ -45,7 +45,9 @@
 			//@non-generated-start[methods]
 			<xsl:value-of select="/*/non-generated/bloc[@id='methods']"/>
 			<xsl:value-of select="/*/non-generated/bloc[@id='methodes']"/>
-			<xsl:text>//@non-generated-end</xsl:text>
+			<xsl:text>//@non-generated-end&#13;</xsl:text>
+			
+			<xsl:apply-templates select="." mode="inner-classes"/>
 		}
 	</xsl:template>
 
@@ -105,6 +107,8 @@
 	<xsl:template match="node()" mode="class-annotations"/>
 
 	<xsl:template match="node()" mode="constants"/>
+	
+	<xsl:template match="node()" mode="inner-classes" />
 
 	<!-- ###################################################
 						METHODES

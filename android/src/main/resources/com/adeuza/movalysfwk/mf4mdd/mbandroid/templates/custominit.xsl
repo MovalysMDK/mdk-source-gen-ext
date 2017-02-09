@@ -57,7 +57,7 @@ public class  CustomInitImpl implements CustomInit
 	/**
 	 * Complete the start of the application with custom behaviour
 	 * @param p_oContext The current context. Never null.
-	 * @see com.adeuza.movalys.fwk.mobile.javacommons.application.RunInit#run(com.adeuza.MContext.fwk.mobile.javacommons.application.MMContext)
+	 * @see com.adeuza.movalysfwk.mobile.mf4mjcommons.application.RunInit#run(com.adeuza.movalysfwk.mobile.mf4mjcommons.context.MContext)
 	 */
 	@Override
 	public void run(final MContext p_oContext) {
