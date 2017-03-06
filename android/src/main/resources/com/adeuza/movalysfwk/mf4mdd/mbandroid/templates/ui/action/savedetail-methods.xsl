@@ -165,23 +165,19 @@
 						<xsl:with-param name="panel-name-suffix">Main</xsl:with-param>
 					</xsl:apply-templates>
 				
-					<xsl:if test="class/transient = 'true' and class/scope != 'APPLICATION'">
+					<!-- xsl:if test="class/transient = 'true' and class/scope != 'APPLICATION'"-->
 					<xsl:if test="events[event/@type='onadd']">
 					long lVmId = oVMLinkedPanelMain.getId_<xsl:value-of select="class/identifier/attribute/@name"/>();
 					long lEntityId = p_o<xsl:value-of select="$classinterfacename"/>.<xsl:value-of select="class/identifier/attribute/get-accessor"/>();
 					boolean bCreation = !(lVmId == lEntityId);
-					</xsl:if>
-					</xsl:if>
 					<xsl:if test="class/scope = 'APPLICATION'">
-					<xsl:if test="events[event/@type='onadd']">
 					boolean bCreation = false ;
 					</xsl:if>
-					</xsl:if>
 					<xsl:if test="class/transient = 'true' and class/scope != 'APPLICATION'">
-					<xsl:if test="events[event/@type='onadd']">
 					boolean bCreation = true ;
 					</xsl:if>
 					</xsl:if>
+					<!-- /xsl:if-->
 
 					oVMLinkedPanelMain.updateFromIdentifiable(p_o<xsl:value-of select="$classinterfacename"/>);
 					<!--ABE oVMLinkedPanelMain.writeData(p_oContext, p_oParameterIn == null ? null : p_oParameterIn.getRuleParameters()); -->
