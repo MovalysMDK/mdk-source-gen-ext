@@ -19,7 +19,13 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="screen" mode="doOnReload-method">
+		<xsl:for-each select="pages/page[ancestor::screen/workspace='true' and viewmodel/dataloader-impl and not(viewmodel/multiInstance='true')]">
+			<xsl:apply-templates select="." mode="doOnReload-method"/>
+		</xsl:for-each>
+
+		<!-- 
 		<xsl:apply-templates select="pages/page[viewmodel/dataloader-impl and not(viewmodel/multiInstance='true')]" mode="doOnReload-method"/>
+		 -->
 	</xsl:template>
 
 	<xsl:template match="dialog|page" mode="doOnReload-imports">
@@ -61,12 +67,14 @@
 		<xsl:param name="launchFrom" select="local-name(.)"/>
 		<xsl:variable name="dataloaderName" select="./viewmodel/dataloader-impl/implements/interface/@name"/>
 		<xsl:variable name="currentPosition" select="count(preceding-sibling::page[viewmodel/dataloader-impl/implements/interface/@name])"/>
+		
+		<xsl:text>LBR000LBR</xsl:text>
 		<xsl:if test="viewmodel/multiInstance='true' and not(local-name(..))">
 			<xsl:text>if (this.getTag().equals(p_oEvent.getKey())) {&#13;</xsl:text>
 		</xsl:if>
 		
 		<xsl:if test="../../workspace = 'true' and ../../workspace-type = 'MASTERDETAIL' and ./viewmodel/dataloader-impl/dataloader-interface/type != 'LIST'">
-			this.getWlayout().unHideDetailColumns(true);
+			LBR this.getWlayout().unHideDetailColumns(true);
 		</xsl:if>
 
 		<xsl:apply-templates select="." mode="generate-action-parameter">
@@ -74,12 +82,12 @@
 			<xsl:with-param name="currentPosition" select="position()"/>
 			<xsl:with-param name="viewmodel" select="$viewmodel"/>
 			<xsl:with-param name="isVmScreen" select="$isVmScreen"/>
-			
 		</xsl:apply-templates>
 
 		<xsl:for-each select="following-sibling::page[viewmodel/dataloader-impl/implements/interface/@name=$dataloaderName]">
 			
 			<xsl:variable name="siblingNumber" select="count(preceding-sibling::page[viewmodel/dataloader-impl/implements/interface/@name=$dataloaderName])"/>
+			<xsl:text>LBR111LBR</xsl:text>
 			<xsl:apply-templates select="." mode="generate-action-parameter">
 				<xsl:with-param name="launchFrom" select="$launchFrom"/>
 				<xsl:with-param name="siblingNumber" select="$siblingNumber"/>
