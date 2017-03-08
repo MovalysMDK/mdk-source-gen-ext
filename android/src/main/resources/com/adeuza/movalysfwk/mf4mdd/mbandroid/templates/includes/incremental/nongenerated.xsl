@@ -18,6 +18,36 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+	<xsl:template name="non-generated-bloc-rename">
+		<xsl:param name="blocIdOld" />
+		<xsl:param name="blocId" />
+		<xsl:param name="defaultSource" />
+		
+		<xsl:variable name="bloc" select="//non-generated/bloc[@id=$blocIdOld]" />
+		<xsl:choose>
+			<xsl:when test="not($bloc)">
+           		<xsl:call-template name="non-generated-bloc">
+					<xsl:with-param name="blocId"><xsl:value-of select="$blocId" /></xsl:with-param>
+					<xsl:with-param name="defaultSource"/>
+				</xsl:call-template>	
+			</xsl:when>
+         <xsl:otherwise>
+	        <xsl:text>//@non-generated-start[</xsl:text>
+			<xsl:value-of select="$blocId" />
+			<xsl:text>]</xsl:text>
+			<xsl:if test="$bloc/@allow-override = 'true' or not($bloc)">
+				<xsl:text>[X]&#13;</xsl:text>
+				<xsl:value-of select="$defaultSource" />
+			</xsl:if>
+			<xsl:if test="$bloc/@allow-override = 'false'">
+				<xsl:text>&#13;</xsl:text>
+				<xsl:value-of select="$bloc/." />
+			</xsl:if>
+			<xsl:text>//@non-generated-end&#13;</xsl:text>
+         </xsl:otherwise>
+       </xsl:choose>
+	</xsl:template>
+
 	<xsl:template name="non-generated-bloc">
 		<xsl:param name="blocId" />
 		<xsl:param name="defaultSource" />
@@ -35,5 +65,6 @@
 		</xsl:if>
 		<xsl:text>//@non-generated-end&#13;</xsl:text>
 	</xsl:template>
+
 
 </xsl:stylesheet>
