@@ -31,7 +31,12 @@
 	<!-- RELOAD ..................................................................................................... -->
 	
 	<xsl:template match="dataloader-interface" mode="inner-classes">
-		<xsl:text>&#13; enum DataLoaderPartEnum implements DataLoaderParts{&#13;</xsl:text>
+		<xsl:text>&#13;
+		/**
+     	* Enumeration of DataLoader element
+     	*/
+		</xsl:text>
+		<xsl:text>enum DataLoaderPartEnum implements DataLoaderParts{&#13;</xsl:text>
 		/** DATA part */
 		<xsl:text>DATA</xsl:text>
 		
