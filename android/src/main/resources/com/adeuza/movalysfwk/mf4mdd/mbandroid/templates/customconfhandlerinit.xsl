@@ -69,10 +69,10 @@ public class CustomConfigurationsHandlerInitImpl implements CustomConfigurations
 		<xsl:text>//@non-generated-end</xsl:text>
 	}
 	
-	//@non-generated-start[methodes]
+	//@non-generated-start[methods]
+	<xsl:value-of select="non-generated/bloc[@id='methods']"/>
 	<xsl:value-of select="non-generated/bloc[@id='methodes']"/>
 	<xsl:text>//@non-generated-end</xsl:text>
-
  }
 </xsl:template>
 

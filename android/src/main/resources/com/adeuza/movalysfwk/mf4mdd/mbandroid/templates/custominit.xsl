@@ -68,7 +68,8 @@ public class  CustomInitImpl implements CustomInit
 		//@non-generated-end
 	}
 	
-	//@non-generated-start[methodes]
+	//@non-generated-start[methods]
+	<xsl:value-of select="non-generated/bloc[@id='methods']"/>
 	<xsl:value-of select="non-generated/bloc[@id='methodes']"/>
 	//@non-generated-end
 

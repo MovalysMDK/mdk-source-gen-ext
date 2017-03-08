@@ -88,7 +88,8 @@ import com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.Field;
 			return this.columnIndex ;
 		}
 		
-		<xsl:text>&#13;//@non-generated-start[methodes]&#13;</xsl:text>
+		<xsl:text>&#13;//@non-generated-start[methods]&#13;</xsl:text>
+			<xsl:value-of select="non-generated/bloc[@id='methods']"/>
 			<xsl:value-of select="non-generated/bloc[@id='methodes']"/>
 		<xsl:text>//@non-generated-end&#13;</xsl:text>	
 	}
