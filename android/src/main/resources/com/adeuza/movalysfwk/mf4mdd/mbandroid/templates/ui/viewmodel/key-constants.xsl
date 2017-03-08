@@ -28,7 +28,7 @@
 			<xsl:text>/**
 			 * Key used to identify the </xsl:text><xsl:value-of select="@name"/><xsl:text> derived attribute
 			 */
-			protected static final String KEY_</xsl:text><xsl:value-of select="@name-uppercase"/><xsl:text> = &quot;</xsl:text>
+			private static final String KEY_</xsl:text><xsl:value-of select="@name-uppercase"/><xsl:text> = &quot;</xsl:text>
 			<xsl:value-of select="@name"/><xsl:text>&quot;&#13;;</xsl:text>
 		</xsl:if>
 	</xsl:template>
@@ -39,7 +39,7 @@
 			<xsl:text>/**
 			 * Key used to identify the </xsl:text><xsl:value-of select="@vm-attr"/><xsl:text> attribute
 			 */
-			protected static final String KEY_</xsl:text><xsl:value-of select="translate(@vm-attr, $smallcase, $uppercase)"/><xsl:text> = &quot;</xsl:text>
+			private static final String KEY_</xsl:text><xsl:value-of select="translate(@vm-attr, $smallcase, $uppercase)"/><xsl:text> = &quot;</xsl:text>
 			<xsl:value-of select="@vm-attr"/><xsl:text>&quot;&#13;;</xsl:text>
 		</xsl:if>
 	</xsl:template>
@@ -51,14 +51,14 @@
 				<xsl:text>/**
 				 * Key used to identify the </xsl:text><xsl:value-of select="@vm-type"/><xsl:text> entity attribute
 				 */
-				protected static final String KEY_</xsl:text><xsl:value-of select="translate(@vm-type, $smallcase, $uppercase)"/><xsl:text> = &quot;</xsl:text>
+				private static final String KEY_</xsl:text><xsl:value-of select="translate(@vm-type, $smallcase, $uppercase)"/><xsl:text> = &quot;</xsl:text>
 						<xsl:value-of select="@vm-type"/><xsl:text>&quot;&#13;;</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>/**
 				 * Key used to identify the </xsl:text><xsl:value-of select="@vm-attr"/><xsl:text> entity attribute
 				 */
-				protected static final String KEY_</xsl:text><xsl:value-of select="translate(@vm-attr, $smallcase, $uppercase)"/><xsl:text> = &quot;</xsl:text>
+				private static final String KEY_</xsl:text><xsl:value-of select="translate(@vm-attr, $smallcase, $uppercase)"/><xsl:text> = &quot;</xsl:text>
 						<xsl:value-of select="@vm-attr"/><xsl:text>&quot;&#13;;</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
