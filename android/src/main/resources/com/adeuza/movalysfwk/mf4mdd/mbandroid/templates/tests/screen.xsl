@@ -58,20 +58,25 @@ import org.junit.runner.RunWith;
 @LargeTest
 public class <xsl:value-of select="name"/>Test {
 
+	<xsl:call-template name="non-generated-bloc">
+		<xsl:with-param name="blocId">attributes</xsl:with-param>
+		<xsl:with-param name="defaultSource">
     @Rule
     public ActivityTestRule&lt;<xsl:value-of select="name"/>&gt; mActivityRule = new ActivityTestRule&lt;&gt;(<xsl:value-of select="name"/>.class);
-
+		</xsl:with-param>
+	</xsl:call-template>
+	
+	<xsl:text>&#13;</xsl:text> 
+	
 	<xsl:call-template name="non-generated-bloc">
 		<xsl:with-param name="blocId">methods</xsl:with-param>
 		<xsl:with-param name="defaultSource">
-
 	@Test
 	public void test() {
 		   		
 		assertThat(mActivityRule.getActivity(), is(notNullValue()));
 		SpoonScreenshotAction.perform("<xsl:value-of select="name"/>");
 	}
-
 		</xsl:with-param>
 	</xsl:call-template>
 }
