@@ -122,7 +122,7 @@
 				oActionParameter<xsl:value-of select="$siblingNumber"/>.setVm( <xsl:value-of select="$viewmodel"/>.class );
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:apply-templates select="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']" mode="generate-action-parameter"/>
+       <xsl:apply-templates select="external-adapters/adapter/viewmodel" mode="generate-action-parameter"/>
 		<xsl:if test="not($isVmScreen = 'true')">
 			<xsl:apply-templates select="." mode="generate-adapter-registration">
 				<xsl:with-param name="siblingNumber" select="$siblingNumber"/>
@@ -140,6 +140,11 @@
 	
 	<xsl:template match="external-adapters/adapter[viewmodel/type/name='LIST_1__ONE_SELECTED']" mode="generate-action-parameter">
 		oActionParameter.addAdapter(this.spinnerAdapter<xsl:value-of select="position()"/>);
+	</xsl:template>
+	<xsl:template match="external-adapters/adapter/viewmodel" mode="generate-action-parameter">
+		<xsl:if test="type/name='LIST_1__ONE_SELECTED' and parent-viewmodel/@type!='FIXED_LIST'">
+				oActionParameter.addAdapter(this.spinnerAdapter<xsl:value-of select="position()"/>);
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="page|dialog" mode="generate-adapter-registration">
