@@ -200,7 +200,7 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 	/**
 	 * Bind un prepareStatement d'insertion
 	 * @param p_o<xsl:value-of select="interface/name"/> une entité <xsl:value-of select="interface/name"/> à insérer
-	 * @param p_oPreparedStatement requête SQL précompilée
+	 * @param p_oStatement requête SQL précompilée
 	 * @param p_oContext contexte transactionnel
 	 * @throws DaoException déclenchée si une exception technique survient
 	 */
@@ -220,7 +220,7 @@ public abstract class <xsl:value-of select="name"/><xsl:text> extends AbstractEn
 	/**
 	 * Bind un preparedStatement de mise à jour
 	 * @param p_o<xsl:value-of select="interface/name"/> une entité <xsl:value-of select="interface/name"/> à mettre à jour
-	 * @param p_oPreparedStatement requête SQL précompilée
+	 * @param p_oStatement requête SQL précompilée
 	 * @param p_oContext contexte transactionnel
 	 * @throws DaoException déclenchée si une exception technique survient
 	 */
