@@ -58,6 +58,7 @@
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.connectors.MDKViewConnectorWrapper</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.component.configurable.WidgetWrapperHelper</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4mjcommons.ui.model.ListViewModel</import>
+			<import>com.soprasteria.movalysmdk.widget.spinner.MDKRichSpinner</import>
 			<xsl:apply-templates select="external-adapters/adapter/viewmodel/entity-to-update/full-name" mode="declare-import"/>
 			<xsl:apply-templates select="external-adapters/adapter/viewmodel/implements/interface/@full-name" mode="declare-import"/>
 		</xsl:if>
@@ -77,7 +78,7 @@
 		<xsl:if test="viewmodel/subvm/viewmodel[type/component-name='MMFixedListView']">
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.views.MMAdaptableFixedListView</import>
 		</xsl:if>
-		<xsl:if test="viewmodel/subvm/viewmodel[type/component-name='MMFixedList']">
+		<xsl:if test="viewmodel/subvm/viewmodel[type/component-name='MMFixedList'] or viewmodel/subvm/viewmodel/subvm/viewmodel[type/component-name='MMFixedList']">
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.abstractviews.MMRecyclableList</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.MDKBaseAdapter</import>
 			<import>com.adeuza.movalysfwk.mobile.mf4android.ui.adapters.connectors.MDKViewConnectorWrapper</import>
