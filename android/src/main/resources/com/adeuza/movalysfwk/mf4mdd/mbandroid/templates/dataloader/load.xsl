@@ -63,7 +63,7 @@ Load method generation
 	<xsl:if test="dataloader-interface/entity-type/transient = 'false'">
 		<xsl:text>&#13;</xsl:text>
 	</xsl:if>
-	
+
 	<xsl:call-template name="non-generated-bloc">
 		<xsl:with-param name="blocId">load</xsl:with-param>
 		<xsl:with-param name="defaultSource">
@@ -127,6 +127,12 @@ Load method generation
 					<xsl:text>&#13;</xsl:text>
 				</xsl:if>
 				
+				<xsl:if test="dataloader-interface/entity-type/transient = 'true' and dataloader-interface/entity-type/scope != 'APPLICATION'">
+					<xsl:text>r_o</xsl:text>
+					<xsl:value-of select="dataloader-interface/entity-type/name"/>
+					<xsl:text> = null;&#13;</xsl:text>
+				</xsl:if>
+	
 				
 		</xsl:with-param>
 	</xsl:call-template>
