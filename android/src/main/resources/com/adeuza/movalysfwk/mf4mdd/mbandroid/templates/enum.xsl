@@ -86,7 +86,7 @@
 		/**
 		 * La valeur en base
 		 */
-		private int baseId ;
+		private final int baseId ;
 		
 		<xsl:text>&#13;//@non-generated-start[attributes]&#13;</xsl:text>
 			<xsl:value-of select="non-generated/bloc[@id='attributes']"/>

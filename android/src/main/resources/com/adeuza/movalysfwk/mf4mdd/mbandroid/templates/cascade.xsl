@@ -109,14 +109,14 @@ public enum <xsl:value-of select="name"/>Cascade implements ICascade {
 	<xsl:text>;</xsl:text>
 	
 	<xsl:text>/** Type of the targeted entity */
-		private Class&lt;?  extends MEntity&gt; oResultType ;
+		private final Class&lt;?  extends MEntity&gt; oResultType ;
 	</xsl:text>
 
 	/**
 	 * Constructor for <xsl:value-of select="name"/>Cascade
 	 * @param p_oResultEntityClass the class of the linked entity
 	 */
-	<xsl:text>private </xsl:text><xsl:value-of select="name"/><xsl:text>Cascade ( Class&lt;? extends MEntity&gt; p_oResultEntityClass ) {
+	<xsl:value-of select="name"/><xsl:text>Cascade ( Class&lt;? extends MEntity&gt; p_oResultEntityClass ) {
 		oResultType = p_oResultEntityClass;
 	}
 	/**

@@ -162,7 +162,7 @@
 		<xsl:text>	 * @param p_oCascadeSet ensemble de Cascades sur les entités&#13;</xsl:text>
 		<xsl:text>	 * @param p_oCascadeOptim optimiseur de l'éxécution des cascades&#13;</xsl:text>
 		<xsl:text>	 * @param p_oContext contexte transactionnel&#13;</xsl:text>
-		<xsl:text>	 * @throws DaoException&#13;</xsl:text>
+		<xsl:text>	 * @throws DaoException déclenchée si une exception technique survient&#13;</xsl:text>
 		<xsl:text>	 * @return l'entité </xsl:text><xsl:value-of select="interface/name"/><xsl:text>.&#13;</xsl:text>
 		<xsl:text>	 */&#13;</xsl:text>
 		<xsl:text>	@Override&#13;</xsl:text>

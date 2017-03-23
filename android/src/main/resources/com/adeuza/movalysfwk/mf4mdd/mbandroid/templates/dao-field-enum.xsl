@@ -65,7 +65,7 @@ import com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.Field;
 		/**
 		 * Index de la column
 		 */
-		private int columnIndex ;
+		private final int columnIndex ;
 
 		<xsl:text>&#13;//@non-generated-start[attributes]&#13;</xsl:text>
 			<xsl:value-of select="non-generated/bloc[@id='attributes']"/>
@@ -75,7 +75,7 @@ import com.adeuza.movalysfwk.mobile.mf4mjcommons.data.dao.Field;
 		 * Constructeur
 		 * @param p_iColumnIndex index de la column
 		 */
-		private <xsl:value-of select="$interface/name"/>Field( int p_iColumnIndex ) {
+		<xsl:value-of select="$interface/name"/>Field( int p_iColumnIndex ) {
 			this.columnIndex = p_iColumnIndex ;
 		}
 
