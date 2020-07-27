@@ -1,4 +1,6 @@
 # mdk-source-gen-ext
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 **Movalys MDK Framework source code**
 
 ## What is mdk-source-gen-ext?
